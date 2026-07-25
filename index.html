@@ -740,6 +740,15 @@ void f.offsetWidth;         // force reflow
 f.classList.add("on");
 }
 let titleTimer = null;
+let previewing = false;
+let previewWasVisible = false;
+function endPreview() {
+previewing = false;
+stopAsking();
+$("pull").classList.remove("on");
+if (!previewWasVisible) $("checkin").classList.remove("on");
+$("previewLink").textContent = "Preview the knock";
+}
 const BASE_TITLE = document.title;
 function startTitleBlink() {
 clearInterval(titleTimer);
@@ -754,12 +763,12 @@ clearInterval(titleTimer);
 titleTimer = null;
 document.title = BASE_TITLE;
 }
-function startAsking() {
+function startAsking(isPreview) {
 $("checkinLabel").textContent = "Are you on task?";
 $("checkin").classList.add("asking");   // dot pulses clay, reason shows
 knockBeep();
 knockFlash();
-startTitleBlink();                       // blink the tab too, for when they're in another window
+if (!isPreview) startTitleBlink();       // real knock only: blink the tab for when they're in another window
 }
 function stopAsking() {
 $("checkin").classList.remove("asking");
@@ -1015,6 +1024,12 @@ blockEndTimer = setTimeout(showBlockEnd, cfg.blockMinutes * 60 * 1000);
 document.querySelectorAll(".knock-answers button").forEach(b => {
 b.addEventListener("click", () => {
 const ans = b.dataset.a;
+if (previewing) {                      // preview: demo the response only — no count, no real knock
+stopAsking();
+$("pull").classList.toggle("on", ans !== "yes");
+return;
+}
+if (!startTime) return;                // no session yet: buttons are inert
 const wasAsking = $("checkin").classList.contains("asking");
 knockCount++;
 if (ans === "yes") onTaskCount++;
@@ -1141,13 +1156,12 @@ downloadText(buildNextPayload(entries[entries.length - 1]), "focus-file-next-blo
 $("nextLinks").classList.add("on");
 });
 $("previewLink").addEventListener("click", () => {
-const wasVisible = $("checkin").classList.contains("on");
-$("checkin").classList.add("on");     // show it if pre-start
-startAsking();                         // flash, beep, asking state
-setTimeout(() => {
-stopAsking();
-if (!wasVisible) $("checkin").classList.remove("on");
-}, 2600);
+if (previewing) { endPreview(); return; }   // click again to dismiss
+previewing = true;
+previewWasVisible = $("checkin").classList.contains("on");
+$("checkin").classList.add("on");           // show it if pre-start
+startAsking(true);                          // flash, beep, asking state — but do NOT blink the tab
+$("previewLink").textContent = "Stop preview";
 });
 }
 function selfTest() {
