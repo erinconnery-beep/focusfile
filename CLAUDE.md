@@ -34,50 +34,48 @@ Freedom protects the time; this structures what you do with it.
 
 ---
 
-## THE BUILD — read before editing anything
+## THE EMBEDDING CHAIN — read before editing anything
 
-There is no embedding any more. `index.html` **fetches** `focus-file-prompt.md` at run
-time instead of carrying a copy of it. That one change removes the entire class of bug
-that used to dominate this project.
+The prompt is embedded inside the site. Edits must flow in one direction:
 
 ```
-focus-file.html            (the template — the page a session produces; ships as written)
-      ├──→ focus-file-prompt.md        (interview header + template in a ```html block)
-      └──→ sample-writing.html / sample-jobsearch.html   (same template, own settings)
-
-index.html                 fetches focus-file-prompt.md — nothing is embedded
+focus-file.html                (readable template — the page a session produces)
+      ↓  strip TESTS, keep readable line breaks
+focus-file-prompt.md           (interview instructions + template in a ```html block)
+      ↓  escape </script> → <\/script>
+index.html                     (inside <script type="text/plain" id="fullPrompt">)
+      ↓  regex-replace the CONFIG block
+sample-writing.html / sample-jobsearch.html
 ```
 
-Run `python3 build.py` after any edit to `focus-file.html` or `prompt-head.md`.
+**Never hand-edit the embedded copy inside `index.html`.** Edit `focus-file.html`,
+then run `python3 build.py`, which redoes the whole chain safely.
 
-### Why the old design kept breaking
+### The trap that has already bitten once
 
-`index.html` used to contain a second full HTML document as text. That required escaping
-`</script>` to `<\/script>`, and the site handed that escaped text straight to users — so
-generated files carried an unclosed tag and died silently. A `<textarea>` container fails
-the same way, because the template contains `</textarea>` in the exit form. **Any container
-inside the page has this problem.** Fetching a separate file has none of it.
+`index.html` contains a *second* full HTML document as text (the embedded template).
+So the file legitimately contains two `<head>`, two `<body>`, two `</html>`.
+Any find-and-replace targeting `</style></head>` or similar can land inside the
+**embedded template** instead of the page. If an unescaped `</script>` ends up in
+there it closes the `fullPrompt` container early, and the rest of the template
+becomes live HTML — Copy breaks and ~700 lines of garbage execute.
 
-Related rule, enforced by `build.py`: never write a literal closing script or textarea tag
-inside an inline `<script>` block in `index.html`, not even in a comment. It ends the block.
+Symptom: `Unexpected token '<'` in the console, Copy returns truncated text.
+Fix: re-run `build.py`, which rebuilds the region from source.
 
-### No minifying, no compaction
+### Why the template is NOT minified
 
-The template ships exactly as written — 20,455 chars, ~7,500 tokens, roughly 3 minutes for
-an AI to type out. Earlier versions stripped comments and whitespace at build time; it saved
-~20% and cost far more in bugs than it bought in speed.
+Minifying put the whole template on one 18,751-character line, which stalls large
+pastes into chat interfaces. Un-minified, the longest line is ~443 chars. Bigger file,
+far more reliable paste. **Do not minify the embedded template.**
 
-### Settings
+### TESTS
 
-Config is a JSON island: `<script id="focus-config" type="application/json">`. The interview
-fills in its values and nothing else. A typo there throws a caught error and shows the crash
-banner rather than dying silently.
+`focus-file.html` keeps a `TESTS` object for `?test=writing` style previews.
+`build.py` strips it from everything shipped and simplifies the config line to
+`urlCfg || CONFIG`. Produced files load config from `CONFIG` or a `#cfg=` base64 hash.
 
-### The crash guard
-
-First script in the file. If anything below it fails — a settings typo, a truncated paste, a
-runtime error — an orange bar says so. Without it a broken file looks alive: title visible,
-buttons dead, no error anywhere.
+---
 
 ## Settled decisions — don't undo these
 
@@ -141,8 +139,7 @@ copy reveal. Plausible never backfills, so goals must exist before the clicks.
 ## Deploying
 
 Static files, no build step on the host. **Deploy set:** `index.html` +
-`focus-file-prompt.md` + `sample-writing.html` + `sample-jobsearch.html`. The prompt file
-must ship — the Copy button fetches it at run time.
+`sample-writing.html` + `sample-jobsearch.html` (the samples are linked from the site).
 Everything else is source. Vercel auto-deploys from the repo.
 
 When uploading a zip to GitHub, drag the files from *inside* the folder so
@@ -152,10 +149,9 @@ When uploading a zip to GitHub, drag the files from *inside* the folder so
 
 ## Known limits — state them honestly, don't paper over
 
-- **Build takes ~3 minutes.** The AI types ~7,500 tokens. Halved from the old 45KB
-  template by cutting features the interview never asked for. Getting to seconds would
-  mean not regenerating the template at all, which costs a dependency on the site or on
-  a file the person already has. Not taken.
+- **Build takes minutes.** The AI must emit ~50KB of HTML token by token. Only real
+  fixes are a smaller template or not regenerating it each time, both of which cost
+  something. Not a bug.
 - **Nothing past the copy is measurable.** No way to know if someone finished the
   interview, built a file, or used it. That's the cost of the offline design.
 - **Self-report can be gamed.** Someone can click "Yes" while on Reddit. The exit log
