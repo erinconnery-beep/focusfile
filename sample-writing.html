@@ -303,9 +303,8 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <textarea class="exit-input" id="inTheWayInput" rows="2"></textarea>
 <label class="exit-q" for="nextInput">Where will the next block start?</label>
 <textarea class="exit-input" id="nextInput" rows="2"></textarea>
-<p class="exit-forward">Save this, and the next screen gives you one button that copies everything an AI needs to build your next focus file. Paste it into a new chat, answer the questions, and the next block starts where this one left off.</p>
 <div class="exit-foot">
-<span class="exit-log" id="exitLog">Automatic data ready</span>
+<span class="exit-log" id="exitLog"></span>
 <button class="btn-done" id="doneBtn">Save entry</button>
 </div>
 </div>
@@ -322,7 +321,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
 </div>
 </div>
-<div class="learn-note">The log is for learning, not judging. Read it kindly, spot a pattern, change one thing to improve next time.</div>
+<div class="learn-note">The log is for learning, not judging. When you spot a pattern, pick one thing to do differently next block.</div>
 <div class="log-actions">
 <button class="btn-log" id="viewLogBtn">View log</button>
 <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
@@ -583,12 +582,6 @@ if (isCount) {
 $("outputQ").style.display = "block";
 $("outputInput").style.display = "block";
 }
-const jobsTotal = document.querySelectorAll(".job").length;
-const jobsDone = document.querySelectorAll(".job.done").length;
-const checkWord = knockCount === 1 ? "check-in" : "check-ins";
-let msg = "Automatic data ready · " + knockCount + " " + checkWord;
-if (jobsTotal) msg += " · " + jobsDone + "/" + jobsTotal + " milestones complete";
-$("exitLog").textContent = msg;
 $("exit").classList.add("on");
 }
 function getEntries() {
@@ -783,6 +776,9 @@ function wireEvents() {
 $("beginBtn").addEventListener("click", () => {
 startTime = Date.now();
 clearInterval(preTimer);
+previewing = false;                         // clear any pre-start preview so real knocks count
+$("checkin").style.marginTop = "";
+$("previewLink").style.display = "none";    // preview is a pre-start affordance; retire it once begun
 $("preStart").style.display = "none";
 $("headerTop").style.display = "flex";
 $("beginBtn").style.display = "none";
