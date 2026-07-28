@@ -441,10 +441,10 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 .btn-done:hover{background:#276039}
 .end-link{color:#8f4a24}
 .end-link:hover{color:#8f4a24}
-.alldone{display:none;padding:44px 28px;text-align:center}
+.alldone{display:none;padding:30px 28px 28px;text-align:center}
 .alldone.on{display:block}
-.alldone .mark{font-size:40px;color:var(--pine);margin-bottom:16px}
-.alldone .msg{font-size:22px;color:var(--ink);margin-bottom:8px}
+.alldone .mark{color:var(--pine);font-size:22px}
+.alldone .msg{font-size:24px;color:var(--ink);margin-bottom:22px;display:flex;align-items:center;justify-content:center;gap:10px}
 .alldone .sub{font-family:-apple-system,system-ui,sans-serif;font-size:13px;color:var(--ink-mut);font-style:italic}
 .btn-buildnext{display:inline-block;margin-top:28px;background:var(--pine);color:var(--paper);font-family:-apple-system,system-ui,sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border:none;border-radius:40px;cursor:pointer;transition:background 0.15s}
 .btn-buildnext:hover{background:#276039}
@@ -587,8 +587,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 </div>
 <!-- ALL DONE + LOG -->
 <div class="alldone" id="allDone">
-<div class="mark">✓</div>
-<div class="msg">Entry saved.</div>
+<div class="msg"><span class="mark">✓</span> Entry saved.</div>
 <button class="btn-buildnext" id="buildNextBtn">Build next block from this →</button>
 <div class="buildnext-hint" id="buildNextHint">One click copies today's session log together with the setup prompt&mdash;paste it into a new chat and the next block starts where this one ended.</div>
 <div class="next-links" id="nextLinks">
@@ -597,7 +596,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
 </div>
 </div>
-<div class="learn-note">The log is for learning, not judging. Block by block, the patterns teach you.</div>
+<div class="learn-note">The log is for learning, not judging. Look for the patterns and habits worth changing, and carry one into the next block. Over time, ritual becomes habit.</div>
 <div class="log-actions">
 <button class="btn-log" id="viewLogBtn">View log</button>
 <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
@@ -1223,13 +1222,14 @@ init();
 </script>
   <script type="text/plain" id="m-design"><h2>Design notes</h2>
 <p>Focus File was built for one reason: to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
-<p><b>It would not let me stay vague.</b> It forced commitment to one specific, time-bound task&mdash;and it felt as effective as a human coach insisting on one narrow job: small, concrete, finishable.</p>
-<p><b>The knock worked because the words were mine.</b> Hearing my own conviction reflected back at the moment of drift reconnected me to the larger purpose. It broke an entrenched habit of plotting and sorting notes instead of doing the braver work of discovering the plot through writing new words. Because that habit looked like work, it was dangerous&mdash;it could destroy the block as completely as an hour on Facebook. And clicking &ldquo;Yes&rdquo; when I was still on task reminded me I was on point.</p>
-<p><b>Offline was where the work got done.</b> The file still felt alive&mdash;timer, check-ins, milestones&mdash;but it ran alongside an internet-off session. Even creating the file was psychologically powerful: it put me in the mode of thinking, I&rsquo;m entering &ldquo;offline&rdquo;&mdash;the place the real work happens.</p>
-<p><b>The exit log compounded.</b> Day after day, it revealed my patterns, and I carried those discoveries into the next Focus File. I also shared them with my coach, and together we looked for the words most likely to interrupt those patterns next time. The system grew more effective the longer I used it.</p>
-<p><b>Why a file?</b> Because it holds the commitment between conversations. A clear commitment written down in advance is harder to quietly renegotiate once the work begins. An hour in, the file is doing what your head cannot: holding the work, the reason, and the next step somewhere indecision and distraction cannot erase them. The log stays in your browser, and the whole thing works with the Wi-Fi off&mdash;which is where most focused work happens anyway.</p>
-<p>Unplug for an hour and find out.</p>
-</script>
+<p><b>It stops the world long enough to choose.</b> Every day, a hundred things compete for your attention. Of everything you could do, what do you actually want to finish today? Most of the trouble with focus isn&rsquo;t the work&mdash;it&rsquo;s slowing down long enough to make that choice.</p>
+<p><b>It turns a goal into a commitment.</b> A short AI interview makes the work specific and finishable, then sets a frame around it: a start time instead of &ldquo;I&rsquo;ll get to it,&rdquo; a place to sit, and the reason it matters. Once those choices are written down, they become much harder to renegotiate an hour later. The deciding is done. There is simply a task you can do.</p>
+<p><b>Then you turn the internet off.</b> For any work that allows it&mdash;which is most&mdash;this is the essential step, not an afterthought. The setup asks how you&rsquo;ll actually do it and holds you to a real answer: phone in the other room, router unplugged, a <a href="https://www.amazon.com/s?k=phone+lock+box&amp;ref=nb_sb_noss" target="_blank" rel="noopener">lockbox</a>, a <a href="https://www.freedom.to" target="_blank" rel="noopener">Freedom</a> session. Even naming it flips something over&mdash;you&rsquo;re entering offline, the place the real work happens. The file itself needs no connection. It&rsquo;s a plain HTML page sitting on your machine, so it keeps working while everything else goes dark.</p>
+<p><b>You show up and begin.</b> From here, the file holds you to your own words: a quiet timer and, every so often, a knock&mdash;still on task? When you drift, it doesn&rsquo;t nag; it hands you back the reason you gave yourself. The motivation was always yours; it just keeps it in front of you, so you&rsquo;re not holding it all in your head alone.</p>
+<p><b>At the end, you take stock.</b> You quickly log what got done, what pulled you away, and where the next block starts. Zero judgment. Read back over time, it shows you your patterns&mdash;the distractions that recur and the quieter habits that masquerade as work. This is where you can adapt your behavior and habits: small tweaks, block by block. Use it solo, or bring it to a coach or therapist and build the next fix together.</p>
+<p><b>Making the file is its own small ritual.</b> Some days, it feels silly to declare what you already know. But it locks it in: you&rsquo;re beginning with the reason still warm. When the block ends, you delete it&mdash;it did its job. Tomorrow, you make a new one.</p>
+<p><b>Over time, it builds two muscles: choosing and starting.</b> It&rsquo;s a practice, not a switch you flip. Choosing gets faster; starting gets easier. There&rsquo;s no magic here&mdash;just enough structure to make one honest choice and see it through.</p>
+<p>Unplug for an hour and find out.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Focus File is a free self-directed tool.</b></p>
 <p>Your Focus Files and logs live on your device, not with us. We do not have accounts, storage, or a dashboard where we can see what you write. Unless you choose to send something to us, we literally cannot read it.</p>
