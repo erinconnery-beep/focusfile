@@ -180,7 +180,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 .nl-note{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:#8a8377;margin-top:8px;line-height:1.5}
 .btn-dl{display:inline-block;margin-top:12px;background:none;border:none;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;font-size:13px;color:#756f60;text-decoration:underline;text-underline-offset:2px;padding:4px 2px}
 .btn-dl:hover{color:#2d5c3b}
-.learn-note{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:#8a8377;line-height:1.6;max-width:40ch;margin:26px auto 0}
+.learn-note{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:var(--clay);line-height:1.6;max-width:40ch;margin:26px auto 0}
 .buildnext-hint{font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:#756f60;line-height:1.5;max-width:38ch;margin:12px auto 0}
 .log-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px;padding-top:22px;border-top:1px solid var(--hair)}
 .btn-log{background:transparent;color:var(--ink-soft);font-family:-apple-system,system-ui,sans-serif;font-size:12px;font-weight:600;padding:9px 16px;border:1.5px solid var(--paper-line);border-radius:30px;cursor:pointer;transition:border-color 0.15s}
@@ -312,7 +312,6 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <div class="alldone" id="allDone">
 <div class="mark">✓</div>
 <div class="msg">Entry saved.</div>
-<div class="sub" id="allDoneSub">Block by block, ritual becomes habit.</div>
 <button class="btn-buildnext" id="buildNextBtn">Build next block from this →</button>
 <div class="buildnext-hint" id="buildNextHint">One click copies today's session log together with the setup prompt&mdash;paste it into a new chat and the next block starts where this one ended.</div>
 <div class="next-links" id="nextLinks">
@@ -321,7 +320,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
 </div>
 </div>
-<div class="learn-note">The log is for learning, not judging. When you spot a pattern, pick one thing to do differently next block.</div>
+<div class="learn-note">The log is for learning, not judging. Block by block, the patterns teach you.</div>
 <div class="log-actions">
 <button class="btn-log" id="viewLogBtn">View log</button>
 <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
@@ -485,7 +484,6 @@ stopAsking();
 $("checkin").style.marginTop = "";
 $("pull").classList.remove("on");
 if (!previewWasVisible) $("checkin").classList.remove("on");
-$("previewLink").textContent = "Preview the knock";
 }
 const BASE_TITLE = document.title;
 function startTitleBlink() {
@@ -656,7 +654,7 @@ if (e.nextStart) ctx.push("Where they said the next block starts: " + e.nextStar
 ctx.push("Check-ins last time: " + e.checkins + " (" + e.onTask + " on task, " + e.sortOf + " sort of, " + e.off + " off)");
 ctx.push("");
 ctx.push("HOW TO USE THIS in the interview below:");
-ctx.push("- In Q2, propose continuing from \"" + (e.nextStart || e.task) + "\" as the starting point (they can change it).");
+ctx.push("- In Q2, if \"" + (e.nextStart || e.task) + "\" reads as a real task, propose continuing from it (they can change it). If it is vague, gibberish, or unclear, ignore it and ask what they are working on as usual.");
 ctx.push("- In Q4, if they didn't already have a trap, gently suggest the one that tripped them up last time: \"" + (e.inTheWay || "—") + "\" — ask if they want it as the reminder.");
 ctx.push("- Keep the same task thread going unless they say otherwise.");
 ctx.push("- Don't lecture about last session; just carry it forward naturally.");
@@ -778,7 +776,6 @@ startTime = Date.now();
 clearInterval(preTimer);
 previewing = false;                         // clear any pre-start preview so real knocks count
 $("checkin").style.marginTop = "";
-$("previewLink").style.display = "none";    // preview is a pre-start affordance; retire it once begun
 $("preStart").style.display = "none";
 $("headerTop").style.display = "flex";
 $("beginBtn").style.display = "none";
@@ -796,11 +793,7 @@ blockEndTimer = setTimeout(showBlockEnd, cfg.blockMinutes * 60 * 1000);
 document.querySelectorAll(".knock-answers button").forEach(b => {
 b.addEventListener("click", () => {
 const ans = b.dataset.a;
-if (previewing) {                      // preview: demo the response only — no count, no real knock
-stopAsking();
-$("pull").classList.toggle("on", ans !== "yes");
-return;
-}
+if (previewing) { endPreview(); return; }   // any answer ends the preview, back to the original screen
 if (!startTime) return;                // no session yet: buttons are inert
 const wasAsking = $("checkin").classList.contains("asking");
 knockCount++;
@@ -922,13 +915,12 @@ copyText(buildNextPayload(entries[entries.length - 1]), e.target,
 () => $("nextLinks").classList.add("on"));
 });
 $("previewLink").addEventListener("click", () => {
-if (previewing) { endPreview(); return; }   // click again to dismiss
+if (previewing) return;                     // already showing the demo
 previewing = true;
 previewWasVisible = $("checkin").classList.contains("on");
 $("checkin").classList.add("on");           // show it if pre-start
-$("checkin").style.marginTop = "22px";      // breathing room from the Begin button during preview
-startAsking(true);                          // flash, beep, asking state — but do NOT blink the tab
-$("previewLink").textContent = "Stop preview";
+if (!previewWasVisible) $("checkin").style.marginTop = "22px";  // gap from the Begin button (pre-start only)
+startAsking(true);                          // flash, beep, asking — no tab blink. Stays until an answer is tapped.
 });
 }
 function selfTest() {
