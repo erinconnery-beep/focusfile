@@ -329,11 +329,11 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 .header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:16px}
 #headerTop{display:none}
 .prestart{text-align:left}
-.ps-start{font-family:Georgia,"Iowan Old Style",serif;font-size:30px;line-height:1;color:var(--ink);letter-spacing:-.01em}
-.ps-start span{font-family:-apple-system,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-left:8px}
-.ps-count{font-family:-apple-system,system-ui,sans-serif;font-size:15px;font-weight:600;color:var(--ink-mut);margin-top:10px}
-.ps-count.late{color:var(--clay)}
-.ps-now{font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:var(--ink-faint);margin-top:6px;font-variant-numeric:tabular-nums}
+.ps-window{font-family:-apple-system,system-ui,sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#756f60}
+.ps-meta{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:var(--ink-faint);margin-top:7px;font-variant-numeric:tabular-nums}
+.ps-meta .cl-sep{color:#c4bdae;margin:0 4px}
+.ps-late{color:var(--clay)}
+.ps-soon{color:var(--mut)}
 .scope-wrap{text-align:right}
 .clockline{font-family:-apple-system,system-ui,sans-serif;font-size:11px;font-weight:500;letter-spacing:0.02em;color:#8a8377;text-align:right;margin-top:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .clockline .cl-sep{color:#c4bdae;margin:0 5px}
@@ -482,9 +482,8 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <!-- HEADER -->
 <div class="header">
 <div class="prestart" id="preStart">
-<div class="ps-start" id="psStart"></div>
-<div class="ps-count" id="psCount"></div>
-<div class="ps-now" id="psNow"></div>
+<div class="ps-window" id="psWindow"></div>
+<div class="ps-meta" id="psMeta"></div>
 </div>
 <div class="header-top" id="headerTop">
 <div class="timer-wrap" id="timerWrap">
@@ -757,6 +756,7 @@ let previewWasVisible = false;
 function endPreview() {
 previewing = false;
 stopAsking();
+$("checkin").style.marginTop = "";
 $("pull").classList.remove("on");
 if (!previewWasVisible) $("checkin").classList.remove("on");
 $("previewLink").textContent = "Preview the knock";
@@ -821,21 +821,19 @@ const h = Math.floor(min / 60), m = min % 60;
 return h + " hr" + (m ? " " + m + " min" : "");
 }
 function renderPreStart() {
-$("psNow").textContent = "now " + nowHHMM();
 const raw = plannedStartStr();
 const st = plannedStartDate();
-if (!raw || !st) {                       // no planned start: fall back, hide the countdown
-$("psStart").innerHTML = "";
-$("psStart").style.display = "none";
-$("psCount").style.display = "none";
-return;
-}
-$("psStart").innerHTML = raw + ' <span>start</span>';
-const c = $("psCount");
+$("psWindow").textContent = cfg.scope || "";
+let meta = "now " + nowHHMM();
+if (raw && st) {
 const diff = Math.round((Date.now() - st.getTime()) / 60000);
-if (diff < 0) { c.textContent = "in " + fmtDur(-diff); c.classList.remove("late"); }
-else if (diff === 0) { c.textContent = "it's time \u2014 begin"; c.classList.add("late"); }
-else { c.textContent = fmtDur(diff) + " past your " + raw + " start"; c.classList.add("late"); }
+let late, cls;
+if (diff < 0) { late = "in " + fmtDur(-diff); cls = "ps-soon"; }
+else if (diff === 0) { late = "it's time \u2014 begin"; cls = "ps-late"; }
+else { late = fmtDur(diff) + " past your " + raw + " start"; cls = "ps-late"; }
+meta += ' <span class="cl-sep">\u00b7</span> <span class="' + cls + '">' + late + '</span>';
+}
+$("psMeta").innerHTML = meta;
 }
 function renderClockLine() {
 const el = $("clockLine");
@@ -1205,6 +1203,7 @@ if (previewing) { endPreview(); return; }   // click again to dismiss
 previewing = true;
 previewWasVisible = $("checkin").classList.contains("on");
 $("checkin").classList.add("on");           // show it if pre-start
+$("checkin").style.marginTop = "22px";      // breathing room from the Begin button during preview
 startAsking(true);                          // flash, beep, asking state — but do NOT blink the tab
 $("previewLink").textContent = "Stop preview";
 });
