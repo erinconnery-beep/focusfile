@@ -50,6 +50,13 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 .mast-name{font-family:Georgia,"Iowan Old Style",serif;font-size:15px;font-weight:600;letter-spacing:0.01em;color:var(--pine)}
 .header{background:var(--paper-warm);padding:26px 28px 22px;border-bottom:1px solid var(--paper-line)}
 .header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:16px}
+#headerTop{display:none}
+.prestart{text-align:left}
+.ps-start{font-family:Georgia,"Iowan Old Style",serif;font-size:30px;line-height:1;color:var(--ink);letter-spacing:-.01em}
+.ps-start span{font-family:-apple-system,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-left:8px}
+.ps-count{font-family:-apple-system,system-ui,sans-serif;font-size:15px;font-weight:600;color:var(--ink-mut);margin-top:10px}
+.ps-count.late{color:var(--clay)}
+.ps-now{font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:var(--ink-faint);margin-top:6px;font-variant-numeric:tabular-nums}
 .scope-wrap{text-align:right}
 .clockline{font-family:-apple-system,system-ui,sans-serif;font-size:11px;font-weight:500;letter-spacing:0.02em;color:#8a8377;text-align:right;margin-top:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .clockline .cl-sep{color:#c4bdae;margin:0 5px}
@@ -173,6 +180,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 .nl-note{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:#8a8377;margin-top:8px;line-height:1.5}
 .btn-dl{display:inline-block;margin-top:12px;background:none;border:none;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;font-size:13px;color:#756f60;text-decoration:underline;text-underline-offset:2px;padding:4px 2px}
 .btn-dl:hover{color:#2d5c3b}
+.learn-note{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:#8a8377;line-height:1.6;max-width:40ch;margin:26px auto 0}
 .buildnext-hint{font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:#756f60;line-height:1.5;max-width:38ch;margin:12px auto 0}
 .log-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px;padding-top:22px;border-top:1px solid var(--hair)}
 .btn-log{background:transparent;color:var(--ink-soft);font-family:-apple-system,system-ui,sans-serif;font-size:12px;font-weight:600;padding:9px 16px;border:1.5px solid var(--paper-line);border-radius:30px;cursor:pointer;transition:border-color 0.15s}
@@ -196,7 +204,12 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 </div>
 <!-- HEADER -->
 <div class="header">
-<div class="header-top">
+<div class="prestart" id="preStart">
+<div class="ps-start" id="psStart"></div>
+<div class="ps-count" id="psCount"></div>
+<div class="ps-now" id="psNow"></div>
+</div>
+<div class="header-top" id="headerTop">
 <div class="timer-wrap" id="timerWrap">
 <div class="elapsed">
 <span class="big" id="elapsedNum">0</span><span class="unit" id="elapsedUnit"> min in</span>
@@ -265,7 +278,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <div class="preview-row">
 <span class="next-knock" id="nextKnock"></span>
 <button type="button" class="preview-link" id="previewLink">Preview the knock</button>
-<button type="button" class="preview-link end-link" id="endLink" style="display:none;">End session</button>
+<button type="button" class="preview-link end-link" id="endLink" style="display:none;">Finish session</button>
 </div>
 </div>
 <!-- BLOCK-END -->
@@ -303,15 +316,14 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <div class="msg">Entry saved.</div>
 <div class="sub" id="allDoneSub">Block by block, ritual becomes habit.</div>
 <button class="btn-buildnext" id="buildNextBtn">Build next block from this →</button>
-<div class="buildnext-hint" id="buildNextHint">One click copies three things: today's session, the 5 setup questions, and the focus file template.</div>
+<div class="buildnext-hint" id="buildNextHint">One click copies today's session log together with the setup prompt&mdash;paste it into a new chat and the next block starts where this one ended.</div>
 <div class="next-links" id="nextLinks">
 <div class="nl-lead">Paste it into a new chat:</div>
 <div class="nl-row">
 <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
 </div>
-<div class="nl-note">If the paste arrives cut off or as an attachment, tell it: <i>follow the instructions in this file.</i></div>
 </div>
-<button class="btn-dl" id="downloadNextBtn">or download it as a file</button>
+<div class="learn-note">The log is for learning, not judging. Read it kindly, spot a pattern, change one thing to improve next time.</div>
 <div class="log-actions">
 <button class="btn-log" id="viewLogBtn">View log</button>
 <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
@@ -525,11 +537,44 @@ return { start: m[0] || "", finish: m[1] || "" };
 function fmtClock(d) {
 return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
 }
+let preTimer = null;
+function plannedStartStr() { return parsePlanned(cfg.scope || "").start; }
+function plannedStartDate() {
+const raw = plannedStartStr();
+const m = raw && raw.match(/(\d{1,2}):(\d{2})\s*(am|pm)?/i);
+if (!m) return null;
+let h = +m[1]; const min = +m[2]; const ap = m[3] ? m[3].toLowerCase() : null;
+if (ap === "pm" && h < 12) h += 12;
+if (ap === "am" && h === 12) h = 0;
+const d = new Date(); d.setHours(h, min, 0, 0); return d;
+}
+function fmtDur(min) {
+if (min < 60) return min + " min";
+const h = Math.floor(min / 60), m = min % 60;
+return h + " hr" + (m ? " " + m + " min" : "");
+}
+function renderPreStart() {
+$("psNow").textContent = "now " + nowHHMM();
+const raw = plannedStartStr();
+const st = plannedStartDate();
+if (!raw || !st) {                       // no planned start: fall back, hide the countdown
+$("psStart").innerHTML = "";
+$("psStart").style.display = "none";
+$("psCount").style.display = "none";
+return;
+}
+$("psStart").innerHTML = raw + ' <span>start</span>';
+const c = $("psCount");
+const diff = Math.round((Date.now() - st.getTime()) / 60000);
+if (diff < 0) { c.textContent = "in " + fmtDur(-diff); c.classList.remove("late"); }
+else if (diff === 0) { c.textContent = "it's time \u2014 begin"; c.classList.add("late"); }
+else { c.textContent = fmtDur(diff) + " past your " + raw + " start"; c.classList.add("late"); }
+}
 function renderClockLine() {
 const el = $("clockLine");
-if (!el) return;
+if (!el || !startTime) return;
 const parts = [];
-parts.push(startTime ? "Started " + fmtClock(new Date(startTime)) : "not started");
+parts.push("Started " + fmtClock(new Date(startTime)));
 parts.push("now " + nowHHMM());
 el.innerHTML = parts.join('<span class="cl-sep">\u00b7</span>');
 }
@@ -681,7 +726,10 @@ function applyConfig() {
 hasTrap = cfg.why && cfg.why.trim().length > 0;
 $("taskTitle").textContent = cfg.task;
 $("scope").textContent     = cfg.scope;
-renderClockLine();
+var _ps = plannedStartStr();
+$("beginBtn").innerHTML = (_ps ? "Begin \u2014 you said " + _ps : "Begin session") + ' <span class="arr">\u2192</span>';
+renderPreStart();
+preTimer = setInterval(renderPreStart, 1000);
 setInterval(renderClockLine, 20000);
 $("pullText").textContent  = cfg.finishFeel;
 $("beLine").textContent    = "You said done was " + cfg.doneWhenShort + ".";
@@ -742,6 +790,9 @@ updateCounter();
 function wireEvents() {
 $("beginBtn").addEventListener("click", () => {
 startTime = Date.now();
+clearInterval(preTimer);
+$("preStart").style.display = "none";
+$("headerTop").style.display = "flex";
 $("beginBtn").style.display = "none";
 $("endLink").style.display = "";      // End session becomes available once begun
 $("checkin").classList.add("on");     // check-in is now always visible
@@ -881,12 +932,6 @@ const entries = getEntries();
 if (!entries.length) return;
 copyText(buildNextPayload(entries[entries.length - 1]), e.target,
 () => $("nextLinks").classList.add("on"));
-});
-$("downloadNextBtn").addEventListener("click", () => {
-const entries = getEntries();
-if (!entries.length) return;
-downloadText(buildNextPayload(entries[entries.length - 1]), "focus-file-next-block.md");
-$("nextLinks").classList.add("on");
 });
 $("previewLink").addEventListener("click", () => {
 if (previewing) { endPreview(); return; }   // click again to dismiss
