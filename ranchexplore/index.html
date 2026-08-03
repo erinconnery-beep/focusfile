@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111511">
+  <meta name="description" content="Climbing Arrow Ranch — a private Montana domain of land, water, wildlife, residences, and legacy.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Climbing Arrow Ranch | A World Held in One Name">
+  <meta property="og:description" content="A private Montana domain of land, water, wildlife, residences, and legacy.">
+  <meta property="og:url" content="https://www.thenextblock.com/ranchexplore/">
+  <meta property="og:image" content="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Montana-2000-1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.thenextblock.com/ranchexplore/">
+  <title>Climbing Arrow Ranch | A World Held in One Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://connery.co">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111511;
+      --ink-2: #182019;
+      --forest: #253127;
+      --forest-soft: #344239;
+      --bone: #eee9df;
+      --paper: #e4ded2;
+      --fog: #bbb7ab;
+      --grass: #a28e68;
+      --copper: #b3774f;
+      --line: rgba(238, 233, 223, .22);
+      --display: "Libre Caslon Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--bone);
+      background: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.atlas-open { overflow: hidden; }
+    button, a { color: inherit; }
+    button { font: inherit; }
+    img, video { display: block; width: 100%; }
+    a { text-decoration: none; }
+    ::selection { color: var(--ink); background: var(--grass); }
+    :focus-visible { outline: 2px solid var(--bone); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 1000;
+      top: 1rem;
+      left: 1rem;
+      transform: translateY(-180%);
+      padding: .8rem 1rem;
+      color: var(--ink);
+      background: var(--bone);
+      transition: transform .25s;
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-header {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.35rem 2rem;
+      border-bottom: 1px solid transparent;
+      transition: background .45s, border-color .45s, padding .45s;
+    }
+    .site-header.is-scrolled {
+      padding-top: .9rem;
+      padding-bottom: .9rem;
+      border-color: rgba(238,233,223,.11);
+      background: rgba(17,21,17,.78);
+      backdrop-filter: blur(18px);
+    }
+    .brand { display: flex; align-items: center; gap: .8rem; letter-spacing: .15em; }
+    .brand-mark {
+      display: grid;
+      width: 2.2rem;
+      height: 2.2rem;
+      place-items: center;
+      border: 1px solid rgba(238,233,223,.45);
+      font-family: var(--display);
+      font-size: .8rem;
+      letter-spacing: 0;
+    }
+    .brand-copy { display: grid; gap: .08rem; }
+    .brand-copy strong { font-size: .68rem; font-weight: 500; }
+    .brand-copy span { color: var(--fog); font-size: .52rem; letter-spacing: .22em; }
+
+    .header-actions { display: flex; align-items: center; gap: .7rem; }
+    .text-button, .atlas-button, .outline-button, .solid-button, .filter-chip {
+      border: 0;
+      cursor: pointer;
+      background: none;
+    }
+    .atlas-button {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      border: 1px solid rgba(238,233,223,.38);
+      border-radius: 100px;
+      font-size: .66rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      transition: color .3s, background .3s;
+    }
+    .atlas-button::before {
+      content: "";
+      width: .42rem;
+      height: .42rem;
+      border-radius: 50%;
+      background: var(--grass);
+      box-shadow: 0 0 0 4px rgba(162,142,104,.12);
+    }
+    .atlas-button:hover { color: var(--ink); background: var(--bone); }
+
+    .chapter-rail {
+      position: fixed;
+      z-index: 40;
+      top: 50%;
+      right: 1.8rem;
+      display: grid;
+      gap: .62rem;
+      transform: translateY(-50%);
+    }
+    .rail-link {
+      position: relative;
+      display: flex;
+      min-width: 2rem;
+      min-height: 1.2rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .rail-label {
+      position: absolute;
+      right: 1.45rem;
+      padding: .26rem .52rem;
+      border-radius: 3px;
+      opacity: 0;
+      color: var(--bone);
+      background: rgba(17,21,17,.82);
+      font-size: .55rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      pointer-events: none;
+      transform: translateX(.35rem);
+      transition: opacity .25s, transform .25s;
+      white-space: nowrap;
+    }
+    .rail-dot {
+      width: .3rem;
+      height: .3rem;
+      border: 1px solid rgba(238,233,223,.75);
+      border-radius: 50%;
+      transition: background .25s, transform .25s;
+    }
+    .rail-link:hover .rail-label, .rail-link:focus-visible .rail-label { opacity: 1; transform: none; }
+    .rail-link.is-active .rail-dot { background: var(--bone); transform: scale(1.75); }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 9rem 7vw 6vh;
+      isolation: isolate;
+    }
+    .hero-media, .hero-media video, .hero-poster, .hero-shade { position: absolute; inset: 0; }
+    .hero-media { z-index: -3; background: #1b241e; }
+    .hero-media video, .hero-poster { height: 100%; object-fit: cover; }
+    .hero-poster { z-index: -2; }
+    .hero-media video { z-index: -1; }
+    .hero-shade {
+      z-index: 0;
+      background:
+        linear-gradient(180deg, rgba(8,11,9,.38), transparent 36%, rgba(8,11,9,.58) 76%, rgba(8,11,9,.95)),
+        linear-gradient(90deg, rgba(8,11,9,.45), transparent 56%);
+    }
+    .hero-copy { position: relative; z-index: 2; max-width: 76rem; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      margin: 0 0 1.3rem;
+      color: var(--paper);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 1.8rem; height: 1px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: .96; }
+    .hero h1 {
+      max-width: 12ch;
+      margin-bottom: 1.5rem;
+      font-size: clamp(4.1rem, 10vw, 10.7rem);
+      letter-spacing: -.055em;
+    }
+    .hero h1 em { color: var(--paper); font-weight: 400; }
+    .hero-deck {
+      display: flex;
+      max-width: 45rem;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .hero-deck p { max-width: 28rem; margin: 0; color: rgba(238,233,223,.8); font-size: clamp(.94rem, 1.2vw, 1.14rem); }
+    .scroll-cue {
+      position: absolute;
+      right: 7vw;
+      bottom: 6.5vh;
+      display: grid;
+      justify-items: center;
+      gap: .65rem;
+      font-size: .52rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .scroll-cue::after { content: ""; width: 1px; height: 3.6rem; background: linear-gradient(var(--bone), transparent); }
+
+    .quiet-statement {
+      min-height: 92svh;
+      display: grid;
+      place-items: center;
+      padding: 8rem 8vw;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .quiet-inner { width: min(100%, 78rem); }
+    .quiet-statement h2 {
+      max-width: 15ch;
+      margin: 0;
+      font-size: clamp(3.25rem, 7.1vw, 7.3rem);
+      letter-spacing: -.045em;
+    }
+    .quiet-statement h2 span { color: #7a735f; }
+    .fact-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 5rem;
+      background: rgba(17,21,17,.16);
+    }
+    .fact { padding: 1.5rem 0 1.5rem 1.5rem; background: var(--paper); }
+    .fact strong { display: block; font-family: var(--display); font-size: clamp(2rem, 3.6vw, 3.7rem); font-weight: 400; line-height: 1; }
+    .fact span { display: block; margin-top: .6rem; color: #625e55; font-size: .58rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+
+    .section-shell { width: min(100% - 12vw, 86rem); margin: 0 auto; }
+    .section-intro { display: grid; grid-template-columns: .65fr 1.35fr; gap: 5vw; align-items: end; margin-bottom: 4rem; }
+    .section-number { color: var(--grass); font-size: .62rem; font-weight: 600; letter-spacing: .18em; }
+    .section-intro h2 { margin: 0; font-size: clamp(3rem, 6.2vw, 6.5rem); letter-spacing: -.045em; }
+    .section-intro p { max-width: 31rem; margin: 1.2rem 0 0; color: var(--fog); }
+
+    .map-section { padding: 10rem 0; background: var(--ink-2); }
+    .map-shell {
+      position: relative;
+      height: min(76vw, 48rem);
+      min-height: 34rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #232a22;
+      isolation: isolate;
+    }
+    .map-shell::before {
+      content: "";
+      position: absolute;
+      z-index: -3;
+      inset: 0;
+      background: linear-gradient(rgba(12,17,13,.46),rgba(12,17,13,.68)), url("https://connery.co/wp-content/uploads/2024/05/Climbing-arrow-ranch-Ranch-on-16mile-2000-1.jpg") center/cover;
+      filter: saturate(.72) contrast(1.06);
+      transform: scale(1.02);
+    }
+    .map-shell::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      opacity: .13;
+      background-image: repeating-radial-gradient(ellipse at 62% 40%, transparent 0 17px, rgba(238,233,223,.85) 18px 19px, transparent 20px 34px);
+      mix-blend-mode: screen;
+    }
+    .territory {
+      position: absolute;
+      z-index: -2;
+      inset: 11% 13% 12% 12%;
+      border: 1px solid rgba(238,233,223,.76);
+      background: rgba(179,119,79,.06);
+      clip-path: polygon(9% 21%, 30% 8%, 56% 14%, 82% 5%, 95% 28%, 89% 56%, 97% 80%, 71% 92%, 49% 82%, 22% 94%, 6% 69%, 14% 44%);
+      filter: drop-shadow(0 0 14px rgba(238,233,223,.25));
+    }
+    .map-river {
+      position: absolute;
+      left: 7%;
+      top: 48%;
+      width: 87%;
+      height: 2px;
+      opacity: .72;
+      background: linear-gradient(90deg, transparent, #c4d7d0 15%, #c4d7d0 85%, transparent);
+      transform: rotate(-11deg);
+      box-shadow: 0 0 16px rgba(196,215,208,.55);
+      transition: opacity .35s;
+    }
+    .map-river::after { content:""; position:absolute; left:38%; top:-8rem; width:2px; height:11rem; background:linear-gradient(transparent,#c4d7d0); transform:rotate(27deg); transform-origin:bottom; }
+    .map-trail { position: absolute; left: 27%; top: 31%; width: 47%; height: 40%; border: 1px dashed rgba(219,199,159,.72); border-radius: 48% 35% 53% 42%; transform: rotate(12deg); transition: opacity .35s; }
+    .map-marker {
+      position: absolute;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 2.2rem auto;
+      align-items: center;
+      gap: .6rem;
+      border: 0;
+      cursor: pointer;
+      background: none;
+      text-align: left;
+      transition: opacity .35s, transform .35s;
+    }
+    .map-marker:hover { transform: translateY(-4px); }
+    .marker-pulse { display: grid; width: 2.2rem; height: 2.2rem; place-items: center; border: 1px solid rgba(238,233,223,.65); border-radius: 50%; background: rgba(17,21,17,.42); backdrop-filter: blur(8px); }
+    .marker-pulse::after { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: var(--bone); }
+    .map-marker span:last-child { padding: .35rem .5rem; background: rgba(17,21,17,.56); font-size: .58rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+    .marker-rivers { left: 34%; top: 51%; }
+    .marker-high { left: 70%; top: 18%; }
+    .marker-residences { left: 51%; top: 63%; }
+    .marker-infrastructure { left: 22%; top: 71%; }
+    .marker-wild { left: 74%; top: 45%; }
+    .map-shell[data-filter="water"] .map-marker:not(.marker-rivers),
+    .map-shell[data-filter="trails"] .map-marker:not(.marker-high),
+    .map-shell[data-filter="wildlife"] .map-marker:not(.marker-wild),
+    .map-shell[data-filter="structures"] .map-marker:not(.marker-residences):not(.marker-infrastructure) { opacity: .22; }
+    .map-shell[data-filter="water"] .map-trail,
+    .map-shell[data-filter="trails"] .map-river { opacity: .12; }
+    .map-toolbar {
+      position: absolute;
+      left: 1.25rem;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(17,21,17,.72);
+      backdrop-filter: blur(12px);
+    }
+    .map-filters { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .filter-chip { padding: .58rem .8rem; border: 1px solid rgba(238,233,223,.25); border-radius: 100px; color: var(--fog); font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; }
+    .filter-chip.is-active, .filter-chip:hover { color: var(--ink); background: var(--bone); }
+    .map-note { color: rgba(238,233,223,.58); font-size: .55rem; letter-spacing: .08em; text-transform: uppercase; }
+
+    .cinematic { position: relative; height: 310svh; background: var(--ink); }
+    .cinematic-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; }
+    .scene-visuals, .scene, .scene img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .scene { opacity: 0; transform: scale(1.025); transition: opacity 1s var(--ease), transform 1.5s var(--ease); }
+    .scene.is-active { opacity: 1; transform: scale(1); }
+    .scene img { object-fit: cover; filter: saturate(.8) contrast(1.04); }
+    .cinematic-shade { position: absolute; z-index: 2; inset: 0; background: linear-gradient(90deg, rgba(9,12,10,.08), rgba(9,12,10,.2) 40%, rgba(9,12,10,.82) 72%, rgba(9,12,10,.96)), linear-gradient(0deg, rgba(9,12,10,.58), transparent 35%); }
+    .cinematic-content { position: relative; z-index: 3; height: 100%; display: grid; grid-template-columns: 55% 45%; align-items: center; }
+    .scene-copy-wrap { grid-column: 2; position: relative; min-height: 25rem; width: min(78%, 34rem); }
+    .scene-copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; opacity: 0; transform: translateY(1.5rem); pointer-events: none; transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .scene-copy.is-active { opacity: 1; transform: none; pointer-events: auto; }
+    .scene-copy h2 { max-width: 8ch; margin: .8rem 0 1.1rem; font-size: clamp(3.6rem, 6.3vw, 7.3rem); letter-spacing: -.05em; }
+    .scene-copy .lead { max-width: 28rem; color: rgba(238,233,223,.77); font-size: clamp(.92rem, 1.15vw, 1.08rem); }
+    .micro-facts { display: flex; flex-wrap: wrap; gap: .55rem 1.2rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+    .micro-facts li { display: flex; align-items: center; gap: .48rem; color: var(--paper); font-size: .58rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+    .micro-facts li::before { content: ""; width: .28rem; height: .28rem; border-radius: 50%; background: var(--grass); }
+    .cinematic-footer { position: absolute; z-index: 4; right: 10%; bottom: 6vh; width: min(35%, 30rem); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .scene-dots { display: flex; gap: .35rem; }
+    .scene-dot { width: 1.75rem; height: 2px; padding: 0; border: 0; cursor: pointer; background: rgba(238,233,223,.28); transition: width .3s, background .3s; }
+    .scene-dot.is-active { width: 3rem; background: var(--bone); }
+    .outline-button, .solid-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      min-width: 11rem;
+      padding: .9rem 1.05rem;
+      border: 1px solid rgba(238,233,223,.43);
+      font-size: .58rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: color .3s, background .3s, border-color .3s;
+    }
+    .outline-button::after, .solid-button::after { content: "→"; font-size: .8rem; }
+    .outline-button:hover { color: var(--ink); border-color: var(--bone); background: var(--bone); }
+    .chapter-tag { position: absolute; z-index: 4; left: 2rem; bottom: 3rem; display: flex; align-items: center; gap: .8rem; font-size: .56rem; letter-spacing: .18em; text-transform: uppercase; }
+    .chapter-tag strong { font-family: var(--display); font-size: 1.3rem; font-weight: 400; }
+
+    .history-section {
+      min-height: 95svh;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .history-image { position: relative; min-height: 45rem; overflow: hidden; }
+    .history-image img { height: 100%; object-fit: cover; filter: sepia(.18) saturate(.75); }
+    .history-image::after { content:""; position:absolute; inset:0; border: 1px solid rgba(17,21,17,.16); pointer-events:none; }
+    .history-copy { display: flex; flex-direction: column; justify-content: center; padding: 8vw; }
+    .history-copy .eyebrow { color: #675e4d; }
+    .history-copy h2 { margin: 0 0 1.5rem; font-size: clamp(3.2rem, 6vw, 6.3rem); letter-spacing: -.045em; }
+    .history-copy p { max-width: 31rem; color: #5f5c55; }
+    .history-copy .outline-button { align-self: flex-start; margin-top: 1.6rem; color: var(--ink); border-color: rgba(17,21,17,.34); }
+    .history-copy .outline-button:hover { color: var(--bone); background: var(--ink); }
+
+    .collection-section { padding: 11rem 0; background: #222a23; }
+    .collection-header { display: grid; grid-template-columns: 1.2fr .8fr; gap: 5vw; align-items: end; margin-bottom: 4rem; }
+    .collection-header h2 { max-width: 11ch; margin: 0; font-size: clamp(3.5rem, 7vw, 7.4rem); letter-spacing: -.05em; }
+    .collection-header p { max-width: 28rem; color: var(--fog); }
+    .collection-grid { display: grid; grid-template-columns: 1.35fr .65fr; grid-template-rows: 22rem 18rem; gap: .85rem; }
+    .collection-card { position: relative; overflow: hidden; background: #161b17; }
+    .collection-card:first-child { grid-row: 1 / 3; }
+    .collection-card img { height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+    .collection-card:hover img { transform: scale(1.035); }
+    .collection-card figcaption { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding: 3.5rem 1.4rem 1.3rem; background: linear-gradient(transparent, rgba(9,12,10,.82)); }
+    .collection-card figcaption strong { font-family: var(--display); font-size: 1.5rem; font-weight: 400; }
+    .collection-card figcaption span { color: var(--fog); font-size: .52rem; letter-spacing: .15em; text-transform: uppercase; }
+    .collection-action { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem; }
+    .collection-action p { max-width: 42rem; margin: 0; color: var(--fog); }
+
+    .infrastructure-section { padding: 10rem 0 12rem; color: var(--ink); background: var(--paper); }
+    .infrastructure-section .section-intro p { color: #625e55; }
+    .infra-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(17,21,17,.22); border-left: 1px solid rgba(17,21,17,.22); }
+    .infra-card { min-height: 19rem; display: flex; flex-direction: column; justify-content: space-between; padding: 1.5rem; border-right: 1px solid rgba(17,21,17,.22); border-bottom: 1px solid rgba(17,21,17,.22); }
+    .infra-card .infra-no { color: #84775e; font-size: .6rem; font-weight: 600; letter-spacing: .15em; }
+    .infra-card h3 { margin: 0 0 .7rem; font-size: 2rem; }
+    .infra-card p { margin: 0; color: #656158; font-size: .84rem; }
+    .infra-action { margin-top: 2rem; }
+    .infrastructure-section .outline-button { color: var(--ink); border-color: rgba(17,21,17,.38); }
+    .infrastructure-section .outline-button:hover { color: var(--bone); background: var(--ink); }
+
+    .legacy-section {
+      min-height: 105svh;
+      display: grid;
+      place-items: center;
+      padding: 10rem 7vw;
+      text-align: center;
+      background: linear-gradient(rgba(10,13,11,.48),rgba(10,13,11,.84)), url("https://connery.co/wp-content/uploads/2024/05/Climbing-Arrrow-Ranch-Mountains2000-1.jpg") center/cover fixed;
+    }
+    .legacy-section h2 { max-width: 13ch; margin: 0 auto 2rem; font-size: clamp(3.4rem, 7.4vw, 8rem); letter-spacing: -.05em; }
+    .legacy-section p { max-width: 42rem; margin: 0 auto; color: rgba(238,233,223,.72); font-size: 1.03rem; }
+
+    .property-index { padding: 10rem 0; background: var(--ink); }
+    .index-title { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 3rem; }
+    .index-title h2 { margin: 0; font-size: clamp(3.2rem, 6vw, 6.5rem); letter-spacing: -.05em; }
+    .index-title p { max-width: 23rem; margin: 0; color: var(--fog); }
+    .index-list { border-top: 1px solid var(--line); }
+    .index-item { display: grid; grid-template-columns: 4rem 1fr auto; gap: 1rem; align-items: center; padding: 1.15rem .2rem; border-bottom: 1px solid var(--line); }
+    .index-item > span:first-child { color: var(--grass); font-size: .58rem; letter-spacing: .15em; }
+    .index-item strong { font-family: var(--display); font-size: clamp(1.5rem, 2.5vw, 2.5rem); font-weight: 400; }
+    .index-item button { border: 0; cursor: pointer; color: var(--fog); background: none; font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; }
+    .index-item button:hover { color: var(--bone); }
+
+    .contact-section { min-height: 88svh; display: grid; place-items: center; padding: 9rem 6vw; color: var(--ink); background: var(--grass); text-align: center; }
+    .contact-inner { width: min(100%, 66rem); }
+    .contact-section .eyebrow { justify-content: center; color: #494133; }
+    .contact-section h2 { margin: 0 0 1.5rem; font-size: clamp(3.8rem, 8vw, 8.2rem); letter-spacing: -.055em; }
+    .contact-section p { max-width: 35rem; margin: 0 auto 2rem; color: #4e473b; }
+    .solid-button { color: var(--bone); border-color: var(--ink); background: var(--ink); }
+    .solid-button:hover { color: var(--ink); background: transparent; }
+    .contact-meta { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; color: #4d4538; font-size: .58rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+
+    .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.2rem 2rem; border-top: 1px solid var(--line); color: #8f9088; background: var(--ink); font-size: .52rem; letter-spacing: .09em; text-transform: uppercase; }
+
+    .atlas-root { position: fixed; z-index: 100; inset: 0; visibility: hidden; pointer-events: none; }
+    .atlas-root.is-open { visibility: visible; pointer-events: auto; }
+    .atlas-backdrop { position: absolute; inset: 0; border: 0; cursor: pointer; opacity: 0; background: rgba(3,5,4,.65); backdrop-filter: blur(4px); transition: opacity .5s; }
+    .atlas-root.is-open .atlas-backdrop { opacity: 1; }
+    .atlas-panel { position: absolute; top: 0; right: 0; width: min(72vw, 74rem); height: 100%; overflow-y: auto; color: var(--ink); background: var(--paper); box-shadow: -30px 0 80px rgba(0,0,0,.25); transform: translateX(100%); transition: transform .65s var(--ease); }
+    .atlas-root.is-open .atlas-panel { transform: none; }
+    .atlas-header { position: sticky; z-index: 10; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(17,21,17,.16); background: rgba(228,222,210,.9); backdrop-filter: blur(14px); }
+    .atlas-wordmark { display: flex; align-items: baseline; gap: .8rem; }
+    .atlas-wordmark strong { font-family: var(--display); font-size: 1.1rem; font-weight: 400; }
+    .atlas-wordmark span { color: #6d675c; font-size: .52rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+    .atlas-close { width: 2.5rem; height: 2.5rem; border: 1px solid rgba(17,21,17,.24); border-radius: 50%; cursor: pointer; color: var(--ink); background: transparent; font-size: 1.2rem; line-height: 1; }
+    .atlas-content { min-height: 100%; }
+    .atlas-hero { position: relative; min-height: 33rem; display: flex; align-items: end; padding: clamp(2rem, 5vw, 5rem); overflow: hidden; color: var(--bone); }
+    .atlas-hero > img { position: absolute; z-index: -2; inset: 0; height: 100%; object-fit: cover; }
+    .atlas-hero::after { content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(transparent 20%,rgba(8,11,9,.86)); }
+    .atlas-hero h2 { max-width: 10ch; margin: 0; font-size: clamp(3.5rem, 7vw, 7rem); letter-spacing: -.05em; }
+    .atlas-hero p { max-width: 34rem; margin: 1rem 0 0; color: rgba(238,233,223,.75); }
+    .atlas-body { padding: clamp(2.2rem, 5vw, 5rem); }
+    .atlas-lead { display: grid; grid-template-columns: 1.15fr .85fr; gap: 5vw; margin-bottom: 4rem; }
+    .atlas-lead h3 { margin: 0; font-size: clamp(2.5rem, 4.7vw, 4.8rem); letter-spacing: -.04em; }
+    .atlas-lead p { color: #5e5a52; }
+    .atlas-facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(17,21,17,.19); border-left: 1px solid rgba(17,21,17,.19); }
+    .atlas-fact { min-height: 9rem; padding: 1.3rem; border-right: 1px solid rgba(17,21,17,.19); border-bottom: 1px solid rgba(17,21,17,.19); }
+    .atlas-fact strong { display: block; font-family: var(--display); font-size: 2.15rem; font-weight: 400; line-height: 1; }
+    .atlas-fact span { display: block; margin-top: .65rem; color: #6d675e; font-size: .55rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .atlas-subsection { margin-top: 5rem; }
+    .atlas-subsection h3 { margin-bottom: 1.5rem; font-size: clamp(2.1rem, 4vw, 4rem); }
+    .atlas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+    .atlas-card { min-height: 15rem; padding: 1.4rem; border: 1px solid rgba(17,21,17,.18); background: rgba(255,255,255,.13); }
+    .atlas-card small { color: #84745b; font-size: .53rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+    .atlas-card h4 { margin: 4rem 0 .6rem; font-family: var(--display); font-size: 1.8rem; font-weight: 400; }
+    .atlas-card p { margin: 0; color: #666158; font-size: .85rem; }
+    .atlas-note { margin-top: 3rem; padding: 1.4rem; border-left: 2px solid var(--copper); color: #605a50; background: rgba(179,119,79,.08); font-size: .82rem; }
+    .atlas-index-grid { display: grid; grid-template-columns: repeat(2,1fr); border-top: 1px solid rgba(17,21,17,.18); border-left: 1px solid rgba(17,21,17,.18); }
+    .atlas-index-link { min-height: 10rem; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 1.3rem; border: 0; border-right: 1px solid rgba(17,21,17,.18); border-bottom: 1px solid rgba(17,21,17,.18); cursor: pointer; color: var(--ink); background: transparent; text-align: left; }
+    .atlas-index-link:hover { background: rgba(17,21,17,.05); }
+    .atlas-index-link small { color: #83765f; font-size: .55rem; letter-spacing: .16em; }
+    .atlas-index-link strong { font-family: var(--display); font-size: 1.8rem; font-weight: 400; }
+    .residence-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }
+    .residence-filters .filter-chip { color: #655f55; border-color: rgba(17,21,17,.24); }
+    .residence-filters .filter-chip.is-active { color: var(--bone); background: var(--ink); }
+    .residence-browser { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+    .residence-card { overflow: hidden; border: 1px solid rgba(17,21,17,.17); }
+    .residence-card[hidden] { display: none; }
+    .residence-card img { height: 13rem; object-fit: cover; }
+    .residence-card div { padding: 1.1rem; }
+    .residence-card small { color: #807159; font-size: .52rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+    .residence-card h4 { margin: .35rem 0 .25rem; font-family: var(--display); font-size: 1.55rem; font-weight: 400; }
+    .residence-card p { margin: 0; color: #666158; font-size: .8rem; }
+
+    @media (max-width: 900px) {
+      .chapter-rail { display: none; }
+      .site-header { padding: 1rem; }
+      .brand-copy span { display: none; }
+      .atlas-button { padding: .65rem .8rem; }
+      .hero { padding: 8rem 1.25rem 3rem; }
+      .hero h1 { font-size: clamp(4rem, 18vw, 7.5rem); }
+      .scroll-cue { display: none; }
+      .quiet-statement { padding: 6rem 1.3rem; }
+      .fact-row { grid-template-columns: 1fr; margin-top: 3rem; }
+      .fact { padding-left: 0; }
+      .section-shell { width: calc(100% - 2.5rem); }
+      .section-intro, .collection-header, .atlas-lead { grid-template-columns: 1fr; }
+      .map-section { padding: 7rem 0; }
+      .map-shell { height: 70svh; min-height: 34rem; }
+      .map-toolbar { align-items: flex-start; flex-direction: column; }
+      .map-note { display: none; }
+      .map-marker span:last-child { display: none; }
+      .cinematic { height: 255svh; }
+      .cinematic-content { grid-template-columns: 1fr; align-items: end; padding: 0 1.25rem 20vh; }
+      .cinematic-shade { background: linear-gradient(0deg, rgba(9,12,10,.96) 7%, rgba(9,12,10,.6) 50%, rgba(9,12,10,.08) 78%); }
+      .scene-copy-wrap { grid-column: 1; width: 100%; min-height: 19rem; }
+      .scene-copy h2 { font-size: clamp(3.4rem, 15vw, 5.3rem); }
+      .cinematic-footer { right: 1.25rem; bottom: 4vh; width: calc(100% - 2.5rem); }
+      .chapter-tag { top: 6rem; bottom: auto; left: 1.25rem; }
+      .history-section { grid-template-columns: 1fr; }
+      .history-image { min-height: 65svh; }
+      .history-copy { padding: 5rem 1.25rem; }
+      .collection-section, .infrastructure-section, .property-index { padding: 7rem 0; }
+      .collection-grid { grid-template-columns: 1fr; grid-template-rows: 27rem 20rem 20rem; }
+      .collection-card:first-child { grid-row: auto; }
+      .collection-action { align-items: flex-start; flex-direction: column; }
+      .infra-grid { grid-template-columns: repeat(2, 1fr); }
+      .legacy-section { background-attachment: scroll; }
+      .index-title { align-items: flex-start; flex-direction: column; }
+      .index-item { grid-template-columns: 2.8rem 1fr; }
+      .index-item button { display: none; }
+      .atlas-panel { width: 100%; }
+      .atlas-hero { min-height: 28rem; }
+      .atlas-facts { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 580px) {
+      .header-actions .text-button { display: none; }
+      .hero-deck { display: block; }
+      .hero h1 { font-size: clamp(3.7rem, 18.7vw, 6rem); }
+      .quiet-statement h2 { font-size: 3.1rem; }
+      .section-intro { margin-bottom: 2.5rem; }
+      .map-shell { min-height: 39rem; }
+      .map-toolbar { left: .65rem; right: .65rem; bottom: .65rem; }
+      .filter-chip { padding: .5rem .62rem; font-size: .5rem; }
+      .marker-high { left: 64%; }
+      .marker-wild { left: 69%; }
+      .cinematic-footer .outline-button { min-width: 9.8rem; }
+      .scene-dots { gap: .22rem; }
+      .scene-dot { width: 1.1rem; }
+      .scene-dot.is-active { width: 1.8rem; }
+      .infra-grid { grid-template-columns: 1fr; }
+      .infra-card { min-height: 14rem; }
+      .atlas-index-grid, .atlas-grid, .residence-browser { grid-template-columns: 1fr; }
+      .contact-meta, .site-footer { align-items: center; flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .scene { transform: none; }
+      .legacy-section { background-attachment: scroll; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the ranch</a>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#overview" aria-label="Climbing Arrow Ranch, back to top">
+      <span class="brand-mark" aria-hidden="true">CA</span>
+      <span class="brand-copy"><strong>CLIMBING ARROW RANCH</strong><span>MONTANA · EST. 1895</span></span>
+    </a>
+    <div class="header-actions">
+      <a class="text-button" href="#private-access" style="font-size:.58rem;letter-spacing:.16em;text-transform:uppercase">Private access</a>
+      <button class="atlas-button" type="button" data-atlas="index">Ranch Atlas</button>
+    </div>
+  </header>
+
+  <nav class="chapter-rail" aria-label="Chapter navigation">
+    <a class="rail-link is-active" href="#overview" data-rail="overview"><span class="rail-label">Overview</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#land" data-rail="land"><span class="rail-label">The Land</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#rivers" data-rail="rivers"><span class="rail-label">The Rivers</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#wild" data-rail="wild"><span class="rail-label">The Wild</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#high-country" data-rail="high-country"><span class="rail-label">High Country</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#history" data-rail="history"><span class="rail-label">History</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#residences" data-rail="residences"><span class="rail-label">Residences</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#infrastructure" data-rail="infrastructure"><span class="rail-label">Infrastructure</span><span class="rail-dot"></span></a>
+    <a class="rail-link" href="#legacy" data-rail="legacy"><span class="rail-label">Legacy</span><span class="rail-dot"></span></a>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="overview" data-chapter="overview">
+      <div class="hero-media" aria-hidden="true">
+        <img class="hero-poster" src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Montana-2000-1.jpg" alt="">
+        <video autoplay muted loop playsinline preload="metadata" poster="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Montana-2000-1.jpg">
+          <source src="https://connery.co/wp-content/uploads/2024/07/bc_bannerfinal_rev1-1080p.mp4" type="video/mp4">
+        </video>
+        <div class="hero-shade"></div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">79,582± acres · Southwest Montana</p>
+        <h1>A world held in <em>one name.</em></h1>
+        <div class="hero-deck">
+          <p>Land, water, wildlife and the means to inhabit it—held together at a scale that can no longer be created.</p>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">Enter the ranch</div>
+    </section>
+
+    <section class="quiet-statement" aria-labelledby="scale-title">
+      <div class="quiet-inner">
+        <p class="eyebrow" style="color:#696151">The proposition</p>
+        <h2 id="scale-title">Not a view of the landscape. <span>The landscape itself.</span></h2>
+        <div class="fact-row">
+          <div class="fact"><strong>79,582±</strong><span>Acres held together</span></div>
+          <div class="fact"><strong>20+ mi</strong><span>Private trout water</span></div>
+          <div class="fact"><strong>25</strong><span>Residences &amp; structures</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="map-section" id="land" data-chapter="land" aria-labelledby="land-title">
+      <div class="section-shell">
+        <div class="section-intro">
+          <span class="section-number">01 / THE EXTENT</span>
+          <div><h2 id="land-title">A private domain.</h2><p>Select a realm to enter the Ranch Atlas. The map and the scroll reveal the same underlying story—one landscape, many ways through it.</p></div>
+        </div>
+        <div class="map-shell" id="ranchMap" data-filter="all" role="group" aria-label="Interactive illustrated ranch map">
+          <div class="territory" aria-hidden="true"></div>
+          <div class="map-river" aria-hidden="true"></div>
+          <div class="map-trail" aria-hidden="true"></div>
+          <button class="map-marker marker-rivers" type="button" data-atlas="rivers" aria-label="Explore rivers in the Ranch Atlas"><span class="marker-pulse"></span><span>The Rivers</span></button>
+          <button class="map-marker marker-high" type="button" data-atlas="high" aria-label="Explore high country in the Ranch Atlas"><span class="marker-pulse"></span><span>High Country</span></button>
+          <button class="map-marker marker-residences" type="button" data-atlas="residences" aria-label="Explore residences in the Ranch Atlas"><span class="marker-pulse"></span><span>Residences</span></button>
+          <button class="map-marker marker-infrastructure" type="button" data-atlas="infrastructure" aria-label="Explore infrastructure in the Ranch Atlas"><span class="marker-pulse"></span><span>Operations</span></button>
+          <button class="map-marker marker-wild" type="button" data-atlas="wild" aria-label="Explore wildlife in the Ranch Atlas"><span class="marker-pulse"></span><span>The Wild</span></button>
+          <div class="map-toolbar">
+            <div class="map-filters" role="group" aria-label="Map layers">
+              <button class="filter-chip is-active" type="button" data-map-filter="all">All</button>
+              <button class="filter-chip" type="button" data-map-filter="water">Water</button>
+              <button class="filter-chip" type="button" data-map-filter="trails">High country</button>
+              <button class="filter-chip" type="button" data-map-filter="wildlife">Wildlife</button>
+              <button class="filter-chip" type="button" data-map-filter="structures">Structures</button>
+            </div>
+            <span class="map-note">Illustrative orientation · not a survey</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cinematic" id="rivers" data-chapter="rivers" aria-label="The Rivers">
+      <div class="cinematic-sticky">
+        <div class="scene-visuals">
+          <figure class="scene is-active"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-arrow-ranch-16milem-2000-1.jpg" alt="Morning mist over Sixteen Mile Creek"></figure>
+          <figure class="scene"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-fishing2000-1.jpg" alt="Fly fishing on calm ranch water"></figure>
+          <figure class="scene"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Railroad2000-1.jpg" alt="Historic rail trestle over Sixteen Mile Creek"></figure>
+        </div>
+        <div class="cinematic-shade"></div>
+        <div class="chapter-tag"><strong>02</strong><span>The Rivers</span></div>
+        <div class="cinematic-content">
+          <div class="scene-copy-wrap" aria-live="polite">
+            <article class="scene-copy is-active"><span class="eyebrow">01 · The water</span><h2>Twenty private miles.</h2><p class="lead">The creek does not border the ranch. It belongs to the experience of crossing it.</p><ul class="micro-facts"><li>Wild trout water</li><li>Multiple reaches</li><li>Private access</li></ul></article>
+            <article class="scene-copy"><span class="eyebrow">02 · The fishing</span><h2>One rod. No audience.</h2><p class="lead">Move from slow meadow water to the folds of the canyon without leaving your own ground.</p><ul class="micro-facts"><li>Walk-and-wade</li><li>Solitude by design</li><li>Four seasons</li></ul></article>
+            <article class="scene-copy"><span class="eyebrow">03 · The crossing</span><h2>Water binds the ranch.</h2><p class="lead">Historic crossings, remote bends and miles of changing water make the river a world within the world.</p><ul class="micro-facts"><li>Fishing &amp; floating</li><li>Historic corridor</li><li>Family access</li></ul></article>
+          </div>
+        </div>
+        <div class="cinematic-footer"><div class="scene-dots" aria-label="River scene progress"><button class="scene-dot is-active" aria-label="River scene 1"></button><button class="scene-dot" aria-label="River scene 2"></button><button class="scene-dot" aria-label="River scene 3"></button></div><button class="outline-button" type="button" data-atlas="rivers">Explore rivers</button></div>
+      </div>
+    </section>
+
+    <section class="cinematic" id="wild" data-chapter="wild" aria-label="The Wild">
+      <div class="cinematic-sticky">
+        <div class="scene-visuals">
+          <figure class="scene is-active"><img src="https://connery.co/wp-content/uploads/2024/05/Crazy-mountain-1080x607-4.jpg" alt="Montana elk in a meadow at first light"></figure>
+          <figure class="scene"><img src="https://connery.co/wp-content/uploads/2024/05/Crazy-Mountain-Ranch-Elk-Bugle-2000-1.jpg" alt="Bull elk in Montana high country"></figure>
+          <figure class="scene"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrrow-Ranch-Mountains2000-1.jpg" alt="Mountain country at sunset"></figure>
+        </div>
+        <div class="cinematic-shade"></div>
+        <div class="chapter-tag"><strong>03</strong><span>The Wild</span></div>
+        <div class="cinematic-content">
+          <div class="scene-copy-wrap" aria-live="polite">
+            <article class="scene-copy is-active"><span class="eyebrow">01 · At first light</span><h2>Wild by its own terms.</h2><p class="lead">A complete landscape allows wildlife to move through it with room, rhythm and refuge.</p><ul class="micro-facts"><li>Elk habitat</li><li>Bird life</li><li>Open range</li></ul></article>
+            <article class="scene-copy"><span class="eyebrow">02 · The high season</span><h2>The herd returns.</h2><p class="lead">Autumn brings the unmistakable sound of elk into country large enough to hold them.</p><ul class="micro-facts"><li>Expansive habitat</li><li>Private observation</li><li>Stewardship</li></ul></article>
+            <article class="scene-copy"><span class="eyebrow">03 · The silence</span><h2>Nothing staged.</h2><p class="lead">The extraordinary quality is not proximity to nature. It is participation in a living system.</p><ul class="micro-facts"><li>Dawn to dark</li><li>Uninterrupted views</li><li>Working landscape</li></ul></article>
+          </div>
+        </div>
+        <div class="cinematic-footer"><div class="scene-dots" aria-label="Wildlife scene progress"><button class="scene-dot is-active" aria-label="Wildlife scene 1"></button><button class="scene-dot" aria-label="Wildlife scene 2"></button><button class="scene-dot" aria-label="Wildlife scene 3"></button></div><button class="outline-button" type="button" data-atlas="wild">Explore wildlife</button></div>
+      </div>
+    </section>
+
+    <section class="cinematic" id="high-country" data-chapter="high-country" aria-label="The High Country">
+      <div class="cinematic-sticky">
+        <div class="scene-visuals">
+          <figure class="scene is-active"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Montana-2000-1.jpg" alt="Climbing Arrow Ranch toward the Crazy Mountains"></figure>
+          <figure class="scene"><img src="https://connery.co/wp-content/uploads/2024/05/Crazy-mountain-1080x607-3.jpg" alt="Mountain road beneath snow covered peaks"></figure>
+          <figure class="scene"><img src="https://connery.co/wp-content/uploads/2024/05/Crazy-mountain-1080x607-1.jpg" alt="Wildflowers in Montana foothills"></figure>
+        </div>
+        <div class="cinematic-shade"></div>
+        <div class="chapter-tag"><strong>04</strong><span>High Country</span></div>
+        <div class="cinematic-content">
+          <div class="scene-copy-wrap" aria-live="polite">
+            <article class="scene-copy is-active"><span class="eyebrow">01 · The ascent</span><h2>Choose your horizon.</h2><p class="lead">Ridge roads and long trails rise from the valley into country that still feels unreached.</p><ul class="micro-facts"><li>Horses</li><li>Mountain biking</li><li>Trail network</li></ul></article>
+            <article class="scene-copy"><span class="eyebrow">02 · The range</span><h2>Distance becomes freedom.</h2><p class="lead">On horseback, by bike or behind the wheel, every direction reveals another scale of the ranch.</p><ul class="micro-facts"><li>Multiple elevations</li><li>Remote access</li><li>Year-round variety</li></ul></article>
+            <article class="scene-copy"><span class="eyebrow">03 · The return</span><h2>Never the same way twice.</h2><p class="lead">A single ownership holds the valley, the foothills and the mountain edge in one continuous experience.</p><ul class="micro-facts"><li>Family rides</li><li>Solo routes</li><li>Unbroken country</li></ul></article>
+          </div>
+        </div>
+        <div class="cinematic-footer"><div class="scene-dots" aria-label="High country scene progress"><button class="scene-dot is-active" aria-label="High country scene 1"></button><button class="scene-dot" aria-label="High country scene 2"></button><button class="scene-dot" aria-label="High country scene 3"></button></div><button class="outline-button" type="button" data-atlas="high">Explore high country</button></div>
+      </div>
+    </section>
+
+    <section class="history-section" id="history" data-chapter="history" aria-labelledby="history-title">
+      <div class="history-image"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Railroad2000-1.jpg" alt="Historic railroad trestle crossing the ranch"></div>
+      <div class="history-copy"><p class="eyebrow">05 / The land remembers</p><h2 id="history-title">A century is only one chapter.</h2><p>Indigenous history, the railroad era and generations of ranch stewardship are present in the ground. Archaeology here is not a collectible—it is a responsibility.</p><button class="outline-button" type="button" data-atlas="history">Explore history</button></div>
+    </section>
+
+    <section class="collection-section" id="residences" data-chapter="residences" aria-labelledby="residences-title">
+      <div class="section-shell">
+        <div class="collection-header"><div><p class="eyebrow">06 / The residences</p><h2 id="residences-title">Bring everyone. Lose no privacy.</h2></div><p>Twenty usable residences and five additional structures allow three generations, guests and the people who support the ranch to gather without living under one roof.</p></div>
+        <div class="collection-grid">
+          <figure class="collection-card"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Ranch-House-2000-1.jpg" alt="Climbing Arrow Ranch house"><figcaption><strong>The ranch house</strong><span>Principal gathering</span></figcaption></figure>
+          <figure class="collection-card"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-arrow-ranch-Ranch-on-16mile-2000-1.jpg" alt="Aerial of ranch house beside Sixteen Mile Creek"><figcaption><strong>On the water</strong><span>Landscape connection</span></figcaption></figure>
+          <figure class="collection-card"><img src="https://connery.co/wp-content/uploads/2025/12/Climbing-Arrow-Ranch-Ranch-Home-page-1200-Dec-2025.webp" alt="Ranch landscape and residence"><figcaption><strong>Across the ranch</strong><span>Private constellation</span></figcaption></figure>
+        </div>
+        <div class="collection-action"><p>The public story shows the idea. The Ranch Atlas organizes the residences by use; the complete inventory belongs in the private property room.</p><button class="outline-button" type="button" data-atlas="residences">Explore residences</button></div>
+      </div>
+    </section>
+
+    <section class="infrastructure-section" id="infrastructure" data-chapter="infrastructure" aria-labelledby="infra-title">
+      <div class="section-shell">
+        <div class="section-intro"><span class="section-number">07 / THE WORKING RANCH</span><div><h2 id="infra-title">Equal to its scale.</h2><p>Access, recreation and working systems are not an appendix. They are what make a domain this large ready the moment its owner arrives.</p></div></div>
+        <div class="infra-grid">
+          <article class="infra-card"><span class="infra-no">01</span><div><h3>Arrival</h3><p>Helipad and established road access make remoteness a choice, not an inconvenience.</p></div></article>
+          <article class="infra-card"><span class="infra-no">02</span><div><h3>Equestrian</h3><p>Facilities and routes support the ranch’s natural language of horses and distance.</p></div></article>
+          <article class="infra-card"><span class="infra-no">03</span><div><h3>Range</h3><p>A dedicated shooting environment adds another private realm of practice and recreation.</p></div></article>
+          <article class="infra-card"><span class="infra-no">04</span><div><h3>Operations</h3><p>Working-ranch structures, housing and systems allow the landscape to function as one.</p></div></article>
+        </div>
+        <div class="infra-action"><button class="outline-button" type="button" data-atlas="infrastructure">Explore infrastructure</button></div>
+      </div>
+    </section>
+
+    <section class="legacy-section" id="legacy" data-chapter="legacy" aria-labelledby="legacy-title">
+      <div><p class="eyebrow" style="justify-content:center">08 / The next century</p><h2 id="legacy-title">What cannot be replicated can only be carried forward.</h2><p>The next ownership will not merely acquire the ranch. It will decide what a rare, intact piece of Montana becomes for the generations ahead.</p></div>
+    </section>
+
+    <section class="property-index" aria-labelledby="property-index-title">
+      <div class="section-shell">
+        <div class="index-title"><h2 id="property-index-title">The complete public view.</h2><p>A concise index for the buyer, family member or adviser returning with a specific question.</p></div>
+        <div class="index-list">
+          <div class="index-item"><span>01</span><strong>79,582± acres in one holding</strong><button type="button" data-atlas="land">Open land</button></div>
+          <div class="index-item"><span>02</span><strong>20+ miles of private trout water</strong><button type="button" data-atlas="rivers">Open rivers</button></div>
+          <div class="index-item"><span>03</span><strong>Elk, birds &amp; a complete wildlife system</strong><button type="button" data-atlas="wild">Open wildlife</button></div>
+          <div class="index-item"><span>04</span><strong>Horses, trails &amp; mountain access</strong><button type="button" data-atlas="high">Open high country</button></div>
+          <div class="index-item"><span>05</span><strong>20 residences + 5 additional structures</strong><button type="button" data-atlas="residences">Open residences</button></div>
+          <div class="index-item"><span>06</span><strong>Helipad, range, equestrian &amp; operations</strong><button type="button" data-atlas="infrastructure">Open infrastructure</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="private-access" aria-labelledby="contact-title">
+      <div class="contact-inner"><p class="eyebrow">The private property room</p><h2 id="contact-title">Enter by invitation.</h2><p>Request the complete ranch portfolio, detailed residence inventory and a confidential presentation.</p><a class="solid-button" href="mailto:bryce@connery.co?subject=Climbing%20Arrow%20Ranch%20Private%20Portfolio">Request private access</a><div class="contact-meta"><span>Connery &amp; Co.</span><span>Bozeman, Montana</span><span>406 599 9158</span></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Climbing Arrow Ranch · Concept experience</span><span>Photography &amp; film served from connery.co</span><span>Private offering · Montana</span></footer>
+
+  <div class="atlas-root" id="atlasRoot" aria-hidden="true">
+    <button class="atlas-backdrop" type="button" data-atlas-close aria-label="Close Ranch Atlas"></button>
+    <aside class="atlas-panel" role="dialog" aria-modal="true" aria-labelledby="atlasDialogTitle">
+      <header class="atlas-header"><div class="atlas-wordmark"><strong id="atlasDialogTitle">Ranch Atlas</strong><span id="atlasChapterLabel">Index</span></div><button class="atlas-close" type="button" data-atlas-close aria-label="Close Ranch Atlas">×</button></header>
+      <div class="atlas-content" id="atlasContent"></div>
+    </aside>
+  </div>
+
+  <template id="atlas-index">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Montana-2000-1.jpg" alt="Climbing Arrow Ranch beneath the mountains"><div><p class="eyebrow">Scroll to feel it. Open to understand it.</p><h2>Ranch Atlas</h2><p>Every realm of the ranch, organized for exploration without leaving the story.</p></div></section>
+    <div class="atlas-body"><div class="atlas-index-grid">
+      <button class="atlas-index-link" type="button" data-atlas="land"><small>01</small><strong>The Land</strong></button>
+      <button class="atlas-index-link" type="button" data-atlas="rivers"><small>02</small><strong>The Rivers</strong></button>
+      <button class="atlas-index-link" type="button" data-atlas="wild"><small>03</small><strong>The Wild</strong></button>
+      <button class="atlas-index-link" type="button" data-atlas="high"><small>04</small><strong>High Country</strong></button>
+      <button class="atlas-index-link" type="button" data-atlas="history"><small>05</small><strong>Human History</strong></button>
+      <button class="atlas-index-link" type="button" data-atlas="residences"><small>06</small><strong>Residences</strong></button>
+      <button class="atlas-index-link" type="button" data-atlas="infrastructure"><small>07</small><strong>Infrastructure</strong></button>
+    </div><p class="atlas-note">Detailed maps, residence specifications, operational records and confidential documentation are reserved for the private property room.</p></div>
+  </template>
+
+  <template id="atlas-land">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-arrow-ranch-Ranch-on-16mile-2000-1.jpg" alt="Aerial view of Climbing Arrow Ranch"><div><p class="eyebrow">Atlas 01</p><h2>The Land</h2><p>The physical argument for scale: water, range, foothills and mountain country held in one ownership.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>One boundary. Many landscapes.</h3><p>The acreage is not a single vast surface. Its value comes from the changing character within it—and from the fact that the parts remain connected.</p></div><div class="atlas-facts"><div class="atlas-fact"><strong>79,582±</strong><span>Total acres</span></div><div class="atlas-fact"><strong>One</strong><span>Continuous story</span></div><div class="atlas-fact"><strong>Private</strong><span>Interior experience</span></div></div><div class="atlas-subsection"><h3>Read the country</h3><div class="atlas-grid"><article class="atlas-card"><small>Valley</small><h4>Water &amp; meadow</h4><p>The lived center of the ranch, shaped by the creek and its crossings.</p></article><article class="atlas-card"><small>Range</small><h4>Working ground</h4><p>Open country that keeps the ranch productive, legible and alive.</p></article><article class="atlas-card"><small>Foothills</small><h4>Wildlife transition</h4><p>The threshold where range gives way to cover and elevation.</p></article><article class="atlas-card"><small>High country</small><h4>Remote terrain</h4><p>Long views, private routes and the ranch at its most elemental.</p></article></div></div></div>
+  </template>
+
+  <template id="atlas-rivers">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-fishing2000-1.jpg" alt="Fly fishing at Climbing Arrow Ranch"><div><p class="eyebrow">Atlas 02</p><h2>The Rivers</h2><p>Private water in different moods: morning mist, meadow bends, canyon reaches and historic crossings.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>The water is a destination within the ranch.</h3><p>Twenty-plus private miles allow a day on the creek to be as social or as solitary as the owner chooses.</p></div><div class="atlas-facts"><div class="atlas-fact"><strong>20+ mi</strong><span>Private water</span></div><div class="atlas-fact"><strong>Wild</strong><span>Trout habitat</span></div><div class="atlas-fact"><strong>Many</strong><span>Distinct reaches</span></div></div><div class="atlas-subsection"><h3>Ways into the water</h3><div class="atlas-grid"><article class="atlas-card"><small>Alone</small><h4>Walk until no one follows</h4><p>Choose a reach, step into the water and let the scale separate you from everything else.</p></article><article class="atlas-card"><small>Together</small><h4>Teach, float, return</h4><p>Accessible water lets a family experience the river at different ages and levels of intensity.</p></article><article class="atlas-card"><small>Season</small><h4>A changing river</h4><p>Light, flow and fish behavior give the same water a different character through the year.</p></article><article class="atlas-card"><small>History</small><h4>The Sixteen Mile corridor</h4><p>Natural and built history meet along the creek, including one of the ranch’s defining crossings.</p></article></div></div></div>
+  </template>
+
+  <template id="atlas-wild">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Crazy-Mountain-Ranch-Elk-Bugle-2000-1.jpg" alt="Elk in Montana high country"><div><p class="eyebrow">Atlas 03</p><h2>The Wild</h2><p>A landscape large enough for wildlife to remain wildlife—not scenery arranged around a house.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>Observe the system, not just the animal.</h3><p>Meadow, water, cover and high ground work together. The privilege is seeing wildlife move through intact country on its own terms.</p></div><div class="atlas-facts"><div class="atlas-fact"><strong>Elk</strong><span>High-country presence</span></div><div class="atlas-fact"><strong>Birds</strong><span>Water &amp; grassland</span></div><div class="atlas-fact"><strong>Room</strong><span>Habitat at scale</span></div></div><div class="atlas-subsection"><h3>At the edge of view</h3><div class="atlas-grid"><article class="atlas-card"><small>Dawn</small><h4>First movement</h4><p>Wildlife arrives before the day does, when the ranch is still mostly sound and shadow.</p></article><article class="atlas-card"><small>Autumn</small><h4>The rut</h4><p>The return of elk gives the high country an unmistakable seasonal pulse.</p></article><article class="atlas-card"><small>Water</small><h4>Bird corridors</h4><p>The creek and wet ground connect migratory and resident life across the valley.</p></article><article class="atlas-card"><small>Stewardship</small><h4>Keep the whole intact</h4><p>Long-term value begins with the health of the connected system.</p></article></div></div><p class="atlas-note">Selected wildlife imagery is drawn from Connery &amp; Co.’s broader Montana portfolio and is representative of the visual direction.</p></div>
+  </template>
+
+  <template id="atlas-high">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrrow-Ranch-Mountains2000-1.jpg" alt="Mountains at sunset from the ranch"><div><p class="eyebrow">Atlas 04</p><h2>High Country</h2><p>Horses, bikes and trails turn scale from an abstract number into a lifetime of routes.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>Every route changes the ranch.</h3><p>A long ride, a fast descent and a quiet drive can occupy the same terrain while revealing completely different worlds.</p></div><div class="atlas-facts"><div class="atlas-fact"><strong>Ride</strong><span>Horseback</span></div><div class="atlas-fact"><strong>Range</strong><span>Mountain biking</span></div><div class="atlas-fact"><strong>Return</strong><span>Another way</span></div></div><div class="atlas-subsection"><h3>Choose the pace</h3><div class="atlas-grid"><article class="atlas-card"><small>Equestrian</small><h4>Country made for horses</h4><p>Distance, grade and tradition make horseback travel feel native to the ranch.</p></article><article class="atlas-card"><small>Trails</small><h4>Move quickly through scale</h4><p>Mountain biking turns ranch roads and routes into an immediate physical experience.</p></article><article class="atlas-card"><small>Family</small><h4>One departure, many paces</h4><p>Different generations can share the landscape without needing to share one itinerary.</p></article><article class="atlas-card"><small>Remote</small><h4>Earn the overlook</h4><p>The furthest viewpoints carry the distinct pleasure of having arrived on your own ground.</p></article></div></div></div>
+  </template>
+
+  <template id="atlas-history">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Railroad2000-1.jpg" alt="Railroad trestle crossing Sixteen Mile Creek"><div><p class="eyebrow">Atlas 05</p><h2>Human History</h2><p>Deep time, movement and work remain visible across the ranch.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>Ownership enters an existing continuum.</h3><p>The historic ground should be experienced with context and protected with discipline. Its value comes from what it can teach, not what can be removed.</p></div><div class="atlas-subsection"><h3>Three layers of time</h3><div class="atlas-grid"><article class="atlas-card"><small>Before</small><h4>Indigenous history</h4><p>Qualified interpretation and careful stewardship connect the property to its earliest human stories.</p></article><article class="atlas-card"><small>Crossing</small><h4>The railroad corridor</h4><p>Infrastructure once used to move through the country now marks the ranch with graphic clarity.</p></article><article class="atlas-card"><small>Continuity</small><h4>Working-ranch era</h4><p>Buildings, routes and land-use patterns reveal generations of practical knowledge.</p></article><article class="atlas-card"><small>Next</small><h4>A steward’s decision</h4><p>The next owner determines how these layers are understood, protected and carried forward.</p></article></div></div><p class="atlas-note">Archaeological locations and documentation should remain confidential and available only within a qualified private review.</p></div>
+  </template>
+
+  <template id="atlas-residences">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Ranch-House-2000-1.jpg" alt="Climbing Arrow Ranch house"><div><p class="eyebrow">Atlas 06</p><h2>Residences</h2><p>A private village arranged across the landscape—not a single compound asking everyone to live the same way.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>Gather widely. Live privately.</h3><p>Browse the public inventory by intended use. Exact sizes, condition reports, locations and galleries belong in the private property room.</p></div><div class="atlas-facts"><div class="atlas-fact"><strong>20</strong><span>Usable residences</span></div><div class="atlas-fact"><strong>5</strong><span>Other structures</span></div><div class="atlas-fact"><strong>Many</strong><span>Ways to gather</span></div></div><div class="atlas-subsection"><h3>Residence browser</h3><div class="residence-filters" role="group" aria-label="Filter residences by use"><button class="filter-chip is-active" type="button" data-residence-filter="all">All</button><button class="filter-chip" type="button" data-residence-filter="principal">Principal</button><button class="filter-chip" type="button" data-residence-filter="family">Family</button><button class="filter-chip" type="button" data-residence-filter="remote">Remote</button><button class="filter-chip" type="button" data-residence-filter="operational">Operational</button></div><div class="residence-browser">
+      <article class="residence-card" data-residence-use="principal"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Ranch-House-2000-1.jpg" alt="Ranch house"><div><small>Principal</small><h4>The Ranch House</h4><p>The emotional and social center of the residence constellation.</p></div></article>
+      <article class="residence-card" data-residence-use="family"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-arrow-ranch-Ranch-on-16mile-2000-1.jpg" alt="Residence by Sixteen Mile Creek"><div><small>Family</small><h4>Water residences</h4><p>Gathering places defined by immediate connection to the creek.</p></div></article>
+      <article class="residence-card" data-residence-use="remote"><img src="https://connery.co/wp-content/uploads/2025/12/Climbing-Arrow-Ranch-Ranch-Home-page-1200-Dec-2025.webp" alt="Remote ranch landscape"><div><small>Remote</small><h4>Cabins &amp; retreats</h4><p>Smaller points of habitation set deeper into the ranch.</p></div></article>
+      <article class="residence-card" data-residence-use="operational"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-Arrow-Ranch-Montana-2000-1.jpg" alt="Broad view of ranch country"><div><small>Operational</small><h4>Ranch support</h4><p>Housing that allows the property to remain staffed and ready.</p></div></article>
+    </div></div><p class="atlas-note">This public browser is intentionally categorical. The complete 25-structure schedule, maps and specifications are private.</p></div>
+  </template>
+
+  <template id="atlas-infrastructure">
+    <section class="atlas-hero"><img src="https://connery.co/wp-content/uploads/2024/05/Climbing-arrow-ranch-Ranch-on-16mile-2000-1.jpg" alt="Aerial view of ranch infrastructure beside the creek"><div><p class="eyebrow">Atlas 07</p><h2>Infrastructure</h2><p>Everything required to inhabit, enjoy and operate a world this large.</p></div></section>
+    <div class="atlas-body"><div class="atlas-lead"><h3>Readiness is its own form of luxury.</h3><p>The supporting systems remove friction without making themselves the subject. The ranch can be remote and immediately usable at once.</p></div><div class="atlas-subsection"><h3>Operational deep dive</h3><div class="atlas-grid"><article class="atlas-card"><small>Arrival</small><h4>Helipad &amp; roads</h4><p>Multiple ways into the ranch preserve discretion and compress travel time.</p></article><article class="atlas-card"><small>Equestrian</small><h4>Horses at scale</h4><p>Facilities, staff functions and routes support both daily riding and extended exploration.</p></article><article class="atlas-card"><small>Recreation</small><h4>Private range</h4><p>A dedicated setting for shooting, instruction and sporting use.</p></article><article class="atlas-card"><small>Working ranch</small><h4>Operations network</h4><p>Structures, housing, roads and systems keep the property functioning as a single domain.</p></article></div></div><p class="atlas-note">Equipment lists, condition reports, capacities and operational records are reserved for confidential review.</p></div>
+  </template>
+
+  <script>
+    (() => {
+      const header = document.getElementById('siteHeader');
+      const cinematics = [...document.querySelectorAll('.cinematic')];
+      const railLinks = [...document.querySelectorAll('[data-rail]')];
+      const chapterSections = [...document.querySelectorAll('[data-chapter]')];
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let ticking = false;
+
+      function updateScroll() {
+        header.classList.toggle('is-scrolled', window.scrollY > 30);
+        cinematics.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          const range = Math.max(1, section.offsetHeight - window.innerHeight);
+          const progress = Math.min(1, Math.max(0, -rect.top / range));
+          const scenes = [...section.querySelectorAll('.scene')];
+          const copies = [...section.querySelectorAll('.scene-copy')];
+          const dots = [...section.querySelectorAll('.scene-dot')];
+          const index = Math.min(scenes.length - 1, Math.floor(progress * scenes.length));
+          scenes.forEach((el, i) => el.classList.toggle('is-active', i === index));
+          copies.forEach((el, i) => el.classList.toggle('is-active', i === index));
+          dots.forEach((el, i) => {
+            el.classList.toggle('is-active', i === index);
+            el.setAttribute('aria-current', i === index ? 'step' : 'false');
+          });
+          section.dataset.scene = String(index);
+        });
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(updateScroll); ticking = true; }
+      }, { passive: true });
+      updateScroll();
+
+      cinematics.forEach(section => {
+        const dots = [...section.querySelectorAll('.scene-dot')];
+        dots.forEach((dot, index) => dot.addEventListener('click', () => {
+          const range = section.offsetHeight - window.innerHeight;
+          const fraction = (index + .15) / dots.length;
+          const top = window.scrollY + section.getBoundingClientRect().top + range * fraction;
+          window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+        }));
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        railLinks.forEach(link => {
+          const active = link.dataset.rail === visible.target.id;
+          link.classList.toggle('is-active', active);
+          if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
+        });
+      }, { rootMargin: '-40% 0px -40% 0px', threshold: [0, .01, .3] });
+      chapterSections.forEach(section => observer.observe(section));
+
+      const map = document.getElementById('ranchMap');
+      document.querySelectorAll('[data-map-filter]').forEach(button => button.addEventListener('click', () => {
+        map.dataset.filter = button.dataset.mapFilter;
+        document.querySelectorAll('[data-map-filter]').forEach(item => item.classList.toggle('is-active', item === button));
+      }));
+
+      const atlasRoot = document.getElementById('atlasRoot');
+      const atlasPanel = atlasRoot.querySelector('.atlas-panel');
+      const atlasContent = document.getElementById('atlasContent');
+      const atlasChapterLabel = document.getElementById('atlasChapterLabel');
+      const labels = { index:'Index', land:'The Land', rivers:'The Rivers', wild:'The Wild', high:'High Country', history:'Human History', residences:'Residences', infrastructure:'Infrastructure' };
+      let lastTrigger = null;
+      let returnHash = '#overview';
+
+      function bindAtlasControls() {
+        atlasContent.querySelectorAll('[data-atlas]').forEach(button => button.addEventListener('click', () => openAtlas(button.dataset.atlas, button)));
+        const filterButtons = [...atlasContent.querySelectorAll('[data-residence-filter]')];
+        filterButtons.forEach(button => button.addEventListener('click', () => {
+          const filter = button.dataset.residenceFilter;
+          filterButtons.forEach(item => item.classList.toggle('is-active', item === button));
+          atlasContent.querySelectorAll('[data-residence-use]').forEach(card => { card.hidden = filter !== 'all' && card.dataset.residenceUse !== filter; });
+        }));
+      }
+
+      function openAtlas(slug, trigger) {
+        const template = document.getElementById(`atlas-${slug}`);
+        if (!template) return;
+        if (!atlasRoot.classList.contains('is-open')) {
+          lastTrigger = trigger || document.activeElement;
+          const current = chapterSections.find(section => {
+            const r = section.getBoundingClientRect();
+            return r.top <= window.innerHeight * .55 && r.bottom >= window.innerHeight * .45;
+          });
+          returnHash = current ? `#${current.id}` : '#overview';
+        }
+        atlasContent.replaceChildren(template.content.cloneNode(true));
+        atlasChapterLabel.textContent = labels[slug] || 'Index';
+        atlasRoot.classList.add('is-open');
+        atlasRoot.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('atlas-open');
+        atlasPanel.scrollTop = 0;
+        history.replaceState(null, '', `#atlas-${slug}`);
+        bindAtlasControls();
+        requestAnimationFrame(() => atlasRoot.querySelector('.atlas-close').focus());
+      }
+
+      function closeAtlas() {
+        atlasRoot.classList.remove('is-open');
+        atlasRoot.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('atlas-open');
+        history.replaceState(null, '', returnHash);
+        if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+      }
+
+      document.querySelectorAll('body > :not(.atlas-root) [data-atlas]').forEach(button => button.addEventListener('click', () => openAtlas(button.dataset.atlas, button)));
+      document.querySelectorAll('[data-atlas-close]').forEach(button => button.addEventListener('click', closeAtlas));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && atlasRoot.classList.contains('is-open')) closeAtlas();
+        if (event.key === 'Tab' && atlasRoot.classList.contains('is-open')) {
+          const focusable = [...atlasPanel.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')].filter(el => !el.hidden && el.offsetParent !== null);
+          if (!focusable.length) return;
+          const first = focusable[0], last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+
+      const initialAtlas = location.hash.match(/^#atlas-(.+)$/);
+      if (initialAtlas) openAtlas(initialAtlas[1], null);
+
+      const heroVideo = document.querySelector('.hero video');
+      if (reduceMotion && heroVideo) heroVideo.pause();
+    })();
+  </script>
+</body>
+</html>
