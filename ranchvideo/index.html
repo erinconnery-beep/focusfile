@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101712">
+  <meta name="description" content="Smith River Ranch - 21,497 contiguous deeded acres in White Sulphur Springs, Montana.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Smith River Ranch | White Sulphur Springs, Montana">
+  <meta property="og:description" content="A complete river valley to mountain landscape held in one unbroken block.">
+  <meta property="og:url" content="https://www.thenextblock.com/ranchvideo/">
+  <meta property="og:image" content="https://www.thenextblock.com/ranch-assets/smith-river-aerial.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.thenextblock.com/ranchvideo/">
+  <link rel="preconnect" href="https://connery.co">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <title>Smith River Ranch | Montana</title>
+  <style>
+    :root {
+      --ink: #101712;
+      --ink-soft: #1b251e;
+      --bone: #f0ece4;
+      --paper: #e4dfd5;
+      --sage: #87927f;
+      --muted: #aaa99f;
+      --line-light: rgba(240, 236, 228, .2);
+      --line-dark: rgba(16, 23, 18, .17);
+      --display: "Libre Caslon Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--bone);
+      background: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.book-open, body.film-open { overflow: hidden; }
+    img { display: block; width: 100%; }
+    button, a { color: inherit; font: inherit; }
+    button { cursor: pointer; }
+    a { text-decoration: none; }
+    ::selection { color: var(--ink); background: #bbc5b5; }
+    :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 1000;
+      top: 1rem;
+      left: 1rem;
+      padding: .75rem 1rem;
+      color: var(--ink);
+      background: var(--bone);
+      transform: translateY(-170%);
+      transition: transform .2s;
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-header {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.35rem 2rem;
+      border-bottom: 1px solid transparent;
+      transition: padding .4s, background .4s, border-color .4s;
+    }
+    .site-header.scrolled {
+      padding-top: .9rem;
+      padding-bottom: .9rem;
+      border-color: rgba(240,236,228,.1);
+      background: rgba(16,23,18,.82);
+      backdrop-filter: blur(18px);
+    }
+    .brand { display: flex; align-items: center; gap: .8rem; }
+    .brand-mark {
+      display: grid;
+      width: 2.2rem;
+      height: 2.2rem;
+      place-items: center;
+      border: 1px solid rgba(240,236,228,.48);
+      font-family: var(--display);
+      font-size: .74rem;
+    }
+    .brand-text { display: grid; gap: .05rem; }
+    .brand-text strong { font-size: .66rem; font-weight: 500; letter-spacing: .16em; }
+    .brand-text span { color: rgba(240,236,228,.58); font-size: .5rem; letter-spacing: .18em; text-transform: uppercase; }
+    .book-button, .line-button, .dark-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      min-width: 10.5rem;
+      padding: .82rem 1rem;
+      border: 1px solid rgba(240,236,228,.42);
+      color: var(--bone);
+      background: transparent;
+      font-size: .56rem;
+      font-weight: 500;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      transition: color .25s, background .25s, border-color .25s;
+    }
+    .book-button::after, .line-button::after, .dark-button::after { content: "→"; font-size: .75rem; }
+    .book-button:hover, .line-button:hover { color: var(--ink); border-color: var(--bone); background: var(--bone); }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 8rem 6vw 7vh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero > img { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8,12,9,.18), transparent 35%, rgba(8,12,9,.82)), linear-gradient(90deg, rgba(8,12,9,.38), transparent 54%);
+    }
+    .hero-copy { width: min(100%, 88rem); margin: 0 auto; }
+    .eyebrow {
+      margin: 0 0 1.1rem;
+      color: rgba(240,236,228,.76);
+      font-size: .59rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { margin-top: 0; font-family: var(--display); font-weight: 400; line-height: .96; }
+    .hero h1 { max-width: 10ch; margin: 0; font-size: clamp(4.5rem, 11vw, 11rem); letter-spacing: -.06em; }
+    .hero-deck { max-width: 31rem; margin: 1.5rem 0 0; color: rgba(240,236,228,.76); font-size: clamp(.94rem, 1.2vw, 1.12rem); }
+    .hero-fallback { z-index: -3 !important; }
+    .hero-video { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .film-button {
+      display: inline-flex;
+      align-items: center;
+      gap: .85rem;
+      margin-top: 1.8rem;
+      padding: 0;
+      border: 0;
+      color: var(--bone);
+      background: transparent;
+      font-size: .58rem;
+      font-weight: 500;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    .film-button::before { content: "▶"; display: grid; width: 2.65rem; height: 2.65rem; place-items: center; border: 1px solid rgba(240,236,228,.5); border-radius: 50%; font-size: .62rem; text-indent: .12rem; transition: color .25s, background .25s; }
+    .film-button:hover::before { color: var(--ink); background: var(--bone); }
+
+    .statement {
+      min-height: 80svh;
+      display: grid;
+      place-items: center;
+      padding: 9rem 6vw;
+      color: var(--ink);
+      background: var(--bone);
+    }
+    .statement-inner { width: min(100%, 78rem); }
+    .statement h2 { max-width: 14ch; margin: 0; font-size: clamp(3.2rem, 7.5vw, 7.7rem); letter-spacing: -.052em; }
+    .statement h2 span { color: #70786b; }
+    .primary-facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line-dark);
+    }
+    .primary-fact strong { display: block; font-family: var(--display); font-size: clamp(2rem, 3.8vw, 3.8rem); font-weight: 400; line-height: 1; }
+    .primary-fact span { display: block; margin-top: .55rem; color: #65685f; font-size: .55rem; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; }
+
+    .section-shell { width: min(88%, 86rem); margin: 0 auto; }
+    .map-section { padding: 10rem 0; background: var(--ink-soft); }
+    .section-heading { display: grid; grid-template-columns: .45fr 1.55fr; gap: 5vw; align-items: end; margin-bottom: 3.5rem; }
+    .section-heading > span { color: var(--sage); font-size: .57rem; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; }
+    .section-heading h2 { max-width: 11ch; margin: 0; font-size: clamp(3.2rem, 6.5vw, 6.7rem); letter-spacing: -.05em; }
+    .map-frame {
+      position: relative;
+      height: min(72vw, 48rem);
+      min-height: 34rem;
+      overflow: hidden;
+      border: 1px solid var(--line-light);
+      background: #d8d4ca;
+    }
+    .map-view { position: absolute; inset: 0; opacity: 0; transform: scale(1.01); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .map-view.active { opacity: 1; transform: none; }
+    .map-view img { width: 100%; height: 100%; object-fit: contain; }
+    .map-switch {
+      position: absolute;
+      z-index: 3;
+      left: 1rem;
+      bottom: 1rem;
+      display: flex;
+      gap: .35rem;
+      padding: .5rem;
+      background: rgba(16,23,18,.86);
+      backdrop-filter: blur(12px);
+    }
+    .map-switch button { padding: .65rem .85rem; border: 0; color: rgba(240,236,228,.62); background: transparent; font-size: .53rem; letter-spacing: .14em; text-transform: uppercase; }
+    .map-switch button.active { color: var(--ink); background: var(--bone); }
+
+    .photo-chapter {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 7rem 6vw 7vh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .photo-chapter > img { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .photo-chapter::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg, rgba(8,12,9,.05), rgba(8,12,9,.15) 45%, rgba(8,12,9,.86)); }
+    .photo-copy { width: min(100%, 76rem); margin: 0 auto; }
+    .photo-copy h2 { max-width: 11ch; margin: 0; font-size: clamp(3.8rem, 8vw, 8.2rem); letter-spacing: -.055em; }
+    .photo-copy p { max-width: 33rem; margin: 1.2rem 0 0; color: rgba(240,236,228,.75); }
+    .water-image { object-position: center 45%; }
+
+    .water-facts { padding: 0 6vw; background: var(--ink); }
+    .water-facts-inner { width: min(100%, 76rem); display: grid; grid-template-columns: repeat(3,1fr); margin: 0 auto; border-left: 1px solid var(--line-light); }
+    .water-fact { min-height: 13rem; display: flex; flex-direction: column; justify-content: space-between; padding: 1.4rem; border-right: 1px solid var(--line-light); }
+    .water-fact span { color: var(--sage); font-size: .54rem; letter-spacing: .15em; text-transform: uppercase; }
+    .water-fact strong { font-family: var(--display); font-size: clamp(2rem, 3.6vw, 3.6rem); font-weight: 400; line-height: 1; }
+
+    .land-section { display: grid; min-height: 92svh; grid-template-columns: 1.1fr .9fr; color: var(--ink); background: var(--paper); }
+    .land-image { min-height: 42rem; }
+    .land-image img { height: 100%; object-fit: cover; }
+    .land-copy { display: flex; flex-direction: column; justify-content: center; padding: 8vw; }
+    .land-copy .eyebrow { color: #6d7568; }
+    .land-copy h2 { margin-bottom: 1.4rem; font-size: clamp(3.3rem, 6vw, 6.2rem); letter-spacing: -.05em; }
+    .land-copy p { max-width: 28rem; color: #5b6057; }
+    .land-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line-dark); color: #656b62; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    .lodge-section { min-height: 100svh; }
+    .lodge-section .lodge-image { object-position: center 58%; }
+    .lodge-action { margin-top: 1.7rem; }
+
+    .access-section { padding: 10rem 0; color: var(--ink); background: var(--bone); }
+    .access-section .section-heading > span { color: #697164; }
+    .access-list { border-top: 1px solid var(--line-dark); }
+    .access-row { display: grid; grid-template-columns: 4rem .8fr 1.2fr; gap: 2rem; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--line-dark); }
+    .access-row > span { color: #7a8176; font-size: .54rem; letter-spacing: .15em; }
+    .access-row strong { font-family: var(--display); font-size: clamp(1.6rem, 2.6vw, 2.7rem); font-weight: 400; }
+    .access-row p { margin: 0; color: #60645d; }
+
+    .closing { min-height: 100svh; text-align: center; align-items: center; }
+    .closing::after { background: rgba(8,12,9,.56); }
+    .closing .photo-copy { display: grid; justify-items: center; }
+    .closing .photo-copy h2 { max-width: 12ch; }
+    .closing .photo-copy p { margin-bottom: 2rem; }
+
+    .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.2rem 2rem; color: #888e86; background: var(--ink); font-size: .5rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    .film-root { position: fixed; z-index: 120; inset: 0; display: grid; visibility: hidden; place-items: center; padding: 2rem; pointer-events: none; }
+    .film-root.open { visibility: visible; pointer-events: auto; }
+    .film-backdrop { position: absolute; inset: 0; border: 0; opacity: 0; background: rgba(4,7,5,.94); transition: opacity .4s; }
+    .film-root.open .film-backdrop { opacity: 1; }
+    .film-dialog { position: relative; z-index: 1; width: min(92vw, 80rem); opacity: 0; transform: translateY(1.5rem); transition: opacity .45s, transform .45s var(--ease); }
+    .film-root.open .film-dialog { opacity: 1; transform: none; }
+    .film-dialog video { display: block; width: 100%; max-height: 82svh; background: #000; box-shadow: 0 30px 100px rgba(0,0,0,.45); }
+    .film-close { position: absolute; z-index: 2; top: -3.25rem; right: 0; display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border: 1px solid rgba(240,236,228,.5); border-radius: 50%; color: var(--bone); background: rgba(16,23,18,.55); font-size: 1.2rem; }
+    .film-credit { margin: .8rem 0 0; color: rgba(240,236,228,.55); font-size: .5rem; letter-spacing: .14em; text-align: right; text-transform: uppercase; }
+
+    .book-root { position: fixed; z-index: 100; inset: 0; visibility: hidden; pointer-events: none; }
+    .book-root.open { visibility: visible; pointer-events: auto; }
+    .book-backdrop { position: absolute; inset: 0; border: 0; opacity: 0; background: rgba(4,7,5,.68); backdrop-filter: blur(5px); transition: opacity .45s; }
+    .book-root.open .book-backdrop { opacity: 1; }
+    .book-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(72vw, 70rem);
+      height: 100%;
+      overflow-y: auto;
+      color: var(--ink);
+      background: var(--bone);
+      box-shadow: -28px 0 80px rgba(0,0,0,.25);
+      transform: translateX(100%);
+      transition: transform .6s var(--ease);
+    }
+    .book-root.open .book-panel { transform: none; }
+    .book-header { position: sticky; z-index: 5; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--line-dark); background: rgba(240,236,228,.9); backdrop-filter: blur(14px); }
+    .book-wordmark { display: flex; align-items: baseline; gap: .8rem; }
+    .book-wordmark strong { font-family: var(--display); font-size: 1.1rem; font-weight: 400; }
+    .book-wordmark span { color: #74796f; font-size: .5rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; }
+    .book-close { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid var(--line-dark); border-radius: 50%; color: var(--ink); background: transparent; font-size: 1.15rem; }
+    .book-cover { position: relative; min-height: 30rem; display: flex; align-items: flex-end; padding: clamp(2rem,5vw,5rem); overflow: hidden; color: var(--bone); isolation: isolate; }
+    .book-cover img { position: absolute; z-index: -2; inset: 0; height: 100%; object-fit: cover; }
+    .book-cover::after { content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(transparent 22%,rgba(8,12,9,.88)); }
+    .book-cover h2 { margin: 0; font-size: clamp(3.3rem, 7vw, 6.8rem); letter-spacing: -.05em; }
+    .book-cover p { max-width: 33rem; margin: 1rem 0 0; color: rgba(240,236,228,.72); }
+    .book-body { padding: clamp(2rem,5vw,5rem); }
+    .book-lead { display: grid; grid-template-columns: 1.15fr .85fr; gap: 5vw; margin-bottom: 3.5rem; }
+    .book-lead h3 { margin: 0; font-size: clamp(2.6rem, 4.5vw, 4.7rem); letter-spacing: -.04em; }
+    .book-lead p { color: #5d6259; }
+    .book-summary { display: grid; grid-template-columns: repeat(3,1fr); margin-bottom: 4rem; border-top: 1px solid var(--line-dark); border-left: 1px solid var(--line-dark); }
+    .book-summary div { min-height: 9rem; padding: 1.2rem; border-right: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+    .book-summary strong { display: block; font-family: var(--display); font-size: 2rem; font-weight: 400; line-height: 1; }
+    .book-summary span { display: block; margin-top: .6rem; color: #6c7268; font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; }
+    .schedule-heading { scroll-margin-top: 5rem; margin: 4.5rem 0 1.5rem; }
+    .schedule-heading .eyebrow { margin-bottom: .8rem; color: #687064; }
+    .schedule-heading h3 { max-width: 12ch; margin: 0; font-size: clamp(2.8rem, 5vw, 5rem); letter-spacing: -.045em; }
+    .schedule-totals { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 2.5rem; border-top: 1px solid var(--line-dark); border-left: 1px solid var(--line-dark); }
+    .schedule-totals div { min-height: 8rem; padding: 1.2rem; border-right: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+    .schedule-totals strong { display: block; font-family: var(--display); font-size: clamp(1.7rem, 2.8vw, 2.8rem); font-weight: 400; line-height: 1; }
+    .schedule-totals span { display: block; margin-top: .6rem; color: #6c7268; font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; }
+    .book-details { border-top: 1px solid var(--line-dark); }
+    .book-details details { border-bottom: 1px solid var(--line-dark); }
+    .book-details summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem .1rem; cursor: pointer; list-style: none; font-family: var(--display); font-size: clamp(1.6rem,2.5vw,2.5rem); }
+    .book-details summary::-webkit-details-marker { display: none; }
+    .book-details summary::after { content: "+"; font-family: var(--sans); font-size: 1.2rem; font-weight: 300; }
+    .book-details details[open] summary::after { content: "−"; }
+    .detail-content { padding: .5rem 0 2.2rem; }
+    .detail-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2.2rem 3rem; }
+    .detail-group h4 { margin: 0 0 .65rem; color: #687064; font-size: .53rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+    .data-row { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid rgba(16,23,18,.09); font-size: .78rem; }
+    .data-row span:last-child { color: #5e635b; text-align: right; }
+    .plain-list { margin: 0; padding: 0; list-style: none; color: #555b53; font-size: .82rem; }
+    .plain-list li { padding: .35rem 0; }
+    .book-note { margin-top: 3rem; padding: 1.2rem; border-left: 2px solid #7d8978; color: #5b6058; background: rgba(125,137,120,.09); font-size: .76rem; }
+    .book-contact { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line-dark); }
+    .book-contact h3 { margin: 0; font-size: 2.2rem; }
+    .book-contact p { margin: .5rem 0 0; color: #5e635b; font-size: .8rem; }
+    .dark-button { color: var(--bone); border-color: var(--ink); background: var(--ink); }
+    .dark-button:hover { color: var(--ink); background: transparent; }
+
+    @media (max-width: 850px) {
+      .site-header { padding: 1rem; }
+      .brand-text span { display: none; }
+      .book-button { min-width: auto; }
+      .hero { padding: 8rem 1.25rem 3rem; }
+      .hero h1 { font-size: clamp(4rem, 19vw, 7.5rem); }
+      .statement { padding: 6rem 1.25rem; }
+      .primary-facts { grid-template-columns: 1fr; gap: 1.3rem; margin-top: 3rem; }
+      .section-shell { width: calc(100% - 2.5rem); }
+      .section-heading { grid-template-columns: 1fr; gap: 1.3rem; }
+      .map-section, .access-section { padding: 7rem 0; }
+      .map-frame { height: 70svh; min-height: 34rem; }
+      .photo-chapter { padding: 6rem 1.25rem 3rem; }
+      .photo-copy h2 { font-size: clamp(3.6rem,15vw,6rem); }
+      .water-facts { padding: 0 1.25rem; }
+      .water-facts-inner { grid-template-columns: 1fr; }
+      .water-fact { min-height: 9rem; }
+      .land-section { grid-template-columns: 1fr; }
+      .land-image { min-height: 65svh; }
+      .land-copy { padding: 5rem 1.25rem; }
+      .access-row { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
+      .access-row p { grid-column: 2; }
+      .book-panel { width: 100%; }
+      .book-lead { grid-template-columns: 1fr; }
+      .book-summary { grid-template-columns: 1fr; }
+      .schedule-totals { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .site-header .book-button { padding: .7rem .8rem; font-size: .5rem; }
+      .hero h1 { font-size: 4.2rem; }
+      .statement h2 { font-size: 3.2rem; }
+      .map-frame { min-height: 31rem; }
+      .map-switch { right: .6rem; left: .6rem; bottom: .6rem; }
+      .map-switch button { flex: 1; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .book-contact, .site-footer { align-items: flex-start; flex-direction: column; }
+      .hero-video { display: none; }
+      .film-root { padding: 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the ranch</a>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#top" aria-label="Smith River Ranch, back to top">
+      <span class="brand-mark" aria-hidden="true">SR</span>
+      <span class="brand-text"><strong>SMITH RIVER RANCH</strong><span>White Sulphur Springs, Montana</span></span>
+    </a>
+    <button class="book-button" type="button" data-book-open>Property Book</button>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <img class="hero-fallback" src="../ranch-assets/smith-river-aerial.jpg" alt="The Smith River winding through the ranch's limestone canyon">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="../ranch-assets/smith-river-aerial.jpg" aria-hidden="true" tabindex="-1">
+        <source src="https://connery.co/wp-content/uploads/2024/07/bc_bannerfinal_rev1-1080p.mp4" type="video/mp4">
+      </video>
+      <div class="hero-copy">
+        <p class="eyebrow">White Sulphur Springs, Montana</p>
+        <h1>Smith River Ranch</h1>
+        <p class="hero-deck">A complete river valley to mountain landscape held in one unbroken block.</p>
+        <button class="film-button" type="button" data-film-open>Watch the film</button>
+      </div>
+    </section>
+
+    <section class="statement" aria-labelledby="statement-title">
+      <div class="statement-inner">
+        <p class="eyebrow" style="color:#687064">The holding</p>
+        <h2 id="statement-title">The river does not border the ranch. <span>It runs through its heart.</span></h2>
+        <div class="primary-facts">
+          <div class="primary-fact"><strong>21,497±</strong><span>Contiguous deeded acres</span></div>
+          <div class="primary-fact"><strong>6± miles</strong><span>Smith River</span></div>
+          <div class="primary-fact"><strong>6.75± miles</strong><span>Sheep Creek</span></div>
+      </div>
+    </section>
+
+    <section class="map-section" aria-labelledby="map-title">
+      <div class="section-shell">
+        <div class="section-heading"><span>01 / The extent</span><h2 id="map-title">One piece of Montana.</h2></div>
+        <div class="map-frame">
+          <div class="map-view active" data-map-panel="ranch"><img src="../ranch-assets/ranch-water-map.jpg" alt="Map of the Smith River Ranch boundary and waterways"></div>
+          <div class="map-view" data-map-panel="access"><img src="../ranch-assets/access-map.jpg" alt="Regional map showing Smith River Ranch, White Sulphur Springs and Bozeman"></div>
+          <div class="map-switch" role="group" aria-label="Map view">
+            <button class="active" type="button" data-map-button="ranch" aria-pressed="true">Ranch boundary</button>
+            <button type="button" data-map-button="access" aria-pressed="false">Arrival</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-chapter" aria-labelledby="water-title">
+      <img class="water-image" loading="lazy" src="../ranch-assets/smith-river-canyon.png" alt="The Smith River passing beneath limestone canyon walls">
+      <div class="photo-copy"><p class="eyebrow">02 / The Smith</p><h2 id="water-title">Six miles. Both banks for five.</h2><p>The Smith is the only permit-protected river in Montana. Here, it flows through the heart of the property beneath limestone walls.</p></div>
+    </section>
+
+    <section class="water-facts" aria-label="Water facts">
+      <div class="water-facts-inner">
+        <div class="water-fact"><span>Sheep Creek</span><strong>6.75± miles</strong></div>
+        <div class="water-fact"><span>Water rights</span><strong>93</strong></div>
+        <div class="water-fact"><span>Currently irrigated</span><strong>600± acres</strong></div>
+      </div>
+    </section>
+
+    <section class="land-section" aria-labelledby="land-title">
+      <div class="land-image"><img loading="lazy" src="../ranch-assets/ranch-valley.jpg" alt="Broad ranch valley with irrigated fields and mountain country"></div>
+      <div class="land-copy"><p class="eyebrow">03 / The ecosystem</p><h2 id="land-title">River bottom to mountain peak.</h2><p>The ranch rises through water, meadow, timber and high country. A resident elk herd exceeds five hundred animals in autumn, including trophy-class bulls.</p><div class="land-note">No state, BLM or leased lands</div></div>
+    </section>
+
+    <section class="photo-chapter lodge-section" aria-labelledby="lodge-title">
+      <img class="lodge-image" loading="lazy" src="../ranch-assets/lodge-overlook.png" alt="The lodge and ranch compound above the Smith River">
+      <div class="photo-copy"><p class="eyebrow">04 / The compound</p><h2 id="lodge-title">Ready from day one.</h2><p>More than 100,000 square feet under roof, with lodge, residences, guest cabins, staff housing and operations thoughtfully separated across the ranch.</p><div class="lodge-action"><button class="line-button" type="button" data-book-open data-book-target="improvementsSchedule">View improvements</button></div></div>
+    </section>
+
+    <section class="access-section" aria-labelledby="access-title">
+      <div class="section-shell">
+        <div class="section-heading"><span>05 / Access</span><h2 id="access-title">Remote by choice.</h2></div>
+        <div class="access-list">
+          <div class="access-row"><span>01</span><strong>Helicopter</strong><p>Ranch helipad; 25± minutes from Bozeman Yellowstone International Airport.</p></div>
+          <div class="access-row"><span>02</span><strong>Private aircraft</strong><p>6,100-foot paved runway at White Sulphur Springs; 30± minutes by road.</p></div>
+          <div class="access-row"><span>03</span><strong>Road</strong><p>County-maintained access; just under two hours from Bozeman.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-chapter closing" aria-labelledby="closing-title">
+      <img loading="lazy" src="../ranch-assets/limestone-canyon.jpg" alt="Limestone cliffs above the Smith River at evening">
+      <div class="photo-copy"><p class="eyebrow">Private offering</p><h2 id="closing-title">The canyon. The water. The whole of it.</h2><p>Request the complete property information or arrange a confidential ranch tour.</p><a class="line-button" href="mailto:bryce@connery.co?subject=Smith%20River%20Ranch">Contact Connery &amp; Co.</a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Smith River Ranch · White Sulphur Springs, Montana</span><span>Measurements are approximate and subject to independent verification</span><span>Connery &amp; Co.</span></footer>
+
+  <div class="film-root" id="filmPlayer" aria-hidden="true">
+    <button class="film-backdrop" type="button" data-film-close aria-label="Close film"></button>
+    <div class="film-dialog" role="dialog" aria-modal="true" aria-label="Smith River Ranch film">
+      <button class="film-close" type="button" data-film-close aria-label="Close film">×</button>
+      <video controls playsinline preload="metadata" poster="../ranch-assets/smith-river-aerial.jpg">
+        <source src="https://connery.co/wp-content/uploads/2024/07/bc_bannerfinal_rev1-1080p.mp4" type="video/mp4">
+        Your browser does not support embedded video.
+      </video>
+      <p class="film-credit">Temporary example film · Connery &amp; Co.</p>
+    </div>
+  </div>
+
+  <div class="book-root" id="propertyBook" aria-hidden="true">
+    <button class="book-backdrop" type="button" data-book-close aria-label="Close Property Book"></button>
+    <aside class="book-panel" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
+      <header class="book-header"><div class="book-wordmark"><strong id="bookTitle">Property Book</strong><span>Smith River Ranch</span></div><button class="book-close" type="button" data-book-close aria-label="Close Property Book">×</button></header>
+      <section class="book-cover"><img src="../ranch-assets/sheep-creek.jpg" alt="Sheep Creek winding through the ranch"><div><p class="eyebrow">Confidential ranch overview</p><h2>At a glance.</h2><p>The information required to understand the holding, kept outside the main experience until it is wanted.</p></div></section>
+      <div class="book-body">
+        <div class="book-lead"><h3>A complete operating landscape.</h3><p>Land, water, wildlife, residences and ranch infrastructure are held together in one contiguous deeded block.</p></div>
+        <div class="book-summary"><div><strong>21,497±</strong><span>Deeded acres</span></div><div><strong>100,000±</strong><span>Square feet under roof</span></div><div><strong>500+</strong><span>Resident elk herd</span></div></div>
+
+        <div class="book-details">
+          <details open>
+            <summary>Land &amp; water</summary>
+            <div class="detail-content"><div class="detail-grid">
+              <div class="detail-group"><h4>Land</h4><div class="data-row"><span>Contiguous deeded acres</span><span>21,497±</span></div><div class="data-row"><span>State, BLM or leased land</span><span>None</span></div><div class="data-row"><span>Conservation easement</span><span>227 acres</span></div><div class="data-row"><span>Not under easement</span><span>21,270± acres</span></div></div>
+              <div class="detail-group"><h4>Water</h4><div class="data-row"><span>Smith River</span><span>6± mi; both banks 5±</span></div><div class="data-row"><span>Sheep Creek</span><span>6.75± mi</span></div><div class="data-row"><span>Eagle Creek</span><span>2± mi</span></div><div class="data-row"><span>Spring Creek</span><span>0.5± mi</span></div><div class="data-row"><span>Additional</span><span>Cottonwood, Horse, ponds</span></div></div>
+              <div class="detail-group"><h4>Water rights</h4><div class="data-row"><span>Appurtenant rights</span><span>93</span></div><div class="data-row"><span>Irrigation rights</span><span>14</span></div><div class="data-row"><span>Currently irrigated</span><span>600± acres</span></div></div>
+            </div></div>
+          </details>
+
+          <details>
+            <summary>Sporting &amp; recreation</summary>
+            <div class="detail-content"><div class="detail-grid">
+              <div class="detail-group"><h4>Wildlife</h4><div class="data-row"><span>Elk</span><span>500+ resident herd</span></div><div class="data-row"><span>Big game</span><span>Mule deer, whitetail, antelope</span></div><div class="data-row"><span>Upland birds</span><span>Sharptail, Hungarian partridge, grouse, turkey</span></div></div>
+              <div class="detail-group"><h4>Amenities</h4><ul class="plain-list"><li>Trap and skeet range with clubhouse</li><li>Pistol and long-range courses</li><li>Outdoor riding arena, tack barn and shelters</li><li>Fishing ponds and outdoor tennis courts</li><li>Mapped biking, hiking and cross-country ski trails</li><li>Outdoor dining areas</li></ul></div>
+            </div></div>
+          </details>
+
+          <div class="schedule-heading" id="improvementsSchedule"><p class="eyebrow">Schedule of Ranch Improvements</p><h3>Everything already in place.</h3></div>
+          <div class="schedule-totals"><div><strong>16,500±</strong><span>Main lodge &amp; pool house sq ft</span></div><div><strong>13,860±</strong><span>Guest cabin sq ft</span></div><div><strong>13,100±</strong><span>Additional residence sq ft</span></div></div>
+
+          <details data-improvement-detail>
+            <summary>Lodge, residences &amp; staff</summary>
+            <div class="detail-content"><div class="detail-grid">
+              <div class="detail-group"><h4>Main compound</h4><div class="data-row"><span>Main Lodge</span><span>12,124 sq ft</span></div><div class="data-row"><span>Main House</span><span>8,273 sq ft</span></div><div class="data-row"><span>Pool House</span><span>4,512 sq ft</span></div><ul class="plain-list"><li>Dining and entertaining rooms</li><li>Commercial-grade kitchen</li><li>Fitness and fishing rooms</li></ul></div>
+              <div class="detail-group"><h4>Guest cabins</h4><div class="data-row"><span>Ponderosa</span><span>4,113 sq ft</span></div><div class="data-row"><span>Cottonwood</span><span>3,012 sq ft</span></div><div class="data-row"><span>Chinook</span><span>2,867 sq ft</span></div><div class="data-row"><span>Tenderfoot</span><span>1,476 sq ft</span></div><div class="data-row"><span>Rimrock</span><span>1,300 sq ft</span></div><div class="data-row"><span>Aspen</span><span>1,092 sq ft</span></div></div>
+              <div class="detail-group"><h4>Additional residences</h4><div class="data-row"><span>Weissman</span><span>3,700 sq ft</span></div><div class="data-row"><span>Songster</span><span>3,602 sq ft</span></div><div class="data-row"><span>Lodgepole</span><span>3,500 sq ft</span></div><div class="data-row"><span>Alder</span><span>2,295 sq ft</span></div><div class="data-row"><span>Off-grid cabin</span><span>1,200± sq ft</span></div></div>
+              <div class="detail-group"><h4>Staff housing</h4><div class="data-row"><span>Operations Building</span><span>9,576 sq ft</span></div><div class="data-row"><span>Six staff units</span><span>8,416 sq ft</span></div><div class="data-row"><span>Two staff homes</span><span>5,344 sq ft</span></div><div class="data-row"><span>Staff Lodge &amp; Dining</span><span>2,880 sq ft</span></div><div class="data-row"><span>Staff Pool House</span><span>960 sq ft</span></div></div>
+            </div></div>
+          </details>
+
+          <details data-improvement-detail>
+            <summary>Operations &amp; infrastructure</summary>
+            <div class="detail-content"><div class="detail-grid">
+              <div class="detail-group"><h4>Agricultural operations</h4><div class="data-row"><span>Operations building</span><span>6,010 sq ft</span></div><div class="data-row"><span>Ag Manager House</span><span>5,500 sq ft</span></div><div class="data-row"><span>Calving Barn</span><span>5,112 sq ft</span></div><div class="data-row"><span>Foreman House</span><span>2,800 sq ft</span></div><div class="data-row"><span>Equipment Barn</span><span>2,100 sq ft</span></div><div class="data-row"><span>Mechanical Building</span><span>Size not specified</span></div></div>
+              <div class="detail-group"><h4>Land infrastructure</h4><ul class="plain-list"><li>Ranch helipad</li><li>18± miles of improved roads</li><li>40+ miles of ranch roads</li><li>Cisterns and gravity-fed pipeline systems</li><li>Pivot irrigation, pumps and wells</li><li>Entry gate, bridge and internal fencing</li></ul></div>
+            </div></div>
+          </details>
+
+          <details>
+            <summary>Access &amp; offering terms</summary>
+            <div class="detail-content"><div class="detail-grid">
+              <div class="detail-group"><h4>Access</h4><div class="data-row"><span>Helicopter</span><span>25± min from BZN</span></div><div class="data-row"><span>Private aircraft</span><span>6,100-ft paved runway</span></div><div class="data-row"><span>White Sulphur Springs</span><span>30± min by road</span></div><div class="data-row"><span>Bozeman</span><span>Just under 2 hours</span></div></div>
+              <div class="detail-group"><h4>Terms</h4><ul class="plain-list"><li>Appurtenant water rights convey at closing.</li><li>Seller-owned appurtenant mineral rights convey at closing.</li><li>A 227-acre parcel is subject to a Montana Land Reliance conservation easement.</li><li>The ranch can be sold substantially furnished and equipped, inclusive of the cattle herd.</li></ul></div>
+            </div></div>
+          </details>
+        </div>
+
+        <p class="book-note">This offering is subject to prior sale, change, withdrawal and seller approval. Acreages, distances, building areas and other measurements are approximate and should be independently verified. No representation or warranty is made as to the completeness or accuracy of the information presented.</p>
+        <div class="book-contact"><div><h3>Arrange a confidential tour.</h3><p>Bryce Connery · 406.599.9158 · bryce@connery.co</p></div><a class="dark-button" href="mailto:bryce@connery.co?subject=Smith%20River%20Ranch">Contact</a></div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    (() => {
+      const header = document.getElementById('siteHeader');
+      const book = document.getElementById('propertyBook');
+      const panel = book.querySelector('.book-panel');
+      const closeButton = book.querySelector('.book-close');
+      const film = document.getElementById('filmPlayer');
+      const filmDialog = film.querySelector('.film-dialog');
+      const filmVideo = film.querySelector('video');
+      const filmCloseButton = film.querySelector('.film-close');
+      const heroVideo = document.querySelector('.hero-video');
+      let lastFocus = null;
+      let lastFilmFocus = null;
+
+      function updateHeader() { header.classList.toggle('scrolled', window.scrollY > 30); }
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      updateHeader();
+
+      document.querySelectorAll('[data-map-button]').forEach(button => {
+        button.addEventListener('click', () => {
+          const name = button.dataset.mapButton;
+          document.querySelectorAll('[data-map-button]').forEach(item => {
+            const active = item === button;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          document.querySelectorAll('[data-map-panel]').forEach(item => item.classList.toggle('active', item.dataset.mapPanel === name));
+        });
+      });
+
+      function openBook(trigger) {
+        lastFocus = trigger || document.activeElement;
+        book.classList.add('open');
+        book.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('book-open');
+        history.replaceState(null, '', '#property-book');
+        requestAnimationFrame(() => {
+          closeButton.focus();
+          const targetId = trigger?.dataset.bookTarget;
+          if (!targetId) { panel.scrollTop = 0; return; }
+          panel.querySelectorAll('[data-improvement-detail]').forEach(detail => { detail.open = true; });
+          const target = document.getElementById(targetId);
+          if (target) panel.scrollTo({ top: target.offsetTop - 72, behavior: 'auto' });
+        });
+      }
+
+      function closeBook() {
+        book.classList.remove('open');
+        book.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('book-open');
+        history.replaceState(null, '', location.pathname + location.search);
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+
+      document.querySelectorAll('[data-book-open]').forEach(button => button.addEventListener('click', () => openBook(button)));
+      document.querySelectorAll('[data-book-close]').forEach(button => button.addEventListener('click', closeBook));
+
+      function openFilm(trigger) {
+        lastFilmFocus = trigger || document.activeElement;
+        film.classList.add('open');
+        film.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('film-open');
+        filmVideo.currentTime = 0;
+        filmVideo.muted = false;
+        filmVideo.play().catch(() => {});
+        requestAnimationFrame(() => filmCloseButton.focus());
+      }
+
+      function closeFilm() {
+        filmVideo.pause();
+        film.classList.remove('open');
+        film.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('film-open');
+        if (lastFilmFocus && typeof lastFilmFocus.focus === 'function') lastFilmFocus.focus();
+      }
+
+      document.querySelectorAll('[data-film-open]').forEach(button => button.addEventListener('click', () => openFilm(button)));
+      document.querySelectorAll('[data-film-close]').forEach(button => button.addEventListener('click', closeFilm));
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) heroVideo.pause();
+
+      document.addEventListener('keydown', event => {
+        if (film.classList.contains('open')) {
+          if (event.key === 'Escape') { closeFilm(); return; }
+          if (event.key !== 'Tab') return;
+          const filmFocusable = [...filmDialog.querySelectorAll('button, video, [tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+          if (!filmFocusable.length) return;
+          const filmFirst = filmFocusable[0];
+          const filmLast = filmFocusable[filmFocusable.length - 1];
+          if (event.shiftKey && document.activeElement === filmFirst) { event.preventDefault(); filmLast.focus(); }
+          else if (!event.shiftKey && document.activeElement === filmLast) { event.preventDefault(); filmFirst.focus(); }
+          return;
+        }
+        if (!book.classList.contains('open')) return;
+        if (event.key === 'Escape') { closeBook(); return; }
+        if (event.key !== 'Tab') return;
+        const focusable = [...panel.querySelectorAll('button, a[href], summary, [tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      });
+
+      if (location.hash === '#property-book') openBook(null);
+    })();
+  </script>
+</body>
+</html>
