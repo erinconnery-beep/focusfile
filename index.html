@@ -92,11 +92,12 @@
   .bd-msg { font-family:var(--sans); font-size:13.5px; margin-top:10px; min-height:1em; color:var(--ink-faint); }
   .bd-msg.err { color:#a8442a; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
-  .resource-links { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 22px;
+  .resource-links { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 14px;
     margin-top:28px; padding-top:24px; border-top:1px solid var(--hair); }
   .resource-link { background:none; border:0; padding:0; cursor:pointer; font-family:var(--sans);
     font-size:13px; color:var(--ink-mut); text-decoration:none; }
   .resource-link:hover { color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
+  .resource-dot { font-family:var(--sans); font-size:14px; color:var(--ink-faint); line-height:1; }
   .resource-links + .foot { margin-top:28px; padding-top:24px; }
 
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
@@ -150,12 +151,12 @@
   header { padding:20px clamp(24px,4vw,56px); }
   .logo { font-size:18px; }
   .logo-mark { width:22px; height:22px; }
-  .wrap { max-width:1400px; padding:clamp(52px,7vh,88px) clamp(24px,5vw,72px) 48px; }
-  .hero { display:grid; grid-template-columns:minmax(360px,.82fr) minmax(650px,1.28fr);
-    gap:clamp(48px,6vw,90px); align-items:center; }
+  .wrap { max-width:1760px; padding:clamp(52px,7vh,88px) clamp(24px,5vw,72px) 48px; }
+  .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(620px,1fr);
+    gap:clamp(42px,4vw,68px); align-items:center; }
   .hero-copy { align-self:center; padding-bottom:12px; }
-  .hero h1 { font-size:clamp(46px,4.6vw,66px); line-height:1.07; margin-bottom:24px;
-    max-width:11ch; }
+  .hero h1 { font-size:clamp(46px,3.5vw,58px); line-height:1.07; margin-bottom:24px;
+    max-width:none; white-space:nowrap; }
   .hero-deck { font-size:clamp(17px,1.45vw,21px); line-height:1.62; color:var(--ink-soft);
     max-width:36ch; margin-bottom:30px; }
   .hero-actions { display:flex; flex-direction:column; align-items:flex-start; }
@@ -222,25 +223,24 @@
     max-width:18ch; margin:0 auto 24px; }
   .demo-next { display:inline-flex; font-family:var(--sans); font-size:11px; font-weight:650; color:#fff;
     background:var(--pine); padding:11px 13px; border-radius:8px; white-space:nowrap; }
-  .demo-caption { font-family:var(--sans); font-size:13px; color:var(--ink-mut); text-align:center; margin-top:28px; }
-
   .flow { max-width:760px; width:100%; margin:clamp(74px,10vh,118px) auto 0; scroll-margin-top:24px; }
   .flow-intro { margin-bottom:16px; text-align:center; }
   .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
   .promptbox + .interview-feedback { text-align:center; margin:16px 0 2px; font-family:var(--sans);
     font-size:13px; color:var(--ink-mut); }
 
-  @media (max-width:1100px){
+  @media (max-width:1400px){
     .hero { grid-template-columns:1fr; }
-    .hero-copy { max-width:660px; }
-    .hero h1 { max-width:13ch; }
+    .hero-copy { max-width:760px; }
+    .hero h1 { max-width:none; }
     .hero-deck { max-width:46ch; }
     .product-demo { max-width:840px; width:100%; margin:0 auto; }
   }
   @media (max-width:700px){
     .wrap { padding:38px 20px 32px; }
     .hero { gap:34px; }
-    .hero h1 { font-size:clamp(36px,10.5vw,44px); line-height:1.08; max-width:12ch; margin-bottom:20px; }
+    .hero h1 { font-size:clamp(36px,10.5vw,44px); line-height:1.08; max-width:12ch; margin-bottom:20px;
+      white-space:normal; }
     .hero-deck { font-size:16px; line-height:1.55; margin-bottom:24px; }
     .hero-copy .copy { min-width:0; width:100%; }
     .demo-labels { display:none; }
@@ -260,10 +260,8 @@
     .demo-card.handoff.is-active { min-height:325px; }
     .demo-title { font-size:24px; }
     .demo-list li { font-size:13px; }
-    .demo-caption { display:none; }
     .flow { margin-top:56px; }
     .flow-intro { text-align:left; }
-    .resource-links { justify-content:flex-start; gap:12px 18px; }
   }
   @media (max-width:600px){
     .freetag { display:none; }
@@ -365,7 +363,6 @@
             </div>
           </article>
         </div>
-        <p class="demo-caption">The file works offline. Check-ins and the exit log stay with you.</p>
       </div>
     </section>
 
@@ -408,9 +405,11 @@
       </div>
 
       <nav class="resource-links" aria-label="More about Focus File">
-        <button class="resource-link" data-modal="interview">The 5 interview questions</button>
-        <a class="resource-link" href="sample-writing.html" target="_blank" rel="noopener">Writing sample</a>
-        <button class="resource-link" data-modal="log">What the log records</button>
+        <button class="resource-link" data-modal="interview">The interview</button>
+        <span class="resource-dot" aria-hidden="true">&middot;</span>
+        <button class="resource-link" data-modal="log">Next-block handoff</button>
+        <span class="resource-dot" aria-hidden="true">&middot;</span>
+        <button class="resource-link" data-modal="privacy">Privacy</button>
       </nav>
 
       <div class="foot">
@@ -499,8 +498,9 @@ Then stop.
 <p>Unplug for an hour and find out.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Focus File is a free self-directed tool.</b></p>
-<p>Your Focus Files and logs live on your device, not with us. We do not have accounts, storage, or a dashboard where we can see what you write. Unless you choose to send something to us, we literally cannot read it.</p>
-<p>The site copies a prompt. You paste it into your AI of choice. Anything you put into it is governed by that provider's own terms and privacy policy.</p>
+<p>Your settings block, Focus Files, and logs live on your device. We do not have accounts, file storage, or a dashboard where we can read what you write.</p>
+<p><b>The AI interview is the exception.</b> You paste the setup into the AI provider you choose. Anything you tell it is governed by that provider&rsquo;s terms and privacy policy.</p>
+<p>The homepage uses privacy-focused analytics to count visits and basic actions. Those analytics do not receive the contents of your interview, settings block, Focus File, or log.</p>
 <p>Be careful with private data, and thoughtful about where you share it.</p>
 <p>Focus File is not medical or psychological advice. Use it at your own discretion.</p>
 </script>
@@ -519,13 +519,12 @@ Then stop.
 <p class="mnote" style="margin-top:18px;">And then it builds your focus file — unique to the answers you just gave.</p>
 </script>
 
-  <script type="text/plain" id="m-log"><h2>The log</h2>
-<p><b>Your focus files and this log never leave your computer.</b> They live in your browser, for your eyes only. We have no account for you, no database, no server, and no way to see a single word of them.</p>
-<p><span class="mnote">One thing to be clear about: the <b>interview</b> happens inside whatever AI you paste the prompt into (Claude, ChatGPT, Gemini). That conversation goes to that provider, under their terms — so it's the one part that isn't just on your machine. The file it produces, and everything you do in it afterward, stays with you.</span></p>
-<p>Every block adds one entry. No score, no judgment — just a record of what happened, so patterns become visible over time.</p>
-<p><b>Recorded automatically</b><br><span class="mnote">Planned vs. actual start and finish. Action-list checks. Your check-in responses through the block.</span></p>
-<p><b>The 60-second exit</b><br><span class="mnote">Did you finish the block as planned? · Any output numbers, if the goal had one · What, if anything, got in the way of focus · Where the next block will start.</span></p>
-<p><b>It stays with you</b><br><span class="mnote">Because the log never leaves your machine, you decide what to do with it. Share the accumulated log with a coach or therapist to spot what disrupts focus or follow-through. Or paste the latest entry into a new chat to build your next focus file from it.</span></p>
+  <script type="text/plain" id="m-log"><h2>Next-block handoff</h2>
+<p><b>The log is for learning, not scoring.</b> Each block leaves a short record of what actually happened, so the next Focus File can start from evidence instead of a blank slate.</p>
+<p><b>What it notices</b><br><span class="mnote">Planned versus actual timing, completed actions, check-in responses, what you finished, what pulled you off, and the exact place the work should resume.</span></p>
+<p><b>What carries forward</b><br><span class="mnote">Your next starting point becomes the proposed task. What got in the way becomes a trap to watch for. The previous setup returns as a default you can keep or adjust instead of answering every question cold.</span></p>
+<p><b>One lesson at a time</b><br><span class="mnote">Across several blocks, the log makes habits visible: a time window that is too ambitious, a distraction that keeps returning, or a blocking plan that genuinely works. Carry one useful change into the next file and let the ritual improve block by block.</span></p>
+<p>After saving an entry, choose <b>Set up the next block</b>. The Focus File copies the handoff for you; paste it into a new AI chat to begin the next interview.</p>
 </script>
 
   <script>
