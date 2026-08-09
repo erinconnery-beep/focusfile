@@ -57,6 +57,7 @@
     border-radius:14px; overflow:hidden; }
   .pb-head { display:flex; justify-content:space-between; align-items:center;
     padding:14px 18px; border-bottom:1px solid var(--paper-line); }
+  .prompt-action { display:flex; justify-content:flex-start; padding:0 18px 20px; }
   .pb-label { font-family:var(--mono); font-size:11px; letter-spacing:.16em;
     text-transform:uppercase; color:var(--pine); font-weight:700; }
   .copy { display:inline-flex; align-items:center; gap:9px; background:var(--pine); color:#fff;
@@ -92,12 +93,15 @@
   .bd-msg { font-family:var(--sans); font-size:13.5px; margin-top:10px; min-height:1em; color:var(--ink-faint); }
   .bd-msg.err { color:#a8442a; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
-  .resource-links { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 14px;
+  .resource-links { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;
     margin-top:28px; padding-top:24px; border-top:1px solid var(--hair); }
+  .resource-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 14px; }
   .resource-link { background:none; border:0; padding:0; cursor:pointer; font-family:var(--sans);
     font-size:13px; color:var(--ink-mut); text-decoration:none; }
   .resource-link:hover { color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
   .resource-dot { font-family:var(--sans); font-size:14px; color:var(--ink-faint); line-height:1; }
+  .resource-label { font-family:var(--sans); font-size:13px; color:var(--ink-mut); }
+  .resource-examples .resource-link { color:var(--ink-soft); font-weight:600; }
   .resource-links + .foot { margin-top:28px; padding-top:24px; }
 
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
@@ -226,9 +230,6 @@
   .flow { max-width:760px; width:100%; margin:clamp(74px,10vh,118px) auto 0; scroll-margin-top:24px; }
   .flow-intro { margin-bottom:16px; text-align:center; }
   .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
-  .promptbox + .interview-feedback { text-align:center; margin:16px 0 2px; font-family:var(--sans);
-    font-size:13px; color:var(--ink-mut); }
-
   @media (max-width:1400px){
     .hero { grid-template-columns:1fr; }
     .hero-copy { max-width:760px; }
@@ -370,7 +371,6 @@
       <div class="promptbox">
         <div class="pb-head">
           <span class="pb-label">1 — Run a quick interview</span>
-          <button class="copy" id="copyAgainBtn">Copy setup</button>
         </div>
         <div class="pb-body">
           <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
@@ -390,26 +390,33 @@
             </p>
           </div>
         </div>
+        <div class="prompt-action">
+          <button class="copy" id="copyAgainBtn">Copy interview prompt</button>
+        </div>
       </div>
-
-      <p class="interview-feedback">How did the interview go? <button class="foot-link" data-modal="feedback">Send feedback</button></p>
 
       <div class="promptbox" style="margin-top:20px">
         <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
         <div style="padding:18px 18px 20px">
           <p class="bd-lead">Paste the interview results to build your focus file — it downloads instantly.</p>
           <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste here"></textarea>
-          <button class="copy bd-go" id="buildBtn">&#8595;&nbsp;&nbsp;Build my focus file</button>
+          <button class="copy bd-go" id="buildBtn">Create &amp; download my Focus File</button>
           <p class="bd-msg" id="bdMsg"></p>
         </div>
       </div>
 
       <nav class="resource-links" aria-label="More about Focus File">
-        <button class="resource-link" data-modal="interview">The interview</button>
-        <span class="resource-dot" aria-hidden="true">&middot;</span>
-        <button class="resource-link" data-modal="log">Next-block handoff</button>
-        <span class="resource-dot" aria-hidden="true">&middot;</span>
-        <button class="resource-link" data-modal="privacy">Privacy</button>
+        <div class="resource-row">
+          <button class="resource-link" data-modal="interview">The interview</button>
+          <span class="resource-dot" aria-hidden="true">&middot;</span>
+          <button class="resource-link" data-modal="log">Next-block handoff</button>
+        </div>
+        <div class="resource-row resource-examples">
+          <span class="resource-label">Download examples:</span>
+          <a class="resource-link" href="sample-writing.html" download="focus-file-writing-example.html">Writing</a>
+          <span class="resource-dot" aria-hidden="true">&middot;</span>
+          <a class="resource-link" href="sample-jobsearch.html" download="focus-file-job-search-example.html">Job search</a>
+        </div>
       </nav>
 
       <div class="foot">
