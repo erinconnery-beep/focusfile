@@ -960,7 +960,7 @@ window.addEventListener("DOMContentLoaded", function () {
       <div class="msg"><span class="mark">✓</span> Entry saved.</div>
 
       <button class="btn-buildnext" id="buildNextBtn">Build next block from this →</button>
-      <div class="buildnext-hint" id="buildNextHint">One click copies today's session log together with the setup prompt&mdash;paste it into a new chat and the next block starts where this one ended.</div>
+      <div class="buildnext-hint" id="buildNextHint">One click copies your last session plus a short interview. Paste it into a new chat, answer, then bring the settings block back to the builder &mdash; the next block starts where this one ended.</div>
 
       <div class="next-links" id="nextLinks">
         <div class="nl-lead">Paste it into a new chat:</div>
@@ -1242,6 +1242,7 @@ let titleTimer = null;
 let previewing = false;
 let previewWasVisible = false;
 let previewTimer = null;
+let boostTimer = null;
 function endPreview() {
   previewing = false;
   clearTimeout(previewTimer);
@@ -1256,10 +1257,18 @@ function endPreview() {
    Sort of  -> the trap you named (Q4): a little distracted, on the thing you said.
    No       -> why it matters (Q5): off task or not started.
    Sort-of with no trap falls back to the reason.                                  */
+var BOOSTS = ["Nice \u2014 keep the thread going.", "That's the work. Onward.", "Good. Stay with it.", "On task, and it shows.", "You're kicking ass \u2014 back to it."];
 function showReminder(ans) {
+  clearTimeout(boostTimer);
   $("pull").classList.remove("on");
-  if (ans === "yes") return;
   var label, text;
+  if (ans === "yes") {                     // a quick, self-clearing lift for the honest on-task answer
+    $("pullLabel").textContent = "On it";
+    $("pullText").textContent  = BOOSTS[Math.floor(Math.random() * BOOSTS.length)];
+    $("pull").classList.add("on");
+    boostTimer = setTimeout(function () { $("pull").classList.remove("on"); }, 4000);
+    return;
+  }
   if (ans === "sort-of" && hasTrap) {
     label = cfg.whyLabel || "Watch for";
     text  = cfg.why;
@@ -1445,6 +1454,40 @@ function fallbackCopy(txt, done) {
   document.body.removeChild(ta);
 }
 /* ---- Build next block: copy interview prompt + this session as priming ---- */
+const NEXT_SCHEMA = [
+"{",
+'  "templateVersion": "2026-07-20",',
+'  "task": "",',
+'  "scope": "",',
+'  "mode": "sealed",',
+'  "sealedPlan": "",',
+'  "laneSites": [],',
+'  "whyLabel": "Watch for",',
+'  "why": "",',
+'  "finishFeel": "",',
+'  "jobsShape": "none",',
+'  "jobs": [],',
+'  "blockMinutes": 90,',
+'  "knockMinMin": 28,',
+'  "knockMaxMin": 33,',
+'  "doneWhenShort": ""',
+"}"
+].join("\n");
+const BUILD_NEXT_PROMPT = [
+"Run a quick setup for a focus tool called Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. Ask ONE question at a time, warm and fast. Honor the LAST SESSION defaults above: for each question, state the previous answer and ask only to confirm or adjust.",
+"",
+"Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off (phone in another room, airplane mode, unplug the router, a Freedom session) and set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
+"Q2 \u2014 WORK + TIME. The task and the block window (start/end, or minutes).",
+"Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps.",
+"Q4 \u2014 THE TRAP (optional). The thing that feels like progress but isn't. If skipped, why is \"\".",
+"Q5 \u2014 THE REASON. Why finishing matters today.",
+"",
+"When done, reply in one short line, then output ONLY this JSON in one code block, filled from the interview \u2014 copy templateVersion unchanged, every value from the interview, never invented:",
+NEXT_SCHEMA,
+"",
+"Then tell them, in one line: Paste that block into the builder at thenextblock.org to download your next focus file."
+].join("\n");
+
 function buildNextPayload(e) {
   const ctx = [];
   const realNext = (e.nextStart && e.nextStart.trim().length > 2) ? e.nextStart.trim() : "";
@@ -1476,11 +1519,7 @@ function buildNextPayload(e) {
   ctx.push("- Q5 reason: default to \"" + (cfg.finishFeel || "") + "\"; keep it unless they want a new one.");
   ctx.push("=== END LAST SESSION ===");
   ctx.push("");
-  ctx.push(INTERVIEW_PROMPT);
-  ctx.push("");
-  ctx.push("=== FOCUS FILE TEMPLATE ===");
-  // the file as delivered, not as used — see PRISTINE_HTML
-  ctx.push(PRISTINE_HTML);
+  ctx.push(BUILD_NEXT_PROMPT);
   return ctx.join("\n");
 }
 

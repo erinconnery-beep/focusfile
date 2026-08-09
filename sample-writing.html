@@ -479,6 +479,7 @@ let titleTimer = null;
 let previewing = false;
 let previewWasVisible = false;
 let previewTimer = null;
+let boostTimer = null;
 function endPreview() {
 previewing = false;
 clearTimeout(previewTimer);
@@ -487,10 +488,18 @@ $("checkin").style.marginTop = "";
 $("pull").classList.remove("on");
 if (!previewWasVisible) $("checkin").classList.remove("on");
 }
+var BOOSTS = ["Nice \u2014 keep the thread going.", "That's the work. Onward.", "Good. Stay with it.", "On task, and it shows.", "You're kicking ass \u2014 back to it."];
 function showReminder(ans) {
+clearTimeout(boostTimer);
 $("pull").classList.remove("on");
-if (ans === "yes") return;
 var label, text;
+if (ans === "yes") {                     // a quick, self-clearing lift for the honest on-task answer
+$("pullLabel").textContent = "On it";
+$("pullText").textContent  = BOOSTS[Math.floor(Math.random() * BOOSTS.length)];
+$("pull").classList.add("on");
+boostTimer = setTimeout(function () { $("pull").classList.remove("on"); }, 4000);
+return;
+}
 if (ans === "sort-of" && hasTrap) {
 label = cfg.whyLabel || "Watch for";
 text  = cfg.why;
