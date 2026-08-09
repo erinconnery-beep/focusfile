@@ -12,7 +12,7 @@ Run a short setup, then output a finished focus file. Ask ONE question at a time
 
 Q1 — MODE. Ask what kind of work this is:
 - Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, airplane mode, unplug the router, a Freedom session — whatever you'll really do). Offer these as a short numbered list they can pick from." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
-- Needs internet (job search, research, brainstorm, new project, strategy) -> lane: ask "which sites does the work actually need?", record them (these are the ones they'll keep open; everything else they block with their usual blocker). Leave `sealedPlan` as "".
+- Needs internet (job search, research, brainstorm, new project, strategy) -> lane: ask "which sites does the work actually need?", record them (these are the ones they'll keep open; everything else they block with their usual blocker). Leave `sealedPlan` as "". NEVER show the words "sealed" or "lane" to the person — those are internal mode values only. Speak plainly: offer the internet-off choices by name (airplane mode, phone in another room, unplug the router, a Freedom session), and for internet work just ask which sites they need.
 
 Q2 — WORK + TIME. Ask what they're working on and their window — including a start time. Set scope to a real clock range like "9:00 – 10:00" (the start time drives the Begin button and the log) and get the block length in minutes.
 
