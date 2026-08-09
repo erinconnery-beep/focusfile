@@ -2,35 +2,41 @@
 
 A free, offline focus tool for brains that stall at the starting line.
 
-You answer a few quick questions in any AI chat, and it hands back a single self-contained HTML page — a "focus file" — that holds one block of work. You save it, turn off the internet, and open it. It shows what you're doing, quietly tracks your time, and knocks every half hour to ask if you're still on task, replaying your own reasons back to you. When you're done, a 60-second exit log records what happened and builds the seed of your next block.
+You answer a few quick questions in any AI chat, and the site hands back a single self-contained HTML page — a "focus file" — that holds one block of work. You save it, turn off the internet, and open it. It shows what you're doing, quietly tracks your time, and knocks every half hour to ask if you're still on task, replaying your own reasons back to you. When you're done, a 60-second exit log records what happened and seeds your next block.
 
 No account. No server. Nothing leaves your browser.
+
+Site: **thenextblock.org**
 
 ---
 
 ## How it works
 
-1. **The site** (`index.html`) shows a prompt and a Copy button.
-2. **You copy the prompt** and paste it into any AI (Claude, ChatGPT, Gemini).
-3. **The AI runs a ~2-minute interview** — five questions that narrow the work to one finishable block, name what will pull you off task, and capture why it matters.
-4. **The AI outputs your focus file** — a complete HTML page, customized to your block.
-5. **You save it and open it offline** to do the work.
+1. **Run a quick interview.** The site (`index.html`) shows a short prompt and a Copy button. Copy it and paste it into any AI (Claude, ChatGPT, Gemini).
+2. **Answer five questions.** The AI narrows the work to one finishable block, names what will pull you off task, and captures why it matters — then hands back a small **settings block** (a few lines of JSON), not a whole file.
+3. **Build your file.** Paste that settings block into the builder on the site ("2 — Build your file"). The site injects it into the focus-file template and your file **downloads instantly** — no waiting for the AI to type out a 60 KB page.
+4. **Work offline.** Save the file, turn off the internet, and open it.
 
-The focus file runs entirely in the browser with no internet connection. The session log lives in the browser's local storage and can be copied out to share with a coach or therapist, or used to build the next block.
+At the end, the exit log closes the block and seeds the next one: "Set up the next block" copies your last session plus a short interview, so the next block picks up where this one ended.
+
+The focus file runs entirely in the browser with no internet connection. The log lives in the browser's local storage and can be copied or downloaded to share with a coach or therapist.
 
 ---
 
 ## The files
 
-| File | What it is | Where it goes |
+| File | What it is | Deploy? |
 | --- | --- | --- |
-| `index.html` | **The website.** A self-contained landing page. The full prompt is embedded inside it, so the Copy button hands out everything. | **Deploy.** |
-| `sample-writing.html` | **A finished focus file** for a writing block (1,500 words). Linked from the site as a live example. | **Deploy** (the site links to it). |
-| `sample-jobsearch.html` | **A finished focus file** for a job-search block. Linked from the site as a live example. | **Deploy** (the site links to it). |
-| `focus-file-prompt.md` | **The setup prompt.** The 5-question interview plus the focus-file HTML template. This is what `index.html`'s Copy button copies. | Source only — embedded in `index.html`. |
-| `focus-file.html` | **The focus file template (readable).** The un-minified page a session produces. The minified version is embedded in `focus-file-prompt.md`. | Source only — reference / editing. |
+| `index.html` | **The website** — landing page, the short prompt + Copy button, and the "Build your file" box. | **Yes** |
+| `focus-file.html` | **The focus-file template.** The builder fetches this file to construct each focus file. **The site breaks without it.** | **Yes** |
+| `sample-writing.html` | A finished focus file for a writing block. Linked from the site as a live example. | **Yes** |
+| `sample-jobsearch.html` | A finished focus file for a job-search block. Linked from the site as a live example. | **Yes** |
+| `focus-file-prompt.md` | A standalone copy of the setup prompt. Not referenced by the site. | Optional |
+| `prompt-head.md` | The editable source of the interview instructions. `build.py` reads it. | Source only |
+| `build.py` | Rebuilds the generated copies safely. Never hand-edit the generated regions. | Source only |
+| `CLAUDE.md` | Working notes. | Source only |
 
-**Deploy set:** `index.html` **plus the two `sample-*.html` files** — they must go up together, because the site's "See a finished one" links point to the samples. The `.md` and readable `.html` are source, already baked into `index.html`.
+**Deploy set:** `index.html`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html` — all four must go up together. The builder fetches `focus-file.html`, and the site's sample links point to the two `sample-*.html` files.
 
 ---
 
@@ -39,42 +45,37 @@ The focus file runs entirely in the browser with no internet connection. The ses
 Static HTML files. No build step, no framework, no dependencies.
 
 **Drag-and-drop (simplest):**
-1. Put `index.html`, `sample-writing.html`, and `sample-jobsearch.html` in a folder together. `index.html` must be named exactly that.
+1. Put the four deploy files in one folder. `index.html` must be named exactly that.
 2. Go to [vercel.com/new](https://vercel.com/new) and log in.
 3. Drag the folder onto the deploy area.
 4. Vercel gives you a live URL in seconds.
 
 When asked about a framework or build command, choose **"Other"** or leave it blank — it's plain static files.
 
-**Custom domain:**
-1. In the Vercel project, go to **Settings → Domains**.
-2. Add your domain (e.g. `focus-file.com`).
-3. Add the DNS records Vercel shows you at your domain registrar.
-4. Wait for DNS to propagate (minutes to a few hours).
+**Custom domain:** In the Vercel project, go to **Settings -> Domains**, add your domain, and add the DNS records Vercel shows you at your registrar.
 
-**After it's live:** click the Copy button on the deployed site and confirm the prompt copies. The clipboard works more reliably on a real `https://` domain than when opening the file locally.
+**After it's live:** copy the prompt, run it in an AI, paste the settings block into the builder, and confirm a focus file downloads. The clipboard and download work more reliably on a real `https://` domain than opening the file locally.
 
 ---
 
 ## Editing the tool
 
-Because the prompt and the focus file are embedded in `index.html`, changes flow like this:
+Edits flow one direction — never hand-edit generated regions. Run `python3 build.py` after any change.
 
-- **To change the focus file** (the page a session produces): edit `focus-file.html`, minify it, re-embed it into `focus-file-prompt.md`, then re-embed `focus-file-prompt.md` into `index.html`.
-  - Note: `focus-file.html` keeps a `TESTS` object (dev-only, drives `?test=` preview URLs). The template embedded in the prompt/site strips `TESTS` and simplifies the config line to `urlCfg || CONFIG`. It is embedded **un-minified (normal line breaks), not minified** — the setup prompt is meant to be pasted into a chat, and one giant single line can stall large pastes, so readability/paste-reliability wins over byte count here. Produced files load config from the interview (`#cfg=` or the `CONFIG` object), never from `TESTS`.
-- **To change the interview questions**: edit the instructions section at the top of `focus-file-prompt.md`, then re-embed into `index.html`.
-- **To change the website itself** (headline, layout, modals): edit `index.html` directly.
+- **The focus file** (the page a session produces): edit `focus-file.html`, then `python3 build.py`. This regenerates the samples from the template.
+- **The interview questions / prompt**: edit `prompt-head.md`, then `python3 build.py`. This regenerates the prompt embedded in `index.html` and the standalone `focus-file-prompt.md`.
+- **The website itself** (headline, layout, modals, the builder): edit `index.html` directly (outside the generated prompt region).
 
-The embedding is what keeps the site self-contained — one file the Copy button can hand out in full, with no external requests.
+`focus-file.html` keeps a `TESTS` object (dev-only, drives `?test=` preview URLs); `build.py` strips it from anything shipped. The template is kept un-minified on purpose — readability and reliable rendering win over byte count.
 
 ---
 
 ## Design principles
 
 - **Decide once, then just begin.** The setup ends fast so the doing can start. It plans just enough to begin, not enough to keep you planning.
-- **It thinks with you, not for you.** It helps shape the work but builds nothing until you approve it. It doesn't decide what matters — it makes the intention you already chose harder to lose.
-- **Accountability in your own words.** The knock replays what *you* said: your task, your reason, your usual escape. It's harder to argue with your own reasons.
-- **The file holds the commitment between sessions.** Made the night before, it waits open beside the work like a note from yesterday's self.
+- **It thinks with you, not for you.** It helps shape the work but builds nothing until you approve it.
+- **Accountability in your own words.** The knock replays what *you* said: your task, your reason, your usual escape.
+- **The file holds the commitment between sessions.** Made ahead of time, it waits open beside the work like a note from an earlier self.
 - **Why a file?** No account, no service, nothing that can be taken away. The log stays in your browser, and the whole thing works with the Wi-Fi off — which is where most focused work happens anyway.
 
 ---
@@ -89,7 +90,7 @@ Focus File is not medical or psychological advice.
 
 ## Contact
 
-Feedback, ideas, or problems: **hello@focus-file.com**
+Feedback, ideas, or problems: **erinconnery@gmail.com**
 
 Built by a writer who couldn't start.
 
