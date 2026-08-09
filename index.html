@@ -184,6 +184,24 @@
 
     <h1><span class="nowrap">One clear block.</span> <span class="nowrap">See it through.</span></h1>
     <p class="pitch"><b>A free AI prompt that refuses to let a goal stay vague.</b> It narrows the work to one finishable block—then builds an offline focus file that keeps the task, the reason, and the next step in front of you while you work.</p>
+    <div class="hero-peek" aria-hidden="true" style="max-width:440px;margin:22px auto 4px;border:1px solid #e4d9c5;border-radius:14px;overflow:hidden;background:#fdfbf6;font-family:Georgia,'Iowan Old Style',serif;box-shadow:0 1px 0 #efe7d8;">
+      <div style="padding:11px 20px;border-bottom:1px solid #f0e8da;font-size:13px;font-weight:600;color:#2f6a44;">Focus File</div>
+      <div style="padding:18px 20px 16px;background:#f3ede1;border-bottom:1px solid #e4d9c5;">
+        <div style="font-family:-apple-system,system-ui,sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a8474;margin-bottom:8px;">9:00 – 10:30</div>
+        <div style="font-size:24px;line-height:1.1;font-weight:700;color:#26241e;letter-spacing:-0.01em;">1,500 new words at the desk</div>
+      </div>
+      <div style="padding:9px 20px;background:#eef4ea;border-bottom:1px solid #f0e8da;font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:#3d7a52;"><span style="font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:9px;">Internet off</span> &nbsp;<span style="color:#5c5647;">phone in another room</span></div>
+      <div style="padding:16px 20px;border-bottom:1px solid #f0e8da;">
+        <div style="font-family:-apple-system,system-ui,sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5642f;margin-bottom:6px;">Avoid</div>
+        <div style="font-size:14px;font-style:italic;color:#5c5647;line-height:1.4;">Re-reading instead of writing. New words only — forward.</div>
+      </div>
+      <div style="padding:16px 20px;font-family:-apple-system,system-ui,sans-serif;font-size:14px;color:#2c2a24;">
+        <div style="display:flex;gap:11px;align-items:center;margin-bottom:11px;"><span style="width:18px;height:18px;border-radius:5px;background:#2f6a44;flex-shrink:0;"></span><span style="color:#a39c8c;text-decoration:line-through;">500 words</span></div>
+        <div style="display:flex;gap:11px;align-items:center;"><span style="width:18px;height:18px;border-radius:5px;border:1.5px solid #8a8474;flex-shrink:0;"></span>1,000 words</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:#8a8474;margin:0 0 6px;">What you get: a self-contained file that works with the internet off.</p>
+
 
     <div class="promptbox">
       <div class="pb-head">
@@ -359,6 +377,7 @@ Then stop.
         }
         var i=raw.indexOf('{'), j=raw.lastIndexOf('}');
         var jtxt=(i!==-1 && j>i)?raw.slice(i,j+1):raw;   // tolerate a reply line before/after the JSON
+        jtxt=jtxt.replace(/[\u201C\u201D]/g,'"').replace(/[\u2018\u2019]/g,"'").replace(/,\s*([}\]])/g,'$1');  // fix smart quotes + trailing commas
         var cfg;
         try { cfg=JSON.parse(jtxt); }
         catch(e){ msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
