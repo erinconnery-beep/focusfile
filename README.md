@@ -40,23 +40,17 @@ The focus file runs entirely in the browser with no internet connection. The log
 
 ---
 
-## Deploying to Vercel
+## Deploying
 
-Static HTML files. No build step, no framework, no dependencies.
+Static HTML files — no build step, no framework, no dependencies. The repo is connected to a static host that auto-deploys on every push, so **updating the site just means updating the files in GitHub**.
 
-**Drag-and-drop (simplest):**
-1. Put the four deploy files in one folder. `index.html` must be named exactly that.
-2. Go to [vercel.com/new](https://vercel.com/new) and log in.
-3. Drag the folder onto the deploy area.
-4. Vercel gives you a live URL in seconds.
+**To update:**
+1. In the GitHub repo, drag the changed files in (`index.html`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`) and confirm the overwrite.
+2. Commit. The site redeploys automatically within a minute.
 
-When asked about a framework or build command, choose **"Other"** or leave it blank — it's plain static files.
+**Keep `index.html` at the repo root.** When dragging from a folder, drag the files *from inside* it — not the folder itself — so `index.html` lands at the top level, not in a subfolder.
 
-**Custom domain:** In the Vercel project, go to **Settings -> Domains**, add your domain, and add the DNS records Vercel shows you at your registrar.
-
-**After it's live:** copy the prompt, run it in an AI, paste the settings block into the builder, and confirm a focus file downloads. The clipboard and download work more reliably on a real `https://` domain than opening the file locally.
-
----
+**After it deploys:** copy the prompt, run it in an AI, paste the settings block into the builder, and confirm a focus file downloads. Clipboard and download work on the live `https://` site.
 
 ## Editing the tool
 
