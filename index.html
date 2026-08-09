@@ -15,6 +15,7 @@
   }
   body { font-family:var(--serif); color:var(--ink); background:var(--paper);
     line-height:1.5; min-height:100vh; display:flex; flex-direction:column; }
+  html { scroll-behavior:smooth; }
 
   /* HEADER NAV */
   header { display:flex; align-items:center; justify-content:space-between;
@@ -157,14 +158,9 @@
     max-width:11ch; }
   .hero-deck { font-size:clamp(17px,1.45vw,21px); line-height:1.62; color:var(--ink-soft);
     max-width:36ch; margin-bottom:30px; }
-  .hero-actions { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+  .hero-actions { display:flex; flex-direction:column; align-items:flex-start; }
   .hero-copy .copy { min-width:320px; justify-content:center; padding:15px 28px; font-size:16px; }
-  .hero-sample { font-family:var(--sans); font-size:16px; font-weight:650; color:var(--pine);
-    text-decoration:underline; text-underline-offset:5px; }
-  .hero-sample:hover { color:#235a35; }
-  .trust-line { display:flex; align-items:center; gap:8px; font-family:var(--sans); font-size:13px;
-    line-height:1.4; color:var(--ink-mut); margin-top:24px; }
-  .trust-dot { width:7px; height:7px; border:1.5px solid var(--pine); border-radius:50%; flex:0 0 auto; }
+  .hero-cta { text-decoration:none; }
 
   .product-demo { min-width:0; }
   .demo-labels { display:grid; grid-template-columns:1.12fr .98fr .9fr; align-items:center;
@@ -247,7 +243,6 @@
     .hero h1 { font-size:clamp(36px,10.5vw,44px); line-height:1.08; max-width:12ch; margin-bottom:20px; }
     .hero-deck { font-size:16px; line-height:1.55; margin-bottom:24px; }
     .hero-copy .copy { min-width:0; width:100%; }
-    .trust-line { margin-top:18px; }
     .demo-labels { display:none; }
     .mobile-demo-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px;
       padding:4px; border:1px solid var(--paper-line); border-radius:11px; background:var(--paper-warm); }
@@ -274,6 +269,7 @@
     .freetag { display:none; }
     header { justify-content:space-between; }
   }
+  @media (prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-oqBnf5_V4SRV4lbtttuo3.js"></script>
@@ -308,12 +304,10 @@
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
         <h1 id="heroTitle">An offline focus tool.</h1>
-        <p class="hero-deck">Turn today&rsquo;s work into a concrete, finishable block&mdash;then keep the task, the reason, and the next step in view while you do it.</p>
+        <p class="hero-deck">A five-question AI interview refuses to let your goal stay vague. It turns today&rsquo;s work into a concrete, finishable block&mdash;then the Focus File keeps the task, the reason, and the next step in view while you do it.</p>
         <div class="hero-actions">
-          <button class="copy" id="copyBtn">Copy the 5-question setup</button>
-          <a class="hero-sample" href="sample-jobsearch.html" target="_blank" rel="noopener">See a live example &rarr;</a>
+          <a class="copy hero-cta" href="#setup">Start the 5-question setup&nbsp;&nbsp;&darr;</a>
         </div>
-        <p class="trust-line"><span class="trust-dot" aria-hidden="true"></span>No account. Your Focus File and log stay on your device.</p>
       </div>
 
       <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and handoff">
@@ -594,7 +588,6 @@ Then stop.
         navigator.clipboard.writeText(text).then(showCopied, fallback);
       } else { fallback(); }
     }
-    document.getElementById('copyBtn').addEventListener('click', function(){ copyPrompt(this); });
     document.getElementById('copyAgainBtn').addEventListener('click', function(){ copyPrompt(this); });
 
     // Compact product preview on small screens.
