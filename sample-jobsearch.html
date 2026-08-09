@@ -294,15 +294,15 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <!-- EXIT -->
 <div class="exit" id="exit">
 <div class="eyebrow exit-eyebrow" id="exitEyebrow">Block complete</div>
-<div class="exit-title">A few quick things — this becomes your log.</div>
-<label class="exit-q" for="finishInput">Did you finish the block as planned?</label>
-<textarea class="exit-input" id="finishInput" rows="2"></textarea>
+<div class="exit-title">A few quick things — this closes the block and seeds the next.</div>
+<label class="exit-q" for="finishInput">How far did you get?</label>
+<textarea class="exit-input" id="finishInput" rows="2" placeholder="e.g. mostly there — about 600 of 1,000 words"></textarea>
 <label class="exit-q" id="outputQ" for="outputInput" style="display:none;">Output — did you hit the number?</label>
 <input class="exit-input" id="outputInput" style="display:none;" />
-<label class="exit-q" for="inTheWayInput">What, if anything, got in the way of focus?</label>
-<textarea class="exit-input" id="inTheWayInput" rows="2"></textarea>
-<label class="exit-q" for="nextInput">Where will the next block start?</label>
-<textarea class="exit-input" id="nextInput" rows="2"></textarea>
+<label class="exit-q" for="inTheWayInput">What pulled you off? <span style="font-weight:400;">(I’ll watch for it next block)</span></label>
+<textarea class="exit-input" id="inTheWayInput" rows="2" placeholder="e.g. drifted into note-taking — leave blank if nothing"></textarea>
+<label class="exit-q" for="nextInput">Where does the next block pick up?</label>
+<textarea class="exit-input" id="nextInput" rows="2" placeholder="e.g. Scene C — the confrontation"></textarea>
 <div class="exit-foot">
 <span class="exit-log" id="exitLog"></span>
 <button class="btn-done" id="doneBtn">Save entry</button>
@@ -311,7 +311,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <!-- ALL DONE + LOG -->
 <div class="alldone" id="allDone">
 <div class="msg"><span class="mark">✓</span> Entry saved.</div>
-<button class="btn-buildnext" id="buildNextBtn">Build next block from this →</button>
+<button class="btn-buildnext" id="buildNextBtn">Set up the next block →</button>
 <div class="buildnext-hint" id="buildNextHint">One click copies today's session log together with the setup prompt&mdash;paste it into a new chat and the next block starts where this one ended.</div>
 <div class="next-links" id="nextLinks">
 <div class="nl-lead">Paste it into a new chat:</div>
@@ -608,11 +608,6 @@ clearInterval(elapsedTimer);
 clearTimeout(knockTimer);
 clearTimeout(blockEndTimer);
 $("exitEyebrow").textContent = endedEarly ? "Block ended" : "Block complete";
-const isCount = cfg.jobsShape === "milestones" || /\d/.test(cfg.doneWhenShort || "");
-if (isCount) {
-$("outputQ").style.display = "block";
-$("outputInput").style.display = "block";
-}
 $("exit").classList.add("on");
 }
 function getEntries() {
@@ -692,7 +687,7 @@ ctx.push("- Q4 trap: " + (cfg.why || "(none named)"));
 ctx.push("- Q5 reason: " + (cfg.finishFeel || "not specified"));
 ctx.push("");
 ctx.push("How the block actually went (from the log):");
-if (e.finishedAsPlanned) ctx.push("- Finished as planned?: " + e.finishedAsPlanned);
+if (e.finishedAsPlanned) ctx.push("- How far they got: " + e.finishedAsPlanned);
 if (e.output) ctx.push("- Output / number hit: " + e.output);
 if (e.inTheWay) ctx.push("- What got in the way: " + e.inTheWay);
 if (realNext) ctx.push("- Where they said the NEXT block starts: " + realNext);
@@ -757,7 +752,8 @@ hasTrap = cfg.why && cfg.why.trim().length > 0;
 $("taskTitle").textContent = cfg.task;
 $("scope").textContent     = cfg.scope;
 var _ps = plannedStartStr();
-$("beginBtn").innerHTML = (_ps ? "Begin \u2014 you said " + _ps : "Begin session") + ' <span class="arr">\u2192</span>';
+var _isTime = _ps && /(\d{1,2}:\d{2})|(\d{1,2}\s*(am|pm))/i.test(_ps);
+$("beginBtn").innerHTML = (_isTime ? "Begin \u2014 " + _ps + " start" : "Begin session") + ' <span class="arr">\u2192</span>';
 renderPreStart();
 preTimer = setInterval(renderPreStart, 1000);
 setInterval(renderClockLine, 20000);
