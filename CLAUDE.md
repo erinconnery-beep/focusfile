@@ -1,3 +1,21 @@
+# Focus File — LEAN build
+
+This is the lean version: ~17.5 KB template (was ~64 KB), ~2 min to generate, ~22 KB prompt.
+
+Architecture: index.html FETCHES focus-file-prompt.md at run time (nothing embedded, no escaping).
+prompt-head.md + focus-file.html -> focus-file-prompt.md. Each sample = focus-file.html with its
+own <script id="focus-config"> island. Run `python3 build.py` after editing focus-file.html or
+prompt-head.md. No minifying.
+
+Deploy set: index.html + focus-file-prompt.md + sample-writing.html + sample-jobsearch.html.
+
+Dropped from the full build (by design): build-next, pre-start countdown/committed button, knock
+beep, tab-blink, preview-the-knock, on-screen log readout, self-test, config validation, "one more
+block." Knock window baked at 28-33 min. Exit log keeps a "copy latest entry" button. To revert,
+deploy the FULL zip instead.
+
+---
+
 # Focus File — working context
 
 Read this first. It explains how the repo fits together, which decisions are settled,
