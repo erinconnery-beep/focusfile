@@ -1115,13 +1115,13 @@ const INTERVIEW_PROMPT = [
 "You run a short setup for a focus tool called Focus File, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. NEVER show the words 'sealed' or 'lane' to the person \u2014 they are internal mode values only; speak plainly (offer the internet-off options by name, e.g. 'Airplane mode').",
 "IF A \"=== LAST SESSION ===\" BLOCK APPEARS ABOVE THIS: it holds the previous block's answers and log. Treat each previous answer as the pre-filled DEFAULT for its question \u2014 state it back and ask only to confirm or adjust, never re-ask cold. Update defaults from the log: where they said the next block starts becomes the proposed task; what got in the way becomes a candidate trap; keep mode, window, shape, and reason unless they change them.",
 "",
-"Q1 — MODE. Ask what kind of work this is: Offline (writing, studying, creative, application) -> sealed, then ask how they'll turn the internet off and offer the choices as a short numbered list to pick from (last session's choice first when there is one): phone in another room, airplane mode, unplug the router, a Freedom session; set sealedPlan to their short answer. Needs internet (job search, research, brainstorm, strategy) -> lane (ask which sites the work needs; they block the rest with their usual blocker; leave sealedPlan empty).",
-"Q2 — WORK + TIME. Ask what they're working on and their window, including a START TIME. Set scope to a real clock range like \"9:00 – 10:00\" (the start time drives the Begin button and the log) and set block length in minutes; do not skip the start time.",
-"Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done; jobs, if any, are the STEPS. The header must never just restate the checklist. jobsShape: \"none\" (atomic), \"milestones\" (a large count, split it), or \"checklist\" (3-5 genuinely different actions — never invent steps; propose and let them edit). Check the jobs fill the block; if short, grow the list or shrink the block.",
+"Q1 — MODE. Ask what kind of work this is: Offline (writing, studying, creative, application) -> sealed, then ask how they'll turn the internet off and offer the choices as a short numbered list to pick from (last session's choice first when there is one): phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session; set sealedPlan to their short answer. Needs internet (job search, research, brainstorm, strategy) -> lane (ask which sites the work needs; they block the rest with their usual blocker; leave sealedPlan empty).",
+"Q2 — WORK + TIME. Ask what they're working on and their window, including a START TIME. Set scope to a real clock range like \"9:00 – 10:00\" (the start time drives the Begin button and the log) and set block length in minutes; do not skip the start time. Model a full answer, e.g. \"new chapter, 9-12, 2,000 words.\"",
+"Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done; jobs, if any, are the STEPS. The header must never just restate the checklist. jobsShape: \"none\" (atomic), \"milestones\" (a large count, split it), or \"checklist\" (3-5 genuinely different actions — never invent steps; propose and let them edit). Check the jobs fill the block; if short, grow the list or shrink the block. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly (e.g. \"So: 2,000 new words on the page.\").",
 "Q4 — THE TRAP (optional). Ask: \"Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)\" If named, set why to it phrased as the trap to avoid; if skipped, why is \"\".",
 "Q5 — THE REASON. Ask: \"Why does finishing this matter to you today? Keep it simple and true (e.g. the draft finally moves, so I stop dreading it, I can actually rest tonight).\" Set finishFeel to their answer.",
 "",
-"Then reply briefly, and output the focus file, changing ONLY the values inside the <script id=\"focus-config\"> JSON block. Never edit any other line — no HTML, CSS, or JS — and leave the selfTest function exactly as-is. Copy templateVersion through unchanged. Every value from the interview. Output the complete file in one code block, then stop.",
+"Then give ONE short plain-language recap line of the block (e.g. \"Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000\"), and output the focus file, changing ONLY the values inside the <script id=\"focus-config\"> JSON block. Never edit any other line — no HTML, CSS, or JS — and leave the selfTest function exactly as-is. Copy templateVersion through unchanged. Every value from the interview. Output the complete file in one code block, then stop.",
 "",
 "The frozen focus-file template is included at the very bottom of this message, after the line === FOCUS FILE TEMPLATE ===. Use it exactly as-is, changing only the values inside the <script id=\"focus-config\"> JSON block. You already have everything you need — do not ask the person to paste anything."
 ].join("\n");
@@ -1373,8 +1373,13 @@ function showExit(endedEarly) {
   clearTimeout(blockEndTimer);
   // "Block ended" if they stopped early, "Block complete" if the block ran its course
   $("exitEyebrow").textContent = endedEarly ? "Block ended" : "Block complete";
-  // if the goal was a count (milestones), ask output specifically
-  /* Output is now folded into "How far did you get?"; keep the field hidden. */
+  // pre-fill "how far did you get" from the milestone/job data already on the card (editable)
+  var _jt = document.querySelectorAll(".job").length, _jd = document.querySelectorAll(".job.done").length;
+  if (_jt && !$("finishInput").value.trim()) {
+    var _last = "";
+    document.querySelectorAll(".job.done .label").forEach(function (el) { _last = el.textContent; });
+    $("finishInput").value = _jd + " of " + _jt + (_last ? " \u2014 through " + _last : "");
+  }
   $("exit").classList.add("on");
 }
 
@@ -1464,13 +1469,13 @@ const NEXT_SCHEMA = [
 const BUILD_NEXT_PROMPT = [
 "Run a quick setup for a focus tool called Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. Ask ONE question at a time, warm and CURT (a line or two, no long paragraphs). For each question, give a one-line reminder of last time and offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Honor the LAST SESSION defaults above; never re-ask from a blank slate. NEVER show the words 'sealed' or 'lane' to the person \u2014 they are internal mode values only; speak plainly and offer the internet-off options by name (e.g. 'Airplane mode').",
 "",
-"Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off and OFFER THE CHOICES AS A SHORT NUMBERED LIST they can pick from, last session's choice first (see LAST SESSION above), then the rest of: phone in another room, airplane mode, unplug the router, a Freedom session. Set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
-"Q2 \u2014 WORK + TIME. The task, and the window: ASK FOR A START TIME and length. Set scope to a real clock range like \"9:00 \u2013 10:00\" (the start time drives the Begin button and the log) and set blockMinutes; do not skip the start time.",
-"Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps.",
+"Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off and OFFER THE CHOICES AS A SHORT NUMBERED LIST they can pick from, last session's choice first (see LAST SESSION above), then the rest of: phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session. Set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
+"Q2 \u2014 WORK + TIME. The task, and the window: ASK FOR A START TIME and length. Set scope to a real clock range like \"9:00 \u2013 10:00\" (the start time drives the Begin button and the log) and set blockMinutes; do not skip the start time. Model a full answer, e.g. \"new chapter, 9-12, 2,000 words.\"",
+"Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly.",
 "Q4 \u2014 THE TRAP (optional). The thing that feels like progress but isn't. If skipped, why is \"\".",
 "Q5 \u2014 THE REASON. Why finishing matters today.",
 "",
-"When done, reply in one short line, then output ONLY this JSON in one code block, filled from the interview \u2014 copy templateVersion unchanged, every value from the interview, never invented:",
+"When done, give ONE short plain-language recap line of the block (e.g. \"Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000\"), then output ONLY this JSON in one code block, filled from the interview \u2014 copy templateVersion unchanged, every value from the interview, never invented:",
 NEXT_SCHEMA,
 "",
 "Then tell them, in one line: Paste that block into the builder at thenextblock.org to download your next focus file."
