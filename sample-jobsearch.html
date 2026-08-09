@@ -241,7 +241,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 </div>
 <!-- WHY (watch-for: the trap to avoid) -->
 <div class="why" id="why">
-<div class="eyebrow why-label" id="whyLabel">Watch for</div>
+<div class="eyebrow why-label" id="whyLabel">Avoid</div>
 <p id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
 </div>
 <!-- JOBS (hidden / milestones / checklist) with counter -->
@@ -324,6 +324,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
 <button class="btn-log" id="viewLogBtn">View log</button>
 <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
 <button class="btn-log" id="copyAllBtn">Copy full log</button>
+<button class="btn-log" id="downloadLogBtn">Download log</button>
 </div>
 <div class="log-view" id="logView"></div>
 </div>
@@ -341,7 +342,7 @@ body{min-height:100vh;display:flex;align-items:flex-start;justify-content:center
     "my resume doc"
   ],
   "sealedPlan": "",
-  "whyLabel": "Watch for",
+  "whyLabel": "Avoid",
   "why": "\"Researching the company\" and reading job descriptions will feel like progress. It's the detour. Tailor, write, submit — three all the way out.",
   "finishFeel": "Three real applications submitted, not five tabs of maybes. One less week where I meant to apply and didn't.",
   "jobsShape": "checklist",
@@ -485,7 +486,6 @@ let titleTimer = null;
 let previewing = false;
 let previewWasVisible = false;
 let previewTimer = null;
-let boostTimer = null;
 function endPreview() {
 previewing = false;
 clearTimeout(previewTimer);
@@ -494,20 +494,12 @@ $("checkin").style.marginTop = "";
 $("pull").classList.remove("on");
 if (!previewWasVisible) $("checkin").classList.remove("on");
 }
-var BOOSTS = ["Nice \u2014 keep the thread going.", "That's the work. Onward.", "Good. Stay with it.", "On task, and it shows.", "You're kicking ass \u2014 back to it."];
 function showReminder(ans) {
-clearTimeout(boostTimer);
 $("pull").classList.remove("on");
+if (ans === "yes") return;             // on task: no message, don't interrupt the flow
 var label, text;
-if (ans === "yes") {                     // a quick, self-clearing lift for the honest on-task answer
-$("pullLabel").textContent = "On it";
-$("pullText").textContent  = BOOSTS[Math.floor(Math.random() * BOOSTS.length)];
-$("pull").classList.add("on");
-boostTimer = setTimeout(function () { $("pull").classList.remove("on"); }, 4000);
-return;
-}
 if (ans === "sort-of" && hasTrap) {
-label = cfg.whyLabel || "Watch for";
+label = cfg.whyLabel || "Avoid";
 text  = cfg.why;
 } else {
 label = "Remember what you're after";
@@ -587,7 +579,7 @@ const diff = Math.round((Date.now() - st.getTime()) / 60000);
 let late, cls;
 if (diff < 0) { late = "in " + fmtDur(-diff); cls = "ps-soon"; }
 else if (diff === 0) { late = "it's time \u2014 begin"; cls = "ps-late"; }
-else { late = fmtDur(diff) + " past your " + raw + " start"; cls = "ps-late"; }
+else { late = fmtDur(diff) + " since your " + raw + " start"; cls = "ps-late"; }
 meta += ' <span class="cl-sep">\u00b7</span> <span class="' + cls + '">' + late + '</span>';
 }
 $("psMeta").innerHTML = meta;
@@ -720,7 +712,7 @@ PRISTINE_HTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 }
 function normalizeConfig(raw) {
 const c = Object.assign({
-scope: "", laneSites: [], sealedPlan: "", whyLabel: "Watch for", why: "",
+scope: "", laneSites: [], sealedPlan: "", whyLabel: "Avoid", why: "",
 finishFeel: "", jobsShape: "none", jobs: [], knockMinMin: 28, knockMaxMin: 33
 }, raw || {});
 c.task = String(c.task || "").trim();
@@ -734,7 +726,7 @@ c.why = String(c.why || "");
 c.sealedPlan = String(c.sealedPlan || "");
 c.finishFeel = String(c.finishFeel || "");
 c.doneWhenShort = String(c.doneWhenShort || c.task);
-c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Watch for";
+c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Avoid";
 return c;
 }
 function loadConfig() {
@@ -760,7 +752,7 @@ setInterval(renderClockLine, 20000);
 $("pullText").textContent  = cfg.finishFeel;
 $("beLine").textContent    = "You said done was " + cfg.doneWhenShort + ".";
 if (hasTrap) {
-$("whyLabel").textContent = cfg.whyLabel || "Watch for";
+$("whyLabel").textContent = cfg.whyLabel || "Avoid";
 $("whyText").textContent  = cfg.why;
 $("knockReason").textContent = "\u201C" + cfg.why + "\u201D";
 } else {
@@ -951,6 +943,14 @@ const entries = getEntries();
 if (!entries.length) return;
 const all = entries.map(entryToText).join("\n\n———\n\n");
 copyText(all, e.target);
+});
+$("downloadLogBtn").addEventListener("click", (e) => {
+const entries = getEntries();
+if (!entries.length) return;
+const all = entries.map(entryToText).join("\n\n———\n\n");
+downloadText(all, "focus-log.txt");
+const b = e.target, o = b.textContent;
+b.textContent = "Saved ✓"; setTimeout(() => b.textContent = o, 1600);
 });
 $("buildNextBtn").addEventListener("click", (e) => {
 const entries = getEntries();

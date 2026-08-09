@@ -875,7 +875,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     <!-- WHY (watch-for: the trap to avoid) -->
     <div class="why" id="why">
-      <div class="eyebrow why-label" id="whyLabel">Watch for</div>
+      <div class="eyebrow why-label" id="whyLabel">Avoid</div>
       <p id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
     </div>
 
@@ -960,10 +960,10 @@ window.addEventListener("DOMContentLoaded", function () {
       <div class="msg"><span class="mark">✓</span> Entry saved.</div>
 
       <button class="btn-buildnext" id="buildNextBtn">Set up the next block →</button>
-      <div class="buildnext-hint" id="buildNextHint">One click copies your last session plus a short interview. Paste it into a new chat, answer, then bring the settings block back to the builder &mdash; the next block starts where this one ended.</div>
+      <div class="buildnext-hint" id="buildNextHint">One click sets up your next block from this one.</div>
 
       <div class="next-links" id="nextLinks">
-        <div class="nl-lead">Paste it into a new chat:</div>
+        <div class="nl-lead">Copied. Paste into a new chat &mdash; your log answers carry into the interview.</div>
         <div class="nl-row">
           <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
         </div>
@@ -975,6 +975,7 @@ window.addEventListener("DOMContentLoaded", function () {
         <button class="btn-log" id="viewLogBtn">View log</button>
         <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
         <button class="btn-log" id="copyAllBtn">Copy full log</button>
+        <button class="btn-log" id="downloadLogBtn">Download log</button>
       </div>
       <div class="log-view" id="logView"></div>
     </div>
@@ -989,7 +990,7 @@ window.addEventListener("DOMContentLoaded", function () {
   "mode": "sealed",
   "laneSites": [],
   "sealedPlan": "phone in the other room",
-  "whyLabel": "Watch for",
+  "whyLabel": "Avoid",
   "why": "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
   "finishFeel": "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
   "jobsShape": "none",
@@ -1013,7 +1014,7 @@ const TESTS = {
     task: "1,500 new words on the story",
     scope: "9:00 – 12:00", mode: "sealed", laneSites: [],
     sealedPlan: "phone in the other room",
-    whyLabel: "Watch for",
+    whyLabel: "Avoid",
     why: "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
     finishFeel: "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
     jobsShape: "none", jobs: [],
@@ -1023,7 +1024,7 @@ const TESTS = {
   notrap: {
     task: "1,500 new words on the story",
     scope: "9:00 – 12:00", mode: "sealed", laneSites: [],
-    whyLabel: "Watch for",
+    whyLabel: "Avoid",
     why: "",
     finishFeel: "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
     jobsShape: "none", jobs: [],
@@ -1033,7 +1034,7 @@ const TESTS = {
   writingMilestones: {
     task: "1,500 new words on the story",
     scope: "9:00 – 12:00", mode: "sealed", laneSites: [],
-    whyLabel: "Watch for",
+    whyLabel: "Avoid",
     why: "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
     finishFeel: "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
     jobsShape: "milestones", jobs: ["500 words", "1,000 words", "1,500 words — done"],
@@ -1044,7 +1045,7 @@ const TESTS = {
     task: "3 applications out the door",
     scope: "9:00 – 9:45", mode: "lane",
     laneSites: ["LinkedIn", "Gmail", "the 3 company sites"],
-    whyLabel: "Watch for",
+    whyLabel: "Avoid",
     why: "\"Researching\" a company will feel like progress. It's the detour. Submit, don't browse.",
     finishFeel: "Three applications actually out the door. Not tabs open, not maybes — sent. The week has a real result in it.",
     jobsShape: "checklist",
@@ -1060,7 +1061,7 @@ const TESTS = {
   study: {
     task: "Cranial nerves, cold from memory",
     scope: "9:00 – 10:30", mode: "sealed", laneSites: [],
-    whyLabel: "Watch for",
+    whyLabel: "Avoid",
     why: "Re-reading the deck will feel like studying. It's the detour. Recall with it closed, or you don't know it.",
     finishFeel: "All twelve, in order, from memory — the thing I've been avoiding is just done.",
     jobsShape: "checklist",
@@ -1077,7 +1078,7 @@ const TESTS = {
     task: "A working outline of the proposal",
     scope: "9:00 – 11:00", mode: "lane",
     laneSites: ["Google Docs", "the funder's site"],
-    whyLabel: "Watch for",
+    whyLabel: "Avoid",
     why: "Re-reading the guidelines will feel like progress. It's the detour. The skeleton goes down today.",
     finishFeel: "A real skeleton on the page. Next session I fill it in instead of staring at a blank doc.",
     jobsShape: "checklist",
@@ -1114,8 +1115,8 @@ const INTERVIEW_PROMPT = [
 "You run a short setup for a focus tool called Focus File, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions.",
 "IF A \"=== LAST SESSION ===\" BLOCK APPEARS ABOVE THIS: it holds the previous block's answers and log. Treat each previous answer as the pre-filled DEFAULT for its question \u2014 state it back and ask only to confirm or adjust, never re-ask cold. Update defaults from the log: where they said the next block starts becomes the proposed task; what got in the way becomes a candidate trap; keep mode, window, shape, and reason unless they change them.",
 "",
-"Q1 — MODE. Ask what kind of work this is: Offline (writing, studying, creative, application) -> sealed, then ask how they'll turn the internet off (phone in another room, airplane mode, unplug router, Freedom session) and set sealedPlan to their short answer. Needs internet (job search, research, brainstorm, strategy) -> lane (ask which sites the work needs; they block the rest with their usual blocker; leave sealedPlan empty).",
-"Q2 — WORK + TIME. Ask what they're working on and their window. Get the task and block length in minutes.",
+"Q1 — MODE. Ask what kind of work this is: Offline (writing, studying, creative, application) -> sealed, then ask how they'll turn the internet off and offer the choices as a short numbered list to pick from (last session's choice first when there is one): phone in another room, airplane mode, unplug the router, a Freedom session; set sealedPlan to their short answer. Needs internet (job search, research, brainstorm, strategy) -> lane (ask which sites the work needs; they block the rest with their usual blocker; leave sealedPlan empty).",
+"Q2 — WORK + TIME. Ask what they're working on and their window, including a START TIME. Set scope to a real clock range like \"9:00 – 10:00\" (the start time drives the Begin button and the log) and set block length in minutes; do not skip the start time.",
 "Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done; jobs, if any, are the STEPS. The header must never just restate the checklist. jobsShape: \"none\" (atomic), \"milestones\" (a large count, split it), or \"checklist\" (3-5 genuinely different actions — never invent steps; propose and let them edit). Check the jobs fill the block; if short, grow the list or shrink the block.",
 "Q4 — THE TRAP (optional). Ask: \"Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)\" If named, set why to it phrased as the trap to avoid; if skipped, why is \"\".",
 "Q5 — THE REASON. Ask: \"Why does finishing this matter to you today? Keep it simple and true (e.g. the draft finally moves, so I stop dreading it, I can actually rest tonight).\" Set finishFeel to their answer.",
@@ -1242,7 +1243,6 @@ let titleTimer = null;
 let previewing = false;
 let previewWasVisible = false;
 let previewTimer = null;
-let boostTimer = null;
 function endPreview() {
   previewing = false;
   clearTimeout(previewTimer);
@@ -1257,20 +1257,12 @@ function endPreview() {
    Sort of  -> the trap you named (Q4): a little distracted, on the thing you said.
    No       -> why it matters (Q5): off task or not started.
    Sort-of with no trap falls back to the reason.                                  */
-var BOOSTS = ["Nice \u2014 keep the thread going.", "That's the work. Onward.", "Good. Stay with it.", "On task, and it shows.", "You're kicking ass \u2014 back to it."];
 function showReminder(ans) {
-  clearTimeout(boostTimer);
   $("pull").classList.remove("on");
+  if (ans === "yes") return;             // on task: no message, don't interrupt the flow
   var label, text;
-  if (ans === "yes") {                     // a quick, self-clearing lift for the honest on-task answer
-    $("pullLabel").textContent = "On it";
-    $("pullText").textContent  = BOOSTS[Math.floor(Math.random() * BOOSTS.length)];
-    $("pull").classList.add("on");
-    boostTimer = setTimeout(function () { $("pull").classList.remove("on"); }, 4000);
-    return;
-  }
   if (ans === "sort-of" && hasTrap) {
-    label = cfg.whyLabel || "Watch for";
+    label = cfg.whyLabel || "Avoid";
     text  = cfg.why;
   } else {
     label = "Remember what you're after";
@@ -1357,7 +1349,7 @@ function renderPreStart() {
     let late, cls;
     if (diff < 0) { late = "in " + fmtDur(-diff); cls = "ps-soon"; }
     else if (diff === 0) { late = "it's time \u2014 begin"; cls = "ps-late"; }
-    else { late = fmtDur(diff) + " past your " + raw + " start"; cls = "ps-late"; }
+    else { late = fmtDur(diff) + " since your " + raw + " start"; cls = "ps-late"; }
     meta += ' <span class="cl-sep">\u00b7</span> <span class="' + cls + '">' + late + '</span>';
   }
   $("psMeta").innerHTML = meta;
@@ -1458,7 +1450,7 @@ const NEXT_SCHEMA = [
 '  "mode": "sealed",',
 '  "sealedPlan": "",',
 '  "laneSites": [],',
-'  "whyLabel": "Watch for",',
+'  "whyLabel": "Avoid",',
 '  "why": "",',
 '  "finishFeel": "",',
 '  "jobsShape": "none",',
@@ -1470,10 +1462,10 @@ const NEXT_SCHEMA = [
 "}"
 ].join("\n");
 const BUILD_NEXT_PROMPT = [
-"Run a quick setup for a focus tool called Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. Ask ONE question at a time, warm and fast. Honor the LAST SESSION defaults above: for each question, state the previous answer and ask only to confirm or adjust.",
+"Run a quick setup for a focus tool called Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. Ask ONE question at a time, warm and CURT (a line or two, no long paragraphs). For each question, give a one-line reminder of last time and offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Honor the LAST SESSION defaults above; never re-ask from a blank slate.",
 "",
-"Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off (phone in another room, airplane mode, unplug the router, a Freedom session) and set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
-"Q2 \u2014 WORK + TIME. The task and the block window (start/end, or minutes).",
+"Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off and OFFER THE CHOICES AS A SHORT NUMBERED LIST they can pick from, last session's choice first (see LAST SESSION above), then the rest of: phone in another room, airplane mode, unplug the router, a Freedom session. Set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
+"Q2 \u2014 WORK + TIME. The task, and the window: ASK FOR A START TIME and length. Set scope to a real clock range like \"9:00 \u2013 10:00\" (the start time drives the Begin button and the log) and set blockMinutes; do not skip the start time.",
 "Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps.",
 "Q4 \u2014 THE TRAP (optional). The thing that feels like progress but isn't. If skipped, why is \"\".",
 "Q5 \u2014 THE REASON. Why finishing matters today.",
@@ -1489,7 +1481,7 @@ function buildNextPayload(e) {
   const realNext = (e.nextStart && e.nextStart.trim().length > 2) ? e.nextStart.trim() : "";
   const sites = (cfg.laneSites || []).join(", ");
   ctx.push("=== LAST SESSION — remember this and carry it forward ===");
-  ctx.push("Below are the previous block's setup answers and how it actually went. For EACH question in the interview, treat the previous answer as the pre-filled DEFAULT: say it back, ask only to confirm or adjust, and update it from the log. Never re-ask from a blank slate.");
+  ctx.push("Below are the previous block's setup answers and how it actually went. Keep every question CURT \u2014 a line or two, never a long paragraph. For EACH question: give a one-line reminder of last time's answer, then offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Update defaults from the log. Never re-ask from a blank slate.");
   ctx.push("");
   ctx.push("Previous answers, by question:");
   ctx.push("- Q1 mode: " + cfg.mode + (cfg.mode === "sealed" ? " (internet off via: " + (cfg.sealedPlan || "not specified") + ")" : " (sites kept open: " + (sites || "not specified") + ")"));
@@ -1511,6 +1503,7 @@ function buildNextPayload(e) {
     ? "- Q2 task: default to \"" + realNext + "\" (where they said the next block starts). Confirm or let them change it."
     : "- Q2 task: carry \"" + cfg.task + "\" forward unless they say it's finished.");
   ctx.push("- Q1 mode, Q2 window, Q3 shape: reuse last time's as defaults; change only what they ask to change.");
+  ctx.push("- Q2 start time: if last window has no clock time, ASK for one and set scope like \"9:00 – 10:00\".");
   ctx.push("- Q4 trap: default to \"" + (cfg.why || e.inTheWay || "") + "\"." + ((e.inTheWay && e.inTheWay !== cfg.why) ? " The log says \"" + e.inTheWay + "\" got in the way — offer that as the trap if it fits." : "") + " If there was no trap and nothing got in the way, leave it empty.");
   ctx.push("- Q5 reason: default to \"" + (cfg.finishFeel || "") + "\"; keep it unless they want a new one.");
   ctx.push("=== END LAST SESSION ===");
@@ -1537,7 +1530,7 @@ function capturePristine() {
 
 function normalizeConfig(raw) {
   const c = Object.assign({
-    scope: "", laneSites: [], sealedPlan: "", whyLabel: "Watch for", why: "",
+    scope: "", laneSites: [], sealedPlan: "", whyLabel: "Avoid", why: "",
     finishFeel: "", jobsShape: "none", jobs: [], knockMinMin: 28, knockMaxMin: 33
   }, raw || {});
   c.task = String(c.task || "").trim();
@@ -1551,7 +1544,7 @@ function normalizeConfig(raw) {
   c.sealedPlan = String(c.sealedPlan || "");
   c.finishFeel = String(c.finishFeel || "");
   c.doneWhenShort = String(c.doneWhenShort || c.task);
-  c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Watch for";
+  c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Avoid";
   return c;
 }
 
@@ -1595,7 +1588,7 @@ function applyConfig() {
   $("beLine").textContent    = "You said done was " + cfg.doneWhenShort + ".";
 
   if (hasTrap) {
-    $("whyLabel").textContent = cfg.whyLabel || "Watch for";
+    $("whyLabel").textContent = cfg.whyLabel || "Avoid";
     $("whyText").textContent  = cfg.why;
     $("knockReason").textContent = "\u201C" + cfg.why + "\u201D";
   } else {
@@ -1810,11 +1803,20 @@ function wireEvents() {
     copyText(all, e.target);
   });
 
+  $("downloadLogBtn").addEventListener("click", (e) => {
+    const entries = getEntries();
+    if (!entries.length) return;
+    const all = entries.map(entryToText).join("\n\n———\n\n");
+    downloadText(all, "focus-log.txt");
+    const b = e.target, o = b.textContent;
+    b.textContent = "Saved ✓"; setTimeout(() => b.textContent = o, 1600);
+  });
+
   $("buildNextBtn").addEventListener("click", (e) => {
     const entries = getEntries();
     if (!entries.length) return;
     copyText(buildNextPayload(entries[entries.length - 1]), e.target,
-             () => $("nextLinks").classList.add("on"));
+             () => { $("nextLinks").classList.add("on"); $("buildNextHint").style.display = "none"; });
   });
 
   $("previewLink").addEventListener("click", () => {

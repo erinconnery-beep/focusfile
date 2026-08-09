@@ -210,6 +210,8 @@
       </div>
     </div>
 
+    <p style="text-align:center;margin:16px 0 2px;font-family:var(--sans);font-size:13px;color:#8a8474;">How did the interview go? <button class="foot-link" data-modal="feedback">Send feedback</button></p>
+
     <div class="promptbox" style="margin-top:20px">
       <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
       <div style="padding:18px 18px 20px">
@@ -254,10 +256,10 @@ INSTRUCTIONS FOR THE AI:
 Run a short setup, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
 
 Q1 — MODE. Ask what kind of work this is:
-- Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, airplane mode, unplug the router, a Freedom session — whatever you'll really do)." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
+- Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, airplane mode, unplug the router, a Freedom session — whatever you'll really do). Offer these as a short numbered list they can pick from." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
 - Needs internet (job search, research, brainstorm, new project, strategy) -> lane: ask "which sites does the work actually need?", record them (these are the ones they'll keep open; everything else they block with their usual blocker). Leave `sealedPlan` as "".
 
-Q2 — WORK + TIME. Ask what they're working on and their window (e.g. "writing, 9-12"). Get the task and block length in minutes.
+Q2 — WORK + TIME. Ask what they're working on and their window — including a start time. Set scope to a real clock range like "9:00 – 10:00" (the start time drives the Begin button and the log) and get the block length in minutes.
 
 Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Then pick jobsShape:
 - "none": atomic, nothing to break down without faking it (write 1,500 words, meditate). Header stands alone.
@@ -266,7 +268,7 @@ Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing t
 Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
 
 Q4 — THE TRAP (optional). Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
-If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Watch for" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
+If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
 
 Q5 — THE REASON. Ask: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.'" I'll show this back to you if you drift.
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
@@ -283,7 +285,7 @@ THEN, in this order:
   "mode": "sealed",
   "sealedPlan": "",
   "laneSites": [],
-  "whyLabel": "Watch for",
+  "whyLabel": "Avoid",
   "why": "",
   "finishFeel": "",
   "jobsShape": "none",
@@ -350,9 +352,17 @@ Then stop.
         msg.className='bd-msg';
         if(!raw){ msg.className='bd-msg err'; msg.textContent='Paste the settings block first.'; return; }
         raw=raw.replace(/^```[a-z]*\s*/i,'').replace(/```\s*$/,'').trim();
+        if(/=== LAST SESSION|output ONLY this JSON|Run a quick setup|You run a short setup|\bQ1 \u2014/i.test(raw)){
+          msg.className='bd-msg err';
+          msg.textContent="That's the interview prompt, not the settings block. Paste it into a new AI chat (Claude, ChatGPT, or Gemini), answer the questions, then paste the block it gives you back here.";
+          return;
+        }
+        var i=raw.indexOf('{'), j=raw.lastIndexOf('}');
+        var jtxt=(i!==-1 && j>i)?raw.slice(i,j+1):raw;   // tolerate a reply line before/after the JSON
         var cfg;
-        try { cfg=JSON.parse(raw); }
+        try { cfg=JSON.parse(jtxt); }
         catch(e){ msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
+        if(!cfg.task || !String(cfg.task).trim()){ msg.className='bd-msg err'; msg.textContent="The settings block looks empty \u2014 make sure you paste the one your AI filled in, not the blank template."; return; }
         msg.textContent='Building\u2026';
         fetch('focus-file.html').then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(tpl){
           var island='<script id="focus-config" type="application/json">\n'+JSON.stringify(cfg,null,2)+'\n<\/script>';
