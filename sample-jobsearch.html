@@ -535,8 +535,6 @@ window.addEventListener("DOMContentLoaded", function () {
     padding: 10px 8px;   /* larger tap target — comfortable to press */
   }
   .preview-link:hover { color: var(--ink-soft); }
-  .why.flash-why { animation: why-flash 1.4s ease-out; }
-  @keyframes why-flash { 0%, 55% { background: #f6e8dc; } 100% { background: transparent; } }
 
   /* ---------- Block-end ---------- */
   .blockend {
@@ -917,11 +915,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
       <div class="preview-row">
         <span class="next-knock" id="nextKnock"></span>
-        <button type="button" class="preview-link" id="logLink">Your log</button>
         <button type="button" class="preview-link" id="previewLink">Preview the knock</button>
         <button type="button" class="preview-link end-link" id="endLink" style="display:none;">Finish session</button>
       </div>
-      <div class="log-view" id="logPanel" style="text-align:left;"></div>
     </div>
 
     <!-- BLOCK-END -->
@@ -988,7 +984,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
 <script id="focus-config" type="application/json">
 {
-  "demo": true,
   "templateVersion": "2026-07-20",
   "task": "3 applications fully out the door",
   "scope": "9:00 – 11:00",
@@ -1274,19 +1269,18 @@ function endPreview() {
    Sort-of with no trap falls back to the reason.                                  */
 function showReminder(ans) {
   $("pull").classList.remove("on");
-  $("why").classList.remove("flash-why");
   if (ans === "yes") return;             // on task: no message, don't interrupt the flow
+  var label, text;
   if (ans === "sort-of" && hasTrap) {
-    // the trap is already shown in the AVOID section - flash it, don't print it twice
-    var w = $("why");
-    void w.offsetWidth; w.classList.add("flash-why");
-    if (w.scrollIntoView) w.scrollIntoView({ block: "nearest" });
-    return;
+    label = cfg.whyLabel || "Avoid";
+    text  = cfg.why;
+  } else {
+    label = "Remember what you're after";
+    text  = cfg.finishFeel;
   }
-  // "no" (or "sort of" with no trap): surface the reason it matters
-  if (!cfg.finishFeel || !cfg.finishFeel.trim()) return;
-  $("pullLabel").textContent = "Remember what you're after";
-  $("pullText").textContent  = cfg.finishFeel;
+  if (!text || !text.trim()) return;   // nothing meaningful to show
+  $("pullLabel").textContent = label;
+  $("pullText").textContent  = text;
   $("pull").classList.add("on");
 }
 const BASE_TITLE = document.title;
@@ -1359,7 +1353,6 @@ function renderPreStart() {
   const raw = plannedStartStr();
   const st = plannedStartDate();
   $("psWindow").textContent = cfg.scope || "";
-  if (cfg.demo) { $("psMeta").innerHTML = ""; return; }   // sample: no live late-counter
   let meta = "now " + nowHHMM();
   if (raw && st) {
     const diff = Math.round((Date.now() - st.getTime()) / 60000);
@@ -1424,9 +1417,9 @@ function entryToText(e) {
   if (e.nextStart) lines.push("Next block starts: " + e.nextStart);
   return lines.join("\n");
 }
-function renderLog(targetId) {
+function renderLog() {
   const entries = getEntries();
-  const v = $(targetId || "logView");
+  const v = $("logView");
   if (!entries.length) { v.innerHTML = '<div class="log-empty">No entries yet.</div>'; return; }
   v.innerHTML = "";
   entries.slice().reverse().forEach(e => {
@@ -1566,7 +1559,6 @@ function normalizeConfig(raw) {
   c.sealedPlan = String(c.sealedPlan || "");
   c.finishFeel = String(c.finishFeel || "");
   c.doneWhenShort = String(c.doneWhenShort || c.task);
-  c.demo = !!c.demo;   // samples: neutralize the live clock so they read clean anytime
   c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Avoid";
   return c;
 }
@@ -1813,12 +1805,6 @@ function wireEvents() {
     v.classList.toggle("on");
     if (v.classList.contains("on")) { renderLog(); $("viewLogBtn").textContent = "Hide log"; }
     else $("viewLogBtn").textContent = "View log";
-  });
-  $("logLink").addEventListener("click", () => {
-    const v = $("logPanel");
-    v.classList.toggle("on");
-    if (v.classList.contains("on")) { renderLog("logPanel"); $("logLink").textContent = "Hide log"; }
-    else $("logLink").textContent = "Your log";
   });
   $("copyLastBtn").addEventListener("click", (e) => {
     const entries = getEntries();

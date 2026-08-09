@@ -91,17 +91,12 @@
   .bd-msg { font-family:var(--sans); font-size:13.5px; margin-top:10px; min-height:1em; color:var(--ink-faint); }
   .bd-msg.err { color:#a8442a; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
-  .steps { display:flex; gap:24px; margin:32px 0 0; }
-  .step { flex:1; }
-  .step .n { font-family:var(--mono); font-size:13px; color:var(--pine); font-weight:600; margin-bottom:8px; }
-  .step h3 { font-family:var(--sans); font-size:14.5px; font-weight:600; color:var(--ink); margin-bottom:4px; }
-  .step p { font-family:var(--sans); font-size:14px; color:#756f60; line-height:1.5; }
-  .step-dl { margin-top:10px; font-size:14px; }
-  .step-dl a { color:var(--pine); font-weight:600; text-decoration:underline; text-underline-offset:2px; font-size:14px; }
-  .step-dl a:hover { color:#276039; }
-  .step-link { background:none; border:none; padding:0; cursor:pointer; font-family:var(--sans);
-    font-size:14px; color:var(--pine); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-  .step-link:hover { color:#276039; }
+  .resource-links { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 22px;
+    margin-top:28px; padding-top:24px; border-top:1px solid var(--hair); }
+  .resource-link { background:none; border:0; padding:0; cursor:pointer; font-family:var(--sans);
+    font-size:13px; color:var(--ink-mut); text-decoration:none; }
+  .resource-link:hover { color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
+  .resource-links + .foot { margin-top:28px; padding-top:24px; }
 
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
     margin-top:48px; padding-top:32px; border-top:1px solid var(--hair);
@@ -142,13 +137,142 @@
     .freetag { flex:1 1 auto; text-align:center; margin:0 10px; }
     .wrap { padding:40px 22px 32px; }
     h1 { font-size:32px; }
-    .steps { flex-direction:column; gap:18px; }
     .foot-msg { font-size:12.5px; }
     .foot { padding-top:24px; margin-top:36px; }
     .pb-head { flex-direction:column; align-items:stretch; gap:12px; }
     .pb-label { font-size:11px; text-align:center; }
     .copy { width:100%; justify-content:center; padding:14px 26px; font-size:15px; }
     .modal { padding:28px 24px; }
+  }
+
+  /* PRODUCT-FIRST HOMEPAGE */
+  header { padding:20px clamp(24px,4vw,56px); }
+  .logo { font-size:18px; }
+  .logo-mark { width:22px; height:22px; }
+  .wrap { max-width:1400px; padding:clamp(52px,7vh,88px) clamp(24px,5vw,72px) 48px; }
+  .hero { display:grid; grid-template-columns:minmax(360px,.82fr) minmax(650px,1.28fr);
+    gap:clamp(48px,6vw,90px); align-items:center; }
+  .hero-copy { align-self:center; padding-bottom:12px; }
+  .hero h1 { font-size:clamp(46px,4.6vw,66px); line-height:1.07; margin-bottom:24px;
+    max-width:11ch; }
+  .hero-deck { font-size:clamp(17px,1.45vw,21px); line-height:1.62; color:var(--ink-soft);
+    max-width:36ch; margin-bottom:30px; }
+  .hero-actions { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+  .hero-copy .copy { min-width:320px; justify-content:center; padding:15px 28px; font-size:16px; }
+  .hero-sample { font-family:var(--sans); font-size:16px; font-weight:650; color:var(--pine);
+    text-decoration:underline; text-underline-offset:5px; }
+  .hero-sample:hover { color:#235a35; }
+  .trust-line { display:flex; align-items:center; gap:8px; font-family:var(--sans); font-size:13px;
+    line-height:1.4; color:var(--ink-mut); margin-top:24px; }
+  .trust-dot { width:7px; height:7px; border:1.5px solid var(--pine); border-radius:50%; flex:0 0 auto; }
+
+  .product-demo { min-width:0; }
+  .demo-labels { display:grid; grid-template-columns:1.12fr .98fr .9fr; align-items:center;
+    gap:14px; margin:0 16px 14px; }
+  .demo-label { display:flex; align-items:center; justify-content:center; gap:9px; font-family:var(--mono);
+    color:var(--pine); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+  .demo-label b { display:grid; place-items:center; width:24px; height:24px; border:1.5px solid var(--pine);
+    border-radius:7px; font-family:var(--sans); font-size:12px; letter-spacing:0; }
+  .mobile-demo-tabs { display:none; }
+  .demo-stage { display:grid; grid-template-columns:1.12fr .98fr .9fr; align-items:center; }
+  .demo-card { position:relative; background:linear-gradient(145deg,#fdfbf7,#f7f1e6);
+    border:1px solid #ddd1bd; border-radius:17px; box-shadow:0 18px 40px rgba(54,44,28,.11),0 2px 5px rgba(54,44,28,.06);
+    overflow:hidden; min-width:0; }
+  .demo-card + .demo-card { margin-left:-16px; }
+  .demo-card.work { z-index:3; min-height:410px; }
+  .demo-card.checkin { z-index:2; min-height:374px; }
+  .demo-card.handoff { z-index:1; min-height:340px; }
+  .demo-brand { padding:16px 18px; border-bottom:1px solid #e7ddcc; color:var(--pine);
+    font-size:14px; font-weight:700; }
+  .demo-body { padding:22px 18px; }
+  .demo-meta { display:flex; justify-content:space-between; gap:8px; font-family:var(--mono);
+    font-size:10.5px; color:var(--ink-mut); margin-bottom:9px; }
+  .demo-meta .late { color:var(--clay); }
+  .demo-title { font-size:clamp(20px,1.65vw,25px); line-height:1.13; margin-bottom:20px; }
+  .demo-lane { margin:0 -18px 18px; padding:10px 18px; border-top:1px solid #dce7d8;
+    border-bottom:1px solid #dce7d8; background:#f0f5ed; font-family:var(--sans); font-size:10px;
+    line-height:1.45; color:var(--ink-soft); }
+  .demo-lane b { font-family:var(--mono); font-size:8px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--pine); margin-right:7px; }
+  .demo-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .demo-list li { display:flex; gap:10px; align-items:flex-start; font-family:var(--sans); font-size:12.5px;
+    line-height:1.35; color:var(--ink-soft); }
+  .demo-check { width:15px; height:15px; border:1.5px solid #aaa18f; border-radius:4px; flex:0 0 auto;
+    margin-top:1px; position:relative; background:#fffdfa; }
+  .demo-check.done { background:var(--pine); border-color:var(--pine); }
+  .demo-check.done::after { content:""; position:absolute; left:3px; top:1px; width:5px; height:8px;
+    border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+  .demo-footer { position:absolute; left:0; right:0; bottom:0; display:flex; align-items:center;
+    justify-content:space-between; padding:14px 18px; border-top:1px solid #e7ddcc; background:rgba(253,251,247,.82); }
+  .demo-timer { font-family:var(--mono); font-size:12px; font-weight:700; color:var(--clay); }
+  .demo-end { font-family:var(--sans); font-size:10px; color:var(--ink-soft); border:1px solid #d9cfbd;
+    border-radius:7px; padding:7px 10px; background:#fffdfa; }
+  .demo-question { font-size:22px; line-height:1.2; margin:4px 0 20px; }
+  .demo-answers { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:26px; }
+  .demo-answer { font-family:var(--sans); font-size:11px; text-align:center; padding:10px 5px;
+    border:1px solid #d9cfbd; border-radius:8px; background:#fffdfa; color:var(--ink-soft); }
+  .demo-answer.selected { background:var(--pine); border-color:var(--pine); color:#fff; }
+  .demo-reminder { padding:17px 15px 16px; border:1px solid #e0d6c5; border-radius:11px; background:#faf6ee; }
+  .demo-reminder b { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--clay); margin-bottom:10px; }
+  .demo-reminder p { font-style:italic; font-size:14px; line-height:1.48; color:var(--ink-soft); }
+  .handoff .demo-body { text-align:center; padding:30px 18px 24px; }
+  .demo-success { width:62px; height:62px; border-radius:50%; background:#e5ead7; margin:0 auto 17px;
+    position:relative; }
+  .demo-success::after { content:""; position:absolute; left:23px; top:15px; width:15px; height:27px;
+    border:solid var(--pine); border-width:0 3px 3px 0; transform:rotate(45deg); }
+  .handoff h3 { font-size:20px; margin-bottom:13px; }
+  .handoff p { font-family:var(--sans); font-size:12px; line-height:1.5; color:var(--ink-soft);
+    max-width:18ch; margin:0 auto 24px; }
+  .demo-next { display:inline-flex; font-family:var(--sans); font-size:11px; font-weight:650; color:#fff;
+    background:var(--pine); padding:11px 13px; border-radius:8px; white-space:nowrap; }
+  .demo-caption { font-family:var(--sans); font-size:13px; color:var(--ink-mut); text-align:center; margin-top:28px; }
+
+  .flow { max-width:760px; width:100%; margin:clamp(74px,10vh,118px) auto 0; scroll-margin-top:24px; }
+  .flow-intro { margin-bottom:16px; text-align:center; }
+  .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
+  .promptbox + .interview-feedback { text-align:center; margin:16px 0 2px; font-family:var(--sans);
+    font-size:13px; color:var(--ink-mut); }
+
+  @media (max-width:1100px){
+    .hero { grid-template-columns:1fr; }
+    .hero-copy { max-width:660px; }
+    .hero h1 { max-width:13ch; }
+    .hero-deck { max-width:46ch; }
+    .product-demo { max-width:840px; width:100%; margin:0 auto; }
+  }
+  @media (max-width:700px){
+    .wrap { padding:38px 20px 32px; }
+    .hero { gap:34px; }
+    .hero h1 { font-size:clamp(36px,10.5vw,44px); line-height:1.08; max-width:12ch; margin-bottom:20px; }
+    .hero-deck { font-size:16px; line-height:1.55; margin-bottom:24px; }
+    .hero-copy .copy { min-width:0; width:100%; }
+    .trust-line { margin-top:18px; }
+    .demo-labels { display:none; }
+    .mobile-demo-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px;
+      padding:4px; border:1px solid var(--paper-line); border-radius:11px; background:var(--paper-warm); }
+    .mobile-demo-tab { appearance:none; border:0; border-radius:8px; background:transparent; color:var(--ink-mut);
+      padding:10px 4px; font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; cursor:pointer; }
+    .mobile-demo-tab[aria-selected="true"] { background:var(--paper); color:var(--pine);
+      box-shadow:0 1px 5px rgba(54,44,28,.1); }
+    .demo-stage { display:block; }
+    .demo-card,.demo-card.work,.demo-card.checkin,.demo-card.handoff { display:none; width:100%; min-height:0; }
+    .demo-card.is-active { display:block; }
+    .demo-card + .demo-card { margin-left:0; }
+    .demo-card.work.is-active { min-height:410px; }
+    .demo-card.checkin.is-active { min-height:350px; }
+    .demo-card.handoff.is-active { min-height:325px; }
+    .demo-title { font-size:24px; }
+    .demo-list li { font-size:13px; }
+    .demo-caption { display:none; }
+    .flow { margin-top:56px; }
+    .flow-intro { text-align:left; }
+    .resource-links { justify-content:flex-start; gap:12px 18px; }
+  }
+  @media (max-width:600px){
+    .freetag { display:none; }
+    header { justify-content:space-between; }
   }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
@@ -180,78 +304,127 @@
     </div>
   </header>
 
-  <div class="wrap">
+  <main class="wrap">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <h1 id="heroTitle">An offline focus tool.</h1>
+        <p class="hero-deck">Turn today&rsquo;s work into a concrete, finishable block&mdash;then keep the task, the reason, and the next step in view while you do it.</p>
+        <div class="hero-actions">
+          <button class="copy" id="copyBtn">Copy the 5-question setup</button>
+          <a class="hero-sample" href="sample-jobsearch.html" target="_blank" rel="noopener">See a live example &rarr;</a>
+        </div>
+        <p class="trust-line"><span class="trust-dot" aria-hidden="true"></span>No account. Your Focus File and log stay on your device.</p>
+      </div>
 
-    <h1><span class="nowrap">One clear block.</span> <span class="nowrap">See it through.</span></h1>
-    <p class="pitch"><b>A free AI prompt that refuses to let a goal stay vague.</b> It narrows the work to one finishable block—then builds an offline focus file that keeps the task, the reason, and the next step in front of you while you work.</p>
-    <div class="hero-peek" aria-hidden="true" style="max-width:440px;margin:22px auto 4px;border:1px solid #e4d9c5;border-radius:14px;overflow:hidden;background:#fdfbf6;font-family:Georgia,'Iowan Old Style',serif;box-shadow:0 1px 0 #efe7d8;">
-      <div style="padding:11px 20px;border-bottom:1px solid #f0e8da;font-size:13px;font-weight:600;color:#2f6a44;">Focus File</div>
-      <div style="padding:18px 20px 16px;background:#f3ede1;border-bottom:1px solid #e4d9c5;">
-        <div style="font-family:-apple-system,system-ui,sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a8474;margin-bottom:8px;">9:00 – 10:30</div>
-        <div style="font-size:24px;line-height:1.1;font-weight:700;color:#26241e;letter-spacing:-0.01em;">1,500 new words at the desk</div>
-      </div>
-      <div style="padding:9px 20px;background:#eef4ea;border-bottom:1px solid #f0e8da;font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:#3d7a52;"><span style="font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:9px;">Internet off</span> &nbsp;<span style="color:#5c5647;">phone in another room</span></div>
-      <div style="padding:16px 20px;border-bottom:1px solid #f0e8da;">
-        <div style="font-family:-apple-system,system-ui,sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5642f;margin-bottom:6px;">Avoid</div>
-        <div style="font-size:14px;font-style:italic;color:#5c5647;line-height:1.4;">Re-reading instead of writing. New words only — forward.</div>
-      </div>
-      <div style="padding:16px 20px;font-family:-apple-system,system-ui,sans-serif;font-size:14px;color:#2c2a24;">
-        <div style="display:flex;gap:11px;align-items:center;margin-bottom:11px;"><span style="width:18px;height:18px;border-radius:5px;background:#2f6a44;flex-shrink:0;"></span><span style="color:#a39c8c;text-decoration:line-through;">500 words</span></div>
-        <div style="display:flex;gap:11px;align-items:center;"><span style="width:18px;height:18px;border-radius:5px;border:1.5px solid #8a8474;flex-shrink:0;"></span>1,000 words</div>
-      </div>
-    </div>
-    <p style="text-align:center;font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:#8a8474;margin:0 0 6px;">What you get: a self-contained file that works with the internet off.</p>
+      <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and handoff">
+        <div class="demo-labels" aria-hidden="true">
+          <span class="demo-label"><b>1</b> Work</span>
+          <span class="demo-label"><b>2</b> Check-in</span>
+          <span class="demo-label"><b>3</b> Handoff</span>
+        </div>
+        <div class="mobile-demo-tabs" role="tablist" aria-label="Focus File preview states">
+          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="true" aria-controls="demoWork" data-demo-panel="demoWork">Work</button>
+          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoCheckin" data-demo-panel="demoCheckin">Check-in</button>
+          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoHandoff" data-demo-panel="demoHandoff">Handoff</button>
+        </div>
+        <div class="demo-stage">
+          <article class="demo-card work is-active" id="demoWork" role="tabpanel">
+            <div class="demo-brand">Focus File</div>
+            <div class="demo-body">
+              <div class="demo-meta"><span>2:00&ndash;3:30</span><span>2 of 4 complete</span></div>
+              <h2 class="demo-title">3 applications out the door</h2>
+              <div class="demo-lane"><b>Allowed sites</b> LinkedIn &middot; company sites &middot; Google Docs</div>
+              <ul class="demo-list">
+                <li><span class="demo-check done" aria-hidden="true"></span>Find 3 matching roles</li>
+                <li><span class="demo-check done" aria-hidden="true"></span>Write a tailored intro for each</li>
+                <li><span class="demo-check" aria-hidden="true"></span>Submit applications</li>
+                <li><span class="demo-check" aria-hidden="true"></span>Update the tracker</li>
+              </ul>
+            </div>
+            <div class="demo-footer"><span class="demo-timer">&#9711;&nbsp; 1:18:47</span><span class="demo-end">End block</span></div>
+          </article>
 
+          <article class="demo-card checkin" id="demoCheckin" role="tabpanel">
+            <div class="demo-brand">Focus File</div>
+            <div class="demo-body">
+              <div class="demo-meta"><span>2:45 PM</span><span class="late">45 min left</span></div>
+              <h2 class="demo-question">Are you on task?</h2>
+              <div class="demo-answers" aria-label="Example check-in choices">
+                <span class="demo-answer selected">Yes</span>
+                <span class="demo-answer">Sort of</span>
+                <span class="demo-answer">No</span>
+              </div>
+              <div class="demo-reminder">
+                <b>Avoid</b>
+                <p>Browsing unrelated roles will feel productive. It isn&rsquo;t.</p>
+              </div>
+            </div>
+          </article>
 
-    <div class="promptbox">
-      <div class="pb-head">
-        <span class="pb-label">1 — Run a quick interview</span>
-        <button class="copy" id="copyBtn">⧉&nbsp;&nbsp;Copy</button>
+          <article class="demo-card handoff" id="demoHandoff" role="tabpanel">
+            <div class="demo-brand">Focus File</div>
+            <div class="demo-body">
+              <div class="demo-success" aria-hidden="true"></div>
+              <h3>Entry saved</h3>
+              <p>Next: Submit role #3 and update the tracker</p>
+              <span class="demo-next">Set up the next block &rarr;</span>
+            </div>
+          </article>
+        </div>
+        <p class="demo-caption">The file works offline. Check-ins and the exit log stay with you.</p>
       </div>
-      <div class="pb-body">
-        <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
+    </section>
+
+    <section class="flow" id="setup" aria-label="Create your Focus File">
+      <div class="promptbox">
+        <div class="pb-head">
+          <span class="pb-label">1 — Run a quick interview</span>
+          <button class="copy" id="copyAgainBtn">Copy setup</button>
+        </div>
+        <div class="pb-body">
+          <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
 2. What are you working on, and what's your window?
 3. What exactly will be finished when the block ends?
 4. Anything that tends to pull you off task? (optional)
 5. Why does finishing this matter to you today?</div>
-        <div class="fade" id="pbFade"></div>
-        <div class="aftercopy" id="afterCopy">
-          <p class="ac-line">Paste prompt into a chat, answer the questions, then paste results below.</p>
-          <p class="ac-links">
-            <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a>
-            <span class="dot">·</span>
-            <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a>
-            <span class="dot">·</span>
-            <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
-          </p>
+          <div class="fade" id="pbFade"></div>
+          <div class="aftercopy" id="afterCopy">
+            <p class="ac-line">Paste prompt into a chat, answer the questions, then paste results below.</p>
+            <p class="ac-links">
+              <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a>
+              <span class="dot">·</span>
+              <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a>
+              <span class="dot">·</span>
+              <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <p style="text-align:center;margin:16px 0 2px;font-family:var(--sans);font-size:13px;color:#8a8474;">How did the interview go? <button class="foot-link" data-modal="feedback">Send feedback</button></p>
+      <p class="interview-feedback">How did the interview go? <button class="foot-link" data-modal="feedback">Send feedback</button></p>
 
-    <div class="promptbox" style="margin-top:20px">
-      <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
-      <div style="padding:18px 18px 20px">
-        <p class="bd-lead">Paste the interview results to build your focus file — it downloads instantly.</p>
-        <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste here"></textarea>
-        <button class="copy bd-go" id="buildBtn">&#8595;&nbsp;&nbsp;Build my focus file</button>
-        <p class="bd-msg" id="bdMsg"></p>
+      <div class="promptbox" style="margin-top:20px">
+        <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
+        <div style="padding:18px 18px 20px">
+          <p class="bd-lead">Paste the interview results to build your focus file — it downloads instantly.</p>
+          <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste here"></textarea>
+          <button class="copy bd-go" id="buildBtn">&#8595;&nbsp;&nbsp;Build my focus file</button>
+          <p class="bd-msg" id="bdMsg"></p>
+        </div>
       </div>
-    </div>
 
-    <div class="steps">
-      <div class="step"><div class="n">01</div><h3>Quick interview</h3><p>It refuses vagueness, narrows the work to one finishable block, and gets honest about what will pull you away and why it matters.</p><p class="step-dl"><button class="step-link" data-modal="interview">See the 5 questions</button></p></div>
-      <div class="step"><div class="n">02</div><h3>The Focus File</h3><p>The doing happens here. A small offline dashboard holds the actions and start time, then checks in if you drift.</p><p class="step-dl">Samples: <a class="nowrap" href="sample-writing.html" target="_blank" rel="noopener">writing block</a> · <a class="nowrap" href="sample-jobsearch.html" target="_blank" rel="noopener">job search block</a></p></div>
-      <div class="step"><div class="n">03</div><h3>Exit log</h3><p>At the end, a 60-second exit log records what got done, what got in the way, and where the next one will start. Shareable with a coach or therapist.</p><p class="step-dl"><button class="step-link" data-modal="log">See what gets logged</button></p></div>
-    </div>
+      <nav class="resource-links" aria-label="More about Focus File">
+        <button class="resource-link" data-modal="interview">The 5 interview questions</button>
+        <a class="resource-link" href="sample-writing.html" target="_blank" rel="noopener">Writing sample</a>
+        <button class="resource-link" data-modal="log">What the log records</button>
+      </nav>
 
-    <div class="foot">
-      <span class="foot-msg">Helped you? <button class="foot-link" id="shareBtn">Share it.</button> Could be better? <a class="foot-link" href="mailto:erinconnery@gmail.com">Send feedback.</a></span>
-      <span class="foot-sub">Free to use and adapt &middot; MIT licensed</span>
-    </div>
-
-  </div>
+      <div class="foot">
+        <span class="foot-msg">Helped you? <button class="foot-link" id="shareBtn">Share it.</button> Could be better? <a class="foot-link" href="mailto:erinconnery@gmail.com">Send feedback.</a></span>
+        <span class="foot-sub">Free to use and adapt &middot; MIT licensed</span>
+      </div>
+    </section>
+  </main>
 
   <!-- MODALS -->
   <div class="modal-bg" id="modalBg">
@@ -377,7 +550,6 @@ Then stop.
         }
         var i=raw.indexOf('{'), j=raw.lastIndexOf('}');
         var jtxt=(i!==-1 && j>i)?raw.slice(i,j+1):raw;   // tolerate a reply line before/after the JSON
-        jtxt=jtxt.replace(/[\u201C\u201D]/g,'"').replace(/[\u2018\u2019]/g,"'").replace(/,\s*([}\]])/g,'$1');  // fix smart quotes + trailing commas
         var cfg;
         try { cfg=JSON.parse(jtxt); }
         catch(e){ msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
@@ -423,6 +595,20 @@ Then stop.
       } else { fallback(); }
     }
     document.getElementById('copyBtn').addEventListener('click', function(){ copyPrompt(this); });
+    document.getElementById('copyAgainBtn').addEventListener('click', function(){ copyPrompt(this); });
+
+    // Compact product preview on small screens.
+    document.querySelectorAll('[data-demo-panel]').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var panelId=tab.getAttribute('data-demo-panel');
+        document.querySelectorAll('[data-demo-panel]').forEach(function(other){
+          other.setAttribute('aria-selected', other===tab ? 'true' : 'false');
+        });
+        document.querySelectorAll('.demo-card').forEach(function(card){
+          card.classList.toggle('is-active', card.id===panelId);
+        });
+      });
+    });
 
     // ---- analytics: explicit event calls (independent of class-based tagging) ----
     function track(name){ try { if (window.plausible) window.plausible(name); } catch(e) {} }
