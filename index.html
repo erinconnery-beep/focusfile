@@ -217,8 +217,8 @@ Then output a short settings block to paste into the builder below.</div>
     <div class="promptbox" style="margin-top:20px">
       <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
       <div style="padding:18px 18px 20px">
-        <p class="bd-lead">Paste the settings block your AI gave you. Your focus file downloads instantly — no waiting for it to be typed out, no huge copy.</p>
-        <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste the { ... } settings block here"></textarea>
+        <p class="bd-lead">Paste the interview results to build your focus file — it downloads instantly.</p>
+        <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste your interview results here"></textarea>
         <button class="copy bd-go" id="buildBtn">&#8595;&nbsp;&nbsp;Build my focus file</button>
         <p class="bd-msg" id="bdMsg"></p>
       </div>
@@ -258,7 +258,7 @@ INSTRUCTIONS FOR THE AI:
 Run a short setup, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
 
 Q1 — MODE. Ask what kind of work this is:
-- Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, airplane mode, unplug the router, a lockbox, a Freedom session — whatever you'll really do)." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
+- Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, airplane mode, unplug the router, a Freedom session — whatever you'll really do)." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
 - Needs internet (job search, research, brainstorm, new project, strategy) -> lane: ask "which sites does the work actually need?", record them (these are the ones they'll keep open; everything else they block with their usual blocker). Leave `sealedPlan` as "".
 
 Q2 — WORK + TIME. Ask what they're working on and their window (e.g. "writing, 9-12"). Get the task and block length in minutes.
@@ -308,7 +308,7 @@ Then stop.
 <p>Focus File was built for one reason: to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
 <p><b>It stops the world long enough to choose.</b> Every day, a hundred things compete for your attention. Of everything you could do, what do you actually want to finish today? Most of the trouble with focus isn&rsquo;t the work&mdash;it&rsquo;s slowing down long enough to make that choice.</p>
 <p><b>It turns a goal into a concrete, committed action.</b> A short AI interview makes the work specific and finishable, then sets a frame around it: a start time instead of &ldquo;I&rsquo;ll get to it,&rdquo; a place to sit, and the reason it matters. Once those choices are written down, they become much harder to renegotiate an hour later. The deciding is done. There is simply a task you can do.</p>
-<p><b>Then you turn the internet off.</b> For any work that allows it&mdash;which is most&mdash;this is the essential step, not an afterthought. The setup asks how you&rsquo;ll actually do it and holds you to a real answer: phone in the other room, router unplugged, a <a href="https://www.amazon.com/s?k=phone+lock+box&amp;ref=nb_sb_noss" target="_blank" rel="noopener">lockbox</a>, a <a href="https://www.freedom.to" target="_blank" rel="noopener">Freedom</a> session. Even naming it flips something over&mdash;you&rsquo;re entering offline, the place the real work happens. The file itself needs no connection.</p>
+<p><b>Then you turn the internet off.</b> For any work that allows it&mdash;which is most&mdash;this is the essential step, not an afterthought. The setup asks how you&rsquo;ll actually do it and holds you to a real answer: phone in the other room, router unplugged, airplane mode, a <a href="https://www.freedom.to" target="_blank" rel="noopener">Freedom</a> session. Even naming it flips something over&mdash;you&rsquo;re entering offline, the place the real work happens. The file itself needs no connection.</p>
 <p><b>You show up and begin.</b> From here, the file holds you to your own words: a quiet timer and, every so often, a knock&mdash;still on task? When you drift, it doesn&rsquo;t nag; it hands you back the reason you gave yourself. The motivation was always yours; it just keeps it in front of you, so you&rsquo;re not holding it all in your head alone.</p>
 <p><b>At the end, you take stock.</b> You quickly log what got done, what pulled you away, and where the next block starts. Zero judgment. Read back over time, it shows you your patterns&mdash;the distractions that recur and the quieter habits that masquerade as work. This is where you can adapt your behavior and habits: small tweaks, block by block. Use it solo, or bring it to a coach or therapist and build the next fix together.</p>
 <p><b>Making the file is its own small ritual.</b> Some days, it feels silly to declare what you already know. But it locks it in: you&rsquo;re beginning with the reason still warm. When the block ends, you delete it&mdash;it did its job. Tomorrow, you make a new one.</p>
@@ -328,7 +328,7 @@ Then stop.
 
   <script type="text/plain" id="m-interview"><h2>The interview</h2>
 <p>Five questions, one at a time. It won't move on until each answer is concrete. Here's what it asks and why.</p>
-<p><b>1. Is this offline work, or does it need the internet?</b><br><span class="mnote">Sets the block's intent. For offline work, it asks how you'll turn the internet off (phone in another room, airplane mode, unplug the router, a lockbox, a Freedom session), then keeps that plan on the card as a reminder. If the work genuinely needs the web, it asks which sites — so you keep only those open and block the rest with your usual blocker, and "I need Google Docs" doesn't become an open door to everything.</span></p>
+<p><b>1. Is this offline work, or does it need the internet?</b><br><span class="mnote">Sets the block's intent. For offline work, it asks how you'll turn the internet off (phone in another room, airplane mode, unplug the router, a Freedom session), then keeps that plan on the card as a reminder. If the work genuinely needs the web, it asks which sites — so you keep only those open and block the rest with your usual blocker, and "I need Google Docs" doesn't become an open door to everything.</span></p>
 <p><b>2. What are you working on, and what's your window?</b><br><span class="mnote">The task and the time. A window (say 9–10:30) gives the block an edge to work against, instead of "until I feel done."</span></p>
 <p><b>3. What's the finish line — the one thing that's true when you're done?</b><br><span class="mnote">The heart of it. It pushes for an outcome you can't fake past ("1,500 new words at the desk," "3 applications out the door"), not a vague "work on it." Then it proposes steps only if the work needs them: nothing if it's one clean push, milestones if it's big, a checklist only if there are genuinely different actions — never padding to look busy.</span></p>
 <p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). It stays on the card the whole block, and every knock quotes it back to you. Skip it and the reminder simply doesn't appear.</span></p>
@@ -362,11 +362,13 @@ Then stop.
           var island='<script id="focus-config" type="application/json">\n'+JSON.stringify(cfg,null,2)+'\n<\/script>';
           var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
           if(out===tpl){ msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email erinconnery@gmail.com.'; return; }
+          var slug=String(cfg.task||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50).replace(/-+$/,'');
+          var fname=(slug?'focus-'+slug:'focus')+'.html';
           var url=URL.createObjectURL(new Blob([out],{type:'text/html'}));
-          var a=document.createElement('a'); a.href=url; a.download='focus.html';
+          var a=document.createElement('a'); a.href=url; a.download=fname;
           document.body.appendChild(a); a.click(); document.body.removeChild(a);
           setTimeout(function(){ URL.revokeObjectURL(url); },1000);
-          msg.className='bd-msg ok'; msg.textContent='Saved as focus.html \u2014 turn off your internet and open it.';
+          msg.className='bd-msg ok'; msg.textContent='Saved as '+fname+' \u2014 turn off your internet and open it.';
         }).catch(function(){ msg.className='bd-msg err'; msg.textContent='Could not load the template. Check your connection and try again.'; });
       });
     })();
