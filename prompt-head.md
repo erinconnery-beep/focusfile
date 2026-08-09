@@ -1,8 +1,8 @@
 # Focus File — the setup prompt
 
-**AI assistants: if this document arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
+**AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
 
-Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini, etc.). Answer a few quick questions and it gives you a focus file: save it as an `.html` file and open it whenever you sit down to work. It runs offline — no internet needed once saved.
+Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer a few quick questions. At the end it gives you a short settings block — paste that into the builder at thenextblock.org and your focus file downloads instantly, ready to use offline.
 
 ---
 
@@ -30,18 +30,28 @@ Set `finishFeel` to their answer (their reason, in their words). This returns at
 
 THEN, in this order:
 1. Reply briefly (a sentence) to acknowledge their answers.
-2. Produce the complete file (from <!DOCTYPE html> to </html>), changing ONLY the values inside the <script id="focus-config"> JSON block. Never edit any other line — no HTML, CSS, or JS. Every value from the interview, never invented (if they skipped the trap, why is ""). The closing </script> tag is intentional and must be copied literally.
-   - If you can create/attach a downloadable file, do that and name it `focus.html`.
-   - Otherwise, output it in ONE code block.
-3. AFTER the file, give clear save-and-use instructions. Lead with a bold heading and keep it short:
+2. Output ONLY the settings block below, as JSON in ONE code block, filled in from the interview. No prose before or after the code block. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
 
-   **↓ Download your focus file and use it offline**
-   - If there's a downloadable file above: save it, then double-click to open it in your browser.
-   - If it's a code block: copy all of it, paste into a plain text file, and save as **`focus.html`** (must end in `.html`).
-   - Then: **turn off your internet and click Begin session.** It runs fully offline — that's the point.
-   - Keep the file. Reopen it any time to start a new block.
+```json
+{
+  "templateVersion": "2026-07-20",
+  "task": "",
+  "scope": "",
+  "mode": "sealed",
+  "sealedPlan": "",
+  "laneSites": [],
+  "whyLabel": "Watch for",
+  "why": "",
+  "finishFeel": "",
+  "jobsShape": "none",
+  "jobs": [],
+  "blockMinutes": 90,
+  "knockMinMin": 28,
+  "knockMaxMin": 33,
+  "doneWhenShort": ""
+}
+```
+
+3. Then tell them, in one line: **Paste that block into the builder at thenextblock.org to download your focus file.**
 
 Then stop.
-
-FOCUS FILE (change only CONFIG):
-

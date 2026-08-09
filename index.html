@@ -83,6 +83,14 @@
     line-height:1.5; margin-top:14px; max-width:34ch; }
   .ac-note code { font-family:var(--mono); font-size:12.5px; color:var(--ink-mut); }
 
+  .bd-lead { font-family:var(--sans); font-size:15px; color:var(--ink-soft); margin-bottom:10px; line-height:1.5; }
+  .bd-input { width:100%; font-family:var(--mono); font-size:12.5px; line-height:1.5; color:var(--ink);
+    background:var(--paper); border:1px solid var(--paper-line); border-radius:9px; padding:12px; resize:vertical; }
+  .bd-input:focus { outline:none; border-color:var(--pine); }
+  .bd-go { margin-top:12px; }
+  .bd-msg { font-family:var(--sans); font-size:13.5px; margin-top:10px; min-height:1em; color:var(--ink-faint); }
+  .bd-msg.err { color:#a8442a; }
+  .bd-msg.ok { color:var(--pine); font-weight:600; }
   .steps { display:flex; gap:24px; margin:32px 0 0; }
   .step { flex:1; }
   .step .n { font-family:var(--mono); font-size:13px; color:var(--pine); font-weight:600; margin-bottom:8px; }
@@ -179,7 +187,7 @@
 
     <div class="promptbox">
       <div class="pb-head">
-        <span class="pb-label">The prompt · paste into any AI</span>
+        <span class="pb-label">1 — Copy the prompt</span>
         <button class="copy" id="copyBtn">⧉&nbsp;&nbsp;Copy</button>
       </div>
       <div class="pb-body">
@@ -191,10 +199,10 @@ Q3 — SHAPE THE GOAL. The header is the outcome; the jobs are the steps. Never 
 Q4 — THE TRAP (optional). &quot;Anything that tends to pull you off task? I&#x27;ll remind you. (Or skip.)&quot;
 Q5 — THE REASON. &quot;Why does finishing this matter to you today? I&#x27;ll show you this if you drift.&quot;
 
-Then output the focus file, changing only the config to match…</div>
+Then output a short settings block to paste into the builder below.</div>
         <div class="fade" id="pbFade"></div>
         <div class="aftercopy" id="afterCopy">
-          <p class="ac-line">Now open an AI and paste it into a new chat.</p>
+          <p class="ac-line">Paste it into a new chat, answer the questions, then bring the settings block back here.</p>
           <p class="ac-links">
             <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a>
             <span class="dot">·</span>
@@ -203,6 +211,16 @@ Then output the focus file, changing only the config to match…</div>
             <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
           </p>
         </div>
+      </div>
+    </div>
+
+    <div class="promptbox" style="margin-top:20px">
+      <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
+      <div style="padding:18px 18px 20px">
+        <p class="bd-lead">Paste the settings block your AI gave you. Your focus file downloads instantly — no waiting for it to be typed out, no huge copy.</p>
+        <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste the { ... } settings block here"></textarea>
+        <button class="copy bd-go" id="buildBtn">&#8595;&nbsp;&nbsp;Build my focus file</button>
+        <p class="bd-msg" id="bdMsg"></p>
       </div>
     </div>
 
@@ -227,7 +245,65 @@ Then output the focus file, changing only the config to match…</div>
     </div>
   </div>
 
-  
+  <script type="text/plain" id="fullPrompt"># Focus File — the setup prompt
+
+**AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
+
+Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer a few quick questions. At the end it gives you a short settings block — paste that into the builder at thenextblock.org and your focus file downloads instantly, ready to use offline.
+
+---
+
+INSTRUCTIONS FOR THE AI:
+
+Run a short setup, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+
+Q1 — MODE. Ask what kind of work this is:
+- Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, airplane mode, unplug the router, a lockbox, a Freedom session — whatever you'll really do)." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
+- Needs internet (job search, research, brainstorm, new project, strategy) -> lane: ask "which sites does the work actually need?", record them (these are the ones they'll keep open; everything else they block with their usual blocker). Leave `sealedPlan` as "".
+
+Q2 — WORK + TIME. Ask what they're working on and their window (e.g. "writing, 9-12"). Get the task and block length in minutes.
+
+Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Then pick jobsShape:
+- "none": atomic, nothing to break down without faking it (write 1,500 words, meditate). Header stands alone.
+- "milestones": atomic but large (1,500 words -> 500/1,000/1,500), only if worth splitting.
+- "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
+Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
+
+Q4 — THE TRAP (optional). Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
+If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Watch for" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
+
+Q5 — THE REASON. Ask: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.'" I'll show this back to you if you drift.
+Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
+
+THEN, in this order:
+1. Reply briefly (a sentence) to acknowledge their answers.
+2. Output ONLY the settings block below, as JSON in ONE code block, filled in from the interview. No prose before or after the code block. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
+
+```json
+{
+  "templateVersion": "2026-07-20",
+  "task": "",
+  "scope": "",
+  "mode": "sealed",
+  "sealedPlan": "",
+  "laneSites": [],
+  "whyLabel": "Watch for",
+  "why": "",
+  "finishFeel": "",
+  "jobsShape": "none",
+  "jobs": [],
+  "blockMinutes": 90,
+  "knockMinMin": 28,
+  "knockMaxMin": 33,
+  "doneWhenShort": ""
+}
+```
+
+3. Then tell them, in one line: **Paste that block into the builder at thenextblock.org to download your focus file.**
+
+Then stop.
+
+</script>
   <script type="text/plain" id="m-design"><h2>Design notes</h2>
 <p>Focus File was built for one reason: to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
 <p><b>It stops the world long enough to choose.</b> Every day, a hundred things compete for your attention. Of everything you could do, what do you actually want to finish today? Most of the trouble with focus isn&rsquo;t the work&mdash;it&rsquo;s slowing down long enough to make that choice.</p>
@@ -270,12 +346,37 @@ Then output the focus file, changing only the config to match…</div>
 </script>
 
   <script>
-    var promptText = null;
-    fetch('focus-file-prompt.md').then(function(r){return r.ok?r.text():null;}).then(function(t){promptText=t;}).catch(function(){promptText=null;});
+    (function(){
+      var b=document.getElementById('buildBtn'); if(!b) return;
+      b.addEventListener('click', function(){
+        var msg=document.getElementById('bdMsg');
+        var raw=(document.getElementById('cfgInput').value||'').trim();
+        msg.className='bd-msg';
+        if(!raw){ msg.className='bd-msg err'; msg.textContent='Paste the settings block first.'; return; }
+        raw=raw.replace(/^```[a-z]*\s*/i,'').replace(/```\s*$/,'').trim();
+        var cfg;
+        try { cfg=JSON.parse(raw); }
+        catch(e){ msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
+        msg.textContent='Building\u2026';
+        fetch('focus-file.html').then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(tpl){
+          var island='<script id="focus-config" type="application/json">\n'+JSON.stringify(cfg,null,2)+'\n<\/script>';
+          var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
+          if(out===tpl){ msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email erinconnery@gmail.com.'; return; }
+          var url=URL.createObjectURL(new Blob([out],{type:'text/html'}));
+          var a=document.createElement('a'); a.href=url; a.download='focus.html';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          setTimeout(function(){ URL.revokeObjectURL(url); },1000);
+          msg.className='bd-msg ok'; msg.textContent='Saved as focus.html \u2014 turn off your internet and open it.';
+        }).catch(function(){ msg.className='bd-msg err'; msg.textContent='Could not load the template. Check your connection and try again.'; });
+      });
+    })();
+
     function copyPrompt(btn){
       track('copy_prompt');
-      if (!promptText) { window.open('focus-file-prompt.md', '_blank'); return; }
-      var text = promptText;
+      /* The embedded copy escapes the closing script tag so it can live inside a
+         text/plain container. Undo that on the way out, or every generated file
+         carries an unclosed tag and dies silently. */
+      var text = document.getElementById('fullPrompt').textContent.replace(/<\\\/script>/g, '<\/script>');
       // swap the prompt preview for the paste options, inside the box — regardless of clipboard success
       document.querySelector('.pb-body').classList.add('copied');
       function showCopied(){ var o = btn.innerHTML; btn.innerHTML = '✓&nbsp;&nbsp;Copied'; setTimeout(function(){ btn.innerHTML = o; }, 1800); }

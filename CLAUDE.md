@@ -1,18 +1,18 @@
-# Focus File — LEAN build
+# Focus File — CONFIG-HANDOFF build (copy twice)
 
-This is the lean version: ~17.5 KB template (was ~64 KB), ~2 min to generate, ~22 KB prompt.
+Fixes the slow generation AND the mobile paste cutoff by never making the AI reproduce the template.
 
-Architecture: index.html FETCHES focus-file-prompt.md at run time (nothing embedded, no escaping).
-prompt-head.md + focus-file.html -> focus-file-prompt.md. Each sample = focus-file.html with its
-own <script id="focus-config"> island. Run `python3 build.py` after editing focus-file.html or
-prompt-head.md. No minifying.
+Flow: copy the SHORT prompt (~4 KB, generates in seconds) -> paste into any AI -> the AI runs the
+interview and outputs a tiny JSON settings block -> paste that into the builder on thenextblock.org
+-> the site fetches focus-file.html (the full template), injects the config, and downloads focus.html
+instantly. Two small copies, both mobile-safe. The focus file it produces is fully offline as always.
 
-Deploy set: index.html + focus-file-prompt.md + sample-writing.html + sample-jobsearch.html.
+Because the AI never types the template, the template can be as large/feature-rich as we like — the
+full build (build-next, pre-start countdown, self-test, everything) with no generation cost.
 
-Dropped from the full build (by design): build-next, pre-start countdown/committed button, knock
-beep, tab-blink, preview-the-knock, on-screen log readout, self-test, config validation, "one more
-block." Knock window baked at 28-33 min. Exit log keeps a "copy latest entry" button. To revert,
-deploy the FULL zip instead.
+Files: index.html (landing + Copy prompt + builder), focus-file.html (full template the builder
+fetches), focus-file-prompt.md / prompt-head.md (the short prompt), sample-*.html. Run build.py after
+editing prompt-head.md. Deploy set: index.html + focus-file.html + focus-file-prompt.md + both samples.
 
 ---
 

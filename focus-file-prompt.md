@@ -1,8 +1,8 @@
 # Focus File — the setup prompt
 
-**AI assistants: if this document arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
+**AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
 
-Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini, etc.). Answer a few quick questions and it gives you a focus file: save it as an `.html` file and open it whenever you sit down to work. It runs offline — no internet needed once saved.
+Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer a few quick questions. At the end it gives you a short settings block — paste that into the builder at thenextblock.org and your focus file downloads instantly, ready to use offline.
 
 ---
 
@@ -30,221 +30,28 @@ Set `finishFeel` to their answer (their reason, in their words). This returns at
 
 THEN, in this order:
 1. Reply briefly (a sentence) to acknowledge their answers.
-2. Produce the complete file (from <!DOCTYPE html> to </html>), changing ONLY the values inside the <script id="focus-config"> JSON block. Never edit any other line — no HTML, CSS, or JS. Every value from the interview, never invented (if they skipped the trap, why is ""). The closing </script> tag is intentional and must be copied literally.
-   - If you can create/attach a downloadable file, do that and name it `focus.html`.
-   - Otherwise, output it in ONE code block.
-3. AFTER the file, give clear save-and-use instructions. Lead with a bold heading and keep it short:
+2. Output ONLY the settings block below, as JSON in ONE code block, filled in from the interview. No prose before or after the code block. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
 
-   **↓ Download your focus file and use it offline**
-   - If there's a downloadable file above: save it, then double-click to open it in your browser.
-   - If it's a code block: copy all of it, paste into a plain text file, and save as **`focus.html`** (must end in `.html`).
-   - Then: **turn off your internet and click Begin session.** It runs fully offline — that's the point.
-   - Keep the file. Reopen it any time to start a new block.
-
-Then stop.
-
-FOCUS FILE (change only CONFIG):
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Focus File</title>
-<script>
-/* Crash guard: if the script below breaks, say so instead of a dead page. */
-window.__fail=function(m){var e=document.getElementById("boot");if(!e){e=document.createElement("div");e.id="boot";e.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99;background:#b5642f;color:#fff;font:600 13px/1.4 -apple-system,system-ui,sans-serif;padding:12px;text-align:center";(document.body||document.documentElement).appendChild(e)}e.textContent="This focus file didn't load correctly — "+m+". Re-run the setup prompt to make a new one."};
-addEventListener("error",function(e){window.__fail(e.message||"script error")});
-addEventListener("DOMContentLoaded",function(){if(!window.__ok)window.__fail("the main script never finished")});
-</script>
-<style>
-:root{--paper:#fdfbf6;--warm:#f3ede1;--line:#e4d9c5;--hair:#f0e8da;--ink:#26241e;--body:#2c2a24;--soft:#5c5647;--mut:#8a8474;--faint:#a39c8c;--ghost:#b3ab98;--pine:#2f6a44;--tint:#eef4ea;--chip:#dbe9df;--chipink:#1f4a30;--clay:#b5642f;--amber:#c08a3e}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#ece5d6;font-family:Georgia,"Iowan Old Style",Palatino,serif;color:var(--body);line-height:1.5;display:flex;justify-content:center;padding:40px 18px 80px;-webkit-font-smoothing:antialiased}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;max-width:540px;width:100%;position:relative}
-.flash{position:absolute;inset:0;background:#e0a86b;opacity:0;pointer-events:none;border-radius:16px}
-.flash.on{animation:fl .9s ease-out}
-@keyframes fl{0%{opacity:0}12%{opacity:.28}30%{opacity:.05}45%{opacity:.28}100%{opacity:0}}
-button,input,textarea,.sans{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
-.eyebrow{font-family:-apple-system,system-ui,sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
-.mast{padding:15px 28px 13px;border-bottom:1px solid var(--hair);font-size:15px;font-weight:600;color:var(--pine)}
-.head{background:var(--warm);padding:24px 28px 22px;border-bottom:1px solid var(--line)}
-.head-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px}
-.elapsed{display:none;font-family:-apple-system,system-ui,sans-serif;text-align:right}
-.elapsed.on{display:block}
-.elapsed b{font-size:20px;color:var(--pine)}
-.elapsed span{font-size:12px;font-weight:600;color:var(--mut)}
-.scope{font-family:-apple-system,system-ui,sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#756f60;text-align:right;white-space:nowrap;margin-left:auto}
-h1{font-size:31px;line-height:1.06;color:var(--ink);letter-spacing:-.015em;font-weight:400}
-.bar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:16px;display:none}
-.bar.on{display:block}
-.bar i{display:block;width:0;height:100%;background:var(--pine);transition:width .6s ease}
-.strip{display:none;padding:13px 28px;border-bottom:1px solid var(--hair);background:var(--tint);font-family:-apple-system,system-ui,sans-serif;align-items:baseline;gap:10px;flex-wrap:wrap}
-.strip.on{display:flex}
-.strip .l{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#3d7a52;white-space:nowrap}
-.strip .p{font-size:13px;color:var(--soft)}
-.chip{background:var(--chip);color:var(--chipink);font-size:12px;font-weight:600;padding:4px 11px;border-radius:20px;margin-right:6px}
-.rest{color:var(--faint);font-size:12px;font-style:italic}
-.why{padding:22px 28px;border-bottom:1px solid var(--hair)}
-.why .eyebrow{color:var(--clay);margin-bottom:8px}
-.why p{font-size:17px;font-style:italic;color:var(--soft)}
-.jobs{display:none;padding:22px 28px;border-bottom:1px solid var(--hair)}
-.jobs.on{display:block}
-.jh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
-.ct{font-family:-apple-system,system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--pine)}
-.job{display:flex;gap:12px;align-items:flex-start;cursor:pointer;user-select:none;margin-bottom:14px;position:relative}
-.job input{position:absolute;opacity:0;width:22px;height:22px;margin:0;cursor:pointer}
-.job .bx{width:22px;height:22px;border:1.5px solid var(--mut);border-radius:5px;background:var(--warm);flex-shrink:0;margin-top:1px;position:relative}
-.job input:focus-visible+.bx{outline:2px solid var(--pine);outline-offset:2px}
-.job.d .bx{background:var(--pine);border-color:var(--pine)}
-.job.d .bx::after{content:"";position:absolute;left:6px;top:3px;width:6px;height:11px;border:solid var(--paper);border-width:0 2px 2px 0;transform:rotate(42deg)}
-.job .tx{font-family:-apple-system,system-ui,sans-serif;font-size:15.5px;color:var(--body);line-height:1.4}
-.job.d .tx{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--line)}
-.act{padding:26px 28px;text-align:center;background:var(--warm)}
-.begin{display:inline-flex;align-items:center;gap:12px;background:var(--pine);color:var(--paper);font-weight:600;font-size:16px;padding:16px 16px 16px 30px;border:none;border-radius:40px;cursor:pointer}
-.begin i{width:36px;height:36px;border-radius:50%;background:var(--paper);color:var(--pine);display:flex;align-items:center;justify-content:center;font-style:normal}
-.check{display:none}
-.check.on{display:block}
-.chh{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:16px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--ghost)}
-.chl{font-family:-apple-system,system-ui,sans-serif;font-size:13px;font-weight:600;color:var(--mut)}
-.check.ask .dot{background:var(--clay);animation:p 1.6s ease-in-out infinite}
-.check.ask .chl{color:var(--clay)}
-@keyframes p{0%,100%{opacity:.4}50%{opacity:1}}
-@media(prefers-reduced-motion:reduce){.check.ask .dot{animation:none}.flash.on{animation:none}}
-.quote{display:none;font-size:15px;font-style:italic;color:var(--soft);border-left:2px solid var(--line);padding-left:14px;margin:0 auto 18px;max-width:40ch;text-align:left}
-.check.ask .quote{display:block}
-.ans{display:flex;gap:10px;max-width:400px;margin:0 auto}
-.ans button{flex:1;padding:13px 8px;border-radius:8px;background:transparent;font-family:-apple-system,system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-.yes{border:1.5px solid var(--pine);color:var(--pine)}
-.sort{border:1.5px solid var(--ghost);color:var(--mut)}
-.no{border:1.5px solid var(--clay);color:var(--clay)}
-.pull{display:none;margin-top:22px;padding-top:20px;border-top:1px solid var(--hair)}
-.pull.on{display:block}
-.pull .eyebrow{color:var(--amber);margin-bottom:10px}
-.pull p{font-size:16px;font-style:italic;color:var(--soft);max-width:42ch;margin:0 auto}
-.next{font-family:-apple-system,system-ui,sans-serif;font-size:11px;color:#756f60;margin-top:14px;min-height:1em}
-.end{background:none;border:none;color:#8f4a24;font-size:12px;text-decoration:underline;cursor:pointer;padding:8px;display:none}
-.done,.saved{display:none;padding:28px;text-align:center;background:var(--warm)}
-.exit{display:none;padding:28px}
-.done.on,.saved.on,.exit.on{display:block}
-.done .eyebrow{color:var(--amber);margin-bottom:12px}
-.done p{font-size:22px;line-height:1.25;color:var(--ink);max-width:26ch;margin:0 auto 20px}
-.btn{background:var(--pine);color:var(--paper);font-weight:700;font-size:16px;padding:15px 32px;border:none;border-radius:40px;cursor:pointer}
-.exit h2{font-size:22px;font-weight:400;color:var(--ink);margin-bottom:22px}
-.exit label{display:block;font-family:-apple-system,system-ui,sans-serif;font-size:13px;font-weight:600;color:var(--soft);margin-bottom:8px}
-.exit textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:var(--paper);font-size:14px;color:var(--body);resize:vertical;margin-bottom:18px}
-.exit textarea.bad{border-color:var(--clay);background:#fbf1ea}
-.foot{margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.note{font-family:-apple-system,system-ui,sans-serif;font-size:12px;color:var(--mut)}
-.note.warn{color:var(--clay);font-weight:600}
-.saved .mark{font-size:34px;color:var(--pine)}
-.saved h2{font-size:20px;font-weight:400;color:var(--ink);margin:12px 0 6px}
-.saved .learn{font-family:-apple-system,system-ui,sans-serif;font-size:12.5px;color:var(--clay);line-height:1.55;max-width:40ch;margin:0 auto 20px}
-.copy{background:transparent;color:var(--soft);font-family:-apple-system,system-ui,sans-serif;font-size:12px;font-weight:600;padding:9px 16px;border:1.5px solid var(--line);border-radius:30px;cursor:pointer}
-</style>
-</head>
-<body>
-<div class="card">
-<div class="flash" id="flash"></div>
-<div class="mast">Focus File</div>
-<div class="head">
-  <div class="head-top">
-    <div class="elapsed" id="elapsed"><b id="mins">0</b><span> min in</span></div>
-    <div class="scope" id="scope"></div>
-  </div>
-  <h1 id="task"></h1>
-  <div class="bar" id="bar"><i id="fill"></i></div>
-</div>
-<div class="strip" id="sealed"><span class="l">Internet off</span><span class="p" id="sealedPlan"></span></div>
-<div class="strip" id="lane"><span class="l">Open:</span><span id="chips"></span><span class="rest">— nothing else</span></div>
-<div class="why" id="why"><div class="eyebrow" id="whyLabel">Watch for</div><p id="whyText"></p></div>
-<div class="jobs" id="jobs"><div class="jh"><span class="eyebrow" id="jobsLabel">The jobs</span><span class="ct" id="ct"></span></div><div id="jobList"></div></div>
-<div class="act" id="actzone">
-  <button class="begin" id="beginBtn">Begin session <i>→</i></button>
-  <div class="check" id="check">
-    <div class="chh"><span class="dot"></span><span class="chl" id="chl">On task?</span></div>
-    <p class="quote" id="quote"></p>
-    <div class="ans">
-      <button class="yes" data-a="yes">Yes</button>
-      <button class="sort" data-a="sort of">Sort of</button>
-      <button class="no" data-a="no">No</button>
-    </div>
-    <div class="pull" id="pull"><div class="eyebrow">Remember what you're after</div><p id="pullText"></p></div>
-  </div>
-  <div class="next" id="nextline"></div>
-  <button class="end" id="endBtn">Finish session</button>
-</div>
-<div class="done" id="done">
-  <div class="eyebrow">Your block's up</div>
-  <p id="doneLine"></p>
-  <button class="btn" id="finishBtn">Finish here</button>
-</div>
-<div class="exit" id="exit">
-  <h2>A few quick things — this becomes your log.</h2>
-  <label for="q1">Did you finish the block as planned?</label>
-  <textarea id="q1" rows="2"></textarea>
-  <label for="q2">What, if anything, got in the way of focus?</label>
-  <textarea id="q2" rows="2"></textarea>
-  <label for="q3">Where will the next block start?</label>
-  <textarea id="q3" rows="2"></textarea>
-  <div class="foot"><span class="note" id="note"></span><button class="btn" id="saveBtn" style="font-size:14px;padding:11px 22px">Save entry</button></div>
-</div>
-<div class="saved" id="saved">
-  <div class="mark">✓</div>
-  <h2>Entry saved.</h2>
-  <div class="learn">The log is for learning, not judging. When you spot a pattern, pick one thing to do differently next block.</div>
-  <button class="copy" id="copyBtn">Copy latest entry</button>
-</div>
-</div>
-<script id="focus-config" type="application/json">
+```json
 {
-  "task": "1,500 new words on the story",
-  "scope": "9:00 – 12:00",
-  "blockMinutes": 180,
+  "templateVersion": "2026-07-20",
+  "task": "",
+  "scope": "",
   "mode": "sealed",
-  "sealedPlan": "phone in the other room",
+  "sealedPlan": "",
   "laneSites": [],
   "whyLabel": "Watch for",
-  "why": "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
-  "finishFeel": "1,500 words that didn't exist this morning.",
+  "why": "",
+  "finishFeel": "",
   "jobsShape": "none",
   "jobs": [],
-  "doneWhenShort": "1,500 new words"
+  "blockMinutes": 90,
+  "knockMinMin": 28,
+  "knockMaxMin": 33,
+  "doneWhenShort": ""
 }
-</script>
-<script>
-var $=function(i){return document.getElementById(i)},cfg,started=null,tick=null,knock=null,endT=null,nextAt=null,c={yes:0,"sort of":0,no:0};
-function hhmm(d){return d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}
-function ask(){$("chl").textContent="Are you on task?";$("check").classList.add("ask");var f=$("flash");f.classList.remove("on");void f.offsetWidth;f.classList.add("on")}
-function schedule(){clearTimeout(knock);var d=(28+Math.random()*5)*60000;nextAt=Date.now()+d;knock=setTimeout(ask,d)}
-function everySec(){var m=(Date.now()-started)/60000;$("mins").textContent=Math.floor(m);$("fill").style.width=Math.max(3,Math.min(100,m/cfg.blockMinutes*100))+"%";var r=Math.max(0,Math.round((nextAt-Date.now())/60000));$("nextline").textContent=$("check").classList.contains("ask")?"":(r<=1?"Check-in any moment":"Next check-in ~"+r+" min")}
-function countJobs(){var a=document.querySelectorAll(".job").length,d=document.querySelectorAll(".job.d").length;function pad(n){return(n<10?"0":"")+n}$("ct").textContent=pad(d)+" / "+pad(a)+" COMPLETE"}
-function blockUp(){clearTimeout(knock);$("check").classList.remove("ask");$("actzone").style.display="none";$("doneLine").textContent="You said done was "+(cfg.doneWhenShort||cfg.task)+".";$("done").classList.add("on")}
-function showExit(){clearInterval(tick);clearTimeout(knock);clearTimeout(endT);$("actzone").style.display="none";$("done").classList.remove("on");$("exit").classList.add("on")}
-function save(){var miss=null;[$("q1"),$("q3")].forEach(function(el){if(!el.value.trim()){el.classList.add("bad");miss=miss||el}else el.classList.remove("bad")});if(miss){$("note").textContent="Fill the highlighted fields to save.";$("note").classList.add("warn");miss.focus();return}
-var log=[];try{log=JSON.parse(localStorage.getItem("nextblock_entries")||"[]")}catch(e){}
-log.push({date:new Date().toISOString(),task:cfg.task,mode:cfg.mode,start:started?hhmm(new Date(started)):"",finish:hhmm(new Date()),minutes:started?Math.round((Date.now()-started)/60000):0,jobsDone:document.querySelectorAll(".job.d").length,jobsTotal:document.querySelectorAll(".job").length,checkins:c,asPlanned:$("q1").value.trim(),inTheWay:$("q2").value.trim(),nextStart:$("q3").value.trim()});
-localStorage.setItem("nextblock_entries",JSON.stringify(log));$("exit").classList.remove("on");$("saved").classList.add("on")}
-function latestText(){var log=[];try{log=JSON.parse(localStorage.getItem("nextblock_entries")||"[]")}catch(e){}if(!log.length)return"";var e=log[log.length-1],d=new Date(e.date);return d.toLocaleDateString([],{month:"short",day:"numeric"})+" — "+e.task+"\nPlanned start "+e.start+", "+e.minutes+" min"+(e.jobsTotal?"\nJobs: "+e.jobsDone+"/"+e.jobsTotal:"")+"\nCheck-ins: "+e.checkins.yes+" on task, "+e.checkins["sort of"]+" sort of, "+e.checkins.no+" off\nAs planned: "+e.asPlanned+(e.inTheWay?"\nGot in the way: "+e.inTheWay:"")+"\nNext: "+e.nextStart}
-function init(){
-  try{cfg=JSON.parse($("focus-config").textContent)}catch(e){window.__fail("the settings block has a typo ("+e.message+")");throw e}
-  $("task").textContent=cfg.task;$("scope").textContent=cfg.scope||"";$("pullText").textContent=cfg.finishFeel||"";
-  if(cfg.why&&cfg.why.trim()){$("whyLabel").textContent=cfg.whyLabel||"Watch for";$("whyText").textContent=cfg.why;$("quote").textContent="“"+cfg.why+"”"}else{$("why").style.display="none";$("quote").style.display="none"}
-  if(cfg.mode==="sealed"&&cfg.sealedPlan){$("sealedPlan").textContent=cfg.sealedPlan;$("sealed").classList.add("on")}
-  if(cfg.mode==="lane"&&(cfg.laneSites||[]).length){cfg.laneSites.forEach(function(s){var x=document.createElement("span");x.className="chip";x.textContent=s;$("chips").appendChild(x)});$("lane").classList.add("on")}
-  if(cfg.jobsShape!=="none"&&(cfg.jobs||[]).length){$("jobsLabel").textContent=cfg.jobsShape==="milestones"?"Milestones":"The jobs";cfg.jobs.forEach(function(l,i){var r=document.createElement("label");r.className="job";r.setAttribute("for","j"+i);var cb=document.createElement("input");cb.type="checkbox";cb.id="j"+i;var b=document.createElement("span");b.className="bx";var t=document.createElement("span");t.className="tx";t.textContent=l;r.appendChild(cb);r.appendChild(b);r.appendChild(t);cb.addEventListener("change",function(){r.classList.toggle("d",cb.checked);countJobs()});$("jobList").appendChild(r)});$("jobs").classList.add("on");countJobs()}
-  $("beginBtn").onclick=function(){started=Date.now();this.style.display="none";$("check").classList.add("on");$("elapsed").classList.add("on");$("bar").classList.add("on");$("endBtn").style.display="inline-block";everySec();tick=setInterval(everySec,1000);schedule();endT=setTimeout(blockUp,cfg.blockMinutes*60000)};
-  Array.prototype.forEach.call(document.querySelectorAll(".ans button"),function(b){b.onclick=function(){if(!started)return;c[b.dataset.a]++;$("check").classList.remove("ask");$("chl").textContent="On task?";$("pull").classList.toggle("on",b.dataset.a!=="yes");schedule()}});
-  $("endBtn").onclick=showExit;$("finishBtn").onclick=showExit;$("saveBtn").onclick=save;
-  ["q1","q2","q3"].forEach(function(i){$(i).oninput=function(){$(i).classList.remove("bad");$("note").classList.remove("warn")}});
-  $("copyBtn").onclick=function(){var t=latestText(),b=this;function ok(){b.textContent="Copied ✓";setTimeout(function(){b.textContent="Copy latest entry"},1600)}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,ok)}else{var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(ta)}};
-  window.__ok=true;
-}
-init();
-</script>
-</body>
-</html>
-
 ```
+
+3. Then tell them, in one line: **Paste that block into the builder at thenextblock.org to download your focus file.**
+
+Then stop.
