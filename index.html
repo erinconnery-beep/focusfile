@@ -372,9 +372,17 @@
       transition-duration:.01ms !important; }
   }
 </style>
-<!-- Privacy-friendly pageviews and fixed-name product events. No Focus File content is sent. -->
-<script data-goatcounter="https://focusfile.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.js"></script>
+<!-- Google Analytics receives page data and fixed-name product events. No Focus File content is sent. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LXHDBXCQ8E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-LXHDBXCQ8E', {
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false
+  });
+</script>
 </head>
 <body>
 
@@ -661,7 +669,7 @@ Then stop.
 <p><b>It turns the result into evidence.</b> At the end, you record what finished, what helped, what pulled you off, where you stopped, and how the actual time compared with the plan. No score and no judgment. Across blocks, the private learning report makes repeated conditions visible so you can carry what worked into the next one&mdash;or review a result with a coach or therapist.</p>
 <p><b>Over time, it builds two muscles: choosing and starting.</b> It&rsquo;s a practice, not a switch you flip. Choosing gets faster; starting gets easier. There&rsquo;s no magic here&mdash;just enough structure to make one honest choice and see it through.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
-<p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Anonymous GoatCounter analytics count pageviews and fixed product actions&mdash;never anything typed, generated, or saved.</p>
+<p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed product-action data so we can understand use of the site. It never receives anything typed, generated, downloaded, or saved. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
 <p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview includes today&rsquo;s results and the saved history required to carry learning forward; nothing is shared until you paste it.</p>
 <p><b>For clinicians.</b> Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
 <p>Focus File is not medical or psychological advice.</p>
@@ -710,11 +718,11 @@ Then stop.
         var msg=document.getElementById('bdMsg');
         var raw=(document.getElementById('cfgInput').value||'').trim();
         msg.className='bd-msg';
-        if(!raw){ track('builder-error-empty', 'Builder error: empty'); msg.className='bd-msg err'; msg.textContent='Paste the Focus File plan first.'; return; }
-        track('funnel-plan-submit', 'Funnel 4: plan submitted');
+        if(!raw){ track('builder_error_empty'); msg.className='bd-msg err'; msg.textContent='Paste the Focus File plan first.'; return; }
+        track('funnel_plan_submit');
         raw=raw.replace(/^```[a-z]*\s*/i,'').replace(/```\s*$/,'').trim();
         if(/# Focus File\s*[\u2014-]\s*the setup prompt|AI assistants: if this arrived|INSTRUCTIONS FOR THE AI:|Run a short setup, then output a Focus File plan|\bQ1\s*[\u2014-]\s*MODE/i.test(raw)){
-          track('builder-error-prompt', 'Builder error: prompt pasted');
+          track('builder_error_prompt');
           msg.className='bd-msg err';
           msg.textContent="That's the interview prompt, not the completed Focus File plan. Paste it into a new AI chat (Claude, ChatGPT, or Gemini), answer the questions, then paste the plan it gives you here.";
           return;
@@ -723,8 +731,8 @@ Then stop.
         var jtxt=(i!==-1 && j>i)?raw.slice(i,j+1):raw;   // tolerate a reply line before/after the JSON
         var cfg;
         try { cfg=JSON.parse(jtxt); }
-        catch(e){ track('builder-error-json', 'Builder error: invalid plan'); msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
-        if(!validateFocusPlan(cfg)){ track('builder-error-shape', 'Builder error: incomplete plan'); msg.className='bd-msg err'; msg.textContent="That Focus File plan is incomplete. Run the interview again and copy the entire JSON block it gives you."; return; }
+        catch(e){ track('builder_error_json'); msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
+        if(!validateFocusPlan(cfg)){ track('builder_error_shape'); msg.className='bd-msg err'; msg.textContent="That Focus File plan is incomplete. Run the interview again and copy the entire JSON block it gives you."; return; }
         cfg.fileId=(window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
         cfg.learningHistory=[];
         msg.textContent='Building\u2026';
@@ -732,7 +740,7 @@ Then stop.
           var safeCfg=JSON.stringify(cfg,null,2).replace(/</g,'\\u003c');
           var island='<script id="focus-config" type="application/json">\n'+safeCfg+'\n<\/script>';
           var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
-          if(out===tpl){ track('builder-error-template', 'Builder error: template'); msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email erinconnery@gmail.com.'; return; }
+          if(out===tpl){ track('builder_error_template'); msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email erinconnery@gmail.com.'; return; }
           var slug=String(cfg.task||'').toLowerCase().replace(/,/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
           if(slug.length>22){ slug=slug.slice(0,22).replace(/-[^-]*$/,''); }   // keep it short, cut at a word boundary
           while(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/.test(slug)){ slug=slug.replace(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/,''); }   // drop dangling stopwords
@@ -740,15 +748,15 @@ Then stop.
           var url=URL.createObjectURL(new Blob([out],{type:'text/html'}));
           var a=document.createElement('a'); a.href=url; a.download=fname;
           document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          track('funnel-file-created', 'Funnel 5: Focus File created');
+          track('funnel_file_created');
           setTimeout(function(){ URL.revokeObjectURL(url); },1000);
           msg.className='bd-msg ok'; msg.textContent='Saved as '+fname+' \u2014 open it when your block begins.';
-        }).catch(function(){ track('builder-error-load', 'Builder error: template unavailable'); msg.className='bd-msg err'; msg.textContent='Could not load the template. Check your connection and try again.'; });
+        }).catch(function(){ track('builder_error_load'); msg.className='bd-msg err'; msg.textContent='Could not load the template. Check your connection and try again.'; });
       });
     })();
 
     function copyPrompt(btn){
-      track('funnel-copy-interview', 'Funnel 2: interview copied');
+      track('funnel_copy_interview');
       /* The embedded copy escapes the closing script tag so it can live inside a
          text/plain container. Undo that on the way out, or every generated file
          carries an unclosed tag and dies silently. */
@@ -783,7 +791,7 @@ Then stop.
     var demoTabs = Array.prototype.slice.call(document.querySelectorAll('[data-demo-panel]'));
     function activateDemoTab(tab, moveFocus){
         var panelId=tab.getAttribute('data-demo-panel');
-        track('preview-' + panelId.replace(/^demo/, '').toLowerCase(), 'Preview: ' + tab.textContent.trim());
+        track('preview_' + panelId.replace(/^demo/, '').toLowerCase());
         demoTabs.forEach(function(other){
           other.setAttribute('aria-selected', other===tab ? 'true' : 'false');
           other.tabIndex = other===tab ? 0 : -1;
@@ -807,39 +815,39 @@ Then stop.
     });
 
     // Fixed names only: never include task text, interview answers, plan contents, or filenames.
-    function track(name, title){
+    function track(name){
       try {
-        if(window.goatcounter && typeof window.goatcounter.count === 'function'){
-          window.goatcounter.count({ path:name, title:title || name, event:true });
+        if(typeof window.gtag === 'function'){
+          window.gtag('event', name);
         }
       } catch(e) {}
     }
 
     document.querySelector('.hero-cta').addEventListener('click', function(){
-      track('funnel-start-builder', 'Funnel 1: start builder');
+      track('funnel_start_builder');
     });
 
     // the three AI links (revealed after copy)
     document.querySelectorAll('.ac-links a').forEach(function(a){
       a.addEventListener('click', function(){
-        track('funnel-open-ai-' + a.dataset.ai, 'Funnel 3: open ' + a.textContent.replace('↗','').trim());
+        track('funnel_open_ai_' + a.dataset.ai);
       });
     });
     // the sample links
     document.querySelectorAll('a[href^="sample-"]').forEach(function(a){
       a.addEventListener('click', function(){
         var sample=(a.getAttribute('href').match(/sample-([a-z]+)\.html/) || [,'unknown'])[1];
-        track('download-sample-' + sample, 'Download sample: ' + sample);
+        track('download_sample_' + sample);
       });
     });
     // feedback mailto
     document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
-      a.addEventListener('click', function(){ track('send-feedback', 'Send feedback'); });
+      a.addEventListener('click', function(){ track('send_feedback'); });
     });
 
     // share the site
     document.getElementById('shareBtn').addEventListener('click', function(){
-      track('share-site', 'Share Focus File');
+      track('share_site');
       var btn = this;
       var publicUrl = 'https://www.focusfile.org/';
       var shareData = {
@@ -869,7 +877,7 @@ Then stop.
     var lastFocused = null;
     document.querySelectorAll('[data-modal]').forEach(function(b){
       b.addEventListener('click', function(){
-        track('open-note-' + b.dataset.modal, 'Open note: ' + b.dataset.modal);
+        track('open_note_' + b.dataset.modal);
         content.innerHTML = document.getElementById('m-' + b.dataset.modal).textContent;
         var modalTitle = content.querySelector('h2');
         if(modalTitle) modalTitle.id = 'modalTitle';

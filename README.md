@@ -8,7 +8,7 @@ When you're done, a short exit records what finished, what helped, what pulled y
 
 What happens after that is the user's choice: stop there, make another Focus File, review the learning report and its underlying results, or copy a result to discuss with a therapist, coach, or anyone else helping them. Those are separate possible uses, not required steps in one loop.
 
-No account. The site does not upload or store your setup plan, Focus File, or log. The AI interview is governed by the provider you choose; the homepage uses GoatCounter to count anonymous pageviews and fixed-name product actions. It never sends task text, interview answers, plans, Focus Files, or logs.
+No account. The site does not upload or store your setup plan, Focus File, or log. The AI interview is governed by the provider you choose; the homepage uses Google Analytics for pageviews and fixed-name product actions. It never sends task text, interview answers, plans, Focus Files, or logs.
 
 Site: **https://www.focusfile.org/**
 
@@ -66,7 +66,7 @@ The header links are **The interview**, **Why a file?**, **Privacy**, and **Feed
 | `prompt-head.md` | The editable source of the interview instructions. `build.py` reads it. | Source only |
 | `build.py` | Rebuilds the generated copies safely. Never hand-edit the generated regions. | Source only |
 | `LICENSE` | MIT license. | Repository only |
-| `ANALYTICS.md` | The small, privacy-safe measurement plan and GoatCounter activation notes. | Repository only |
+| `ANALYTICS.md` | The small measurement plan and GA4 verification notes. | Repository only |
 
 **Deploy set:** `index.html`, `focus-file-logo.svg`, `focus-file-social.png`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all seven must go up together. The homepage uses the SVG logo and social card, the builder fetches `focus-file.html`, and the site's sample links point to the three `sample-*.html` files.
 
@@ -115,7 +115,7 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 
 ## Privacy
 
-**Everything stays on the user’s device.** The setup plan, files, and logs never reach us—we have no accounts, no storage, and no way to read what the user writes. Even the builder runs in the browser. Anonymous GoatCounter analytics count pageviews and fixed-name product actions—never task text, interview answers, plans, Focus Files, or logs. GoatCounter is installed only on `index.html`; downloaded Focus Files and samples contain no analytics.
+**Everything stays on the user’s device.** The setup plan, files, and logs never reach us—we have no accounts, no storage, and no way to read what the user writes. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed-name product-action data—never task text, interview answers, plans, Focus Files, or logs. Google Analytics is installed only on `index.html`; downloaded Focus Files and samples contain no analytics.
 
 **One exception: AI handoffs.** The AI chat the user chooses sees what is pasted and typed there, under that provider’s own terms and privacy policy. The first setup needs no personal details. The optional next-file handoff includes today’s results and learning plus the saved history required to carry that learning into the next file; the interface states this before the user pastes it.
 
