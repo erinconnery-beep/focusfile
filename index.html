@@ -171,7 +171,8 @@
     gap:clamp(42px,4vw,68px); align-items:center; }
   .hero-copy { align-self:center; padding-bottom:12px; }
   .hero h1 { font-size:clamp(46px,3.5vw,58px); line-height:1.07; margin-bottom:24px;
-    max-width:none; white-space:nowrap; }
+    max-width:max-content; white-space:normal; }
+  .hero-title-line { display:block; white-space:nowrap; }
   .hero-deck { font-size:clamp(17px,1.45vw,21px); line-height:1.62; color:var(--ink-soft);
     max-width:39ch; margin-bottom:14px; }
   .hero-deck:last-of-type { margin-bottom:30px; }
@@ -283,8 +284,7 @@
   @media (max-width:700px){
     .wrap { padding:38px 20px 32px; }
     .hero { gap:34px; }
-    .hero h1 { font-size:clamp(36px,10.5vw,44px); line-height:1.08; max-width:12ch; margin-bottom:20px;
-      white-space:normal; }
+    .hero h1 { font-size:clamp(32px,10.5vw,44px); line-height:1.08; max-width:none; margin-bottom:20px; }
     .hero-deck { font-size:16px; line-height:1.55; margin-bottom:24px; }
     .hero-copy .copy { min-width:0; width:100%; }
     .demo-labels { display:none; }
@@ -332,7 +332,8 @@
     <div class="nav-left">
       <span class="logo"><svg class="logo-mark" viewBox="0 0 32 32" width="19" height="19" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="7" fill="#2f6a44"/><circle cx="16" cy="16" r="6" fill="#fdfbf6"/></svg>Focus File</span>
       <nav class="nav-links">
-        <button data-modal="design">Design notes</button>
+        <button data-modal="interview">The interview</button>
+        <button data-modal="design">Why a file?</button>
         <button data-modal="privacy">Privacy</button>
         <button data-modal="feedback">Feedback</button>
       </nav>
@@ -341,7 +342,8 @@
     <div class="notes-menu">
       <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true">Notes ▾</button>
       <div class="notes-drop" id="notesDrop">
-        <button data-modal="design">Design notes</button>
+        <button data-modal="interview">The interview</button>
+        <button data-modal="design">Why a file?</button>
         <button data-modal="privacy">Privacy</button>
         <button data-modal="feedback">Feedback</button>
       </div>
@@ -351,7 +353,7 @@
   <main class="wrap">
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
-        <h1 id="heroTitle">Learn what makes your focus work.</h1>
+        <h1 id="heroTitle"><span class="hero-title-line">Learn what makes</span><span class="hero-title-line">your focus work.</span></h1>
         <p class="hero-deck">A five-question AI interview turns a vague intention into one concrete block. The Focus File runs it offline, checks in while you work, and saves a private result: what you finished, what helped, what pulled you off, and where you stopped.</p>
         <p class="hero-deck">That result is yours. Stop there, make another file, compare sessions, or share a copy with someone helping you.</p>
         <div class="hero-actions">
@@ -501,17 +503,14 @@
         <p class="coach-note">A self-monitoring and accountability tool&mdash;not treatment or medical advice.</p>
       </aside>
 
-      <nav class="resource-links" aria-label="More about Focus File">
-        <div class="resource-row">
-          <button class="resource-link" data-modal="interview">The interview</button>
-          <span class="resource-dot" aria-hidden="true">&middot;</span>
-          <button class="resource-link" data-modal="log">Using the results</button>
-        </div>
+      <nav class="resource-links" aria-label="Download Focus File examples">
         <div class="resource-row resource-examples">
-          <span class="resource-label">Download examples:</span>
+          <span class="resource-label">Download Focus File examples:</span>
           <a class="resource-link" href="sample-writing.html" download="focus-file-writing-example.html">Writing</a>
           <span class="resource-dot" aria-hidden="true">&middot;</span>
           <a class="resource-link" href="sample-jobsearch.html" download="focus-file-job-search-example.html">Job search</a>
+          <span class="resource-dot" aria-hidden="true">&middot;</span>
+          <a class="resource-link" href="sample-study.html" download="focus-file-study-example.html">Study</a>
         </div>
       </nav>
 
@@ -592,14 +591,13 @@ THEN, in this order:
 Then stop.
 
 </script>
-  <script type="text/plain" id="m-design"><h2>Design notes</h2>
+  <script type="text/plain" id="m-design"><h2>Why a Focus File?</h2>
 <p>Focus File was built to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
-<p><b>The tool does one job.</b> A short AI interview turns a vague intention into a concrete block: a real finish line, a start time, an internet boundary, and a reason the work matters. The downloaded file then holds those choices while you work.</p>
-<p><b>The file runs the block offline.</b> It keeps the work visible, tracks the time, and occasionally asks whether you are still on task. If you drift, it returns the reminder or reason you gave yourself. The motivation is yours; the file simply keeps it from disappearing.</p>
-<p><b>The block ends with a result.</b> You record what was finished, what helped, what pulled you away, and where you stopped. That record is part of the tool&mdash;not a demand to be more productive, start another block, or turn the session into a lesson.</p>
-<p><b>Everything after that is optional.</b> Close the file. Use the result to make another one. Review several entries to notice patterns. Copy one entry to discuss with a therapist, coach, or someone else helping you. These are different exits for different circumstances, not stages of one required loop.</p>
-<p><b>The person using it keeps the evidence.</b> The Focus File and log stay on their device. Someone else can help shape the block or review a result, but the user decides what to share. It is support without surveillance.</p>
-<p><b>Making the file is a small act of commitment.</b> The deciding is done before the work begins. There is simply one honest block to run, followed by an accurate record of what happened.</p>
+<p><b>A file turns an intention into an object.</b> It can be made while the reason still feels clear, then left open beside the work. When it is time to begin, the deciding has already been done.</p>
+<p><b>A file can leave the internet.</b> There is no dashboard to check and no service asking for attention. The timer, reminders, check-ins, and result all work with the connection off.</p>
+<p><b>A file can hold your own words.</b> If you drift, it returns the boundary, warning, or reason you chose earlier. It does not manufacture motivation; it keeps yours from disappearing.</p>
+<p><b>A file can belong entirely to the person using it.</b> There is no account and no server-side log. The result stays on the device unless the person chooses to copy or share it.</p>
+<p>The format is deliberately small: one concrete block, one honest record, and no requirement to continue.</p>
 <p>Unplug for an hour and find out.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Focus File is a free self-directed tool.</b></p>
@@ -622,15 +620,6 @@ Then stop.
 <p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). This is the gentle nudge: it surfaces when you answer a check-in with "sort of" — you're a little distracted, drifting toward the very thing you named — and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
 <p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, in your own words — kept simple and true ("the draft finally moves," "so I stop dreading it"). This is the stronger message, held for when you need it: it surfaces when you answer a check-in with "no" — you haven't started, or you're off task entirely. The reason you gave, from you to you, right when you've drifted furthest.</span></p>
 <p class="mnote" style="margin-top:18px;">The interview builds one block. If you later choose to make another Focus File, you can bring forward the last result as optional context instead of starting from scratch.</p>
-</script>
-
-  <script type="text/plain" id="m-log"><h2>Using the results</h2>
-<p><b>Every Focus File ends with a private result.</b> It records what you finished, what helped, what pulled you off, and where you stopped. That is the complete output of the tool.</p>
-<p><b>Stop there.</b><br><span class="mnote">Close the file. A single useful block does not need to become a system.</span></p>
-<p><b>Make another Focus File.</b><br><span class="mnote">If more work remains, copy the optional new-file prompt. It offers the last stopping point, success cue, and distraction as defaults you can keep or change.</span></p>
-<p><b>Review patterns.</b><br><span class="mnote">Open or download the log when you want to compare sessions: which reminders helped, what repeatedly disrupted focus, and which block lengths or environments worked better.</span></p>
-<p><b>Copy or share.</b><br><span class="mnote">Copy one result to bring into your own notes or to review with a therapist, coach, or anyone helping you. You choose what leaves your device.</span></p>
-<p>The result is not a score, and none of these exits is required.</p>
 </script>
 
   <script>
@@ -715,7 +704,7 @@ Then stop.
     document.querySelectorAll('.ac-links a').forEach(function(a){
       a.addEventListener('click', function(){ track('open_ai'); });
     });
-    // the two sample links
+    // the sample links
     document.querySelectorAll('a[href^="sample-"]').forEach(function(a){
       a.addEventListener('click', function(){ track('view_sample'); });
     });
