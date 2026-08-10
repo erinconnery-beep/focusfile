@@ -247,9 +247,6 @@
   .demo-saved { display:inline-flex; font-family:var(--mono); font-size:8px; font-weight:700;
     letter-spacing:.11em; text-transform:uppercase; color:var(--pine); background:var(--pine-tint);
     padding:7px 10px; border-radius:7px; }
-  .demo-caption { font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--ink-mut);
-    text-align:center; max-width:58ch; margin:24px auto 0; }
-  .demo-caption b { color:var(--ink-soft); font-weight:650; }
   .after-block { max-width:1180px; width:100%; margin:clamp(76px,10vh,118px) auto 0; }
   .after-head { text-align:center; max-width:720px; margin:0 auto 28px; }
   .after-kicker { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.16em;
@@ -267,16 +264,25 @@
   .after-option p { font-family:var(--sans); font-size:13.5px; line-height:1.55; color:var(--ink-soft); }
   .after-note { font-family:var(--sans); font-size:12.5px; color:var(--ink-mut); text-align:center;
     margin-top:18px; }
-  .flow { max-width:760px; width:100%; margin:clamp(76px,10vh,118px) auto 0; scroll-margin-top:24px; }
-  .flow-intro { margin-bottom:16px; text-align:center; }
+  .flow { max-width:760px; width:100%; margin:clamp(38px,5vh,58px) auto 0; scroll-margin-top:24px; }
+  .flow-intro { margin-bottom:24px; text-align:center; }
   .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
+  .flow-intro h2 { font-size:clamp(28px,3vw,35px); font-weight:400; line-height:1.16;
+    letter-spacing:-.01em; margin:7px 0 7px; }
+  .flow-intro p { font-family:var(--sans); font-size:14px; line-height:1.55; color:var(--ink-mut); }
   .postscript { max-width:760px; width:100%; margin:clamp(56px,8vh,88px) auto 0; }
-  @media (max-width:1400px){
+  @media (max-width:1180px){
     .hero { grid-template-columns:1fr; }
-    .hero-copy { max-width:760px; }
-    .hero h1 { max-width:none; }
-    .hero-deck { max-width:46ch; }
+    .hero-copy { max-width:760px; width:100%; margin:0 auto; text-align:center; }
+    .hero h1 { max-width:none; margin-left:auto; margin-right:auto; }
+    .hero-deck { max-width:46ch; margin-left:auto; margin-right:auto; }
+    .hero-actions { align-items:center; }
     .product-demo { max-width:840px; width:100%; margin:0 auto; }
+  }
+  @media (max-width:980px){
+    .nav-links { display:none; }
+    .notes-menu { display:block; }
+    .nav-left { gap:0; flex:0 0 auto; }
   }
   @media (max-width:1000px){
     .after-options { grid-template-columns:repeat(2,1fr); }
@@ -284,8 +290,10 @@
   @media (max-width:700px){
     .wrap { padding:38px 20px 32px; }
     .hero { gap:34px; }
+    .hero-copy { margin:0; text-align:left; }
     .hero h1 { font-size:clamp(32px,10.5vw,44px); line-height:1.08; max-width:none; margin-bottom:20px; }
-    .hero-deck { font-size:16px; line-height:1.55; margin-bottom:24px; }
+    .hero-deck { font-size:16px; line-height:1.55; margin-left:0; margin-right:0; margin-bottom:24px; }
+    .hero-actions { align-items:flex-start; }
     .hero-copy .copy { min-width:0; width:100%; }
     .demo-labels { display:none; }
     .mobile-demo-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px;
@@ -421,11 +429,15 @@
             </div>
           </article>
         </div>
-        <p class="demo-caption"><b>One Focus File is complete after one block.</b><br>The result stays on your device. What you do with it is up to you.</p>
       </div>
     </section>
 
     <section class="flow" id="setup" aria-label="Create your Focus File">
+      <div class="flow-intro">
+        <span class="pb-label">Try it</span>
+        <h2>Build your Focus File</h2>
+        <p>Copy the interview prompt, answer five questions, then paste the result below. Your file downloads instantly.</p>
+      </div>
       <div class="promptbox">
         <div class="pb-head">
           <span class="pb-label">1 — Run a quick interview</span>
