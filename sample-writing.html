@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (!window.__focusFileBooted && !window.__bootFailed) window.__bootFail("the main script never finished");
 });
   </script>
-<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAArklEQVR42mNgGAUDDBgJKdDPcvlPiQUXp+1hJMsBlFpMrEOY6GE5PjOZ6GE5PrOZBjoRMtHL97jsGPAQYCFX47mJmzDEjPL9KIsCSizHJ05VBxCyhFRHMFHTcnIcwURty0lVP7jKgVEHDGoHkFrIEKueiRaGkuJYkqOAkOGkhhRZaQCXJeTUBWRXRuRYRjAECDUgadE2HHzZkJahgM1sJnLa8tRslg94x2QUDDgAAOQMQCUsrPaIAAAAAElFTkSuQmCC">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPgogIDwhLS0gRm9jdXMgRmlsZSDigJQgbWFyayBDICJUaGUgd29ya3NoZWV0IgogICAgICAgQSBwYXBlciBzaGVldCB3aXRoIGEgZm9sZGVkIGNvcm5lciwgaG9sZGluZyBhIHNpbmdsZSBwb2ludCBvZiBmb2N1cy4KICAgICAgIFBhbGV0dGU6IHBhcGVyICNmZGZiZjYsIHBpbmUgIzJmNmE0NCAoc2l0ZTogdGhlbmV4dGJsb2NrLm9yZykgLS0+CiAgPCEtLSBzaGVldCAtLT4KICA8cGF0aCBkPSJNNiA3IGE0IDQgMCAwIDEgNCAtNCBoMTEgbDcgNyB2MTUgYTQgNCAwIDAgMSAtNCA0IGgtMTQgYTQgNCAwIDAgMSAtNCAtNCB6IgogICAgICAgIGZpbGw9IiNmZGZiZjYiIHN0cm9rZT0iIzJmNmE0NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPCEtLSBmb2xkZWQgY29ybmVyIC0tPgogIDxwYXRoIGQ9Ik0yMSAzIHY1IGEyIDIgMCAwIDAgMiAyaDUiCiAgICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmY2YTQ0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8IS0tIHRoZSBvbmUgcG9pbnQgb2YgZm9jdXMgLS0+CiAgPGNpcmNsZSBjeD0iMTYiIGN5PSIxOC41IiByPSI1IiBmaWxsPSIjMmY2YTQ0Ii8+Cjwvc3ZnPgo=">
 <style>
   :root {
     --paper:      #fdfbf6;
@@ -772,24 +772,6 @@ window.addEventListener("DOMContentLoaded", function () {
   .nl-sep { color:#c4bdae; margin:0 8px; }
   .nl-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:#8a8377;
     margin-top:8px; line-height:1.5; }
-  .next-builder { max-width:480px; margin:16px auto 0; padding:16px; border:1px solid var(--paper-line);
-    border-radius:11px; background:var(--paper-warm); text-align:left; }
-  .next-builder label { display:block; font-family:-apple-system,system-ui,sans-serif; font-size:13px;
-    font-weight:700; color:var(--ink-soft); margin-bottom:7px; }
-  .next-builder p { font-family:-apple-system,system-ui,sans-serif; font-size:11.5px; line-height:1.5;
-    color:var(--ink-mut); margin-bottom:10px; }
-  .next-config { width:100%; min-height:112px; padding:11px 12px; border:1px solid var(--paper-line);
-    border-radius:8px; background:var(--paper); color:var(--ink-body); resize:vertical;
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11.5px; line-height:1.45; }
-  .next-config:focus { outline:none; border-color:var(--pine); }
-  .next-build-row { display:flex; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap; }
-  .next-download { border:0; border-radius:30px; background:var(--pine); color:var(--paper); padding:10px 17px;
-    font-family:-apple-system,system-ui,sans-serif; font-size:12px; font-weight:700; cursor:pointer; }
-  .next-download:hover { background:#276039; }
-  .next-build-msg { flex:1; min-width:140px; font-family:-apple-system,system-ui,sans-serif;
-    font-size:11.5px; line-height:1.4; color:var(--ink-mut); }
-  .next-build-msg.err { color:var(--clay); font-weight:600; }
-  .next-build-msg.ok { color:var(--pine); font-weight:600; }
   .btn-dl { display:inline-block; margin-top:12px; background:none; border:none; cursor:pointer;
     font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:#756f60;
     text-decoration:underline; text-underline-offset:2px; padding:4px 2px; }
@@ -944,6 +926,15 @@ window.addEventListener("DOMContentLoaded", function () {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 11px;
     color: var(--pine);
+    text-align: center;
+  }
+  .fresh-explainer {
+    width: 100%;
+    margin: -2px 0 0;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--ink-mut);
     text-align: center;
   }
   @media (max-width: 480px) {
@@ -1198,8 +1189,9 @@ window.addEventListener("DOMContentLoaded", function () {
           <label class="learning-window" for="learningRange">
             <span>Report</span>
             <select id="learningRange">
+              <option value="1" selected>Today</option>
               <option value="7">Last 7 days</option>
-              <option value="14" selected>Last 14 days</option>
+              <option value="14">Last 14 days</option>
               <option value="all">All history</option>
               <option value="period" id="periodOption" hidden>Current period</option>
             </select>
@@ -1233,33 +1225,26 @@ window.addEventListener("DOMContentLoaded", function () {
 
       <p class="result-question">This result is saved on your device.</p>
       <div class="result-actions">
-        <button class="btn-buildnext" id="buildNextBtn">Create another Focus File</button>
+        <button class="btn-buildnext" id="buildNextBtn">Copy next-file interview</button>
         <button class="result-action" id="viewLogBtn">View full log</button>
-        <button class="result-action" id="copyLastBtn">Copy this result</button>
+        <button class="result-action" id="copyLastBtn" title="Copies only the result from this block">Copy this block&rsquo;s result</button>
       </div>
 
       <div class="next-links" id="nextLinks">
-        <div class="nl-lead">Copied. Paste the prompt into a new AI chat and answer the questions. When it gives you the settings block, bring it back here.</div>
+        <div class="nl-lead">Copied. Paste it into a new AI chat. It uses today&rsquo;s learning to guide five questions, then creates the complete next Focus File for you to download.</div>
         <div class="nl-row">
           <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
         </div>
-        <div class="next-builder">
-          <label for="nextCfgInput">Paste the new settings block here</label>
-          <p>This Focus File will build the next one and carry its complete private history forward.</p>
-          <textarea class="next-config" id="nextCfgInput" spellcheck="false" placeholder="Paste settings block"></textarea>
-          <div class="next-build-row">
-            <button class="next-download" id="downloadNextBtn">Download next Focus File</button>
-            <span class="next-build-msg" id="nextBuildMsg" aria-live="polite"></span>
-          </div>
-        </div>
+        <div class="nl-note">One paste starts the interview and file creation. The AI should return a downloadable HTML file, not a block to bring back here.</div>
       </div>
 
-      <div class="share-note">The copied next-interview prompt includes this block&rsquo;s setup and result. When you paste it into an AI, that information goes to that provider. Earlier results stay inside your Focus Files unless you choose to share them.</div>
+      <div class="share-note">This copy includes today&rsquo;s results, the learning drawn from them, and the saved history needed inside the next file. Nothing is sent until you paste it into the AI provider you choose.</div>
 
       <div class="result-secondary">
         <button class="btn-log" id="copyAllBtn">Copy full log</button>
         <button class="btn-log" id="downloadLogBtn">Download log</button>
-        <button class="btn-log" id="startFreshBtn">Start a fresh period</button>
+        <button class="btn-log" id="startFreshBtn">Start report from now&hellip;</button>
+        <p class="fresh-explainer">Keeps every saved result; only changes which ones shape the learning report.</p>
         <span class="fresh-status" id="freshStatus" aria-live="polite"></span>
       </div>
       <div class="log-view" id="logView"></div>
@@ -1407,7 +1392,7 @@ let sortOfCount = 0;
 let noCount = 0;
 let hitAnswer = null;
 let volatileEntries = [];
-let reportScopeValue = "14";
+let reportScopeValue = "1";
 let reportSinceValue = 0;
 let historyResetAt = 0;
 
@@ -1803,6 +1788,11 @@ function filterReportEntries(rawEntries, scope, since, nowMs) {
   const now = Number(nowMs) || Date.now();
   let cutoff = 0;
   if (scope === "period" && Number(since) > 0) cutoff = Number(since);
+  else if (scope === "1") {
+    const today = new Date(now);
+    today.setHours(0, 0, 0, 0);
+    cutoff = today.getTime();
+  }
   else if (scope === "7" || scope === "14") cutoff = now - Number(scope) * 24 * 60 * 60 * 1000;
   if (!cutoff) return entries;
   return entries.filter(e => {
@@ -1821,6 +1811,7 @@ function reportDateSpan(entries, scope, since) {
   if (!entries.length) {
     if (scope === "period" && since) return "since " + shortReportDate(since, true);
     if (scope === "all") return "all history";
+    if (scope === "1") return "today";
     return "last " + (scope === "7" ? "7" : "14") + " days";
   }
   const first = new Date(entries[0].date), last = new Date(entries[entries.length - 1].date);
@@ -1831,7 +1822,7 @@ function reportDateSpan(entries, scope, since) {
   return shortReportDate(first, false) + "–" + shortReportDate(last, false);
 }
 function saveReportState(scope, since) {
-  reportScopeValue = ["7","14","all","period"].indexOf(String(scope)) > -1 ? String(scope) : "14";
+  reportScopeValue = ["1","7","14","all","period"].indexOf(String(scope)) > -1 ? String(scope) : "1";
   reportSinceValue = Number(since) || 0;
   cfg.reportScope = reportScopeValue;
   cfg.reportSince = reportSinceValue;
@@ -1845,7 +1836,7 @@ function syncReportControls() {
   const option = $("periodOption");
   option.hidden = !reportSinceValue;
   if (reportSinceValue) option.textContent = "Current period · " + shortReportDate(reportSinceValue, false);
-  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "14";
+  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "1";
   $("learningRange").value = reportScopeValue;
 }
 function renderSignalList(id, signals, emptyText) {
@@ -1960,10 +1951,11 @@ function fallbackCopy(txt, done) {
   try { document.execCommand("copy"); done(); } catch (e) {}
   document.body.removeChild(ta);
 }
-/* ---- Optional: create another Focus File with this result as context ---- */
+/* ---- Optional: one-copy interview that returns the complete next file ---- */
 const NEXT_SCHEMA = [
 "{",
 '  "templateVersion": "2026-07-20",',
+'  "fileId": "",',
 '  "task": "",',
 '  "scope": "",',
 '  "mode": "sealed",',
@@ -1979,103 +1971,83 @@ const NEXT_SCHEMA = [
 '  "blockMinutes": 90,',
 '  "knockMinMin": 28,',
 '  "knockMaxMin": 33,',
-'  "doneWhenShort": ""',
+'  "doneWhenShort": "",',
+'  "learningHistory": [],',
+'  "reportScope": "1",',
+'  "reportSince": 0',
 "}"
 ].join("\n");
 const BUILD_NEXT_PROMPT = [
-"Run a quick setup for a new Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. The person chose to bring the previous result as optional context. Ask ONE question at a time, warm and CURT (a line or two, no long paragraphs). For each question, give a one-line reminder of last time and offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Treat every previous value as a default they may keep or replace. NEVER show the words 'sealed' or 'lane' to the person \u2014 they are internal mode values only; speak plainly and offer the internet-off options by name (e.g. 'Airplane mode').",
+"Create my next Focus File in one pass. First conduct the five-question interview below, asking ONE question at a time. Be warm and CURT: a line or two, never a long paragraph. Use TODAY'S LEARNING as evidence and optional defaults, never as a verdict. I may keep, change, or ignore anything from earlier blocks. NEVER show me configuration JSON or ask me to bring anything back to a builder. NEVER show the words 'sealed' or 'lane'; they are internal values only.",
 "",
-"Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off and OFFER THE CHOICES AS A SHORT NUMBERED LIST they can pick from, last session's choice first (see LAST SESSION above), then the rest of: phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session. Set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
-"Q2 \u2014 WORK + TIME. The task, and the window: ASK FOR A START TIME and length. Set scope to a real clock range like \"9:00 \u2013 10:00\" (the start time drives the Begin button and the log) and set blockMinutes; do not skip the start time. Model a full answer, e.g. \"new chapter, 9-12, 2,000 words.\"",
+"Q1 \u2014 MODE. Ask whether the work can be offline or needs the internet. For offline work, ask how I will turn the internet off and offer a short numbered list, putting the most relevant earlier choice first: phone in another room, a lockbox, airplane mode, unplug the router, or a Freedom session. For internet work, recommend Freedom.to as the strongest default blocker and explain briefly: set up one Freedom session for this exact task, keep only the sites and apps the work requires, and block everything else for the full window. Then ask which sites and apps must remain available. If I already use another blocker that genuinely works, accept it.",
+"Q2 \u2014 WORK + TIME. Ask what I am working on, my start time, and the block length. Do not skip the start time.",
 "Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly.",
-"Q4 \u2014 KEEP + AVOID. First confirm what HELPED last time and should stay visible; set keep to one short cue in their own words and keepLabel to \"Keep\". Then confirm the trap: the thing that feels like progress but isn't; set why to that trap, or \"\" if there is none.",
+"Q4 \u2014 HELP + DISTRACTIONS. Use today's learning to ask what success cue or helpful condition should stay visible, then ask what may pull me off task. Keep both in my own words. Either may be blank.",
 "Q5 \u2014 THE REASON. Why finishing matters today.",
 "",
-"When done, give ONE short plain-language recap line of the block (e.g. \"Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000\"), then output ONLY this JSON in one code block, filled from the interview \u2014 copy templateVersion unchanged, every value from the interview, never invented:",
+"After question 5, silently construct the configuration below. Do NOT display this intermediate configuration. Set a new unique fileId. Copy COMPLETE PRIVATE HISTORY JSON into learningHistory exactly; it must remain inside the new file. Set reportScope to \"1\" and reportSince to 0. Fill every other value only from my interview answers:",
 NEXT_SCHEMA,
 "",
-"Then tell them, in one line: Paste that block into the builder inside the Focus File you just completed. It will download the next Focus File with the private history carried forward."
+"Then use CURRENT FOCUS FILE HTML TEMPLATE as the complete source template. Replace only the JSON inside <script id=\"focus-config\" type=\"application/json\"> with the configuration you constructed. Preserve the rest of the HTML, styling, and behavior exactly.",
+"",
+"Return the complete next Focus File as a downloadable .html file or file artifact. If this AI cannot attach a file, return the complete HTML in one code block as the fallback. Do not show a separate plan or JSON, do not send me back to a website builder, and do not ask me to perform another copy-and-paste step."
 ].join("\n");
 
-function buildNextPayload(e) {
-  const ctx = [];
+function learningSignalText(signals) {
+  return signals && signals.length
+    ? signals.map(s => s.text + (s.count > 1 ? " ×" + s.count : "")).join("; ")
+    : "Nothing repeated yet.";
+}
+
+function buildNextPayload(entries, templateHtml, nowMs) {
+  const allEntries = mergeEntries([], Array.isArray(entries) ? entries : []);
+  const todayEntries = filterReportEntries(allEntries, "1", 0, Number(nowMs) || Date.now());
+  const summary = summarizeLearning(todayEntries);
+  const e = todayEntries[todayEntries.length - 1] || allEntries[allEntries.length - 1] || {};
   const realNext = (e.nextStart && e.nextStart.trim().length > 2) ? e.nextStart.trim() : "";
   const sites = (cfg.laneSites || []).join(", ");
-  ctx.push("=== PREVIOUS RESULT — optional context for a new Focus File ===");
-  ctx.push("Below are the previous block's setup answers and what actually happened. Keep every question CURT \u2014 a line or two, never a long paragraph. For EACH question: briefly offer the relevant previous answer as a numbered default alongside the option to type a new value. The person may keep, change, or ignore any of it.");
+  const ctx = [BUILD_NEXT_PROMPT, ""];
+
+  ctx.push("=== TODAY'S LEARNING — USE THIS TO GUIDE THE INTERVIEW ===");
+  ctx.push("Blocks completed today: " + todayEntries.length);
+  ctx.push("Repeated helpers: " + learningSignalText(summary.helps));
+  ctx.push("Repeated distractions: " + learningSignalText(summary.pulls));
+  ctx.push("Conditions used: " + summary.conditions);
+  ctx.push("Time compared with plan: " + summary.time);
+  ctx.push("Carry into the next block: " + summary.carry);
   ctx.push("");
-  ctx.push("Previous answers, by question:");
+  ctx.push("Most recent setup:");
   ctx.push("- Q1 mode: " + cfg.mode + (cfg.mode === "sealed" ? " (internet off via: " + (cfg.sealedPlan || "not specified") + ")" : " (sites kept open: " + (sites || "not specified") + ")"));
   ctx.push("- Q2 task: " + cfg.task);
   ctx.push("- Q2 window: " + (cfg.scope || "not specified") + " (" + cfg.blockMinutes + " min)");
   ctx.push("- Q3 shape: " + cfg.jobsShape + ((cfg.jobs && cfg.jobs.length) ? " — steps: " + cfg.jobs.join(" | ") : " (no steps)"));
-  ctx.push("- Q4 success cue: " + (cfg.keep || "(none yet — use what helped in the log)"));
-  ctx.push("- Q4 trap: " + (cfg.why || "(none named)"));
+  ctx.push("- Q4 success cue: " + (cfg.keep || "none named"));
+  ctx.push("- Q4 distraction: " + (cfg.why || "none named"));
   ctx.push("- Q5 reason: " + (cfg.finishFeel || "not specified"));
   ctx.push("");
-  ctx.push("How the block actually went (from the log):");
+  ctx.push("Most recent result:");
   if (e.finishedAsPlanned) ctx.push("- How far they got: " + e.finishedAsPlanned);
   if (e.output) ctx.push("- Output / number hit: " + e.output);
-  if (e.helped) ctx.push("- What HELPED and should be repeated: " + e.helped);
-  if (e.inTheWay) ctx.push("- What got in the way: " + e.inTheWay);
+  if (e.helped) ctx.push("- What helped: " + e.helped);
+  if (e.inTheWay) ctx.push("- What pulled them off: " + e.inTheWay);
   if (realNext) ctx.push("- Where they stopped: " + realNext);
+  ctx.push("=== END TODAY'S LEARNING ===");
   ctx.push("");
-  ctx.push("How to update each default from the log:");
-  ctx.push(realNext
-    ? "- Q2 task: offer \"" + realNext + "\" as a possible place to resume. Confirm it or let them change it."
-    : "- Q2 task: carry \"" + cfg.task + "\" forward unless they say it's finished.");
-  ctx.push("- Q1 mode, Q2 window, Q3 shape: reuse last time's as defaults; change only what they ask to change.");
-  ctx.push("- Q2 start time: if last window has no clock time, ASK for one and set scope like \"9:00 – 10:00\".");
-  ctx.push("- Q4 KEEP: default to \"" + (e.helped || cfg.keep || "") + "\". Confirm it, shorten it into a useful visible cue, and set keep to that cue. Do not discard a success just because the task changes; ask whether the same condition should be repeated.");
-  ctx.push("- Q4 trap: default to \"" + (e.inTheWay || cfg.why || "") + "\"." + ((e.inTheWay && e.inTheWay !== cfg.why) ? " This came from the log, so prefer it over the old trap unless they say it was a one-off." : "") + " If there was no trap and nothing got in the way, leave it empty.");
-  ctx.push("- Q5 reason: default to \"" + (cfg.finishFeel || "") + "\"; keep it unless they want a new one.");
-  ctx.push("=== END PREVIOUS RESULT ===");
+  ctx.push("=== TODAY'S RESULTS JSON ===");
+  ctx.push(JSON.stringify(todayEntries, null, 2));
+  ctx.push("=== END TODAY'S RESULTS JSON ===");
   ctx.push("");
-  ctx.push(BUILD_NEXT_PROMPT);
+  ctx.push("=== COMPLETE PRIVATE HISTORY JSON — EMBED IN THE NEXT FILE ===");
+  ctx.push(JSON.stringify(allEntries, null, 2));
+  ctx.push("=== END COMPLETE PRIVATE HISTORY JSON ===");
+  ctx.push("");
+  ctx.push("=== CURRENT FOCUS FILE HTML TEMPLATE ===");
+  ctx.push(String(templateHtml || ""));
+  ctx.push("=== END CURRENT FOCUS FILE HTML TEMPLATE ===");
   return ctx.join("\n");
 }
 
-function parseSettingsBlock(raw) {
-  let text = String(raw || "").trim();
-  if (!text) throw new Error("Paste the settings block first.");
-  text = text.replace(/^```[a-z]*\s*/i, "").replace(/```\s*$/, "").trim();
-  if (/=== PREVIOUS RESULT|output ONLY this JSON|Run a quick setup|\bQ1 \u2014/i.test(text)) {
-    throw new Error("That is the interview prompt, not the settings block. Answer the interview, then paste the JSON block it gives you.");
-  }
-  const first = text.indexOf("{"), last = text.lastIndexOf("}");
-  const json = (first !== -1 && last > first) ? text.slice(first, last + 1) : text;
-  let next;
-  try { next = JSON.parse(json); }
-  catch (e) { throw new Error("That does not look like the complete settings block. Copy everything from { through }."); }
-  if (!next.task || !String(next.task).trim()) throw new Error("That settings block has no task. Paste the filled block, not the blank template.");
-  return next;
-}
-function createFileId() {
-  return (typeof crypto !== "undefined" && crypto.randomUUID)
-    ? crypto.randomUUID()
-    : Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
-}
-function focusFilename(task) {
-  let slug = String(task || "").toLowerCase().replace(/,/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  if (slug.length > 22) slug = slug.slice(0, 22).replace(/-[^-]*$/, "");
-  while (/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/.test(slug)) slug = slug.replace(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/, "");
-  return (slug ? "focus-" + slug : "focus") + ".html";
-}
-function buildNextFileHtml(rawCfg, entries, templateHtml, reportState) {
-  const next = Object.assign({}, rawCfg);
-  next.templateVersion = next.templateVersion || cfg.templateVersion || "2026-07-20";
-  next.fileId = createFileId();
-  next.learningHistory = mergeEntries([], entries);
-  const state = reportState || { scope: reportScopeValue, since: reportSinceValue };
-  next.reportScope = ["7","14","all","period"].indexOf(String(state.scope)) > -1 ? String(state.scope) : "14";
-  next.reportSince = Number(state.since) || 0;
-  const json = JSON.stringify(next, null, 2).replace(/</g, "\\u003c");
-  const island = '<script id="focus-config" type="application/json">\n' + json + '\n<\/script>';
-  const source = String(templateHtml || "");
-  const html = source.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, () => island);
-  if (!source || html === source) throw new Error("The next file could not be built from this Focus File.");
-  return { html, config: next, filename: focusFilename(next.task) };
-}
 function downloadText(txt, filename, mime) {
   const url = URL.createObjectURL(new Blob([txt], {type: mime || "text/markdown"}));
   const a = document.createElement("a");
@@ -2096,7 +2068,7 @@ function normalizeConfig(raw) {
   const c = Object.assign({
     scope: "", laneSites: [], sealedPlan: "", keepLabel: "Keep", keep: "", whyLabel: "Avoid", why: "",
     finishFeel: "", jobsShape: "none", jobs: [], knockMinMin: 28, knockMaxMin: 33,
-    fileId: "", learningHistory: [], reportScope: "14", reportSince: 0
+    fileId: "", learningHistory: [], reportScope: "1", reportSince: 0
   }, raw || {});
   c.task = String(c.task || "").trim();
   c.scope = String(c.scope || "").trim();
@@ -2114,9 +2086,9 @@ function normalizeConfig(raw) {
   c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Avoid";
   c.fileId = String(c.fileId || "");
   c.learningHistory = Array.isArray(c.learningHistory) ? c.learningHistory : [];
-  c.reportScope = ["7","14","all","period"].indexOf(String(c.reportScope)) > -1 ? String(c.reportScope) : "14";
+  c.reportScope = ["1","7","14","all","period"].indexOf(String(c.reportScope)) > -1 ? String(c.reportScope) : "1";
   c.reportSince = Number(c.reportSince) || 0;
-  if (c.reportScope === "period" && !c.reportSince) c.reportScope = "14";
+  if (c.reportScope === "period" && !c.reportSince) c.reportScope = "1";
   return c;
 }
 
@@ -2139,18 +2111,18 @@ function activateStorageKeys() {
   REPORT_SCOPE_KEY = REPORT_SCOPE_KEY_BASE + "_" + suffix;
   REPORT_SINCE_KEY = REPORT_SINCE_KEY_BASE + "_" + suffix;
   HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE + "_" + suffix;
-  reportScopeValue = cfg.reportScope || "14";
+  reportScopeValue = cfg.reportScope || "1";
   reportSinceValue = Number(cfg.reportSince) || 0;
   historyResetAt = 0;
   try {
     const storedScope = localStorage.getItem(REPORT_SCOPE_KEY);
     const storedSince = Number(localStorage.getItem(REPORT_SINCE_KEY));
     const storedReset = Number(localStorage.getItem(HISTORY_RESET_KEY));
-    if (["7","14","all","period"].indexOf(storedScope) > -1) reportScopeValue = storedScope;
+    if (["1","7","14","all","period"].indexOf(storedScope) > -1) reportScopeValue = storedScope;
     if (storedSince > 0) reportSinceValue = storedSince;
     if (storedReset > 0) historyResetAt = storedReset;
   } catch (e) {}
-  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "14";
+  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "1";
 }
 
 function loadConfig() {
@@ -2414,11 +2386,11 @@ function wireEvents() {
     renderLearningReport();
   });
   $("startFreshBtn").addEventListener("click", () => {
-    const ok = window.confirm("Start a fresh reporting period now? Earlier results will stay in the full log but stop shaping the learning report.");
+    const ok = window.confirm("Start the learning report from now? No saved results will be deleted. Earlier results will remain in the full log but will no longer shape the report.");
     if (!ok) return;
     saveReportState("period", Date.now());
     renderLearningReport();
-    $("freshStatus").textContent = "Fresh period started. Earlier results remain in the full log.";
+    $("freshStatus").textContent = "The report now starts here. No saved results were deleted.";
   });
   $("copyLastBtn").addEventListener("click", (e) => {
     const entries = getEntries();
@@ -2444,27 +2416,8 @@ function wireEvents() {
   $("buildNextBtn").addEventListener("click", (e) => {
     const entries = getEntries();
     if (!entries.length) return;
-    copyText(buildNextPayload(entries[entries.length - 1]), e.target,
+    copyText(buildNextPayload(entries, PRISTINE_HTML, Date.now()), e.target,
              () => { $("nextLinks").classList.add("on"); });
-  });
-
-  $("downloadNextBtn").addEventListener("click", () => {
-    const msg = $("nextBuildMsg");
-    msg.className = "next-build-msg";
-    try {
-      const nextCfg = parseSettingsBlock($("nextCfgInput").value);
-      const built = buildNextFileHtml(nextCfg, getEntries(), PRISTINE_HTML);
-      downloadText(built.html, built.filename, "text/html");
-      msg.className = "next-build-msg ok";
-      msg.textContent = "Saved as " + built.filename + ". Your earlier results are inside it.";
-    } catch (err) {
-      msg.className = "next-build-msg err";
-      msg.textContent = err.message || "That next Focus File could not be built.";
-    }
-  });
-  $("nextCfgInput").addEventListener("input", () => {
-    $("nextBuildMsg").className = "next-build-msg";
-    $("nextBuildMsg").textContent = "";
   });
 
   $("previewLink").addEventListener("click", () => {
@@ -2487,7 +2440,7 @@ function selfTest() {
   must(["none", "milestones", "checklist"].indexOf(cfg.jobsShape) > -1, "unknown jobsShape");
   must(Array.isArray(cfg.jobs), "jobs must be an array");
   must(Array.isArray(cfg.learningHistory), "learningHistory must be an array");
-  must(["7","14","all","period"].indexOf(cfg.reportScope) > -1, "reportScope is invalid");
+  must(["1","7","14","all","period"].indexOf(cfg.reportScope) > -1, "reportScope is invalid");
   must(cfg.jobsShape === "none" || document.querySelectorAll(".job").length === cfg.jobs.length, "jobs did not render");
   must(cfg.knockMinMin > 0 && cfg.knockMaxMin >= cfg.knockMinMin, "knock window invalid");
   must(!!document.getElementById("beginBtn"), "begin button missing");

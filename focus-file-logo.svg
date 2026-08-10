@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="512" height="512">
+  <!-- Focus File — mark C "The worksheet"
+       A paper sheet with a folded corner, holding a single point of focus.
+       Palette: paper #fdfbf6, pine #2f6a44 (site: thenextblock.org) -->
+  <!-- sheet -->
+  <path d="M6 7 a4 4 0 0 1 4 -4 h11 l7 7 v15 a4 4 0 0 1 -4 4 h-14 a4 4 0 0 1 -4 -4 z"
+        fill="#fdfbf6" stroke="#2f6a44" stroke-width="2" stroke-linejoin="round"/>
+  <!-- folded corner -->
+  <path d="M21 3 v5 a2 2 0 0 0 2 2 h5"
+        fill="none" stroke="#2f6a44" stroke-width="2" stroke-linejoin="round"/>
+  <!-- the one point of focus -->
+  <circle cx="16" cy="18.5" r="5" fill="#2f6a44"/>
+</svg>

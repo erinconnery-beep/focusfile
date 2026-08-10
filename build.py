@@ -40,6 +40,6 @@ def main():
         p.write_text(ISLAND.sub(lambda _:island, tpl, count=1))
 
     print('build OK - short prompt %d chars; template %d chars'%(len(head),len(tpl)))
-    print('Deploy: index.html + focus-file.html + focus-file-prompt.md + sample-writing.html + sample-jobsearch.html')
+    print('Deploy: index.html + focus-file-logo.svg + focus-file.html + sample-writing.html + sample-jobsearch.html + sample-study.html')
 
 if __name__=='__main__': main()
