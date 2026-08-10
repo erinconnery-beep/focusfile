@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Focus File</title>
+<title>Focus File — Learn what makes your focus work</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAArklEQVR42mNgGAUDDBgJKdDPcvlPiQUXp+1hJMsBlFpMrEOY6GE5PjOZ6GE5PrOZBjoRMtHL97jsGPAQYCFX47mJmzDEjPL9KIsCSizHJ05VBxCyhFRHMFHTcnIcwURty0lVP7jKgVEHDGoHkFrIEKueiRaGkuJYkqOAkOGkhhRZaQCXJeTUBWRXRuRYRjAECDUgadE2HHzZkJahgM1sJnLa8tRslg94x2QUDDgAAOQMQCUsrPaIAAAAAElFTkSuQmCC">
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -104,6 +104,15 @@
   .resource-examples .resource-link { color:var(--ink-soft); font-weight:600; }
   .resource-links + .foot { margin-top:28px; padding-top:24px; }
 
+  .coach-callout { margin-top:0; padding:28px 30px 26px; border:1px solid #d7e4d3;
+    border-radius:15px; background:var(--pine-tint); }
+  .coach-kicker { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--pine); margin-bottom:10px; }
+  .coach-callout h2 { font-size:clamp(24px,3vw,31px); line-height:1.18; letter-spacing:-.01em;
+    margin-bottom:11px; }
+  .coach-callout p { font-family:var(--sans); font-size:14px; line-height:1.62; color:var(--ink-soft); }
+  .coach-callout .coach-note { margin-top:13px; font-size:11.5px; color:var(--ink-mut); }
+
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
     margin-top:48px; padding-top:32px; border-top:1px solid var(--hair);
     display:flex; align-items:center; justify-content:center; text-align:center; gap:16px; flex-wrap:wrap; }
@@ -149,6 +158,8 @@
     .pb-label { font-size:11px; text-align:center; }
     .copy { width:100%; justify-content:center; padding:14px 26px; font-size:15px; }
     .modal { padding:28px 24px; }
+    .coach-callout { padding:23px 20px 21px; }
+    .coach-callout h2 { font-size:25px; }
   }
 
   /* PRODUCT-FIRST HOMEPAGE */
@@ -162,7 +173,8 @@
   .hero h1 { font-size:clamp(46px,3.5vw,58px); line-height:1.07; margin-bottom:24px;
     max-width:none; white-space:nowrap; }
   .hero-deck { font-size:clamp(17px,1.45vw,21px); line-height:1.62; color:var(--ink-soft);
-    max-width:36ch; margin-bottom:30px; }
+    max-width:39ch; margin-bottom:14px; }
+  .hero-deck:last-of-type { margin-bottom:30px; }
   .hero-actions { display:flex; flex-direction:column; align-items:flex-start; }
   .hero-copy .copy { min-width:320px; justify-content:center; padding:15px 28px; font-size:16px; }
   .hero-cta { text-decoration:none; }
@@ -182,7 +194,7 @@
   .demo-card + .demo-card { margin-left:-16px; }
   .demo-card.work { z-index:3; min-height:410px; }
   .demo-card.checkin { z-index:2; min-height:374px; }
-  .demo-card.handoff { z-index:1; min-height:340px; }
+  .demo-card.result { z-index:1; min-height:390px; }
   .demo-brand { padding:16px 18px; border-bottom:1px solid #e7ddcc; color:var(--pine);
     font-size:14px; font-weight:700; }
   .demo-body { padding:22px 18px; }
@@ -217,25 +229,56 @@
   .demo-reminder b { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.16em;
     text-transform:uppercase; color:var(--clay); margin-bottom:10px; }
   .demo-reminder p { font-style:italic; font-size:14px; line-height:1.48; color:var(--ink-soft); }
-  .handoff .demo-body { text-align:center; padding:30px 18px 24px; }
-  .demo-success { width:62px; height:62px; border-radius:50%; background:#e5ead7; margin:0 auto 17px;
+  .result .demo-body { text-align:center; padding:18px 16px 20px; }
+  .demo-success { width:40px; height:40px; border-radius:50%; background:#e5ead7; margin:0 auto 10px;
     position:relative; }
-  .demo-success::after { content:""; position:absolute; left:23px; top:15px; width:15px; height:27px;
-    border:solid var(--pine); border-width:0 3px 3px 0; transform:rotate(45deg); }
-  .handoff h3 { font-size:20px; margin-bottom:13px; }
-  .handoff p { font-family:var(--sans); font-size:12px; line-height:1.5; color:var(--ink-soft);
-    max-width:18ch; margin:0 auto 24px; }
-  .demo-next { display:inline-flex; font-family:var(--sans); font-size:11px; font-weight:650; color:#fff;
-    background:var(--pine); padding:11px 13px; border-radius:8px; white-space:nowrap; }
-  .flow { max-width:760px; width:100%; margin:clamp(74px,10vh,118px) auto 0; scroll-margin-top:24px; }
+  .demo-success::after { content:""; position:absolute; left:15px; top:9px; width:9px; height:17px;
+    border:solid var(--pine); border-width:0 2.5px 2.5px 0; transform:rotate(45deg); }
+  .result h3 { font-size:18px; margin-bottom:11px; }
+  .demo-lessons { border:1px solid #e0d6c5; border-radius:9px; overflow:hidden; margin-bottom:14px; text-align:left; }
+  .demo-lesson { display:grid; grid-template-columns:52px 1fr; gap:7px; padding:8px 9px;
+    border-bottom:1px solid #e8dfd0; font-family:var(--sans); font-size:9.5px; line-height:1.35; color:var(--ink-soft); }
+  .demo-lesson:last-child { border-bottom:0; }
+  .demo-lesson b { font-family:var(--mono); font-size:7.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--pine); padding-top:1px; }
+  .demo-lesson.pulled b { color:var(--clay); }
+  .demo-lesson.stopped b { color:var(--ink-mut); }
+  .demo-saved { display:inline-flex; font-family:var(--mono); font-size:8px; font-weight:700;
+    letter-spacing:.11em; text-transform:uppercase; color:var(--pine); background:var(--pine-tint);
+    padding:7px 10px; border-radius:7px; }
+  .demo-caption { font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--ink-mut);
+    text-align:center; max-width:58ch; margin:24px auto 0; }
+  .demo-caption b { color:var(--ink-soft); font-weight:650; }
+  .after-block { max-width:1180px; width:100%; margin:clamp(76px,10vh,118px) auto 0; }
+  .after-head { text-align:center; max-width:720px; margin:0 auto 28px; }
+  .after-kicker { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--pine); margin-bottom:11px; }
+  .after-head h2 { font-size:clamp(30px,3vw,42px); font-weight:400; line-height:1.15;
+    letter-spacing:-.012em; margin-bottom:12px; }
+  .after-head p { font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--ink-soft); }
+  .after-options { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .after-option { border:1px solid var(--paper-line); border-radius:14px; padding:20px 18px 22px;
+    background:var(--paper-warm); min-height:172px; }
+  .after-option .option-tag { display:inline-flex; align-items:center; min-height:25px; border:1.5px solid var(--pine);
+    border-radius:7px; padding:4px 8px; font-family:var(--mono); font-size:9px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--pine); margin-bottom:18px; }
+  .after-option h3 { font-size:19px; line-height:1.2; margin-bottom:9px; }
+  .after-option p { font-family:var(--sans); font-size:13.5px; line-height:1.55; color:var(--ink-soft); }
+  .after-note { font-family:var(--sans); font-size:12.5px; color:var(--ink-mut); text-align:center;
+    margin-top:18px; }
+  .flow { max-width:760px; width:100%; margin:clamp(76px,10vh,118px) auto 0; scroll-margin-top:24px; }
   .flow-intro { margin-bottom:16px; text-align:center; }
   .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
+  .postscript { max-width:760px; width:100%; margin:clamp(56px,8vh,88px) auto 0; }
   @media (max-width:1400px){
     .hero { grid-template-columns:1fr; }
     .hero-copy { max-width:760px; }
     .hero h1 { max-width:none; }
     .hero-deck { max-width:46ch; }
     .product-demo { max-width:840px; width:100%; margin:0 auto; }
+  }
+  @media (max-width:1000px){
+    .after-options { grid-template-columns:repeat(2,1fr); }
   }
   @media (max-width:700px){
     .wrap { padding:38px 20px 32px; }
@@ -253,16 +296,22 @@
     .mobile-demo-tab[aria-selected="true"] { background:var(--paper); color:var(--pine);
       box-shadow:0 1px 5px rgba(54,44,28,.1); }
     .demo-stage { display:block; }
-    .demo-card,.demo-card.work,.demo-card.checkin,.demo-card.handoff { display:none; width:100%; min-height:0; }
+    .demo-card,.demo-card.work,.demo-card.checkin,.demo-card.result { display:none; width:100%; min-height:0; }
     .demo-card.is-active { display:block; }
     .demo-card + .demo-card { margin-left:0; }
     .demo-card.work.is-active { min-height:410px; }
     .demo-card.checkin.is-active { min-height:350px; }
-    .demo-card.handoff.is-active { min-height:325px; }
+    .demo-card.result.is-active { min-height:390px; }
     .demo-title { font-size:24px; }
     .demo-list li { font-size:13px; }
-    .flow { margin-top:56px; }
+    .flow { margin-top:36px; }
     .flow-intro { text-align:left; }
+    .after-block { margin-top:58px; }
+    .postscript { margin-top:44px; }
+    .after-head { text-align:left; }
+    .after-options { grid-template-columns:1fr; gap:10px; }
+    .after-option { min-height:0; padding:18px; }
+    .after-option .option-tag { margin-bottom:13px; }
   }
   @media (max-width:600px){
     .freetag { display:none; }
@@ -302,23 +351,24 @@
   <main class="wrap">
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
-        <h1 id="heroTitle">An offline focus tool.</h1>
-        <p class="hero-deck">A five-question AI interview refuses to let your goal stay vague. It turns today&rsquo;s work into a concrete, finishable block&mdash;then the Focus File keeps the task, the reason, and the next step in view while you do it.</p>
+        <h1 id="heroTitle">Learn what makes your focus work.</h1>
+        <p class="hero-deck">A five-question AI interview turns a vague intention into one concrete block. The Focus File runs it offline, checks in while you work, and saves a private result: what you finished, what helped, what pulled you off, and where you stopped.</p>
+        <p class="hero-deck">That result is yours. Stop there, make another file, compare sessions, or share a copy with someone helping you.</p>
         <div class="hero-actions">
-          <a class="copy hero-cta" href="#setup">Start the 5-question setup&nbsp;&nbsp;&darr;</a>
+          <a class="copy hero-cta" href="#setup">Build a Focus File&nbsp;&nbsp;&darr;</a>
         </div>
       </div>
 
-      <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and handoff">
+      <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and result">
         <div class="demo-labels" aria-hidden="true">
           <span class="demo-label"><b>1</b> Work</span>
           <span class="demo-label"><b>2</b> Check-in</span>
-          <span class="demo-label"><b>3</b> Handoff</span>
+          <span class="demo-label"><b>3</b> Result</span>
         </div>
         <div class="mobile-demo-tabs" role="tablist" aria-label="Focus File preview states">
           <button class="mobile-demo-tab" type="button" role="tab" aria-selected="true" aria-controls="demoWork" data-demo-panel="demoWork">Work</button>
           <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoCheckin" data-demo-panel="demoCheckin">Check-in</button>
-          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoHandoff" data-demo-panel="demoHandoff">Handoff</button>
+          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoResult" data-demo-panel="demoResult">Result</button>
         </div>
         <div class="demo-stage">
           <article class="demo-card work is-active" id="demoWork" role="tabpanel">
@@ -354,16 +404,22 @@
             </div>
           </article>
 
-          <article class="demo-card handoff" id="demoHandoff" role="tabpanel">
+          <article class="demo-card result" id="demoResult" role="tabpanel">
             <div class="demo-brand">Focus File</div>
             <div class="demo-body">
               <div class="demo-success" aria-hidden="true"></div>
-              <h3>Entry saved</h3>
-              <p>Next: Submit role #3 and update the tracker</p>
-              <span class="demo-next">Set up the next block &rarr;</span>
+              <h3>Block recorded</h3>
+              <div class="demo-lessons">
+                <div class="demo-lesson"><b>Finished</b><span>2 of 3 applications submitted.</span></div>
+                <div class="demo-lesson"><b>Helped</b><span>&ldquo;Submit, don&rsquo;t browse&rdquo; stayed visible.</span></div>
+                <div class="demo-lesson pulled"><b>Pulled off</b><span>Unrelated role feeds.</span></div>
+                <div class="demo-lesson stopped"><b>Stopped</b><span>Role #3.</span></div>
+              </div>
+              <span class="demo-saved">Saved on this device</span>
             </div>
           </article>
         </div>
+        <p class="demo-caption"><b>One Focus File is complete after one block.</b><br>The result stays on your device. What you do with it is up to you.</p>
       </div>
     </section>
 
@@ -404,12 +460,52 @@
           <p class="bd-msg" id="bdMsg"></p>
         </div>
       </div>
+    </section>
+
+    <section class="after-block" aria-labelledby="afterTitle">
+      <div class="after-head">
+        <div class="after-kicker">After the block</div>
+        <h2 id="afterTitle">The tool ends. You choose what follows.</h2>
+        <p>The result is useful on its own. It can also become raw material for whichever next step fits your situation.</p>
+      </div>
+      <div class="after-options">
+        <article class="after-option">
+          <span class="option-tag">Done</span>
+          <h3>Stop here</h3>
+          <p>Close the file and move on. One completed block can be the whole job.</p>
+        </article>
+        <article class="after-option">
+          <span class="option-tag">New file</span>
+          <h3>Make another file</h3>
+          <p>Use the stopping point, helpful cue, and distraction as optional context for a new block.</p>
+        </article>
+        <article class="after-option">
+          <span class="option-tag">Patterns</span>
+          <h3>Review patterns</h3>
+          <p>Read or download your log and compare what helped, what disrupted you, and which block shapes worked.</p>
+        </article>
+        <article class="after-option">
+          <span class="option-tag">Share</span>
+          <h3>Copy or share</h3>
+          <p>Choose one result to review with a therapist, coach, or anyone helping you&mdash;without giving up the file or your data.</p>
+        </article>
+      </div>
+      <p class="after-note">These are choices, not steps. Focus File does not require an account, a streak, or another block.</p>
+    </section>
+
+    <section class="postscript" aria-label="Additional Focus File information">
+      <aside class="coach-callout" aria-labelledby="coachTitle">
+        <div class="coach-kicker">For coaches and therapists</div>
+        <h2 id="coachTitle">A clearer record between sessions&mdash;not &ldquo;it went okay.&rdquo;</h2>
+        <p>Help a client shape a concrete block, let them run it privately, then review the result only if they choose to share it: what got done, what helped, what disrupted focus, and where they stopped. The client keeps the file and controls the data.</p>
+        <p class="coach-note">A self-monitoring and accountability tool&mdash;not treatment or medical advice.</p>
+      </aside>
 
       <nav class="resource-links" aria-label="More about Focus File">
         <div class="resource-row">
           <button class="resource-link" data-modal="interview">The interview</button>
           <span class="resource-dot" aria-hidden="true">&middot;</span>
-          <button class="resource-link" data-modal="log">Next-block handoff</button>
+          <button class="resource-link" data-modal="log">Using the results</button>
         </div>
         <div class="resource-row resource-examples">
           <span class="resource-label">Download examples:</span>
@@ -444,7 +540,7 @@ Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer
 
 INSTRUCTIONS FOR THE AI:
 
-Run a short setup, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+Run a short setup, then output a settings block for a Focus File. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the settings block. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
 
 Q1 — MODE. Ask what kind of work this is:
 - Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session — whatever you'll really do). Offer these as a short numbered list they can pick from." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
@@ -460,13 +556,14 @@ Then check jobs fill the block: if the list is way short (3 applications ~40 min
 
 Q4 — THE TRAP (optional). Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
 If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
+For a first Focus File, set `keep` to "" and `keepLabel` to "Keep". If the person later chooses to create another Focus File from a saved result, that optional interview may fill `keep` with something they say genuinely helped. It is context they can keep or change, not a required continuation.
 
 Q5 — THE REASON. Ask: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.'" I'll show this back to you if you drift.
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
 
 THEN, in this order:
 1. Reply briefly (a sentence) to acknowledge their answers.
-2. First give ONE short plain-language recap line of the block (e.g. "Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000."). Then output ONLY the settings block below, as JSON in ONE code block, filled in from the interview. Nothing after the code block. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
+2. Give ONE short plain-language recap line of the block (e.g. "Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000."). Then output the settings block below, as JSON in ONE code block, filled in from the interview. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
 
 ```json
 {
@@ -476,6 +573,8 @@ THEN, in this order:
   "mode": "sealed",
   "sealedPlan": "",
   "laneSites": [],
+  "keepLabel": "Keep",
+  "keep": "",
   "whyLabel": "Avoid",
   "why": "",
   "finishFeel": "",
@@ -494,14 +593,13 @@ Then stop.
 
 </script>
   <script type="text/plain" id="m-design"><h2>Design notes</h2>
-<p>Focus File was built for one reason: to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
-<p><b>It stops the world long enough to choose.</b> Every day, a hundred things compete for your attention. Of everything you could do, what do you actually want to finish today? Most of the trouble with focus isn&rsquo;t the work&mdash;it&rsquo;s slowing down long enough to make that choice.</p>
-<p><b>It turns a goal into a concrete, committed action.</b> A short AI interview makes the work specific and finishable, then sets a frame around it: a start time instead of &ldquo;I&rsquo;ll get to it,&rdquo; a place to sit, and the reason it matters. Once those choices are written down, they become much harder to renegotiate an hour later. The deciding is done. There is simply a task you can do.</p>
-<p><b>Then you turn the internet off.</b> For any work that allows it&mdash;which is most&mdash;this is the essential step, not an afterthought. The setup asks how you&rsquo;ll actually do it and holds you to a real answer: phone in the other room, router unplugged, airplane mode, a <a href="https://www.freedom.to" target="_blank" rel="noopener">Freedom</a> session. Even naming it flips something over&mdash;you&rsquo;re entering offline, the place the real work happens. The file itself needs no connection.</p>
-<p><b>You show up and begin.</b> From here, the file holds you to your own words: a quiet timer and, every so often, a knock&mdash;still on task? When you drift, it doesn&rsquo;t nag; it hands you back the reason you gave yourself. The motivation was always yours; it just keeps it in front of you, so you&rsquo;re not holding it all in your head alone.</p>
-<p><b>At the end, you take stock.</b> You quickly log what got done, what pulled you away, and where the next block starts. Zero judgment. Read back over time, it shows you your patterns&mdash;the distractions that recur and the quieter habits that masquerade as work. This is where you can adapt your behavior and habits: small tweaks, block by block. Use it solo, or bring it to a coach or therapist and build the next fix together.</p>
-<p><b>Making the file is its own small ritual.</b> Some days, it feels silly to declare what you already know. But it locks it in: you&rsquo;re beginning with the reason still warm. When the block ends, you delete it&mdash;it did its job. Tomorrow, you make a new one.</p>
-<p><b>Over time, it builds two muscles: choosing and starting.</b> It&rsquo;s a practice, not a switch you flip. Choosing gets faster; starting gets easier. There&rsquo;s no magic here&mdash;just enough structure to make one honest choice and see it through.</p>
+<p>Focus File was built to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
+<p><b>The tool does one job.</b> A short AI interview turns a vague intention into a concrete block: a real finish line, a start time, an internet boundary, and a reason the work matters. The downloaded file then holds those choices while you work.</p>
+<p><b>The file runs the block offline.</b> It keeps the work visible, tracks the time, and occasionally asks whether you are still on task. If you drift, it returns the reminder or reason you gave yourself. The motivation is yours; the file simply keeps it from disappearing.</p>
+<p><b>The block ends with a result.</b> You record what was finished, what helped, what pulled you away, and where you stopped. That record is part of the tool&mdash;not a demand to be more productive, start another block, or turn the session into a lesson.</p>
+<p><b>Everything after that is optional.</b> Close the file. Use the result to make another one. Review several entries to notice patterns. Copy one entry to discuss with a therapist, coach, or someone else helping you. These are different exits for different circumstances, not stages of one required loop.</p>
+<p><b>The person using it keeps the evidence.</b> The Focus File and log stay on their device. Someone else can help shape the block or review a result, but the user decides what to share. It is support without surveillance.</p>
+<p><b>Making the file is a small act of commitment.</b> The deciding is done before the work begins. There is simply one honest block to run, followed by an accurate record of what happened.</p>
 <p>Unplug for an hour and find out.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Focus File is a free self-directed tool.</b></p>
@@ -523,15 +621,16 @@ Then stop.
 <p><b>3. What exactly will be finished when the block ends?</b><br><span class="mnote">The heart of it. It pushes for an outcome you can't fake past ("1,500 new words at the desk," "3 applications out the door"), not a vague "work on it." Then it proposes steps only if the work needs them: nothing if it's one clean push, milestones if it's big, a checklist only if there are genuinely different actions — never padding to look busy.</span></p>
 <p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). This is the gentle nudge: it surfaces when you answer a check-in with "sort of" — you're a little distracted, drifting toward the very thing you named — and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
 <p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, in your own words — kept simple and true ("the draft finally moves," "so I stop dreading it"). This is the stronger message, held for when you need it: it surfaces when you answer a check-in with "no" — you haven't started, or you're off task entirely. The reason you gave, from you to you, right when you've drifted furthest.</span></p>
-<p class="mnote" style="margin-top:18px;">And then it builds your focus file — unique to the answers you just gave.</p>
+<p class="mnote" style="margin-top:18px;">The interview builds one block. If you later choose to make another Focus File, you can bring forward the last result as optional context instead of starting from scratch.</p>
 </script>
 
-  <script type="text/plain" id="m-log"><h2>Next-block handoff</h2>
-<p><b>The log is for learning, not scoring.</b> Each block leaves a short record of what actually happened, so the next Focus File can start from evidence instead of a blank slate.</p>
-<p><b>What it notices</b><br><span class="mnote">Planned versus actual timing, completed actions, check-in responses, what you finished, what pulled you off, and the exact place the work should resume.</span></p>
-<p><b>What carries forward</b><br><span class="mnote">Your next starting point becomes the proposed task. What got in the way becomes a trap to watch for. The previous setup returns as a default you can keep or adjust instead of answering every question cold.</span></p>
-<p><b>One lesson at a time</b><br><span class="mnote">Across several blocks, the log makes habits visible: a time window that is too ambitious, a distraction that keeps returning, or a blocking plan that genuinely works. Carry one useful change into the next file and let the ritual improve block by block.</span></p>
-<p>After saving an entry, choose <b>Set up the next block</b>. The Focus File copies the handoff for you; paste it into a new AI chat to begin the next interview.</p>
+  <script type="text/plain" id="m-log"><h2>Using the results</h2>
+<p><b>Every Focus File ends with a private result.</b> It records what you finished, what helped, what pulled you off, and where you stopped. That is the complete output of the tool.</p>
+<p><b>Stop there.</b><br><span class="mnote">Close the file. A single useful block does not need to become a system.</span></p>
+<p><b>Make another Focus File.</b><br><span class="mnote">If more work remains, copy the optional new-file prompt. It offers the last stopping point, success cue, and distraction as defaults you can keep or change.</span></p>
+<p><b>Review patterns.</b><br><span class="mnote">Open or download the log when you want to compare sessions: which reminders helped, what repeatedly disrupted focus, and which block lengths or environments worked better.</span></p>
+<p><b>Copy or share.</b><br><span class="mnote">Copy one result to bring into your own notes or to review with a therapist, coach, or anyone helping you. You choose what leaves your device.</span></p>
+<p>The result is not a score, and none of these exits is required.</p>
 </script>
 
   <script>
@@ -631,7 +730,7 @@ Then stop.
       var btn = this;
       var shareData = {
         title: 'Focus File',
-        text: 'A free AI prompt that refuses to let a goal stay vague — it builds an offline focus file that keeps you on task.',
+        text: 'Focus File turns one concrete block of work into an offline session and a private record of what helped, what got in the way, and where you stopped.',
         url: window.location.href
       };
       if (navigator.share) {

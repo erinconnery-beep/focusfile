@@ -277,6 +277,22 @@ window.addEventListener("DOMContentLoaded", function () {
     color: var(--ink-soft);
   }
 
+  /* ---------- Keep: a success cue carried from the previous block ---------- */
+  .keep {
+    padding: 20px 28px;
+    border-bottom: 1px solid #dce7d8;
+    background: var(--pine-tint);
+  }
+  .keep-label {
+    color: var(--pine);
+    margin-bottom: 7px;
+  }
+  .keep p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
   /* ---------- Why ---------- */
   .why {
     padding: 22px 28px;
@@ -714,21 +730,40 @@ window.addEventListener("DOMContentLoaded", function () {
     color: var(--ink-mut);
     font-style: italic;
   }
-  .btn-buildnext {
-    display: inline-block;
-    margin-top: 28px;
-    background: var(--pine);
-    color: var(--paper);
+  .result-question {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 42ch;
+    margin: 0 auto 15px;
+  }
+  .result-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .btn-buildnext, .result-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    margin: 0;
+    background: var(--paper);
+    color: var(--pine);
     font-family: -apple-system, system-ui, sans-serif;
     font-weight: 600;
-    font-size: 15px;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 40px;
+    font-size: 12.5px;
+    line-height: 1.25;
+    padding: 10px 12px;
+    border: 1.5px solid var(--pine);
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: background 0.15s, color 0.15s;
   }
-  .btn-buildnext:hover { background: #276039; }
+  .btn-buildnext:hover, .result-action:hover { background: var(--pine-tint); }
   .next-links { display:none; margin-top:14px; }
   .next-links.on { display:block; }
   .nl-lead { font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:#756f60; margin-bottom:6px; }
@@ -741,24 +776,48 @@ window.addEventListener("DOMContentLoaded", function () {
     font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:#756f60;
     text-decoration:underline; text-underline-offset:2px; padding:4px 2px; }
   .btn-dl:hover { color:#2d5c3b; }
-  .learn-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:var(--clay);
-    line-height:1.6; max-width:40ch; margin:26px auto 0; }
-  .buildnext-hint {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12px;
-    color: #756f60;
-    line-height: 1.5;
-    max-width: 38ch;
-    margin: 12px auto 0;
+  .share-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:var(--ink-mut);
+    line-height:1.6; max-width:44ch; margin:18px auto 0; }
+  .result-card {
+    max-width: 480px;
+    margin: 0 auto 22px;
+    border: 1px solid var(--paper-line);
+    border-radius: 12px;
+    background: var(--paper-warm);
+    overflow: hidden;
+    text-align: left;
   }
-  .log-actions {
+  .result-row {
+    display: grid;
+    grid-template-columns: 74px 1fr;
+    gap: 12px;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .result-row:last-child { border-bottom: 0; }
+  .result-key {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--pine);
+    padding-top: 2px;
+  }
+  .result-row.pulled .result-key { color: var(--clay); }
+  .result-row.stopped .result-key { color: var(--ink-mut); }
+  .result-value {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .result-secondary {
     display: flex;
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 26px;
-    padding-top: 22px;
-    border-top: 1px solid var(--hair);
+    margin-top: 12px;
   }
   .btn-log {
     background: transparent;
@@ -773,6 +832,11 @@ window.addEventListener("DOMContentLoaded", function () {
     transition: border-color 0.15s;
   }
   .btn-log:hover { border-color: var(--ink-ghost); }
+  @media (max-width: 480px) {
+    .result-actions { grid-template-columns: 1fr; }
+    .btn-buildnext, .result-action { min-height: 46px; }
+    .result-row { grid-template-columns: 66px 1fr; }
+  }
   .log-view {
     display: none;
     margin-top: 22px;
@@ -873,6 +937,12 @@ window.addEventListener("DOMContentLoaded", function () {
       </div>
     </div>
 
+    <!-- KEEP (a success cue learned from the previous block) -->
+    <div class="keep" id="keep">
+      <div class="eyebrow keep-label" id="keepLabel">Keep</div>
+      <p id="keepText"></p>
+    </div>
+
     <!-- WHY (watch-for: the trap to avoid) -->
     <div class="why" id="why">
       <div class="eyebrow why-label" id="whyLabel">Avoid</div>
@@ -935,7 +1005,7 @@ window.addEventListener("DOMContentLoaded", function () {
     <!-- EXIT -->
     <div class="exit" id="exit">
       <div class="eyebrow exit-eyebrow" id="exitEyebrow">Block complete</div>
-      <div class="exit-title">A few quick things — this closes the block and seeds the next.</div>
+      <div class="exit-title">A few quick things — this records what happened.</div>
 
       <label class="exit-q" for="finishInput">How far did you get?</label>
       <textarea class="exit-input" id="finishInput" rows="2" placeholder="e.g. mostly there — about 600 of 1,000 words"></textarea>
@@ -943,37 +1013,49 @@ window.addEventListener("DOMContentLoaded", function () {
       <label class="exit-q" id="outputQ" for="outputInput" style="display:none;">Output — did you hit the number?</label>
       <input class="exit-input" id="outputInput" style="display:none;" />
 
-      <label class="exit-q" for="inTheWayInput">What pulled you off? <span style="font-weight:400;">(I’ll watch for it next block)</span></label>
+      <label class="exit-q" for="helpedInput">What helped you focus?</label>
+      <textarea class="exit-input" id="helpedInput" rows="2" placeholder="e.g. the no-editing reminder kept me moving"></textarea>
+
+      <label class="exit-q" for="inTheWayInput">What pulled you off? <span style="font-weight:400;">(optional)</span></label>
       <textarea class="exit-input" id="inTheWayInput" rows="2" placeholder="e.g. drifted into note-taking — leave blank if nothing"></textarea>
 
-      <label class="exit-q" for="nextInput">Where does the next block pick up?</label>
-      <textarea class="exit-input" id="nextInput" rows="2" placeholder="e.g. Scene C — the confrontation"></textarea>
+      <label class="exit-q" for="nextInput">Where did you stop?</label>
+      <textarea class="exit-input" id="nextInput" rows="2" placeholder="e.g. Scene C — before the confrontation"></textarea>
 
       <div class="exit-foot">
         <span class="exit-log" id="exitLog"></span>
-        <button class="btn-done" id="doneBtn">Save entry</button>
+        <button class="btn-done" id="doneBtn">Save result</button>
       </div>
     </div>
 
     <!-- ALL DONE + LOG -->
     <div class="alldone" id="allDone">
-      <div class="msg"><span class="mark">✓</span> Entry saved.</div>
+      <div class="msg"><span class="mark">✓</span> Block recorded.</div>
 
-      <button class="btn-buildnext" id="buildNextBtn">Set up the next block →</button>
-      <div class="buildnext-hint" id="buildNextHint">One click sets up your next block from this one.</div>
+      <div class="result-card" aria-label="Result from this block">
+        <div class="result-row"><span class="result-key">Finished</span><span class="result-value" id="resultFinished"></span></div>
+        <div class="result-row"><span class="result-key">Helped</span><span class="result-value" id="resultHelped"></span></div>
+        <div class="result-row pulled"><span class="result-key">Pulled off</span><span class="result-value" id="resultPulled"></span></div>
+        <div class="result-row stopped"><span class="result-key">Stopped</span><span class="result-value" id="resultStopped"></span></div>
+      </div>
+
+      <p class="result-question">This result is already saved on your device. You can stop here, or choose what to do with it.</p>
+      <div class="result-actions">
+        <button class="btn-buildnext" id="buildNextBtn">Create another Focus File</button>
+        <button class="result-action" id="viewLogBtn">Review all results</button>
+        <button class="result-action" id="copyLastBtn">Copy this result</button>
+      </div>
 
       <div class="next-links" id="nextLinks">
-        <div class="nl-lead">Copied. Paste into a new chat &mdash; your log answers carry into the interview.</div>
+        <div class="nl-lead">Copied. Paste into a new chat. The last result is offered as context, not a requirement.</div>
         <div class="nl-row">
           <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
         </div>
       </div>
 
-      <div class="learn-note">The log is for learning, not judging. Look for the patterns and habits worth changing, and carry one into the next block. Over time, ritual becomes habit.</div>
+      <div class="share-note">Copy a result only if you want it elsewhere&mdash;including in your own notes or in a conversation with a therapist or coach. You decide what leaves this device.</div>
 
-      <div class="log-actions">
-        <button class="btn-log" id="viewLogBtn">View log</button>
-        <button class="btn-log" id="copyLastBtn">Copy latest entry</button>
+      <div class="result-secondary">
         <button class="btn-log" id="copyAllBtn">Copy full log</button>
         <button class="btn-log" id="downloadLogBtn">Download log</button>
       </div>
@@ -1121,20 +1203,6 @@ let noCount = 0;
 let hitAnswer = null;
 
 let nextKnockAt = null;
-const INTERVIEW_PROMPT = [
-"You run a short setup for a focus tool called Focus File, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. NEVER show the words 'sealed' or 'lane' to the person \u2014 they are internal mode values only; speak plainly (offer the internet-off options by name, e.g. 'Airplane mode').",
-"IF A \"=== LAST SESSION ===\" BLOCK APPEARS ABOVE THIS: it holds the previous block's answers and log. Treat each previous answer as the pre-filled DEFAULT for its question \u2014 state it back and ask only to confirm or adjust, never re-ask cold. Update defaults from the log: where they said the next block starts becomes the proposed task; what got in the way becomes a candidate trap; keep mode, window, shape, and reason unless they change them.",
-"",
-"Q1 — MODE. Ask what kind of work this is: Offline (writing, studying, creative, application) -> sealed, then ask how they'll turn the internet off and offer the choices as a short numbered list to pick from (last session's choice first when there is one): phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session; set sealedPlan to their short answer. Needs internet (job search, research, brainstorm, strategy) -> lane (ask which sites the work needs; they block the rest with their usual blocker; leave sealedPlan empty).",
-"Q2 — WORK + TIME. Ask what they're working on and their window, including a START TIME. Set scope to a real clock range like \"9:00 – 10:00\" (the start time drives the Begin button and the log) and set block length in minutes; do not skip the start time. Model a full answer, e.g. \"new chapter, 9-12, 2,000 words.\"",
-"Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done; jobs, if any, are the STEPS. The header must never just restate the checklist. jobsShape: \"none\" (atomic), \"milestones\" (a large count, split it), or \"checklist\" (3-5 genuinely different actions — never invent steps; propose and let them edit). Check the jobs fill the block; if short, grow the list or shrink the block. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly (e.g. \"So: 2,000 new words on the page.\").",
-"Q4 — THE TRAP (optional). Ask: \"Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)\" If named, set why to it phrased as the trap to avoid; if skipped, why is \"\".",
-"Q5 — THE REASON. Ask: \"Why does finishing this matter to you today? Keep it simple and true (e.g. the draft finally moves, so I stop dreading it, I can actually rest tonight).\" Set finishFeel to their answer.",
-"",
-"Then give ONE short plain-language recap line of the block (e.g. \"Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000\"), and output the focus file, changing ONLY the values inside the <script id=\"focus-config\"> JSON block. Never edit any other line — no HTML, CSS, or JS — and leave the selfTest function exactly as-is. Copy templateVersion through unchanged. Every value from the interview. Output the complete file in one code block, then stop.",
-"",
-"The frozen focus-file template is included at the very bottom of this message, after the line === FOCUS FILE TEMPLATE ===. Use it exactly as-is, changing only the values inside the <script id=\"focus-config\"> JSON block. You already have everything you need — do not ask the person to paste anything."
-].join("\n");
 
 /* ---- Optional: load a named test config from the URL (?test=writing|jobsearch|study|research) ---- */
 function decodeUrlConfig() {
@@ -1413,8 +1481,9 @@ function entryToText(e) {
   lines.push("Check-ins: " + e.checkins + " (" + e.onTask + " on task, " + e.sortOf + " sort of, " + e.off + " off)");
   if (e.finishedAsPlanned) lines.push("Finished as planned? " + e.finishedAsPlanned);
   if (e.output) lines.push("Output: " + e.output);
+  if (e.helped) lines.push("Helped: " + e.helped);
   if (e.inTheWay) lines.push("Got in the way: " + e.inTheWay);
-  if (e.nextStart) lines.push("Next block starts: " + e.nextStart);
+  if (e.nextStart) lines.push("Stopped: " + e.nextStart);
   return lines.join("\n");
 }
 function renderLog() {
@@ -1435,11 +1504,19 @@ function renderLog() {
             e.sortOf + ' sort of, ' + e.off + ' off</div>';
     if (e.finishedAsPlanned) html += '<div class="le-row"><b>As planned:</b> ' + escapeHtml(e.finishedAsPlanned) + '</div>';
     if (e.output) html += '<div class="le-row"><b>Output:</b> ' + escapeHtml(e.output) + '</div>';
+    if (e.helped) html += '<div class="le-row"><b>Helped:</b> ' + escapeHtml(e.helped) + '</div>';
     if (e.inTheWay) html += '<div class="le-row"><b>In the way:</b> ' + escapeHtml(e.inTheWay) + '</div>';
-    if (e.nextStart) html += '<div class="le-row"><b>Next:</b> ' + escapeHtml(e.nextStart) + '</div>';
+    if (e.nextStart) html += '<div class="le-row"><b>Stopped:</b> ' + escapeHtml(e.nextStart) + '</div>';
     div.innerHTML = html;
     v.appendChild(div);
   });
+}
+function renderResult(e) {
+  const finished = e.output ? e.finishedAsPlanned + " — " + e.output : e.finishedAsPlanned;
+  $("resultFinished").textContent = finished;
+  $("resultHelped").textContent = e.helped || cfg.keep || "Nothing named.";
+  $("resultPulled").textContent = e.inTheWay || "Nothing named.";
+  $("resultStopped").textContent = e.nextStart || "At the end of the planned block.";
 }
 function escapeHtml(s) {
   return (s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
@@ -1456,7 +1533,7 @@ function fallbackCopy(txt, done) {
   try { document.execCommand("copy"); done(); } catch (e) {}
   document.body.removeChild(ta);
 }
-/* ---- Build next block: copy interview prompt + this session as priming ---- */
+/* ---- Optional: create another Focus File with this result as context ---- */
 const NEXT_SCHEMA = [
 "{",
 '  "templateVersion": "2026-07-20",',
@@ -1465,6 +1542,8 @@ const NEXT_SCHEMA = [
 '  "mode": "sealed",',
 '  "sealedPlan": "",',
 '  "laneSites": [],',
+'  "keepLabel": "Keep",',
+'  "keep": "",',
 '  "whyLabel": "Avoid",',
 '  "why": "",',
 '  "finishFeel": "",',
@@ -1477,51 +1556,54 @@ const NEXT_SCHEMA = [
 "}"
 ].join("\n");
 const BUILD_NEXT_PROMPT = [
-"Run a quick setup for a focus tool called Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. Ask ONE question at a time, warm and CURT (a line or two, no long paragraphs). For each question, give a one-line reminder of last time and offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Honor the LAST SESSION defaults above; never re-ask from a blank slate. NEVER show the words 'sealed' or 'lane' to the person \u2014 they are internal mode values only; speak plainly and offer the internet-off options by name (e.g. 'Airplane mode').",
+"Run a quick setup for a new Focus File, then output ONLY a settings block \u2014 not the focus file, and no HTML. The person chose to bring the previous result as optional context. Ask ONE question at a time, warm and CURT (a line or two, no long paragraphs). For each question, give a one-line reminder of last time and offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Treat every previous value as a default they may keep or replace. NEVER show the words 'sealed' or 'lane' to the person \u2014 they are internal mode values only; speak plainly and offer the internet-off options by name (e.g. 'Airplane mode').",
 "",
 "Q1 \u2014 MODE. Offline work \u2192 sealed; ask how they'll turn the internet off and OFFER THE CHOICES AS A SHORT NUMBERED LIST they can pick from, last session's choice first (see LAST SESSION above), then the rest of: phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session. Set sealedPlan. Needs internet \u2192 lane; ask which sites the work needs (they block the rest) and leave sealedPlan empty.",
 "Q2 \u2014 WORK + TIME. The task, and the window: ASK FOR A START TIME and length. Set scope to a real clock range like \"9:00 \u2013 10:00\" (the start time drives the Begin button and the log) and set blockMinutes; do not skip the start time. Model a full answer, e.g. \"new chapter, 9-12, 2,000 words.\"",
 "Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly.",
-"Q4 \u2014 THE TRAP (optional). The thing that feels like progress but isn't. If skipped, why is \"\".",
+"Q4 \u2014 KEEP + AVOID. First confirm what HELPED last time and should stay visible; set keep to one short cue in their own words and keepLabel to \"Keep\". Then confirm the trap: the thing that feels like progress but isn't; set why to that trap, or \"\" if there is none.",
 "Q5 \u2014 THE REASON. Why finishing matters today.",
 "",
 "When done, give ONE short plain-language recap line of the block (e.g. \"Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000\"), then output ONLY this JSON in one code block, filled from the interview \u2014 copy templateVersion unchanged, every value from the interview, never invented:",
 NEXT_SCHEMA,
 "",
-"Then tell them, in one line: Paste that block into the builder at thenextblock.org to download your next focus file."
+"Then tell them, in one line: Paste that block into the builder at thenextblock.org to download the new focus file."
 ].join("\n");
 
 function buildNextPayload(e) {
   const ctx = [];
   const realNext = (e.nextStart && e.nextStart.trim().length > 2) ? e.nextStart.trim() : "";
   const sites = (cfg.laneSites || []).join(", ");
-  ctx.push("=== LAST SESSION — remember this and carry it forward ===");
-  ctx.push("Below are the previous block's setup answers and how it actually went. Keep every question CURT \u2014 a line or two, never a long paragraph. For EACH question: give a one-line reminder of last time's answer, then offer it back as a pickable numbered option (e.g. \"1. Same as last \u2014 60 min, 1,000 words\") alongside the option to type a new value. Update defaults from the log. Never re-ask from a blank slate.");
+  ctx.push("=== PREVIOUS RESULT — optional context for a new Focus File ===");
+  ctx.push("Below are the previous block's setup answers and what actually happened. Keep every question CURT \u2014 a line or two, never a long paragraph. For EACH question: briefly offer the relevant previous answer as a numbered default alongside the option to type a new value. The person may keep, change, or ignore any of it.");
   ctx.push("");
   ctx.push("Previous answers, by question:");
   ctx.push("- Q1 mode: " + cfg.mode + (cfg.mode === "sealed" ? " (internet off via: " + (cfg.sealedPlan || "not specified") + ")" : " (sites kept open: " + (sites || "not specified") + ")"));
   ctx.push("- Q2 task: " + cfg.task);
   ctx.push("- Q2 window: " + (cfg.scope || "not specified") + " (" + cfg.blockMinutes + " min)");
   ctx.push("- Q3 shape: " + cfg.jobsShape + ((cfg.jobs && cfg.jobs.length) ? " — steps: " + cfg.jobs.join(" | ") : " (no steps)"));
+  ctx.push("- Q4 success cue: " + (cfg.keep || "(none yet — use what helped in the log)"));
   ctx.push("- Q4 trap: " + (cfg.why || "(none named)"));
   ctx.push("- Q5 reason: " + (cfg.finishFeel || "not specified"));
   ctx.push("");
   ctx.push("How the block actually went (from the log):");
   if (e.finishedAsPlanned) ctx.push("- How far they got: " + e.finishedAsPlanned);
   if (e.output) ctx.push("- Output / number hit: " + e.output);
+  if (e.helped) ctx.push("- What HELPED and should be repeated: " + e.helped);
   if (e.inTheWay) ctx.push("- What got in the way: " + e.inTheWay);
-  if (realNext) ctx.push("- Where they said the NEXT block starts: " + realNext);
+  if (realNext) ctx.push("- Where they stopped: " + realNext);
   ctx.push("- Check-ins: " + e.checkins + " (" + e.onTask + " on task, " + e.sortOf + " sort of, " + e.off + " off)");
   ctx.push("");
   ctx.push("How to update each default from the log:");
   ctx.push(realNext
-    ? "- Q2 task: default to \"" + realNext + "\" (where they said the next block starts). Confirm or let them change it."
+    ? "- Q2 task: offer \"" + realNext + "\" as a possible place to resume. Confirm it or let them change it."
     : "- Q2 task: carry \"" + cfg.task + "\" forward unless they say it's finished.");
   ctx.push("- Q1 mode, Q2 window, Q3 shape: reuse last time's as defaults; change only what they ask to change.");
   ctx.push("- Q2 start time: if last window has no clock time, ASK for one and set scope like \"9:00 – 10:00\".");
-  ctx.push("- Q4 trap: default to \"" + (cfg.why || e.inTheWay || "") + "\"." + ((e.inTheWay && e.inTheWay !== cfg.why) ? " The log says \"" + e.inTheWay + "\" got in the way — offer that as the trap if it fits." : "") + " If there was no trap and nothing got in the way, leave it empty.");
+  ctx.push("- Q4 KEEP: default to \"" + (e.helped || cfg.keep || "") + "\". Confirm it, shorten it into a useful visible cue, and set keep to that cue. Do not discard a success just because the task changes; ask whether the same condition should be repeated.");
+  ctx.push("- Q4 trap: default to \"" + (e.inTheWay || cfg.why || "") + "\"." + ((e.inTheWay && e.inTheWay !== cfg.why) ? " This came from the log, so prefer it over the old trap unless they say it was a one-off." : "") + " If there was no trap and nothing got in the way, leave it empty.");
   ctx.push("- Q5 reason: default to \"" + (cfg.finishFeel || "") + "\"; keep it unless they want a new one.");
-  ctx.push("=== END LAST SESSION ===");
+  ctx.push("=== END PREVIOUS RESULT ===");
   ctx.push("");
   ctx.push(BUILD_NEXT_PROMPT);
   return ctx.join("\n");
@@ -1545,7 +1627,7 @@ function capturePristine() {
 
 function normalizeConfig(raw) {
   const c = Object.assign({
-    scope: "", laneSites: [], sealedPlan: "", whyLabel: "Avoid", why: "",
+    scope: "", laneSites: [], sealedPlan: "", keepLabel: "Keep", keep: "", whyLabel: "Avoid", why: "",
     finishFeel: "", jobsShape: "none", jobs: [], knockMinMin: 28, knockMaxMin: 33
   }, raw || {});
   c.task = String(c.task || "").trim();
@@ -1555,6 +1637,8 @@ function normalizeConfig(raw) {
   c.knockMaxMin = Math.max(Number(c.knockMaxMin) || 33, c.knockMinMin);
   c.jobs = Array.isArray(c.jobs) ? c.jobs.map(String) : [];
   c.laneSites = Array.isArray(c.laneSites) ? c.laneSites.map(String) : [];
+  c.keep = String(c.keep || "");
+  c.keepLabel = "Keep";
   c.why = String(c.why || "");
   c.sealedPlan = String(c.sealedPlan || "");
   c.finishFeel = String(c.finishFeel || "");
@@ -1601,6 +1685,13 @@ function applyConfig() {
   setInterval(renderClockLine, 20000);
   $("pullText").textContent  = cfg.finishFeel;
   $("beLine").textContent    = "You said done was " + cfg.doneWhenShort + ".";
+
+  if (cfg.keep && cfg.keep.trim()) {
+    $("keepLabel").textContent = cfg.keepLabel || "Keep";
+    $("keepText").textContent = cfg.keep;
+  } else {
+    $("keep").style.display = "none";
+  }
 
   if (hasTrap) {
     $("whyLabel").textContent = cfg.whyLabel || "Avoid";
@@ -1728,7 +1819,7 @@ function wireEvents() {
     showExit(true);    // ended early
   });
 
-  ["finishInput", "nextInput", "outputInput"].forEach(id => {
+  ["finishInput", "helpedInput", "nextInput", "outputInput"].forEach(id => {
     $(id).addEventListener("input", () => {
       if ($(id).value.trim()) {
         $(id).classList.remove("invalid");
@@ -1738,9 +1829,9 @@ function wireEvents() {
   });
 
   $("doneBtn").addEventListener("click", () => {
-    // Required: finished-as-planned, where-next, and output (only when the output field is shown).
+    // Required: what finished, what helped, where they stopped, and output (only when shown).
     // "What got in the way" stays optional — "nothing" is a valid answer.
-    const required = [$("finishInput"), $("nextInput")];
+    const required = [$("finishInput"), $("helpedInput"), $("nextInput")];
     if ($("outputQ").style.display !== "none") required.push($("outputInput"));
 
     let firstMissing = null;
@@ -1785,6 +1876,7 @@ function wireEvents() {
       off: noCount,
       finishedAsPlanned: $("finishInput").value.trim(),
       output: $("outputInput").value.trim(),
+      helped: $("helpedInput").value.trim(),
       inTheWay: $("inTheWayInput").value.trim(),
       nextStart: $("nextInput").value.trim()
     };
@@ -1794,17 +1886,18 @@ function wireEvents() {
     try { entries = JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]"); } catch (e) {}
     entries.push(entry);
     localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
-    logRow("exit", { hit: entry.finishedAsPlanned, output: entry.output });
+    logRow("exit", { hit: entry.finishedAsPlanned, output: entry.output, helped: entry.helped, inTheWay: entry.inTheWay });
 
     $("exit").classList.remove("on");
+    renderResult(entry);
     $("allDone").classList.add("on");
   });
 
   $("viewLogBtn").addEventListener("click", () => {
     const v = $("logView");
     v.classList.toggle("on");
-    if (v.classList.contains("on")) { renderLog(); $("viewLogBtn").textContent = "Hide log"; }
-    else $("viewLogBtn").textContent = "View log";
+    if (v.classList.contains("on")) { renderLog(); $("viewLogBtn").textContent = "Hide results"; }
+    else $("viewLogBtn").textContent = "Review all results";
   });
   $("copyLastBtn").addEventListener("click", (e) => {
     const entries = getEntries();
@@ -1831,7 +1924,7 @@ function wireEvents() {
     const entries = getEntries();
     if (!entries.length) return;
     copyText(buildNextPayload(entries[entries.length - 1]), e.target,
-             () => { $("nextLinks").classList.add("on"); $("buildNextHint").style.display = "none"; });
+             () => { $("nextLinks").classList.add("on"); });
   });
 
   $("previewLink").addEventListener("click", () => {
