@@ -127,7 +127,7 @@ Focus File is not medical or psychological advice.
 
 ## Contact
 
-Feedback, ideas, or problems: **erinconnery@gmail.com**
+Feedback, ideas, or problems: **hello@focusfile.org**
 
 Built by a writer who couldn't start.
 

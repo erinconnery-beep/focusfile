@@ -589,7 +589,7 @@
       </nav>
 
       <div class="foot">
-        <span class="foot-msg">Helped you? <button class="foot-link" id="shareBtn">Share it.</button> Could be better? <a class="foot-link" href="mailto:erinconnery@gmail.com">Send feedback.</a></span>
+        <span class="foot-msg">Helped you? <button class="foot-link" id="shareBtn">Share it.</button> Could be better? <a class="foot-link" href="mailto:hello@focusfile.org">Send feedback.</a></span>
         <span class="foot-sub">Free to use and adapt &middot; MIT licensed</span>
       </div>
     </section>
@@ -681,7 +681,7 @@ Then stop.
 </script>
   <script type="text/plain" id="m-feedback"><h2>Feedback</h2>
 <p>Tell us what's working, what's not, or any new ideas.</p>
-<p>Send us an email: <a href="mailto:erinconnery@gmail.com">erinconnery@gmail.com</a></p>
+<p>Send us an email: <a href="mailto:hello@focusfile.org">hello@focusfile.org</a></p>
 </script>
 
   <script type="text/plain" id="m-interview"><h2>The interview</h2>
@@ -745,7 +745,7 @@ Then stop.
           var safeCfg=JSON.stringify(cfg,null,2).replace(/</g,'\\u003c');
           var island='<script id="focus-config" type="application/json">\n'+safeCfg+'\n<\/script>';
           var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
-          if(out===tpl){ track('builder_error_template'); msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email erinconnery@gmail.com.'; return; }
+          if(out===tpl){ track('builder_error_template'); msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email hello@focusfile.org.'; return; }
           var slug=String(cfg.task||'').toLowerCase().replace(/,/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
           if(slug.length>22){ slug=slug.slice(0,22).replace(/-[^-]*$/,''); }   // keep it short, cut at a word boundary
           while(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/.test(slug)){ slug=slug.replace(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/,''); }   // drop dangling stopwords
