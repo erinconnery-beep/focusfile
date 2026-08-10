@@ -846,7 +846,32 @@ window.addEventListener("DOMContentLoaded", function () {
     letter-spacing: .15em;
     text-transform: uppercase;
     color: var(--pine);
-    margin-bottom: 7px;
+    margin-bottom: 0;
+  }
+  .learning-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .learning-window {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ink-mut);
+  }
+  .learning-window select {
+    min-height: 30px;
+    border: 1px solid #c9d8c5;
+    border-radius: 7px;
+    background: rgba(255,255,255,.75);
+    color: var(--ink-soft);
+    font: inherit;
+    padding: 5px 24px 5px 8px;
   }
   .learning-summary {
     font-size: 25px;
@@ -867,13 +892,13 @@ window.addEventListener("DOMContentLoaded", function () {
     gap: 10px;
     margin-bottom: 10px;
   }
-  .learning-signal, .learning-insight, .learning-carry {
+  .learning-signal, .learning-insight, .learning-time, .learning-carry {
     border: 1px solid #d3dfcf;
     border-radius: 9px;
     background: rgba(255,255,255,.58);
     padding: 12px 13px;
   }
-  .learning-insight, .learning-carry { margin-top: 10px; }
+  .learning-insight, .learning-time, .learning-carry { margin-top: 10px; }
   .learning-label {
     display: block;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -913,6 +938,14 @@ window.addEventListener("DOMContentLoaded", function () {
     transition: border-color 0.15s;
   }
   .btn-log:hover { border-color: var(--ink-ghost); }
+  .fresh-status {
+    width: 100%;
+    min-height: 16px;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--pine);
+    text-align: center;
+  }
   @media (max-width: 480px) {
     .result-actions { grid-template-columns: 1fr; }
     .btn-buildnext, .result-action { min-height: 46px; }
@@ -920,6 +953,8 @@ window.addEventListener("DOMContentLoaded", function () {
     .learning-report { padding: 17px; }
     .learning-summary { font-size: 22px; }
     .learning-grid { grid-template-columns: 1fr; }
+    .learning-head { align-items: flex-start; }
+    .learning-window { flex-direction: column; align-items: flex-end; gap: 3px; }
   }
   .log-view {
     display: none;
@@ -978,6 +1013,31 @@ window.addEventListener("DOMContentLoaded", function () {
     color: var(--ink-mut);
     text-align: center;
     padding: 12px;
+  }
+  .log-controls {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hair);
+    font-family: -apple-system, system-ui, sans-serif;
+  }
+  .delete-history {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--clay);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .delete-note {
+    margin: 7px 0 0;
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--ink-mut);
   }
 </style>
 </head>
@@ -1133,7 +1193,18 @@ window.addEventListener("DOMContentLoaded", function () {
       </div>
 
       <section class="learning-report" id="learningReport" aria-labelledby="learningTitle">
-        <div class="learning-kicker" id="learningTitle">What you&rsquo;re learning</div>
+        <div class="learning-head">
+          <div class="learning-kicker" id="learningTitle">What you&rsquo;re learning</div>
+          <label class="learning-window" for="learningRange">
+            <span>Report</span>
+            <select id="learningRange">
+              <option value="7">Last 7 days</option>
+              <option value="14" selected>Last 14 days</option>
+              <option value="all">All history</option>
+              <option value="period" id="periodOption" hidden>Current period</option>
+            </select>
+          </label>
+        </div>
         <div class="learning-summary" id="learningSummary"></div>
         <p class="learning-context" id="learningContext"></p>
         <div class="learning-grid">
@@ -1149,6 +1220,10 @@ window.addEventListener("DOMContentLoaded", function () {
         <div class="learning-insight">
           <span class="learning-label">Conditions you used</span>
           <div class="learning-text" id="learningConditions"></div>
+        </div>
+        <div class="learning-time">
+          <span class="learning-label">Time in the block</span>
+          <div class="learning-text" id="learningTime"></div>
         </div>
         <div class="learning-carry">
           <span class="learning-label">Carry into the next block</span>
@@ -1184,6 +1259,8 @@ window.addEventListener("DOMContentLoaded", function () {
       <div class="result-secondary">
         <button class="btn-log" id="copyAllBtn">Copy full log</button>
         <button class="btn-log" id="downloadLogBtn">Download log</button>
+        <button class="btn-log" id="startFreshBtn">Start a fresh period</button>
+        <span class="fresh-status" id="freshStatus" aria-live="polite"></span>
       </div>
       <div class="log-view" id="logView"></div>
     </div>
@@ -1317,8 +1394,14 @@ const $ = id => document.getElementById(id);
 
 const LOG_KEY_BASE = "nextblock_log";          // raw event stream (CSV-ish)
 const ENTRIES_KEY_BASE = "nextblock_entries"; // structured per-session entries (JSON)
+const REPORT_SCOPE_KEY_BASE = "nextblock_report_scope";
+const REPORT_SINCE_KEY_BASE = "nextblock_report_since";
+const HISTORY_RESET_KEY_BASE = "nextblock_history_reset";
 let LOG_KEY = LOG_KEY_BASE;
 let ENTRIES_KEY = ENTRIES_KEY_BASE;
+let REPORT_SCOPE_KEY = REPORT_SCOPE_KEY_BASE;
+let REPORT_SINCE_KEY = REPORT_SINCE_KEY_BASE;
+let HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE;
 let startTime = null;
 let elapsedTimer = null;
 let knockTimer = null;
@@ -1330,6 +1413,9 @@ let sortOfCount = 0;
 let noCount = 0;
 let hitAnswer = null;
 let volatileEntries = [];
+let reportScopeValue = "14";
+let reportSinceValue = 0;
+let historyResetAt = 0;
 
 let nextKnockAt = null;
 
@@ -1603,7 +1689,12 @@ function getEntries() {
   if (!local.length && !embedded.length) {
     try { local = JSON.parse(localStorage.getItem(ENTRIES_KEY_BASE) || "[]"); } catch (e) {}
   }
-  return mergeEntries(embedded, local);
+  const merged = mergeEntries(embedded, local);
+  if (!historyResetAt) return merged;
+  return merged.filter(e => {
+    const when = Date.parse(e.date);
+    return Number.isFinite(when) && when > historyResetAt;
+  });
 }
 function saveEntries(entries) {
   volatileEntries = mergeEntries([], entries);
@@ -1678,18 +1769,25 @@ function summarizeLearning(rawEntries) {
   const totals = entries.reduce((a, e) => {
     const mode = e.mode === "sealed" ? "sealed" : (e.mode === "lane" ? "lane" : "other");
     a.modes[mode] += 1;
-    if (e.plannedMinutes) a.durations[e.plannedMinutes] = (a.durations[e.plannedMinutes] || 0) + 1;
     return a;
-  }, {modes:{sealed:0,lane:0,other:0},durations:{}});
+  }, {modes:{sealed:0,lane:0,other:0}});
   const conditionParts = [];
   if (totals.modes.sealed) conditionParts.push("Internet off in " + totals.modes.sealed + " " + (totals.modes.sealed === 1 ? "block" : "blocks"));
   if (totals.modes.lane) conditionParts.push("internet needed in " + totals.modes.lane + " " + (totals.modes.lane === 1 ? "block" : "blocks"));
-  const durations = Object.keys(totals.durations).map(Number).sort((a, b) => totals.durations[b] - totals.durations[a] || b - a);
-  if (durations.length) {
-    const minutes = durations[0], count = totals.durations[minutes];
-    conditionParts.push(minutes + "-minute blocks" + (count > 1 ? " \u00d7" + count : ""));
-  }
   const conditions = conditionParts.length ? conditionParts.join(" \u00b7 ") + "." : "No block conditions recorded yet.";
+  const timed = entries.filter(e => Number(e.plannedMinutes) > 0 && Number(e.actualMinutes) >= 0);
+  const plannedTotal = timed.reduce((sum, e) => sum + Number(e.plannedMinutes), 0);
+  const actualTotal = timed.reduce((sum, e) => sum + Number(e.actualMinutes), 0);
+  const delta = actualTotal - plannedTotal;
+  const minuteWord = n => Math.abs(n) === 1 ? "minute" : "minutes";
+  let time = "No planned-and-actual time recorded yet.";
+  if (timed.length) {
+    const lead = timed.length === 1
+      ? actualTotal + " of " + plannedTotal + " planned " + minuteWord(plannedTotal)
+      : "Across " + timed.length + " blocks: " + actualTotal + " of " + plannedTotal + " planned " + minuteWord(plannedTotal);
+    if (delta === 0) time = lead + " \u00b7 matched the planned time.";
+    else time = lead + " \u00b7 " + Math.abs(delta) + " " + minuteWord(delta) + " " + (delta > 0 ? "longer" : "shorter") + (timed.length > 1 ? " overall" : "") + ".";
+  }
   const helps = collectSignals(entries, "helped");
   const pulls = collectSignals(entries, "inTheWay");
   const latest = entries[entries.length - 1] || {};
@@ -1702,8 +1800,59 @@ function summarizeLearning(rawEntries) {
     helps,
     pulls,
     conditions,
+    time,
     carry: carry.length ? carry.join(". ") + "." : "Complete another result to create a useful handoff for the next block."
   };
+}
+function filterReportEntries(rawEntries, scope, since, nowMs) {
+  const entries = mergeEntries([], rawEntries);
+  const now = Number(nowMs) || Date.now();
+  let cutoff = 0;
+  if (scope === "period" && Number(since) > 0) cutoff = Number(since);
+  else if (scope === "7" || scope === "14") cutoff = now - Number(scope) * 24 * 60 * 60 * 1000;
+  if (!cutoff) return entries;
+  return entries.filter(e => {
+    const when = Date.parse(e.date);
+    return Number.isFinite(when) && when >= cutoff && when <= now;
+  });
+}
+function shortReportDate(value, withTime) {
+  const d = value instanceof Date ? value : new Date(value);
+  if (!Number.isFinite(d.getTime())) return "";
+  const options = {month:"short", day:"numeric"};
+  if (withTime) { options.hour = "numeric"; options.minute = "2-digit"; }
+  return d.toLocaleDateString([], options);
+}
+function reportDateSpan(entries, scope, since) {
+  if (!entries.length) {
+    if (scope === "period" && since) return "since " + shortReportDate(since, true);
+    if (scope === "all") return "all history";
+    return "last " + (scope === "7" ? "7" : "14") + " days";
+  }
+  const first = new Date(entries[0].date), last = new Date(entries[entries.length - 1].date);
+  if (first.toDateString() === last.toDateString()) return shortReportDate(first, false);
+  if (first.getFullYear() === last.getFullYear() && first.getMonth() === last.getMonth()) {
+    return first.toLocaleDateString([], {month:"short"}) + " " + first.getDate() + "–" + last.getDate();
+  }
+  return shortReportDate(first, false) + "–" + shortReportDate(last, false);
+}
+function saveReportState(scope, since) {
+  reportScopeValue = ["7","14","all","period"].indexOf(String(scope)) > -1 ? String(scope) : "14";
+  reportSinceValue = Number(since) || 0;
+  cfg.reportScope = reportScopeValue;
+  cfg.reportSince = reportSinceValue;
+  try {
+    localStorage.setItem(REPORT_SCOPE_KEY, reportScopeValue);
+    if (reportSinceValue) localStorage.setItem(REPORT_SINCE_KEY, String(reportSinceValue));
+    else localStorage.removeItem(REPORT_SINCE_KEY);
+  } catch (e) {}
+}
+function syncReportControls() {
+  const option = $("periodOption");
+  option.hidden = !reportSinceValue;
+  if (reportSinceValue) option.textContent = "Current period · " + shortReportDate(reportSinceValue, false);
+  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "14";
+  $("learningRange").value = reportScopeValue;
 }
 function renderSignalList(id, signals, emptyText) {
   const target = $(id);
@@ -1719,14 +1868,22 @@ function renderSignalList(id, signals, emptyText) {
   target.appendChild(list);
 }
 function renderLearningReport() {
-  const summary = summarizeLearning(getEntries());
-  $("learningSummary").textContent = summary.blocks + " " + (summary.blocks === 1 ? "block" : "blocks") + " recorded";
-  $("learningContext").textContent = summary.blocks < 2
-    ? "One result is a signal, not a pattern yet. Another block will make comparison possible."
-    : "Repeated wording is counted; different wording stays separate. Check-ins remain part of the record, never a score.";
+  syncReportControls();
+  const reportEntries = filterReportEntries(getEntries(), reportScopeValue, reportSinceValue, Date.now());
+  const summary = summarizeLearning(reportEntries);
+  const span = reportDateSpan(reportEntries, reportScopeValue, reportSinceValue);
+  $("learningSummary").textContent = summary.blocks
+    ? summary.blocks + " " + (summary.blocks === 1 ? "block" : "blocks") + " · " + span
+    : "No blocks · " + span;
+  $("learningContext").textContent = summary.blocks === 0
+    ? "No results fall inside this timeframe yet. Choose another range or complete a block."
+    : (summary.blocks < 2
+      ? "One result is a signal, not a pattern yet. Another block will make comparison possible."
+      : "Repeated wording is counted; different wording stays separate. Check-ins remain part of the record, never a score.");
   renderSignalList("learningHelps", summary.helps, "Nothing named yet.");
   renderSignalList("learningPulls", summary.pulls, "Nothing named yet.");
   $("learningConditions").textContent = summary.conditions;
+  $("learningTime").textContent = summary.time;
   $("learningCarry").textContent = summary.carry;
 }
 function renderLog() {
@@ -1736,7 +1893,7 @@ function renderLog() {
   v.innerHTML = "";
   const title = document.createElement("div");
   title.className = "log-title";
-  title.textContent = "Saved results behind this report";
+  title.textContent = "All saved results";
   v.appendChild(title);
   entries.slice().reverse().forEach(e => {
     const div = document.createElement("div");
@@ -1757,6 +1914,34 @@ function renderLog() {
     if (e.nextStart) html += '<div class="le-row"><b>Stopped:</b> ' + escapeHtml(e.nextStart) + '</div>';
     div.innerHTML = html;
     v.appendChild(div);
+  });
+  const controls = document.createElement("div");
+  controls.className = "log-controls";
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "delete-history";
+  remove.textContent = "Delete all saved results…";
+  const note = document.createElement("p");
+  note.className = "delete-note";
+  note.textContent = "Deletes the history this file uses in this browser. Downloaded Focus File copies may still contain embedded history; delete those files separately.";
+  controls.appendChild(remove);
+  controls.appendChild(note);
+  v.appendChild(controls);
+  remove.addEventListener("click", () => {
+    const count = getEntries().length;
+    const ok = window.confirm("Delete " + count + " saved " + (count === 1 ? "result" : "results") + " from this browser? This cannot remove history already embedded in downloaded Focus File copies; delete those files separately.");
+    if (!ok) return;
+    historyResetAt = Date.now();
+    volatileEntries = [];
+    try {
+      localStorage.setItem(HISTORY_RESET_KEY, String(historyResetAt));
+      localStorage.removeItem(ENTRIES_KEY);
+      localStorage.removeItem(LOG_KEY);
+    } catch (e) {}
+    saveReportState("14", 0);
+    renderLearningReport();
+    renderLog();
+    $("freshStatus").textContent = "Saved history deleted from this browser.";
   });
 }
 function renderResult(e) {
@@ -1882,11 +2067,14 @@ function focusFilename(task) {
   while (/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/.test(slug)) slug = slug.replace(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/, "");
   return (slug ? "focus-" + slug : "focus") + ".html";
 }
-function buildNextFileHtml(rawCfg, entries, templateHtml) {
+function buildNextFileHtml(rawCfg, entries, templateHtml, reportState) {
   const next = Object.assign({}, rawCfg);
   next.templateVersion = next.templateVersion || cfg.templateVersion || "2026-07-20";
   next.fileId = createFileId();
   next.learningHistory = mergeEntries([], entries);
+  const state = reportState || { scope: reportScopeValue, since: reportSinceValue };
+  next.reportScope = ["7","14","all","period"].indexOf(String(state.scope)) > -1 ? String(state.scope) : "14";
+  next.reportSince = Number(state.since) || 0;
   const json = JSON.stringify(next, null, 2).replace(/</g, "\\u003c");
   const island = '<script id="focus-config" type="application/json">\n' + json + '\n<\/script>';
   const source = String(templateHtml || "");
@@ -1914,7 +2102,7 @@ function normalizeConfig(raw) {
   const c = Object.assign({
     scope: "", laneSites: [], sealedPlan: "", keepLabel: "Keep", keep: "", whyLabel: "Avoid", why: "",
     finishFeel: "", jobsShape: "none", jobs: [], knockMinMin: 28, knockMaxMin: 33,
-    fileId: "", learningHistory: []
+    fileId: "", learningHistory: [], reportScope: "14", reportSince: 0
   }, raw || {});
   c.task = String(c.task || "").trim();
   c.scope = String(c.scope || "").trim();
@@ -1932,6 +2120,9 @@ function normalizeConfig(raw) {
   c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Avoid";
   c.fileId = String(c.fileId || "");
   c.learningHistory = Array.isArray(c.learningHistory) ? c.learningHistory : [];
+  c.reportScope = ["7","14","all","period"].indexOf(String(c.reportScope)) > -1 ? String(c.reportScope) : "14";
+  c.reportSince = Number(c.reportSince) || 0;
+  if (c.reportScope === "period" && !c.reportSince) c.reportScope = "14";
   return c;
 }
 
@@ -1951,6 +2142,21 @@ function activateStorageKeys() {
   const suffix = shortHash(identity);
   LOG_KEY = LOG_KEY_BASE + "_" + suffix;
   ENTRIES_KEY = ENTRIES_KEY_BASE + "_" + suffix;
+  REPORT_SCOPE_KEY = REPORT_SCOPE_KEY_BASE + "_" + suffix;
+  REPORT_SINCE_KEY = REPORT_SINCE_KEY_BASE + "_" + suffix;
+  HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE + "_" + suffix;
+  reportScopeValue = cfg.reportScope || "14";
+  reportSinceValue = Number(cfg.reportSince) || 0;
+  historyResetAt = 0;
+  try {
+    const storedScope = localStorage.getItem(REPORT_SCOPE_KEY);
+    const storedSince = Number(localStorage.getItem(REPORT_SINCE_KEY));
+    const storedReset = Number(localStorage.getItem(HISTORY_RESET_KEY));
+    if (["7","14","all","period"].indexOf(storedScope) > -1) reportScopeValue = storedScope;
+    if (storedSince > 0) reportSinceValue = storedSince;
+    if (storedReset > 0) historyResetAt = storedReset;
+  } catch (e) {}
+  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "14";
 }
 
 function loadConfig() {
@@ -2209,6 +2415,17 @@ function wireEvents() {
     if (v.classList.contains("on")) { renderLog(); $("viewLogBtn").textContent = "Hide full log"; }
     else $("viewLogBtn").textContent = "View full log";
   });
+  $("learningRange").addEventListener("change", (e) => {
+    saveReportState(e.target.value, reportSinceValue);
+    renderLearningReport();
+  });
+  $("startFreshBtn").addEventListener("click", () => {
+    const ok = window.confirm("Start a fresh reporting period now? Earlier results will stay in the full log but stop shaping the learning report.");
+    if (!ok) return;
+    saveReportState("period", Date.now());
+    renderLearningReport();
+    $("freshStatus").textContent = "Fresh period started. Earlier results remain in the full log.";
+  });
   $("copyLastBtn").addEventListener("click", (e) => {
     const entries = getEntries();
     if (!entries.length) return;
@@ -2276,9 +2493,13 @@ function selfTest() {
   must(["none", "milestones", "checklist"].indexOf(cfg.jobsShape) > -1, "unknown jobsShape");
   must(Array.isArray(cfg.jobs), "jobs must be an array");
   must(Array.isArray(cfg.learningHistory), "learningHistory must be an array");
+  must(["7","14","all","period"].indexOf(cfg.reportScope) > -1, "reportScope is invalid");
   must(cfg.jobsShape === "none" || document.querySelectorAll(".job").length === cfg.jobs.length, "jobs did not render");
   must(cfg.knockMinMin > 0 && cfg.knockMaxMin >= cfg.knockMinMin, "knock window invalid");
   must(!!document.getElementById("beginBtn"), "begin button missing");
+  must(!!document.getElementById("learningRange"), "learning timeframe control missing");
+  must(!!document.getElementById("learningTime"), "planned-versus-actual time missing");
+  must(!!document.getElementById("startFreshBtn"), "fresh-period control missing");
 }
 
 /* ===================== BOOT — the only top-level call in this file ===================== */

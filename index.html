@@ -116,6 +116,8 @@
   .coach-callout h2 { font-size:clamp(24px,3vw,31px); line-height:1.18; letter-spacing:-.01em;
     margin-bottom:11px; }
   .coach-callout p { font-family:var(--sans); font-size:14px; line-height:1.62; color:var(--ink-soft); }
+  .coach-callout .coach-question { margin:0 0 7px; font-family:var(--serif); font-size:20px;
+    line-height:1.25; color:var(--ink); }
   .coach-local { margin-top:16px; padding:16px 17px; border:1px solid #cfdfcb; border-radius:11px;
     background:rgba(253,251,246,.72); }
   .coach-local p + p { margin-top:11px; padding-top:11px; border-top:1px solid #dfe8db; }
@@ -494,7 +496,7 @@
     <section class="after-block" aria-labelledby="afterTitle">
       <div class="after-head">
         <div class="after-kicker">After the block</div>
-        <h2 id="afterTitle">Learn from what happened.</h2>
+        <h2 id="afterTitle">Carry what you learned into the next block.</h2>
       </div>
       <div class="after-options">
         <article class="after-option">
@@ -505,12 +507,12 @@
         <article class="after-option">
           <span class="option-tag">New file</span>
           <h3>Make another file</h3>
-          <p>Copy the next interview from the completed file, then paste the new settings back into it. The next download already contains the history.</p>
+          <p>Bring forward what helped, what pulled you off, and where you stopped. Paste the new settings back into the completed file to download the next one.</p>
         </article>
         <article class="after-option">
           <span class="option-tag">Patterns</span>
           <h3>Review patterns</h3>
-          <p>Open the local learning report to see repeated helpers, distractions, focus conditions, and what to carry forward.</p>
+          <p>See repeated helpers, distractions, focus conditions, and actual versus planned time across 7 days, 14 days, or all your saved history.</p>
         </article>
         <article class="after-option">
           <span class="option-tag">Share</span>
@@ -523,18 +525,11 @@
     <section class="postscript" aria-label="Additional Focus File information">
       <aside class="coach-callout" aria-labelledby="coachTitle">
         <div class="coach-kicker">For coaches and therapists</div>
-        <h2 id="coachTitle">Under HIPAA, it&rsquo;s a paper worksheet.</h2>
-        <p>The client holds the record&mdash;we never do. Help a client shape a concrete block, let them run it privately, and review the result only if they share it. Nothing is ever sent to us: no client data, no business associate agreement, nothing on our side for HIPAA to regulate.</p>
-        <div class="coach-local">
-          <p><b>The one outside service is the AI setup interview.</b> It needs no personal details&mdash;a task, a window, a distraction to avoid&mdash;or use an AI your organization has approved.</p>
-        </div>
-        <div class="coach-flags" aria-label="Focus File privacy features">
-          <span class="coach-flag">Nothing sent to us</span>
-          <span class="coach-flag">No account, no server copy</span>
-          <span class="coach-flag">Client decides what to share</span>
-        </div>
-        <button class="coach-privacy-link" data-modal="privacy">Full privacy note &rarr;</button>
-        <p class="coach-note">A self-monitoring and accountability tool&mdash;not treatment or medical advice.</p>
+        <p class="coach-question">&ldquo;How did your week go?&rdquo;</p>
+        <h2 id="coachTitle">Evidence, instead of &ldquo;it went okay.&rdquo;</h2>
+        <p>Each block records what was finished, what helped, what pulled your client off, and where they stopped. A few blocks in, that&rsquo;s a pattern&mdash;the conditions under which their focus actually works. Shape a block together, let them run it privately, review what they choose to share.</p>
+        <p>The client holds the record: everything stays on their device&mdash;no account, no server, nothing sent to us.</p>
+        <button class="coach-privacy-link" data-modal="privacy">Privacy &rarr;</button>
       </aside>
 
       <nav class="resource-links" aria-label="Download Focus File examples">
@@ -635,12 +630,10 @@ Then stop.
 <p>The format is deliberately small: one concrete block, one honest record, and no requirement to continue.</p>
 <p>Unplug for an hour and find out.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
-<p><b>Focus File is a free self-directed tool.</b></p>
-<p>Your settings block, Focus Files, and logs live on your device. We have no accounts, no storage, and no dashboard&mdash;even the builder runs in your browser, so nothing you paste is sent to us. Site analytics count visits, not content.</p>
-<p><b>The AI interview is the exception.</b> You paste the setup into the AI you choose, and anything you type there goes to that provider under its terms. It works fine without personal details.</p>
-<p><b>For clinicians.</b> HIPAA applies to a vendor only when it handles client information on your behalf. Focus File never receives any&mdash;like a paper worksheet, it sits outside the business-associate relationship, so no BAA is needed. A result a client shares with you is covered by the policies you already follow. HHS does not certify products as &ldquo;HIPAA compliant&rdquo;; see its <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a> and <a href="https://www.hhs.gov/hipaa/for-professionals/faq/256/is-software-vendor-business-associate/index.html" target="_blank" rel="noopener">software-vendor FAQ</a>. Product information, not legal advice.</p>
-<p>Be careful with private data, and thoughtful about where you share it.</p>
-<p>Focus File is not medical or psychological advice. Use it at your own discretion.</p>
+<p><b>Everything stays on your device.</b> Your settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what you write. Even the builder runs in your browser. Site analytics count visits, not content.</p>
+<p><b>One exception: setup.</b> The AI chat you choose sees what you type there, under that provider&rsquo;s own terms and privacy policy. It needs no personal details.</p>
+<p><b>For clinicians.</b> Because we never receive client information, no business associate agreement is needed&mdash;like a paper worksheet, the tool sits outside HIPAA. What a client shares with you falls under the policies you already follow. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
+<p>Focus File is not medical or psychological advice.</p>
 </script>
   <script type="text/plain" id="m-feedback"><h2>Feedback</h2>
 <p>Tell us what's working, what's not, or any new ideas.</p>
