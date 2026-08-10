@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Focus File</title>
+<title>Focus File — Learn what makes your focus work</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAArklEQVR42mNgGAUDDBgJKdDPcvlPiQUXp+1hJMsBlFpMrEOY6GE5PjOZ6GE5PrOZBjoRMtHL97jsGPAQYCFX47mJmzDEjPL9KIsCSizHJ05VBxCyhFRHMFHTcnIcwURty0lVP7jKgVEHDGoHkFrIEKueiRaGkuJYkqOAkOGkhhRZaQCXJeTUBWRXRuRYRjAECDUgadE2HHzZkJahgM1sJnLa8tRslg94x2QUDDgAAOQMQCUsrPaIAAAAAElFTkSuQmCC">
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -15,6 +15,7 @@
   }
   body { font-family:var(--serif); color:var(--ink); background:var(--paper);
     line-height:1.5; min-height:100vh; display:flex; flex-direction:column; }
+  html { scroll-behavior:smooth; }
 
   /* HEADER NAV */
   header { display:flex; align-items:center; justify-content:space-between;
@@ -56,6 +57,7 @@
     border-radius:14px; overflow:hidden; }
   .pb-head { display:flex; justify-content:space-between; align-items:center;
     padding:14px 18px; border-bottom:1px solid var(--paper-line); }
+  .prompt-action { display:flex; justify-content:flex-start; padding:0 18px 20px; }
   .pb-label { font-family:var(--mono); font-size:11px; letter-spacing:.16em;
     text-transform:uppercase; color:var(--pine); font-weight:700; }
   .copy { display:inline-flex; align-items:center; gap:9px; background:var(--pine); color:#fff;
@@ -91,12 +93,41 @@
   .bd-msg { font-family:var(--sans); font-size:13.5px; margin-top:10px; min-height:1em; color:var(--ink-faint); }
   .bd-msg.err { color:#a8442a; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
-  .resource-links { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 22px;
-    margin-top:28px; padding-top:24px; border-top:1px solid var(--hair); }
-  .resource-link { background:none; border:0; padding:0; cursor:pointer; font-family:var(--sans);
-    font-size:13px; color:var(--ink-mut); text-decoration:none; }
-  .resource-link:hover { color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
-  .resource-links + .foot { margin-top:28px; padding-top:24px; }
+  .resource-links { display:grid; grid-template-columns:minmax(190px,.8fr) minmax(0,1.2fr); align-items:center;
+    gap:22px; margin-top:28px; padding:22px 24px; border:1px solid #d7e4d3; border-radius:14px;
+    background:var(--pine-tint); }
+  .resource-intro { display:flex; flex-direction:column; gap:6px; }
+  .resource-kicker { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--pine); }
+  .resource-label { font-family:var(--serif); font-size:20px; line-height:1.2; color:var(--ink); }
+  .resource-row { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+  .resource-link { display:flex; align-items:center; justify-content:space-between; gap:10px;
+    min-height:44px; padding:11px 13px; border:1px solid #c9d9c5; border-radius:9px; background:var(--paper);
+    font-family:var(--sans); font-size:13px; font-weight:700; color:var(--ink-soft); text-decoration:none;
+    transition:border-color .15s, color .15s, background .15s; }
+  .resource-link span { color:var(--pine); font-size:15px; line-height:1; }
+  .resource-link:hover { color:var(--pine); border-color:var(--pine); background:#fff; }
+  .resource-links + .foot { margin-top:38px; padding-top:24px; }
+
+  .coach-callout { margin-top:0; padding:28px 30px 26px; border:1px solid #d7e4d3;
+    border-radius:15px; background:var(--pine-tint); }
+  .coach-kicker { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--pine); margin-bottom:10px; }
+  .coach-callout h2 { font-size:clamp(24px,3vw,31px); line-height:1.18; letter-spacing:-.01em;
+    margin-bottom:11px; }
+  .coach-callout p { font-family:var(--sans); font-size:14px; line-height:1.62; color:var(--ink-soft); }
+  .coach-local { margin-top:16px; padding:16px 17px; border:1px solid #cfdfcb; border-radius:11px;
+    background:rgba(253,251,246,.72); }
+  .coach-local p + p { margin-top:11px; padding-top:11px; border-top:1px solid #dfe8db; }
+  .coach-local b { color:var(--ink); font-weight:650; }
+  .coach-flags { display:flex; flex-wrap:wrap; gap:7px; margin-top:15px; }
+  .coach-flag { font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--pine); background:#e3eddf; border-radius:6px; padding:6px 8px; }
+  .coach-privacy-link { display:inline-flex; margin-top:15px; padding:0; border:0; background:none;
+    font-family:var(--sans); font-size:13px; font-weight:700; color:var(--pine); cursor:pointer;
+    text-decoration:underline; text-underline-offset:3px; }
+  .coach-privacy-link:hover { color:#275c3a; }
+  .coach-callout .coach-note { margin-top:13px; font-size:11.5px; color:var(--ink-mut); }
 
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
     margin-top:48px; padding-top:32px; border-top:1px solid var(--hair);
@@ -143,28 +174,27 @@
     .pb-label { font-size:11px; text-align:center; }
     .copy { width:100%; justify-content:center; padding:14px 26px; font-size:15px; }
     .modal { padding:28px 24px; }
+    .coach-callout { padding:23px 20px 21px; }
+    .coach-callout h2 { font-size:25px; }
   }
 
   /* PRODUCT-FIRST HOMEPAGE */
   header { padding:20px clamp(24px,4vw,56px); }
   .logo { font-size:18px; }
   .logo-mark { width:22px; height:22px; }
-  .wrap { max-width:1400px; padding:clamp(52px,7vh,88px) clamp(24px,5vw,72px) 48px; }
-  .hero { display:grid; grid-template-columns:minmax(360px,.82fr) minmax(650px,1.28fr);
-    gap:clamp(48px,6vw,90px); align-items:center; }
+  .wrap { max-width:1760px; padding:clamp(52px,7vh,88px) clamp(24px,5vw,72px) 48px; }
+  .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(620px,1fr);
+    gap:clamp(42px,4vw,68px); align-items:center; }
   .hero-copy { align-self:center; padding-bottom:12px; }
-  .hero h1 { font-size:clamp(46px,4.6vw,66px); line-height:1.07; margin-bottom:24px;
-    max-width:11ch; }
+  .hero h1 { font-size:clamp(46px,3.5vw,58px); line-height:1.07; margin-bottom:24px;
+    max-width:max-content; white-space:normal; }
+  .hero-title-line { display:block; white-space:nowrap; }
   .hero-deck { font-size:clamp(17px,1.45vw,21px); line-height:1.62; color:var(--ink-soft);
-    max-width:36ch; margin-bottom:30px; }
-  .hero-actions { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+    max-width:39ch; margin-bottom:14px; }
+  .hero-deck:last-of-type { margin-bottom:30px; }
+  .hero-actions { display:flex; flex-direction:column; align-items:flex-start; }
   .hero-copy .copy { min-width:320px; justify-content:center; padding:15px 28px; font-size:16px; }
-  .hero-sample { font-family:var(--sans); font-size:16px; font-weight:650; color:var(--pine);
-    text-decoration:underline; text-underline-offset:5px; }
-  .hero-sample:hover { color:#235a35; }
-  .trust-line { display:flex; align-items:center; gap:8px; font-family:var(--sans); font-size:13px;
-    line-height:1.4; color:var(--ink-mut); margin-top:24px; }
-  .trust-dot { width:7px; height:7px; border:1.5px solid var(--pine); border-radius:50%; flex:0 0 auto; }
+  .hero-cta { text-decoration:none; }
 
   .product-demo { min-width:0; }
   .demo-labels { display:grid; grid-template-columns:1.12fr .98fr .9fr; align-items:center;
@@ -181,7 +211,7 @@
   .demo-card + .demo-card { margin-left:-16px; }
   .demo-card.work { z-index:3; min-height:410px; }
   .demo-card.checkin { z-index:2; min-height:374px; }
-  .demo-card.handoff { z-index:1; min-height:340px; }
+  .demo-card.result { z-index:1; min-height:390px; }
   .demo-brand { padding:16px 18px; border-bottom:1px solid #e7ddcc; color:var(--pine);
     font-size:14px; font-weight:700; }
   .demo-body { padding:22px 18px; }
@@ -216,38 +246,70 @@
   .demo-reminder b { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.16em;
     text-transform:uppercase; color:var(--clay); margin-bottom:10px; }
   .demo-reminder p { font-style:italic; font-size:14px; line-height:1.48; color:var(--ink-soft); }
-  .handoff .demo-body { text-align:center; padding:30px 18px 24px; }
-  .demo-success { width:62px; height:62px; border-radius:50%; background:#e5ead7; margin:0 auto 17px;
+  .result .demo-body { text-align:center; padding:18px 16px 20px; }
+  .demo-success { width:40px; height:40px; border-radius:50%; background:#e5ead7; margin:0 auto 10px;
     position:relative; }
-  .demo-success::after { content:""; position:absolute; left:23px; top:15px; width:15px; height:27px;
-    border:solid var(--pine); border-width:0 3px 3px 0; transform:rotate(45deg); }
-  .handoff h3 { font-size:20px; margin-bottom:13px; }
-  .handoff p { font-family:var(--sans); font-size:12px; line-height:1.5; color:var(--ink-soft);
-    max-width:18ch; margin:0 auto 24px; }
-  .demo-next { display:inline-flex; font-family:var(--sans); font-size:11px; font-weight:650; color:#fff;
-    background:var(--pine); padding:11px 13px; border-radius:8px; white-space:nowrap; }
-  .demo-caption { font-family:var(--sans); font-size:13px; color:var(--ink-mut); text-align:center; margin-top:28px; }
-
-  .flow { max-width:760px; width:100%; margin:clamp(74px,10vh,118px) auto 0; scroll-margin-top:24px; }
-  .flow-intro { margin-bottom:16px; text-align:center; }
+  .demo-success::after { content:""; position:absolute; left:15px; top:9px; width:9px; height:17px;
+    border:solid var(--pine); border-width:0 2.5px 2.5px 0; transform:rotate(45deg); }
+  .demo-kicker { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--pine); margin:3px 0 7px; }
+  .result h3 { font-size:18px; margin-bottom:11px; }
+  .demo-lessons { border:1px solid #e0d6c5; border-radius:9px; overflow:hidden; margin-bottom:14px; text-align:left; }
+  .demo-lesson { display:grid; grid-template-columns:52px 1fr; gap:7px; padding:8px 9px;
+    border-bottom:1px solid #e8dfd0; font-family:var(--sans); font-size:9.5px; line-height:1.35; color:var(--ink-soft); }
+  .demo-lesson:last-child { border-bottom:0; }
+  .demo-lesson b { font-family:var(--mono); font-size:7.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--pine); padding-top:1px; }
+  .demo-lesson.pulled b { color:var(--clay); }
+  .demo-lesson.stopped b { color:var(--ink-mut); }
+  .demo-saved { display:inline-flex; font-family:var(--mono); font-size:8px; font-weight:700;
+    letter-spacing:.11em; text-transform:uppercase; color:var(--pine); background:var(--pine-tint);
+    padding:7px 10px; border-radius:7px; }
+  .after-block { max-width:1180px; width:100%; margin:clamp(76px,10vh,118px) auto 0; }
+  .after-head { text-align:center; max-width:720px; margin:0 auto 28px; }
+  .after-kicker { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--pine); margin-bottom:11px; }
+  .after-head h2 { font-size:clamp(30px,3vw,42px); font-weight:400; line-height:1.15;
+    letter-spacing:-.012em; margin-bottom:0; }
+  .after-options { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .after-option { border:1px solid var(--paper-line); border-radius:14px; padding:20px 18px 22px;
+    background:var(--paper-warm); min-height:172px; }
+  .after-option .option-tag { display:inline-flex; align-items:center; min-height:25px; border:1.5px solid var(--pine);
+    border-radius:7px; padding:4px 8px; font-family:var(--mono); font-size:9px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--pine); margin-bottom:18px; }
+  .after-option h3 { font-size:19px; line-height:1.2; margin-bottom:9px; }
+  .after-option p { font-family:var(--sans); font-size:13.5px; line-height:1.55; color:var(--ink-soft); }
+  .flow { max-width:760px; width:100%; margin:clamp(38px,5vh,58px) auto 0; scroll-margin-top:24px; }
+  .flow-intro { margin-bottom:24px; text-align:center; }
   .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
-  .promptbox + .interview-feedback { text-align:center; margin:16px 0 2px; font-family:var(--sans);
-    font-size:13px; color:var(--ink-mut); }
-
-  @media (max-width:1100px){
+  .flow-intro h2 { font-size:clamp(28px,3vw,35px); font-weight:400; line-height:1.16;
+    letter-spacing:-.01em; margin:7px 0 7px; }
+  .flow-intro p { font-family:var(--sans); font-size:14px; line-height:1.55; color:var(--ink-mut); }
+  .postscript { max-width:760px; width:100%; margin:clamp(56px,8vh,88px) auto 0; }
+  @media (max-width:1180px){
     .hero { grid-template-columns:1fr; }
-    .hero-copy { max-width:660px; }
-    .hero h1 { max-width:13ch; }
-    .hero-deck { max-width:46ch; }
+    .hero-copy { max-width:760px; width:100%; margin:0 auto; text-align:center; }
+    .hero h1 { max-width:none; margin-left:auto; margin-right:auto; }
+    .hero-deck { max-width:46ch; margin-left:auto; margin-right:auto; }
+    .hero-actions { align-items:center; }
     .product-demo { max-width:840px; width:100%; margin:0 auto; }
+  }
+  @media (max-width:980px){
+    .nav-links { display:none; }
+    .notes-menu { display:block; }
+    .nav-left { gap:0; flex:0 0 auto; }
+  }
+  @media (max-width:1000px){
+    .after-options { grid-template-columns:repeat(2,1fr); }
   }
   @media (max-width:700px){
     .wrap { padding:38px 20px 32px; }
     .hero { gap:34px; }
-    .hero h1 { font-size:clamp(36px,10.5vw,44px); line-height:1.08; max-width:12ch; margin-bottom:20px; }
-    .hero-deck { font-size:16px; line-height:1.55; margin-bottom:24px; }
+    .hero-copy { margin:0; text-align:left; }
+    .hero h1 { font-size:clamp(32px,10.5vw,44px); line-height:1.08; max-width:none; margin-bottom:20px; }
+    .hero-deck { font-size:16px; line-height:1.55; margin-left:0; margin-right:0; margin-bottom:24px; }
+    .hero-actions { align-items:flex-start; }
     .hero-copy .copy { min-width:0; width:100%; }
-    .trust-line { margin-top:18px; }
     .demo-labels { display:none; }
     .mobile-demo-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px;
       padding:4px; border:1px solid var(--paper-line); border-radius:11px; background:var(--paper-warm); }
@@ -257,23 +319,30 @@
     .mobile-demo-tab[aria-selected="true"] { background:var(--paper); color:var(--pine);
       box-shadow:0 1px 5px rgba(54,44,28,.1); }
     .demo-stage { display:block; }
-    .demo-card,.demo-card.work,.demo-card.checkin,.demo-card.handoff { display:none; width:100%; min-height:0; }
+    .demo-card,.demo-card.work,.demo-card.checkin,.demo-card.result { display:none; width:100%; min-height:0; }
     .demo-card.is-active { display:block; }
     .demo-card + .demo-card { margin-left:0; }
     .demo-card.work.is-active { min-height:410px; }
     .demo-card.checkin.is-active { min-height:350px; }
-    .demo-card.handoff.is-active { min-height:325px; }
+    .demo-card.result.is-active { min-height:390px; }
     .demo-title { font-size:24px; }
     .demo-list li { font-size:13px; }
-    .demo-caption { display:none; }
-    .flow { margin-top:56px; }
+    .flow { margin-top:36px; }
     .flow-intro { text-align:left; }
-    .resource-links { justify-content:flex-start; gap:12px 18px; }
+    .after-block { margin-top:58px; }
+    .postscript { margin-top:44px; }
+    .after-head { text-align:left; }
+    .after-options { grid-template-columns:1fr; gap:10px; }
+    .after-option { min-height:0; padding:18px; }
+    .after-option .option-tag { margin-bottom:13px; }
+    .resource-links { grid-template-columns:1fr; gap:16px; padding:20px; }
+    .resource-row { grid-template-columns:1fr; }
   }
   @media (max-width:600px){
     .freetag { display:none; }
     header { justify-content:space-between; }
   }
+  @media (prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-oqBnf5_V4SRV4lbtttuo3.js"></script>
@@ -288,7 +357,8 @@
     <div class="nav-left">
       <span class="logo"><svg class="logo-mark" viewBox="0 0 32 32" width="19" height="19" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="7" fill="#2f6a44"/><circle cx="16" cy="16" r="6" fill="#fdfbf6"/></svg>Focus File</span>
       <nav class="nav-links">
-        <button data-modal="design">Design notes</button>
+        <button data-modal="interview">The interview</button>
+        <button data-modal="design">Why a file?</button>
         <button data-modal="privacy">Privacy</button>
         <button data-modal="feedback">Feedback</button>
       </nav>
@@ -297,7 +367,8 @@
     <div class="notes-menu">
       <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true">Notes ▾</button>
       <div class="notes-drop" id="notesDrop">
-        <button data-modal="design">Design notes</button>
+        <button data-modal="interview">The interview</button>
+        <button data-modal="design">Why a file?</button>
         <button data-modal="privacy">Privacy</button>
         <button data-modal="feedback">Feedback</button>
       </div>
@@ -307,38 +378,36 @@
   <main class="wrap">
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
-        <h1 id="heroTitle">Learn what makes your focus work.</h1>
-        <p class="hero-deck">A five-question AI interview turns a vague intention into one concrete block. The Focus File runs it offline, checks in while you work, and saves a private result: what you finished, what helped, what pulled you off, and where you stopped.</p>
-        <p class="hero-deck">That result is yours. Stop there, make another file, compare sessions, or share a copy with someone helping you.</p>
+        <h1 id="heroTitle"><span class="hero-title-line">Learn what makes</span><span class="hero-title-line">your focus work.</span></h1>
+        <p class="hero-deck">A five-question AI interview turns a vague intention into one concrete block. The Focus File runs it offline, checks in while you work, and records what finished, what helped, what pulled you off, and where you stopped.</p>
+        <p class="hero-deck">As results accumulate, a private learning report surfaces repeated helpers, recurring distractions, and what to carry into the next block. The report and its evidence stay on your device.</p>
         <div class="hero-actions">
-          <button class="copy" id="copyBtn">Build a Focus File &darr;</button>
+          <a class="copy hero-cta" href="#setup">Build a Focus File&nbsp;&nbsp;&darr;</a>
         </div>
-        <p class="trust-line"><span class="trust-dot" aria-hidden="true"></span>No account. Your Focus File and log stay on your device.</p>
       </div>
 
-      <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and handoff">
+      <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and learning">
         <div class="demo-labels" aria-hidden="true">
           <span class="demo-label"><b>1</b> Work</span>
           <span class="demo-label"><b>2</b> Check-in</span>
-          <span class="demo-label"><b>3</b> Result</span>
+          <span class="demo-label"><b>3</b> Learn</span>
         </div>
         <div class="mobile-demo-tabs" role="tablist" aria-label="Focus File preview states">
           <button class="mobile-demo-tab" type="button" role="tab" aria-selected="true" aria-controls="demoWork" data-demo-panel="demoWork">Work</button>
           <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoCheckin" data-demo-panel="demoCheckin">Check-in</button>
-          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoHandoff" data-demo-panel="demoHandoff">Result</button>
+          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoResult" data-demo-panel="demoResult">Learn</button>
         </div>
         <div class="demo-stage">
           <article class="demo-card work is-active" id="demoWork" role="tabpanel">
             <div class="demo-brand">Focus File</div>
             <div class="demo-body">
-              <div class="demo-meta"><span>2:00&ndash;3:30</span><span>2 of 4 complete</span></div>
+              <div class="demo-meta"><span>2:00&ndash;3:30</span><span>2 of 3 complete</span></div>
               <h2 class="demo-title">3 applications out the door</h2>
               <div class="demo-lane"><b>Allowed sites</b> LinkedIn &middot; company sites &middot; Google Docs</div>
               <ul class="demo-list">
                 <li><span class="demo-check done" aria-hidden="true"></span>Find 3 matching roles</li>
                 <li><span class="demo-check done" aria-hidden="true"></span>Write a tailored intro for each</li>
                 <li><span class="demo-check" aria-hidden="true"></span>Submit applications</li>
-                <li><span class="demo-check" aria-hidden="true"></span>Update the tracker</li>
               </ul>
             </div>
             <div class="demo-footer"><span class="demo-timer">&#9711;&nbsp; 1:18:47</span><span class="demo-end">End block</span></div>
@@ -361,30 +430,32 @@
             </div>
           </article>
 
-          <article class="demo-card handoff" id="demoHandoff" role="tabpanel">
+          <article class="demo-card result" id="demoResult" role="tabpanel">
             <div class="demo-brand">Focus File</div>
             <div class="demo-body">
-              <div class="demo-success" aria-hidden="true"></div>
-              <h3>Block recorded</h3>
-              <div style="text-align:left;margin:8px 0 12px;font-family:var(--sans);">
-                <div style="display:flex;gap:10px;padding:6px 0;border-top:1px solid var(--hair);"><span style="color:var(--clay);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:9px;min-width:62px;padding-top:2px;">Finished</span><span style="color:var(--ink-soft);font-size:12.5px;">2 of 3 applications submitted.</span></div>
-                <div style="display:flex;gap:10px;padding:6px 0;border-top:1px solid var(--hair);"><span style="color:var(--clay);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:9px;min-width:62px;padding-top:2px;">Helped</span><span style="color:var(--ink-soft);font-size:12.5px;">&ldquo;Submit, don&rsquo;t browse&rdquo; stayed visible.</span></div>
-                <div style="display:flex;gap:10px;padding:6px 0;border-top:1px solid var(--hair);"><span style="color:var(--clay);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:9px;min-width:62px;padding-top:2px;">Pulled off</span><span style="color:var(--ink-soft);font-size:12.5px;">Unrelated role feeds.</span></div>
-                <div style="display:flex;gap:10px;padding:6px 0;border-top:1px solid var(--hair);"><span style="color:var(--clay);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:9px;min-width:62px;padding-top:2px;">Stopped</span><span style="color:var(--ink-soft);font-size:12.5px;">Role #3.</span></div>
+              <div class="demo-kicker">What you&rsquo;re learning</div>
+              <h3>4 blocks recorded</h3>
+              <div class="demo-lessons">
+                <div class="demo-lesson"><b>Helps</b><span>&ldquo;Submit, don&rsquo;t browse&rdquo; visible &times;3.</span></div>
+                <div class="demo-lesson pulled"><b>Pulls off</b><span>Unrelated role feeds &times;2.</span></div>
+                <div class="demo-lesson stopped"><b>Next</b><span>Keep the cue. Start with role #3.</span></div>
               </div>
-              <span class="demo-next" style="color:var(--pine-soft);">Saved on this device</span>
+              <span class="demo-saved">Calculated on this device</span>
             </div>
           </article>
         </div>
-        <p class="demo-caption">One Focus File is complete after one block. The result stays on your device. What you do with it is up to you.</p>
       </div>
     </section>
 
     <section class="flow" id="setup" aria-label="Create your Focus File">
+      <div class="flow-intro">
+        <span class="pb-label">Try it</span>
+        <h2>Build your Focus File</h2>
+        <p>Copy the interview prompt, answer five questions, then paste the result below. Your file downloads instantly.</p>
+      </div>
       <div class="promptbox">
         <div class="pb-head">
           <span class="pb-label">1 — Run a quick interview</span>
-          <button class="copy" id="copyAgainBtn">Copy setup</button>
         </div>
         <div class="pb-body">
           <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
@@ -404,52 +475,78 @@
             </p>
           </div>
         </div>
+        <div class="prompt-action">
+          <button class="copy" id="copyAgainBtn">Copy interview prompt</button>
+        </div>
       </div>
-
-      <p class="interview-feedback">How did the interview go? <button class="foot-link" data-modal="feedback">Send feedback</button></p>
 
       <div class="promptbox" style="margin-top:20px">
         <div class="pb-head"><span class="pb-label">2 — Build your file</span></div>
         <div style="padding:18px 18px 20px">
           <p class="bd-lead">Paste the interview results to build your focus file — it downloads instantly.</p>
           <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste here"></textarea>
-          <button class="copy bd-go" id="buildBtn">&#8595;&nbsp;&nbsp;Build my focus file</button>
+          <button class="copy bd-go" id="buildBtn">Create &amp; download my Focus File</button>
           <p class="bd-msg" id="bdMsg"></p>
         </div>
       </div>
+    </section>
 
+    <section class="after-block" aria-labelledby="afterTitle">
+      <div class="after-head">
+        <div class="after-kicker">After the block</div>
+        <h2 id="afterTitle">Learn from what happened.</h2>
+      </div>
+      <div class="after-options">
+        <article class="after-option">
+          <span class="option-tag">Done</span>
+          <h3>Stop here</h3>
+          <p>Close the file and move on. One completed block can be the whole job.</p>
+        </article>
+        <article class="after-option">
+          <span class="option-tag">New file</span>
+          <h3>Make another file</h3>
+          <p>Copy the next interview from the completed file, then paste the new settings back into it. The next download already contains the history.</p>
+        </article>
+        <article class="after-option">
+          <span class="option-tag">Patterns</span>
+          <h3>Review patterns</h3>
+          <p>Open the local learning report to see repeated helpers, distractions, focus conditions, and what to carry forward.</p>
+        </article>
+        <article class="after-option">
+          <span class="option-tag">Share</span>
+          <h3>Copy or share</h3>
+          <p>Choose one result to review with a therapist, coach, or anyone helping you&mdash;without giving up the file or your data.</p>
+        </article>
+      </div>
+    </section>
 
-      <section class="after" style="margin-top:56px;padding-top:40px;border-top:1px solid var(--paper-line);text-align:center;">
-        <div style="font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--pine);margin-bottom:10px;">After the block</div>
-        <h2 style="font-family:var(--serif);font-weight:700;font-size:30px;line-height:1.1;color:var(--ink);letter-spacing:-0.02em;margin:0 0 12px;">The tool ends. You choose what follows.</h2>
-        <p style="font-family:var(--sans);font-size:15px;line-height:1.55;color:var(--ink-soft);max-width:56ch;margin:0 auto 28px;">The result is useful on its own. It can also become raw material for whichever next step fits your situation.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;text-align:left;"><div style="background:var(--paper-warm);border:1px solid var(--paper-line);border-radius:14px;padding:20px 22px;"><div style="display:inline-block;font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pine);background:var(--pine-tint);border-radius:20px;padding:3px 10px;margin-bottom:10px;">Done</div><div style="font-family:var(--serif);font-weight:700;font-size:19px;color:var(--ink);margin-bottom:6px;">Stop here</div><p style="font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0;">Close the file and move on. One completed block can be the whole job.</p></div><div style="background:var(--paper-warm);border:1px solid var(--paper-line);border-radius:14px;padding:20px 22px;"><div style="display:inline-block;font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pine);background:var(--pine-tint);border-radius:20px;padding:3px 10px;margin-bottom:10px;">New file</div><div style="font-family:var(--serif);font-weight:700;font-size:19px;color:var(--ink);margin-bottom:6px;">Make another file</div><p style="font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0;">Use the stopping point, the cue that helped, and the distraction as optional context for a new block.</p></div><div style="background:var(--paper-warm);border:1px solid var(--paper-line);border-radius:14px;padding:20px 22px;"><div style="display:inline-block;font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pine);background:var(--pine-tint);border-radius:20px;padding:3px 10px;margin-bottom:10px;">Patterns</div><div style="font-family:var(--serif);font-weight:700;font-size:19px;color:var(--ink);margin-bottom:6px;">Review patterns</div><p style="font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0;">See what makes your focus work across blocks &mdash; what helped, what disrupted you, and which block shapes worked.</p></div><div style="background:var(--paper-warm);border:1px solid var(--paper-line);border-radius:14px;padding:20px 22px;"><div style="display:inline-block;font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pine);background:var(--pine-tint);border-radius:20px;padding:3px 10px;margin-bottom:10px;">Share</div><div style="font-family:var(--serif);font-weight:700;font-size:19px;color:var(--ink);margin-bottom:6px;">Copy or share</div><p style="font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0;">Choose one result to review with a therapist, coach, or anyone helping you &mdash; without giving up the file or your data.</p></div></div>
-        <p style="font-family:var(--sans);font-size:12.5px;color:var(--ink-mut);margin:20px 0 0;">These are choices, not steps. Focus File doesn&rsquo;t require an account, a streak, or another block.</p>
-      </section>
-
-
-      <section class="coaches" style="margin-top:48px;padding:28px 26px;background:var(--pine-tint);border:1px solid #d7e6dc;border-radius:16px;">
-        <div style="font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--pine-soft);margin-bottom:8px;">For coaches &amp; therapists</div>
-        <h2 style="font-family:var(--serif);font-weight:700;font-size:26px;line-height:1.12;color:var(--ink);margin:0 0 12px;">The client holds the record. We don&rsquo;t.</h2>
-        <p style="font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink-soft);max-width:60ch;margin:0 0 12px;">A clearer record between sessions&mdash;not &ldquo;it went okay.&rdquo; Help a client shape a concrete block, let them run it privately, then review the result only if they choose to share it.</p>
-        <p style="font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink-soft);max-width:60ch;margin:0 0 12px;">No Focus File account, database, or server-side log. The file and its results stay on the client&rsquo;s device. Focus File does not upload them, store them, or give us access. The client decides what, if anything, to share.</p>
-        <p style="font-family:var(--sans);font-size:13.5px;line-height:1.55;color:var(--ink-soft);max-width:60ch;margin:0 0 16px;padding:12px 14px;background:var(--paper);border:1px solid var(--paper-line);border-radius:10px;"><b>One important exception: the AI interview.</b> Anything entered into an AI service goes to that provider. Clinicians should use only services their organization has approved for client information.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-          <span style="font-family:var(--sans);font-size:12px;color:var(--pine-chip-ink,#1f4a30);background:#dbe9df;border-radius:20px;padding:5px 12px;">Local by design</span>
-          <span style="font-family:var(--sans);font-size:12px;color:#1f4a30;background:#dbe9df;border-radius:20px;padding:5px 12px;">No server-side record</span>
-          <span style="font-family:var(--sans);font-size:12px;color:#1f4a30;background:#dbe9df;border-radius:20px;padding:5px 12px;">Client-controlled sharing</span>
+    <section class="postscript" aria-label="Additional Focus File information">
+      <aside class="coach-callout" aria-labelledby="coachTitle">
+        <div class="coach-kicker">For coaches and therapists</div>
+        <h2 id="coachTitle">Under HIPAA, it&rsquo;s a paper worksheet.</h2>
+        <p>The client holds the record&mdash;we never do. Help a client shape a concrete block, let them run it privately, and review the result only if they share it. Nothing is ever sent to us: no client data, no business associate agreement, nothing on our side for HIPAA to regulate.</p>
+        <div class="coach-local">
+          <p><b>The one outside service is the AI setup interview.</b> It needs no personal details&mdash;a task, a window, a distraction to avoid&mdash;or use an AI your organization has approved.</p>
         </div>
-        <a style="font-family:var(--sans);font-weight:600;font-size:14px;color:var(--pine);text-decoration:underline;text-underline-offset:2px;" href="mailto:erinconnery@gmail.com?subject=Focus%20File%20%E2%80%94%20privacy%20for%20clinicians">Privacy for clinicians &rarr;</a>
-        <div style="font-family:var(--sans);font-size:11.5px;color:var(--ink-mut);margin-top:12px;">A self-monitoring and accountability tool &mdash; not treatment or medical advice.</div>
-      </section>
+        <div class="coach-flags" aria-label="Focus File privacy features">
+          <span class="coach-flag">Nothing sent to us</span>
+          <span class="coach-flag">No account, no server copy</span>
+          <span class="coach-flag">Client decides what to share</span>
+        </div>
+        <button class="coach-privacy-link" data-modal="privacy">Full privacy note &rarr;</button>
+        <p class="coach-note">A self-monitoring and accountability tool&mdash;not treatment or medical advice.</p>
+      </aside>
 
-      <nav class="resource-links" aria-label="More about Focus File">
-        <button class="resource-link" data-modal="interview">The interview</button>
-        <button class="resource-link" data-modal="log">Using the results</button>
-        <span style="color:var(--ink-mut);font-family:var(--sans);font-size:12.5px;">Download examples:</span>
-        <a class="resource-link" href="sample-writing.html" target="_blank" rel="noopener">Writing</a>
-        <a class="resource-link" href="sample-jobsearch.html" target="_blank" rel="noopener">Job search</a>
-        <a class="resource-link" href="sample-study.html" target="_blank" rel="noopener">Study</a>
+      <nav class="resource-links" aria-label="Download Focus File examples">
+        <div class="resource-intro">
+          <span class="resource-kicker">Downloadable examples</span>
+          <span class="resource-label">Open a finished Focus File.</span>
+        </div>
+        <div class="resource-row">
+          <a class="resource-link" href="sample-writing.html" download="focus-file-writing-example.html">Writing <span aria-hidden="true">&darr;</span></a>
+          <a class="resource-link" href="sample-jobsearch.html" download="focus-file-job-search-example.html">Job search <span aria-hidden="true">&darr;</span></a>
+          <a class="resource-link" href="sample-study.html" download="focus-file-study-example.html">Study <span aria-hidden="true">&darr;</span></a>
+        </div>
       </nav>
 
       <div class="foot">
@@ -477,7 +574,7 @@ Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer
 
 INSTRUCTIONS FOR THE AI:
 
-Run a short setup, then output a finished focus file. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the file. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+Run a short setup, then output a settings block for a Focus File. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the settings block. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
 
 Q1 — MODE. Ask what kind of work this is:
 - Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session — whatever you'll really do). Offer these as a short numbered list they can pick from." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
@@ -493,13 +590,14 @@ Then check jobs fill the block: if the list is way short (3 applications ~40 min
 
 Q4 — THE TRAP (optional). Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
 If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
+For a first Focus File, set `keep` to "" and `keepLabel` to "Keep". If the person later chooses to create another Focus File from a saved result, that optional interview may fill `keep` with something they say genuinely helped. It is context they can keep or change, not a required continuation.
 
 Q5 — THE REASON. Ask: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.'" I'll show this back to you if you drift.
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
 
 THEN, in this order:
 1. Reply briefly (a sentence) to acknowledge their answers.
-2. First give ONE short plain-language recap line of the block (e.g. "Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000."). Then output ONLY the settings block below, as JSON in ONE code block, filled in from the interview. Nothing after the code block. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
+2. Give ONE short plain-language recap line of the block (e.g. "Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000."). Then output the settings block below, as JSON in ONE code block, filled in from the interview. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
 
 ```json
 {
@@ -509,6 +607,8 @@ THEN, in this order:
   "mode": "sealed",
   "sealedPlan": "",
   "laneSites": [],
+  "keepLabel": "Keep",
+  "keep": "",
   "whyLabel": "Avoid",
   "why": "",
   "finishFeel": "",
@@ -526,20 +626,19 @@ THEN, in this order:
 Then stop.
 
 </script>
-  <script type="text/plain" id="m-design"><h2>Design notes</h2>
-<p>Focus File was built for one reason: to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
-<p><b>It stops the world long enough to choose.</b> Every day, a hundred things compete for your attention. Of everything you could do, what do you actually want to finish today? Most of the trouble with focus isn&rsquo;t the work&mdash;it&rsquo;s slowing down long enough to make that choice.</p>
-<p><b>It turns a goal into a concrete, committed action.</b> A short AI interview makes the work specific and finishable, then sets a frame around it: a start time instead of &ldquo;I&rsquo;ll get to it,&rdquo; a place to sit, and the reason it matters. Once those choices are written down, they become much harder to renegotiate an hour later. The deciding is done. There is simply a task you can do.</p>
-<p><b>Then you turn the internet off.</b> For any work that allows it&mdash;which is most&mdash;this is the essential step, not an afterthought. The setup asks how you&rsquo;ll actually do it and holds you to a real answer: phone in the other room, router unplugged, airplane mode, a <a href="https://www.freedom.to" target="_blank" rel="noopener">Freedom</a> session. Even naming it flips something over&mdash;you&rsquo;re entering offline, the place the real work happens. The file itself needs no connection.</p>
-<p><b>You show up and begin.</b> From here, the file holds you to your own words: a quiet timer and, every so often, a knock&mdash;still on task? When you drift, it doesn&rsquo;t nag; it hands you back the reason you gave yourself. The motivation was always yours; it just keeps it in front of you, so you&rsquo;re not holding it all in your head alone.</p>
-<p><b>At the end, you take stock.</b> You quickly log what got done, what pulled you away, and where the next block starts. Zero judgment. Read back over time, it shows you your patterns&mdash;the distractions that recur and the quieter habits that masquerade as work. This is where you can adapt your behavior and habits: small tweaks, block by block. Use it solo, or bring it to a coach or therapist and build the next fix together.</p>
-<p><b>Making the file is its own small ritual.</b> Some days, it feels silly to declare what you already know. But it locks it in: you&rsquo;re beginning with the reason still warm. When the block ends, you delete it&mdash;it did its job. Tomorrow, you make a new one.</p>
-<p><b>Over time, it builds two muscles: choosing and starting.</b> It&rsquo;s a practice, not a switch you flip. Choosing gets faster; starting gets easier. There&rsquo;s no magic here&mdash;just enough structure to make one honest choice and see it through.</p>
+  <script type="text/plain" id="m-design"><h2>Why a Focus File?</h2>
+<p>Focus File was built to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
+<p><b>A file turns an intention into an object.</b> It can be made while the reason still feels clear, then left open beside the work. When it is time to begin, the deciding has already been done.</p>
+<p><b>A file can leave the internet.</b> There is no dashboard to check and no service asking for attention. The timer, reminders, check-ins, and result all work with the connection off.</p>
+<p><b>A file can hold your own words.</b> If you drift, it returns the boundary, warning, or reason you chose earlier. It does not manufacture motivation; it keeps yours from disappearing.</p>
+<p><b>A file can belong entirely to the person using it.</b> There is no account and no server-side log. The result stays on the device unless the person chooses to copy or share it.</p>
+<p>The format is deliberately small: one concrete block, one honest record, and no requirement to continue.</p>
 <p>Unplug for an hour and find out.</p></script>
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Focus File is a free self-directed tool.</b></p>
-<p>Your Focus Files and logs live on your device, not with us. We do not have accounts, storage, or a dashboard where we can see what you write. Unless you choose to send something to us, we literally cannot read it.</p>
-<p>The site copies a prompt. You paste it into your AI of choice. Anything you put into it is governed by that provider's own terms and privacy policy.</p>
+<p>Your settings block, Focus Files, and logs live on your device. We have no accounts, no storage, and no dashboard&mdash;even the builder runs in your browser, so nothing you paste is sent to us. Site analytics count visits, not content.</p>
+<p><b>The AI interview is the exception.</b> You paste the setup into the AI you choose, and anything you type there goes to that provider under its terms. It works fine without personal details.</p>
+<p><b>For clinicians.</b> HIPAA applies to a vendor only when it handles client information on your behalf. Focus File never receives any&mdash;like a paper worksheet, it sits outside the business-associate relationship, so no BAA is needed. A result a client shares with you is covered by the policies you already follow. HHS does not certify products as &ldquo;HIPAA compliant&rdquo;; see its <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a> and <a href="https://www.hhs.gov/hipaa/for-professionals/faq/256/is-software-vendor-business-associate/index.html" target="_blank" rel="noopener">software-vendor FAQ</a>. Product information, not legal advice.</p>
 <p>Be careful with private data, and thoughtful about where you share it.</p>
 <p>Focus File is not medical or psychological advice. Use it at your own discretion.</p>
 </script>
@@ -555,16 +654,7 @@ Then stop.
 <p><b>3. What exactly will be finished when the block ends?</b><br><span class="mnote">The heart of it. It pushes for an outcome you can't fake past ("1,500 new words at the desk," "3 applications out the door"), not a vague "work on it." Then it proposes steps only if the work needs them: nothing if it's one clean push, milestones if it's big, a checklist only if there are genuinely different actions — never padding to look busy.</span></p>
 <p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). This is the gentle nudge: it surfaces when you answer a check-in with "sort of" — you're a little distracted, drifting toward the very thing you named — and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
 <p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, in your own words — kept simple and true ("the draft finally moves," "so I stop dreading it"). This is the stronger message, held for when you need it: it surfaces when you answer a check-in with "no" — you haven't started, or you're off task entirely. The reason you gave, from you to you, right when you've drifted furthest.</span></p>
-<p class="mnote" style="margin-top:18px;">And then it builds your focus file — unique to the answers you just gave.</p>
-</script>
-
-  <script type="text/plain" id="m-log"><h2>The log</h2>
-<p><b>Your focus files and this log never leave your computer.</b> They live in your browser, for your eyes only. We have no account for you, no database, no server, and no way to see a single word of them.</p>
-<p><span class="mnote">One thing to be clear about: the <b>interview</b> happens inside whatever AI you paste the prompt into (Claude, ChatGPT, Gemini). That conversation goes to that provider, under their terms — so it's the one part that isn't just on your machine. The file it produces, and everything you do in it afterward, stays with you.</span></p>
-<p>Every block adds one entry. No score, no judgment — just a record of what happened, so patterns become visible over time.</p>
-<p><b>Recorded automatically</b><br><span class="mnote">Planned vs. actual start and finish. Action-list checks. Your check-in responses through the block.</span></p>
-<p><b>The 60-second exit</b><br><span class="mnote">Did you finish the block as planned? · Any output numbers, if the goal had one · What, if anything, got in the way of focus · Where the next block will start.</span></p>
-<p><b>It stays with you</b><br><span class="mnote">Because the log never leaves your machine, you decide what to do with it. Share the accumulated log with a coach or therapist to spot what disrupts focus or follow-through. Or paste the latest entry into a new chat to build your next focus file from it.</span></p>
+<p class="mnote" style="margin-top:18px;">The interview builds one block. If you later choose to make another Focus File, you can bring forward the last result as optional context instead of starting from scratch.</p>
 </script>
 
   <script>
@@ -583,14 +673,16 @@ Then stop.
         }
         var i=raw.indexOf('{'), j=raw.lastIndexOf('}');
         var jtxt=(i!==-1 && j>i)?raw.slice(i,j+1):raw;   // tolerate a reply line before/after the JSON
-        jtxt=jtxt.replace(/[\u201C\u201D]/g,'"').replace(/[\u2018\u2019]/g,"'").replace(/,\s*([}\]])/g,'$1');  // fix smart quotes + trailing commas
         var cfg;
         try { cfg=JSON.parse(jtxt); }
         catch(e){ msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
         if(!cfg.task || !String(cfg.task).trim()){ msg.className='bd-msg err'; msg.textContent="The settings block looks empty \u2014 make sure you paste the one your AI filled in, not the blank template."; return; }
+        cfg.fileId=(window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
+        cfg.learningHistory=[];
         msg.textContent='Building\u2026';
         fetch('focus-file.html').then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(tpl){
-          var island='<script id="focus-config" type="application/json">\n'+JSON.stringify(cfg,null,2)+'\n<\/script>';
+          var safeCfg=JSON.stringify(cfg,null,2).replace(/</g,'\\u003c');
+          var island='<script id="focus-config" type="application/json">\n'+safeCfg+'\n<\/script>';
           var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
           if(out===tpl){ msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email erinconnery@gmail.com.'; return; }
           var slug=String(cfg.task||'').toLowerCase().replace(/,/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
@@ -628,7 +720,6 @@ Then stop.
         navigator.clipboard.writeText(text).then(showCopied, fallback);
       } else { fallback(); }
     }
-    document.getElementById('copyBtn').addEventListener('click', function(){ var t=document.getElementById('setup'); if(t) t.scrollIntoView({behavior:'smooth'}); });
     document.getElementById('copyAgainBtn').addEventListener('click', function(){ copyPrompt(this); });
 
     // Compact product preview on small screens.
@@ -651,7 +742,7 @@ Then stop.
     document.querySelectorAll('.ac-links a').forEach(function(a){
       a.addEventListener('click', function(){ track('open_ai'); });
     });
-    // the two sample links
+    // the sample links
     document.querySelectorAll('a[href^="sample-"]').forEach(function(a){
       a.addEventListener('click', function(){ track('view_sample'); });
     });
@@ -666,7 +757,7 @@ Then stop.
       var btn = this;
       var shareData = {
         title: 'Focus File',
-        text: 'A free AI prompt that refuses to let a goal stay vague — it builds an offline focus file that keeps you on task.',
+        text: 'Focus File turns one concrete block of work into an offline session and a private record of what helped, what got in the way, and where you stopped.',
         url: window.location.href
       };
       if (navigator.share) {
