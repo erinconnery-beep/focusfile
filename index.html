@@ -149,7 +149,7 @@
   .coach-point-label { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700;
     letter-spacing:.15em; line-height:1.5; text-transform:uppercase; color:var(--pine); }
   .coach-point p { font-size:clamp(15px,1.2vw,18px); line-height:1.52; }
-  .coach-followup { margin-top:42px; padding-top:38px; border-top:1px solid #d7e4d3; }
+  .coach-followup { margin-top:30px; padding-top:0; border-top:0; }
   .coach-callout .coach-followup-question { margin:0 0 10px; font-family:var(--serif);
     font-size:clamp(25px,2.25vw,38px); line-height:1.28; letter-spacing:-.01em; color:var(--ink); }
   .coach-followup h3 { margin:0 0 20px; font-family:var(--serif); font-size:clamp(34px,3.3vw,54px);
@@ -204,7 +204,7 @@
     .coach-callout .coach-question,.coach-callout .coach-followup-question { font-size:23px; }
     .coach-points { margin-top:26px; }
     .coach-point { grid-template-columns:1fr; gap:7px; padding:19px 18px; }
-    .coach-followup { margin-top:30px; padding-top:28px; }
+    .coach-followup { margin-top:24px; padding-top:0; }
     .coach-record { margin-top:26px; padding-top:23px; }
   }
 
@@ -310,6 +310,9 @@
   .flow-intro h2 { font-size:var(--type-section); font-weight:400; line-height:1.14;
     letter-spacing:-.012em; margin:7px 0 7px; }
   .flow-intro p { font-family:var(--sans); font-size:var(--type-nav); line-height:1.55; color:var(--ink-mut); }
+  .flow-intro-link { appearance:none; border:0; background:none; padding:0; cursor:pointer;
+    font:inherit; color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
+  .flow-intro-link:hover { color:var(--pine-soft); }
   .postscript { max-width:760px; width:100%; margin:clamp(56px,8vh,88px) auto 0; }
   @media (min-width:701px){
     .coach-callout { width:min(1600px,calc(100vw - 48px)); margin-left:50%; transform:translateX(-50%); }
@@ -392,7 +395,6 @@
     <div class="nav-left">
       <span class="logo"><img class="logo-mark" src="focus-file-logo.svg" width="22" height="22" alt="">Focus File</span>
       <nav class="nav-links">
-        <button data-modal="interview">The interview</button>
         <button data-modal="design">Why a file?</button>
         <a href="#coaches" data-section-link="coaches">For coaches &amp; therapists</a>
         <button data-modal="privacy">Privacy</button>
@@ -403,7 +405,6 @@
     <div class="notes-menu">
       <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true" aria-controls="notesDrop">Notes ▾</button>
       <div class="notes-drop" id="notesDrop" role="menu">
-        <button role="menuitem" data-modal="interview">The interview</button>
         <button role="menuitem" data-modal="design">Why a file?</button>
         <a role="menuitem" href="#coaches" data-section-link="coaches">For coaches &amp; therapists</a>
         <button role="menuitem" data-modal="privacy">Privacy</button>
@@ -416,7 +417,7 @@
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
         <h1 id="heroTitle"><span class="hero-title-line">Finish what you</span><span class="hero-title-line">set out to do.</span></h1>
-        <p class="hero-deck">A five-question AI interview turns a vague intention into one concrete block of work. Your downloaded Focus File keeps your task and reason visible and checks in while you work. At the end, it records what you finished, what helped, and what got in the way—evidence you can use to plan the next block.</p>
+        <p class="hero-deck">A five-question AI interview turns a vague intention into one concrete block of work. Your downloaded Focus File works offline, keeps your task and reason visible, and checks in while you work. At the end, it records what you finished, what helped, and what got in the way—evidence you can use to plan the next block.</p>
         <div class="hero-actions">
           <a class="copy hero-cta" href="#setup">Build a Focus File&nbsp;&nbsp;&darr;</a>
         </div>
@@ -482,7 +483,7 @@
       <div class="flow-intro">
         <span class="pb-label">Try it</span>
         <h2>Build your Focus File</h2>
-        <p>Copy the interview prompt, answer five questions, then paste the result below. Your file downloads instantly.</p>
+        <p>Copy the interview prompt, answer <button class="flow-intro-link" data-modal="interview">five questions</button>, then paste the result below. Your file downloads instantly.</p>
       </div>
       <div class="promptbox">
         <div class="pb-head">
@@ -569,9 +570,9 @@
         <div class="coach-followup">
           <p class="coach-followup-question">Coach, next session: &ldquo;How did your week go?&rdquo;</p>
           <h3>The whole story, instead of &ldquo;it went okay.&rdquo;</h3>
-          <p>The file gathers and counts&mdash;it never interprets. Digging beneath the pattern and building the new strategy is your craft&mdash;and the next Focus File is where it lands.</p>
+          <p>AI asks the questions and insists on specifics; the client gives the answers; the file just holds them&mdash;it gathers and counts, never interprets. Digging beneath the pattern and building the new strategy is your craft&mdash;and the next Focus File is where it lands.</p>
         </div>
-        <p class="coach-record">The client holds the record: everything stays on their device&mdash;no account, no server, nothing sent to us. You see what they choose to share.</p>
+        <p class="coach-record"><strong>The client holds the record.</strong> Everything stays on their device&mdash;no account, no server, nothing sent to us. You see only what they choose to share.</p>
         <button class="coach-privacy-link" data-modal="privacy">Privacy &rarr;</button>
       </aside>
 
@@ -666,6 +667,7 @@ Then stop.
 </script>
   <script type="text/plain" id="m-design"><h2>Why a Focus File?</h2>
 <p>Focus File was built for one reason: to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
+<p><b>It isn&rsquo;t AI-driven.</b> AI asks the questions and insists on specifics&mdash;otherwise this would just be a static form. You give the answers; the file just holds them. Once you begin, nothing is generated and nothing adapts&mdash;every word the file can say back to you is one you already approved.</p>
 <p><b>It stops the world long enough to choose.</b> When a hundred things compete for your attention, focus often breaks before the work begins: no clear choice has been made. The short interview narrows the day to one concrete block, a real start time, and a finish line you can recognize.</p>
 <p><b>It turns that choice into an object.</b> While the reason still feels clear, the file holds the task, the boundary around it, and why it matters. Later, when it is time to begin, the deciding has already been done.</p>
 <p><b>It can leave the internet.</b> If the work allows it, the setup asks how you will actually disconnect. If the work needs the web, it names the few sites that belong inside the block. Either way, the Focus File stays on your device&mdash;there is no dashboard or service competing for your attention.</p>
