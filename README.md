@@ -1,6 +1,6 @@
 # Focus File
 
-A free, offline focus tool.
+A free, offline focus tool for brains that stall at the starting line.
 
 You answer a few quick questions in any AI chat, and the site hands back a single self-contained HTML page — a "focus file" — that holds one block of work. You save it, turn off the internet, and open it. It shows what you're doing, quietly tracks your time, and knocks every half hour to ask if you're still on task, replaying your own reasons back to you. When you're done, a 60-second exit log records what happened and seeds your next block.
 
@@ -34,7 +34,7 @@ The focus file runs entirely in the browser with no internet connection. The log
 | `focus-file-prompt.md` | A standalone copy of the setup prompt. Not referenced by the site. | Optional |
 | `prompt-head.md` | The editable source of the interview instructions. `build.py` reads it. | Source only |
 | `build.py` | Rebuilds the generated copies safely. Never hand-edit the generated regions. | Source only |
-| `LICENSE` | MIT license. | Repository only |
+| `CLAUDE.md` | Working notes. | Source only |
 
 **Deploy set:** `index.html`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html` — all four must go up together. The builder fetches `focus-file.html`, and the site's sample links point to the two `sample-*.html` files.
 

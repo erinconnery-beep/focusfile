@@ -31,7 +31,7 @@ def main():
     if not ISLAND.search(tpl): sys.exit('build: focus-config island missing from focus-file.html')
 
     # Regenerate each sample = current template + that sample's own config island.
-    for name in ('sample-writing.html','sample-jobsearch.html'):
+    for name in ('sample-writing.html','sample-jobsearch.html','sample-study.html'):
         p=ROOT/name
         if not p.exists(): sys.exit('build: %s missing'%name)
         m=ISLAND.search(p.read_text())
