@@ -93,16 +93,21 @@
   .bd-msg { font-family:var(--sans); font-size:13.5px; margin-top:10px; min-height:1em; color:var(--ink-faint); }
   .bd-msg.err { color:#a8442a; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
-  .resource-links { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;
-    margin-top:28px; padding-top:24px; border-top:1px solid var(--hair); }
-  .resource-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 14px; }
-  .resource-link { background:none; border:0; padding:0; cursor:pointer; font-family:var(--sans);
-    font-size:13px; color:var(--ink-mut); text-decoration:none; }
-  .resource-link:hover { color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
-  .resource-dot { font-family:var(--sans); font-size:14px; color:var(--ink-faint); line-height:1; }
-  .resource-label { font-family:var(--sans); font-size:13px; color:var(--ink-mut); }
-  .resource-examples .resource-link { color:var(--ink-soft); font-weight:600; }
-  .resource-links + .foot { margin-top:28px; padding-top:24px; }
+  .resource-links { display:grid; grid-template-columns:minmax(190px,.8fr) minmax(0,1.2fr); align-items:center;
+    gap:22px; margin-top:28px; padding:22px 24px; border:1px solid #d7e4d3; border-radius:14px;
+    background:var(--pine-tint); }
+  .resource-intro { display:flex; flex-direction:column; gap:6px; }
+  .resource-kicker { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--pine); }
+  .resource-label { font-family:var(--serif); font-size:20px; line-height:1.2; color:var(--ink); }
+  .resource-row { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+  .resource-link { display:flex; align-items:center; justify-content:space-between; gap:10px;
+    min-height:44px; padding:11px 13px; border:1px solid #c9d9c5; border-radius:9px; background:var(--paper);
+    font-family:var(--sans); font-size:13px; font-weight:700; color:var(--ink-soft); text-decoration:none;
+    transition:border-color .15s, color .15s, background .15s; }
+  .resource-link span { color:var(--pine); font-size:15px; line-height:1; }
+  .resource-link:hover { color:var(--pine); border-color:var(--pine); background:#fff; }
+  .resource-links + .foot { margin-top:38px; padding-top:24px; }
 
   .coach-callout { margin-top:0; padding:28px 30px 26px; border:1px solid #d7e4d3;
     border-radius:15px; background:var(--pine-tint); }
@@ -111,6 +116,17 @@
   .coach-callout h2 { font-size:clamp(24px,3vw,31px); line-height:1.18; letter-spacing:-.01em;
     margin-bottom:11px; }
   .coach-callout p { font-family:var(--sans); font-size:14px; line-height:1.62; color:var(--ink-soft); }
+  .coach-local { margin-top:16px; padding:16px 17px; border:1px solid #cfdfcb; border-radius:11px;
+    background:rgba(253,251,246,.72); }
+  .coach-local p + p { margin-top:11px; padding-top:11px; border-top:1px solid #dfe8db; }
+  .coach-local b { color:var(--ink); font-weight:650; }
+  .coach-flags { display:flex; flex-wrap:wrap; gap:7px; margin-top:15px; }
+  .coach-flag { font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--pine); background:#e3eddf; border-radius:6px; padding:6px 8px; }
+  .coach-privacy-link { display:inline-flex; margin-top:15px; padding:0; border:0; background:none;
+    font-family:var(--sans); font-size:13px; font-weight:700; color:var(--pine); cursor:pointer;
+    text-decoration:underline; text-underline-offset:3px; }
+  .coach-privacy-link:hover { color:#275c3a; }
   .coach-callout .coach-note { margin-top:13px; font-size:11.5px; color:var(--ink-mut); }
 
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
@@ -252,8 +268,7 @@
   .after-kicker { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.16em;
     text-transform:uppercase; color:var(--pine); margin-bottom:11px; }
   .after-head h2 { font-size:clamp(30px,3vw,42px); font-weight:400; line-height:1.15;
-    letter-spacing:-.012em; margin-bottom:12px; }
-  .after-head p { font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--ink-soft); }
+    letter-spacing:-.012em; margin-bottom:0; }
   .after-options { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
   .after-option { border:1px solid var(--paper-line); border-radius:14px; padding:20px 18px 22px;
     background:var(--paper-warm); min-height:172px; }
@@ -262,8 +277,6 @@
     letter-spacing:.1em; text-transform:uppercase; color:var(--pine); margin-bottom:18px; }
   .after-option h3 { font-size:19px; line-height:1.2; margin-bottom:9px; }
   .after-option p { font-family:var(--sans); font-size:13.5px; line-height:1.55; color:var(--ink-soft); }
-  .after-note { font-family:var(--sans); font-size:12.5px; color:var(--ink-mut); text-align:center;
-    margin-top:18px; }
   .flow { max-width:760px; width:100%; margin:clamp(38px,5vh,58px) auto 0; scroll-margin-top:24px; }
   .flow-intro { margin-bottom:24px; text-align:center; }
   .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
@@ -320,6 +333,8 @@
     .after-options { grid-template-columns:1fr; gap:10px; }
     .after-option { min-height:0; padding:18px; }
     .after-option .option-tag { margin-bottom:13px; }
+    .resource-links { grid-template-columns:1fr; gap:16px; padding:20px; }
+    .resource-row { grid-template-columns:1fr; }
   }
   @media (max-width:600px){
     .freetag { display:none; }
@@ -479,8 +494,7 @@
     <section class="after-block" aria-labelledby="afterTitle">
       <div class="after-head">
         <div class="after-kicker">After the block</div>
-        <h2 id="afterTitle">The tool ends. You choose what follows.</h2>
-        <p>The result is useful on its own. It can also become raw material for whichever next step fits your situation.</p>
+        <h2 id="afterTitle">Learn from what happened.</h2>
       </div>
       <div class="after-options">
         <article class="after-option">
@@ -504,25 +518,35 @@
           <p>Choose one result to review with a therapist, coach, or anyone helping you&mdash;without giving up the file or your data.</p>
         </article>
       </div>
-      <p class="after-note">These are choices, not steps. Focus File does not require an account, a streak, or another block.</p>
     </section>
 
     <section class="postscript" aria-label="Additional Focus File information">
       <aside class="coach-callout" aria-labelledby="coachTitle">
         <div class="coach-kicker">For coaches and therapists</div>
-        <h2 id="coachTitle">A clearer record between sessions&mdash;not &ldquo;it went okay.&rdquo;</h2>
-        <p>Help a client shape a concrete block, let them run it privately, then review the result only if they choose to share it: what got done, what helped, what disrupted focus, and where they stopped. The client keeps the file and controls the data.</p>
+        <h2 id="coachTitle">The client holds the record. We don&rsquo;t.</h2>
+        <p>A clearer record between sessions&mdash;not &ldquo;it went okay.&rdquo; Help a client shape a concrete block, let them run it privately, then review the result only if they choose to share it.</p>
+        <div class="coach-local">
+          <p><b>No Focus File account, database, or server-side log.</b> The file and its results stay on the client&rsquo;s device. Focus File does not upload them, store them, or give us access. The client decides what, if anything, to share.</p>
+          <p><b>One important exception: the AI interview.</b> Anything entered into an AI service goes to that provider. Clinicians should use only services their organization has approved for client information.</p>
+        </div>
+        <div class="coach-flags" aria-label="Focus File privacy features">
+          <span class="coach-flag">Local by design</span>
+          <span class="coach-flag">No server-side record</span>
+          <span class="coach-flag">Client-controlled sharing</span>
+        </div>
+        <button class="coach-privacy-link" data-modal="clinician-privacy">Privacy for clinicians &rarr;</button>
         <p class="coach-note">A self-monitoring and accountability tool&mdash;not treatment or medical advice.</p>
       </aside>
 
       <nav class="resource-links" aria-label="Download Focus File examples">
-        <div class="resource-row resource-examples">
-          <span class="resource-label">Download Focus File examples:</span>
-          <a class="resource-link" href="sample-writing.html" download="focus-file-writing-example.html">Writing</a>
-          <span class="resource-dot" aria-hidden="true">&middot;</span>
-          <a class="resource-link" href="sample-jobsearch.html" download="focus-file-job-search-example.html">Job search</a>
-          <span class="resource-dot" aria-hidden="true">&middot;</span>
-          <a class="resource-link" href="sample-study.html" download="focus-file-study-example.html">Study</a>
+        <div class="resource-intro">
+          <span class="resource-kicker">Downloadable examples</span>
+          <span class="resource-label">Open a finished Focus File.</span>
+        </div>
+        <div class="resource-row">
+          <a class="resource-link" href="sample-writing.html" download="focus-file-writing-example.html">Writing <span aria-hidden="true">&darr;</span></a>
+          <a class="resource-link" href="sample-jobsearch.html" download="focus-file-job-search-example.html">Job search <span aria-hidden="true">&darr;</span></a>
+          <a class="resource-link" href="sample-study.html" download="focus-file-study-example.html">Study <span aria-hidden="true">&darr;</span></a>
         </div>
       </nav>
 
@@ -632,6 +656,14 @@ Then stop.
 <p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). This is the gentle nudge: it surfaces when you answer a check-in with "sort of" — you're a little distracted, drifting toward the very thing you named — and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
 <p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, in your own words — kept simple and true ("the draft finally moves," "so I stop dreading it"). This is the stronger message, held for when you need it: it surfaces when you answer a check-in with "no" — you haven't started, or you're off task entirely. The reason you gave, from you to you, right when you've drifted furthest.</span></p>
 <p class="mnote" style="margin-top:18px;">The interview builds one block. If you later choose to make another Focus File, you can bring forward the last result as optional context instead of starting from scratch.</p>
+</script>
+
+  <script type="text/plain" id="m-clinician-privacy"><h2>Privacy for clinicians</h2>
+<p><b>Focus File does not receive the client&rsquo;s file or log.</b> The downloaded Focus File runs locally. Its result and accumulated log remain on that device; the website has no account, clinical dashboard, or server-side copy. Basic site analytics do not receive their contents.</p>
+<p><b>The AI interview is a separate service.</b> Anything a client or clinician enters into ChatGPT, Claude, Gemini, or another AI is transmitted to that provider and governed by its terms. Do not enter protected health information unless the service and workflow have been approved by your organization for that use.</p>
+<p><b>The device and sharing method still matter.</b> A downloaded file may be included in device backups or a cloud-synced folder. Once a result is copied or shared, the receiving person and systems must handle it appropriately.</p>
+<p><b>About HIPAA.</b> Keeping the Focus File and log local minimizes third-party handling of client information, but this design alone does not make a clinician&rsquo;s complete workflow HIPAA compliant. Device security, storage, backups, sharing, documentation practices, AI providers, and any required business associate agreements remain the clinician&rsquo;s or organization&rsquo;s responsibility.</p>
+<p class="mnote">HHS does not certify individual technologies as HIPAA compliant. See the official <a href="https://www.hhs.gov/hipaa/for-professionals/faq/256/is-software-vendor-business-associate/index.html" target="_blank" rel="noopener">software-vendor guidance</a>, <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-information-technology/cloud-computing/index.html" target="_blank" rel="noopener">cloud guidance</a>, and <a href="https://www.hhs.gov/hipaa/for-professionals/security/index.html" target="_blank" rel="noopener">Security Rule overview</a>. This is product information, not legal advice.</p>
 </script>
 
   <script>
