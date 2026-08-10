@@ -54,9 +54,10 @@
     display:inline-flex; align-items:center; gap:8px; }
   .logo-mark { flex-shrink:0; }
   .nav-links { display:flex; gap:20px; }
-  .nav-links button { background:none; border:none; cursor:pointer; font-family:var(--sans);
-    font-size:var(--type-nav); color:var(--ink-soft); padding:4px 2px; transition:color .15s; }
-  .nav-links button:hover { color:var(--ink); }
+  .nav-links button,.nav-links a { background:none; border:none; cursor:pointer; font-family:var(--sans);
+    font-size:var(--type-nav); color:var(--ink-soft); padding:4px 2px; transition:color .15s;
+    text-decoration:none; white-space:nowrap; }
+  .nav-links button:hover,.nav-links a:hover { color:var(--ink); }
   .freetag { font-family:var(--mono); font-size:var(--type-label); letter-spacing:.12em; text-transform:uppercase;
     color:var(--pine); background:var(--pine-tint); padding:6px 12px; border-radius:6px; }
 
@@ -68,10 +69,10 @@
     background:var(--paper); border:1px solid var(--paper-line); border-radius:10px;
     box-shadow:0 6px 20px rgba(30,32,27,.12); padding:6px; min-width:150px; z-index:50; }
   .notes-drop.on { display:block; }
-  .notes-drop button { display:block; width:100%; text-align:left; background:none; border:none;
+  .notes-drop button,.notes-drop a { display:block; width:100%; text-align:left; background:none; border:none;
     cursor:pointer; font-family:var(--sans); font-size:var(--type-nav); color:var(--ink-soft);
-    padding:9px 12px; border-radius:7px; }
-  .notes-drop button:hover { background:var(--pine-tint); color:var(--ink); }
+    padding:9px 12px; border-radius:7px; text-decoration:none; }
+  .notes-drop button:hover,.notes-drop a:hover { background:var(--pine-tint); color:var(--ink); }
 
   .wrap { max-width:640px; margin:0 auto; padding:clamp(36px,5.5vh,72px) 32px 48px; flex:1;
     display:flex; flex-direction:column; width:100%; }
@@ -131,6 +132,7 @@
 
   .coach-callout { margin-top:0; padding:clamp(32px,4vw,60px); border:1px solid #d7e4d3;
     border-radius:20px; background:var(--pine-tint); }
+  #coaches { scroll-margin-top:24px; }
   .coach-kicker { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700; letter-spacing:.16em;
     text-transform:uppercase; color:var(--pine); margin-bottom:28px; }
   .coach-callout h2 { font-size:clamp(34px,3.3vw,54px); line-height:1.08; letter-spacing:-.018em;
@@ -392,6 +394,7 @@
       <nav class="nav-links">
         <button data-modal="interview">The interview</button>
         <button data-modal="design">Why a file?</button>
+        <a href="#coaches" data-section-link="coaches">For coaches &amp; therapists</a>
         <button data-modal="privacy">Privacy</button>
         <button data-modal="feedback">Feedback</button>
       </nav>
@@ -402,6 +405,7 @@
       <div class="notes-drop" id="notesDrop" role="menu">
         <button role="menuitem" data-modal="interview">The interview</button>
         <button role="menuitem" data-modal="design">Why a file?</button>
+        <a role="menuitem" href="#coaches" data-section-link="coaches">For coaches &amp; therapists</a>
         <button role="menuitem" data-modal="privacy">Privacy</button>
         <button role="menuitem" data-modal="feedback">Feedback</button>
       </div>
@@ -543,7 +547,7 @@
     </section>
 
     <section class="postscript" aria-label="Additional Focus File information">
-      <aside class="coach-callout" aria-labelledby="coachTitle">
+      <aside class="coach-callout" id="coaches" aria-labelledby="coachTitle">
         <div class="coach-kicker">For coaches and therapists</div>
         <p class="coach-question">Coach: &ldquo;Let&rsquo;s spend the last few minutes of this session building your next Focus File.&rdquo;</p>
         <h2 id="coachTitle">A plan of action, instead of a &ldquo;should.&rdquo;</h2>
@@ -943,6 +947,13 @@ Then stop.
           e.preventDefault(); notesDrop.classList.remove('on'); notesBtn.setAttribute('aria-expanded','false'); notesBtn.focus(); return;
         } else return;
         e.preventDefault(); items[next].focus();
+      });
+    });
+    document.querySelectorAll('[data-section-link="coaches"]').forEach(function(link){
+      link.addEventListener('click', function(){
+        track('open_coaches_section');
+        notesDrop.classList.remove('on');
+        notesBtn.setAttribute('aria-expanded', 'false');
       });
     });
     document.addEventListener('click', function(e){
