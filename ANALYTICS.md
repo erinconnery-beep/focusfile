@@ -25,7 +25,7 @@ Do not treat the AI-link rate as a required conversion step; visitors can use an
 
 ## Diagnostic events
 
-- `builder-error-empty`, `builder-error-prompt`, `builder-error-json`, `builder-error-no-task`, `builder-error-template`, `builder-error-load`
+- `builder-error-empty`, `builder-error-prompt`, `builder-error-json`, `builder-error-shape`, `builder-error-template`, `builder-error-load`
 - `preview-work`, `preview-checkin`, `preview-result`
 - `download-sample-writing`, `download-sample-jobsearch`, `download-sample-study`
 - `open-note-interview`, `open-note-design`, `open-note-privacy`, `open-note-feedback`
@@ -50,7 +50,7 @@ Event names and titles are fixed in the site code. They never include:
 
 `https://focusfile.goatcounter.com/count`
 
-Create the GoatCounter site with the site code **focusfile**. Once that site exists and the updated `index.html` is deployed, pageviews and events will begin appearing automatically. If GoatCounter requires a different site code, replace `focusfile` in the `data-goatcounter` URL in `index.html`.
+The homepage is wired to the GoatCounter site code **focusfile**. The endpoint must exist in the GoatCounter account before it can receive pageviews or events. A direct probe returned an error during the August 9, 2026 audit, so activation still needs to be confirmed in GoatCounter. If GoatCounter assigns a different site code, replace `focusfile` in the `data-goatcounter` URL in `index.html`.
 
 After deployment, verify one homepage view, one `funnel-copy-interview` event, and one successful `funnel-file-created` event. Ad blockers may intentionally prevent some visits from being counted.
 

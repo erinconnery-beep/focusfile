@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", function () {
   if (!window.__focusFileBooted && !window.__bootFailed) window.__bootFail("the main script never finished");
 });
   </script>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPgogIDwhLS0gRm9jdXMgRmlsZSDigJQgbWFyayBDICJUaGUgd29ya3NoZWV0IgogICAgICAgQSBwYXBlciBzaGVldCB3aXRoIGEgZm9sZGVkIGNvcm5lciwgaG9sZGluZyBhIHNpbmdsZSBwb2ludCBvZiBmb2N1cy4KICAgICAgIFBhbGV0dGU6IHBhcGVyICNmZGZiZjYsIHBpbmUgIzJmNmE0NCAoc2l0ZTogdGhlbmV4dGJsb2NrLm9yZykgLS0+CiAgPCEtLSBzaGVldCAtLT4KICA8cGF0aCBkPSJNNiA3IGE0IDQgMCAwIDEgNCAtNCBoMTEgbDcgNyB2MTUgYTQgNCAwIDAgMSAtNCA0IGgtMTQgYTQgNCAwIDAgMSAtNCAtNCB6IgogICAgICAgIGZpbGw9IiNmZGZiZjYiIHN0cm9rZT0iIzJmNmE0NCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPCEtLSBmb2xkZWQgY29ybmVyIC0tPgogIDxwYXRoIGQ9Ik0yMSAzIHY1IGEyIDIgMCAwIDAgMiAyaDUiCiAgICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmY2YTQ0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8IS0tIHRoZSBvbmUgcG9pbnQgb2YgZm9jdXMgLS0+CiAgPGNpcmNsZSBjeD0iMTYiIGN5PSIxOC41IiByPSI1IiBmaWxsPSIjMmY2YTQ0Ii8+Cjwvc3ZnPgo=">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPjxwYXRoIGQ9Ik02IDcgYTQgNCAwIDAgMSA0IC00IGgxMSBsNyA3IHYxNSBhNCA0IDAgMCAxIC00IDQgaC0xNCBhNCA0IDAgMCAxIC00IC00IHoiCiAgICAgICAgZmlsbD0iI2ZkZmJmNiIgc3Ryb2tlPSIjMmY2YTQ0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMjEgMyB2NSBhMiAyIDAgMCAwIDIgMiBoNSIKICAgICAgICBmaWxsPSJub25lIiBzdHJva2U9IiMyZjZhNDQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTguNSIgcj0iNSIgZmlsbD0iIzJmNmE0NCIvPjwvc3ZnPg==">
 <style>
   :root {
     --paper:      #fdfbf6;
@@ -33,26 +33,30 @@ window.addEventListener("DOMContentLoaded", function () {
     --ink:        #26241e;
     --ink-body:   #2c2a24;
     --ink-soft:   #5c5647;
-    --ink-mut:    #8a8474;
-    --ink-faint:  #a39c8c;
-    --ink-ghost:  #b3ab98;
+    --ink-mut:    #665f51;
+    --ink-faint:  #6b6557;
+    --ink-ghost:  #6f6859;
     --pine:       #2f6a44;
     --pine-soft:  #3d7a52;
     --pine-tint:  #eef4ea;
     --pine-chip:  #dbe9df;
     --pine-chip-ink: #1f4a30;
-    --amber:      #c08a3e;
-    --amber-warm: #faf4e8;
-    --knock-bg:   #2a2620;
-    --knock-amber:#e0a86b;
     --clay:       #b5642f;
+    --clay-tint:  #fbf1ea;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    --sans: -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--pine);
+    outline-offset: 3px;
+  }
 
   html, body {
     background: #ece5d6;
-    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    font-family: var(--serif);
     color: var(--ink-body);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -66,7 +70,7 @@ window.addEventListener("DOMContentLoaded", function () {
     padding: 40px 18px 80px;
   }
 
-  .sans { font-family: -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; }
+  .sans { font-family: var(--sans); }
 
   .card {
     background: var(--paper);
@@ -78,11 +82,11 @@ window.addEventListener("DOMContentLoaded", function () {
     position: relative;
   }
 
-  /* knock flash — amber wash pulses over the card when the timer asks */
+  /* Clay is the warning/timer role; a brief wash marks an active check-in. */
   .flash {
     position: absolute;
     inset: 0;
-    background: var(--knock-amber);
+    background: var(--clay);
     opacity: 0;
     pointer-events: none;
     z-index: 20;
@@ -99,12 +103,12 @@ window.addEventListener("DOMContentLoaded", function () {
     100% { opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .flash.on { animation: knock-flash-soft 0.6s ease-out; }
-    @keyframes knock-flash-soft { 0% { opacity: 0; } 40% { opacity: 0.18; } 100% { opacity: 0; } }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .flash.on { animation: none; opacity: 0; }
   }
 
   .eyebrow {
-    font-family: -apple-system, system-ui, sans-serif;
+    font-family: var(--mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.16em;
@@ -141,33 +145,33 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   #headerTop { display: none; }
   .prestart { text-align: left; }
-  .ps-window { font-family: -apple-system, system-ui, sans-serif; font-size: 10px; font-weight: 600;
-    letter-spacing: .14em; text-transform: uppercase; color: #756f60; }
+  .ps-window { font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mut); }
   .ps-meta { font-family: -apple-system, system-ui, sans-serif; font-size: 12.5px; color: var(--ink-faint);
     margin-top: 7px; font-variant-numeric: tabular-nums; }
-  .ps-meta .cl-sep { color: #c4bdae; margin: 0 4px; }
+  .ps-meta .cl-sep { color: var(--paper-line); margin: 0 4px; }
   .ps-late { color: var(--clay); }
-  .ps-soon { color: var(--mut); }
+  .ps-soon { color: var(--ink-mut); }
   .scope-wrap { text-align: right; }
   .clockline {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.02em;
-    color: #8a8377;
+    color: var(--ink-faint);
     text-align: right;
     margin-top: 4px;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
-  .clockline .cl-sep { color: #c4bdae; margin: 0 5px; }
+  .clockline .cl-sep { color: var(--paper-line); margin: 0 5px; }
   .scope {
-    font-family: -apple-system, system-ui, sans-serif;
+    font-family: var(--mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #756f60;
+    color: var(--ink-mut);
     text-align: right;
     padding-top: 3px;
     white-space: nowrap;
@@ -229,6 +233,7 @@ window.addEventListener("DOMContentLoaded", function () {
     flex-wrap: wrap;
   }
   .lane-label {
+    font-family: var(--mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -265,6 +270,7 @@ window.addEventListener("DOMContentLoaded", function () {
     flex-wrap: wrap;
   }
   .sealed-label {
+    font-family: var(--mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -280,7 +286,7 @@ window.addEventListener("DOMContentLoaded", function () {
   /* ---------- Keep: a success cue carried from the previous block ---------- */
   .keep {
     padding: 20px 28px;
-    border-bottom: 1px solid #dce7d8;
+    border-bottom: 1px solid var(--pine-chip);
     background: var(--pine-tint);
   }
   .keep-label {
@@ -323,7 +329,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   .jobs-eyebrow { margin-bottom: 0; }
   .counter {
-    font-family: -apple-system, system-ui, sans-serif;
+    font-family: var(--mono);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -362,6 +368,7 @@ window.addEventListener("DOMContentLoaded", function () {
     outline: 2px solid var(--pine);
     outline-offset: 2px;
   }
+  .job-check:focus-visible { outline: none; }
   .job.done .box {
     background: var(--pine);
     border-color: var(--pine);
@@ -410,7 +417,7 @@ window.addEventListener("DOMContentLoaded", function () {
     cursor: pointer;
     transition: transform 0.1s, background 0.15s;
   }
-  .btn-begin:hover { background: #276039; }
+  .btn-begin:hover { background: var(--pine-soft); }
   .btn-begin:active { transform: scale(0.97); }
   .btn-begin .arr {
     width: 36px; height: 36px;
@@ -484,7 +491,7 @@ window.addEventListener("DOMContentLoaded", function () {
     padding: 13px 8px;
     border-radius: 8px;
     background: transparent;
-    font-family: -apple-system, system-ui, sans-serif;
+    font-family: var(--mono);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.06em;
@@ -503,12 +510,12 @@ window.addEventListener("DOMContentLoaded", function () {
   .pull { display: none; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--hair); }
   .pull.on { display: block; }
   .pull-label {
-    font-family: -apple-system, system-ui, sans-serif;
+    font-family: var(--mono);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: var(--ink-soft);
     margin-bottom: 10px;
   }
   .pull-text {
@@ -532,7 +539,7 @@ window.addEventListener("DOMContentLoaded", function () {
   .next-knock {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 11px;
-    color: #756f60;
+    color: var(--ink-mut);
     letter-spacing: 0.02em;
     padding: 8px 4px;
   }
@@ -541,7 +548,7 @@ window.addEventListener("DOMContentLoaded", function () {
     display: inline-block;
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 12px;
-    color: #756f60;
+    color: var(--ink-mut);
     background: none;
     border: none;
     text-decoration: underline;
@@ -560,7 +567,7 @@ window.addEventListener("DOMContentLoaded", function () {
     background: var(--paper-warm);
   }
   .blockend.on { display: block; }
-  .be-eyebrow { color: var(--amber); margin-bottom: 14px; }
+  .be-eyebrow { color: var(--ink-soft); margin-bottom: 14px; }
   .be-line {
     font-size: 22px;
     line-height: 1.25;
@@ -593,7 +600,7 @@ window.addEventListener("DOMContentLoaded", function () {
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(47,106,68,.28);
   }
-  .btn-finish:hover { background: #276039; }
+  .btn-finish:hover { background: var(--pine-soft); }
   .btn-more {
     background: transparent;
     color: var(--ink-soft);
@@ -635,23 +642,6 @@ window.addEventListener("DOMContentLoaded", function () {
     color: var(--ink-soft);
     margin-bottom: 9px;
   }
-  .hit-row { display: flex; gap: 9px; margin-bottom: 22px; }
-  .hit-row button {
-    padding: 9px 20px;
-    border: 1.5px solid var(--paper-line);
-    border-radius: 8px;
-    background: transparent;
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink-mut);
-    cursor: pointer;
-  }
-  .hit-row button.sel {
-    border-color: var(--pine);
-    color: var(--pine);
-    background: var(--pine-tint);
-  }
   .exit-input {
     width: 100%;
     border: 1px solid var(--paper-line);
@@ -667,19 +657,9 @@ window.addEventListener("DOMContentLoaded", function () {
   .exit-input::placeholder { color: var(--ink-ghost); font-style: italic; }
   .exit-input.invalid {
     border-color: var(--clay);
-    background: #fbf1ea;
+    background: var(--clay-tint);
   }
   .exit-log.warn { color: var(--clay); font-weight: 600; }
-  .exit-forward {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    color: var(--pine-soft);
-    line-height: 1.5;
-    background: var(--pine-wash, #eef4ea);
-    border-radius: 9px;
-    padding: 12px 14px;
-    margin: 4px 0 0;
-  }
   .exit-foot {
     margin-top: 18px;
     padding-top: 18px;
@@ -706,10 +686,10 @@ window.addEventListener("DOMContentLoaded", function () {
     cursor: pointer;
     white-space: nowrap;
   }
-  .btn-done:hover { background: #276039; }
+  .btn-done:hover { background: var(--pine-soft); }
 
-  .end-link { color: #8f4a24; }
-  .end-link:hover { color: #8f4a24; }
+  .end-link { color: var(--ink-soft); text-decoration-color: var(--clay); }
+  .end-link:hover { color: var(--ink); }
 
   /* completed screen */
   .alldone { display: none; padding: 30px 28px 28px; text-align: center; }
@@ -724,12 +704,6 @@ window.addEventListener("DOMContentLoaded", function () {
     justify-content: center;
     gap: 10px;
   }
-  .alldone .sub {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 13px;
-    color: var(--ink-mut);
-    font-style: italic;
-  }
   .result-question {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 13px;
@@ -737,6 +711,11 @@ window.addEventListener("DOMContentLoaded", function () {
     line-height: 1.55;
     max-width: 42ch;
     margin: 0 auto 15px;
+  }
+  .result-question.warn {
+    border-left: 3px solid var(--clay);
+    padding-left: 10px;
+    text-align: left;
   }
   .result-actions {
     display: grid;
@@ -766,16 +745,12 @@ window.addEventListener("DOMContentLoaded", function () {
   .btn-buildnext:hover, .result-action:hover { background: var(--pine-tint); }
   .next-links { display:none; margin-top:14px; }
   .next-links.on { display:block; }
-  .nl-lead { font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:#756f60; margin-bottom:6px; }
+  .nl-lead { font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:var(--ink-mut); margin-bottom:6px; }
   .nl-row { font-family:-apple-system,system-ui,sans-serif; font-size:15px; font-weight:600; }
-  .nl-row a { color:#2d5c3b; text-decoration:underline; text-underline-offset:2px; }
-  .nl-sep { color:#c4bdae; margin:0 8px; }
-  .nl-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:#8a8377;
+  .nl-row a { color:var(--pine); text-decoration:underline; text-underline-offset:2px; }
+  .nl-sep { color:var(--paper-line); margin:0 8px; }
+  .nl-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:var(--ink-faint);
     margin-top:8px; line-height:1.5; }
-  .btn-dl { display:inline-block; margin-top:12px; background:none; border:none; cursor:pointer;
-    font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:#756f60;
-    text-decoration:underline; text-underline-offset:2px; padding:4px 2px; }
-  .btn-dl:hover { color:#2d5c3b; }
   .share-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:var(--ink-mut);
     line-height:1.6; max-width:44ch; margin:18px auto 0; }
   .result-card {
@@ -796,7 +771,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   .result-row:last-child { border-bottom: 0; }
   .result-key {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--mono);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: .14em;
@@ -822,7 +797,7 @@ window.addEventListener("DOMContentLoaded", function () {
     text-align: left;
   }
   .learning-kicker {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--mono);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: .15em;
@@ -848,7 +823,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   .learning-window select {
     min-height: 30px;
-    border: 1px solid #c9d8c5;
+    border: 1px solid var(--pine-chip);
     border-radius: 7px;
     background: rgba(255,255,255,.75);
     color: var(--ink-soft);
@@ -875,7 +850,7 @@ window.addEventListener("DOMContentLoaded", function () {
     margin-bottom: 10px;
   }
   .learning-signal, .learning-insight, .learning-time, .learning-carry {
-    border: 1px solid #d3dfcf;
+    border: 1px solid var(--pine-chip);
     border-radius: 9px;
     background: rgba(255,255,255,.58);
     padding: 12px 13px;
@@ -883,7 +858,7 @@ window.addEventListener("DOMContentLoaded", function () {
   .learning-insight, .learning-time, .learning-carry { margin-top: 10px; }
   .learning-label {
     display: block;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--mono);
     font-size: 8.5px;
     font-weight: 800;
     letter-spacing: .12em;
@@ -965,7 +940,7 @@ window.addEventListener("DOMContentLoaded", function () {
     background: var(--paper);
   }
   .log-title {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--mono);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: .14em;
@@ -974,7 +949,7 @@ window.addEventListener("DOMContentLoaded", function () {
     margin: 0 0 12px;
   }
   .log-entry .le-date {
-    font-family: -apple-system, system-ui, sans-serif;
+    font-family: var(--mono);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -1015,12 +990,13 @@ window.addEventListener("DOMContentLoaded", function () {
     appearance: none;
     border: 0;
     background: transparent;
-    color: var(--clay);
+    color: var(--ink-soft);
     font: inherit;
     font-size: 12px;
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
+    text-decoration-color: var(--clay);
     cursor: pointer;
     padding: 0;
   }
@@ -1067,9 +1043,9 @@ window.addEventListener("DOMContentLoaded", function () {
     <!-- LANE (lane mode only) -->
     <div class="lane" id="lane">
       <div class="lane-inner">
-        <span class="lane-label">Open:</span>
+        <span class="lane-label">Internet plan</span>
         <span id="laneChips"></span>
-        <span class="lane-rest">— nothing else</span>
+        <span class="lane-rest">— blocker on</span>
       </div>
     </div>
 
@@ -1137,7 +1113,7 @@ window.addEventListener("DOMContentLoaded", function () {
     <!-- BLOCK-END -->
     <div class="blockend" id="blockend">
       <div class="eyebrow be-eyebrow" id="beEyebrow">Your block's up · 12:00</div>
-      <div class="be-line" id="beLine">You said done was 1,500 new words.</div>
+      <div class="be-line" id="beLine" role="heading" aria-level="2" tabindex="-1">You said done was 1,500 new words.</div>
       <p class="be-where">Where are you?</p>
       <div class="be-choices">
         <button class="btn-finish" id="finishBtn">Finish here</button>
@@ -1149,13 +1125,10 @@ window.addEventListener("DOMContentLoaded", function () {
     <!-- EXIT -->
     <div class="exit" id="exit">
       <div class="eyebrow exit-eyebrow" id="exitEyebrow">Block complete</div>
-      <div class="exit-title">A few quick things — this records what happened.</div>
+      <h2 class="exit-title">A few quick things — this records what happened.</h2>
 
       <label class="exit-q" for="finishInput">How far did you get?</label>
       <textarea class="exit-input" id="finishInput" rows="2" placeholder="e.g. mostly there — about 600 of 1,000 words"></textarea>
-
-      <label class="exit-q" id="outputQ" for="outputInput" style="display:none;">Output — did you hit the number?</label>
-      <input class="exit-input" id="outputInput" style="display:none;" />
 
       <label class="exit-q" for="helpedInput">What helped you focus?</label>
       <textarea class="exit-input" id="helpedInput" rows="2" placeholder="e.g. the no-editing reminder kept me moving"></textarea>
@@ -1167,14 +1140,14 @@ window.addEventListener("DOMContentLoaded", function () {
       <textarea class="exit-input" id="nextInput" rows="2" placeholder="e.g. Scene C — before the confrontation"></textarea>
 
       <div class="exit-foot">
-        <span class="exit-log" id="exitLog"></span>
+        <span class="exit-log" id="exitLog" role="status" aria-live="polite"></span>
         <button class="btn-done" id="doneBtn">Save result</button>
       </div>
     </div>
 
     <!-- ALL DONE + LOG -->
     <div class="alldone" id="allDone">
-      <div class="msg"><span class="mark">✓</span> Block recorded.</div>
+      <div class="msg" id="resultHeading" role="heading" aria-level="2" tabindex="-1"><span class="mark">✓</span> Block recorded.</div>
 
       <div class="result-card" aria-label="Result from this block">
         <div class="result-row"><span class="result-key">Finished</span><span class="result-value" id="resultFinished"></span></div>
@@ -1185,7 +1158,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
       <section class="learning-report" id="learningReport" aria-labelledby="learningTitle">
         <div class="learning-head">
-          <div class="learning-kicker" id="learningTitle">What you&rsquo;re learning</div>
+          <h2 class="learning-kicker" id="learningTitle">What you&rsquo;re learning</h2>
           <label class="learning-window" for="learningRange">
             <span>Report</span>
             <select id="learningRange">
@@ -1223,7 +1196,7 @@ window.addEventListener("DOMContentLoaded", function () {
         </div>
       </section>
 
-      <p class="result-question">This result is saved on your device.</p>
+      <p class="result-question" id="resultQuestion" role="status" aria-live="polite">This result is saved on your device.</p>
       <div class="result-actions">
         <button class="btn-buildnext" id="buildNextBtn">Copy next-file interview</button>
         <button class="result-action" id="viewLogBtn">View full log</button>
@@ -1393,8 +1366,8 @@ let knockCount = 0;
 let onTaskCount = 0;
 let sortOfCount = 0;
 let noCount = 0;
-let hitAnswer = null;
 let volatileEntries = [];
+let storageDurable = true;
 let reportScopeValue = "1";
 let reportSinceValue = 0;
 let historyResetAt = 0;
@@ -1412,8 +1385,7 @@ function decodeUrlConfig() {
     while (b64.length % 4) b64 += "=";
     const json = decodeURIComponent(escape(atob(b64)));
     const obj = JSON.parse(json);
-    // fill any missing fields from the default CONFIG so nothing breaks
-    return Object.assign({}, CONFIG, obj);
+    return obj;
   } catch (e) {
     return null;
   }
@@ -1424,7 +1396,6 @@ function decodeUrlConfig() {
 /* lane */
 // sealed mode: show how they're keeping the internet off (if they gave a plan)
 /* jobs — three shapes, with a live counter */
-function pad2(n) { return String(n).padStart(2, "0"); }
 function updateCounter() {
   const total = document.querySelectorAll(".job").length;
   const done = document.querySelectorAll(".job.done").length;
@@ -1447,7 +1418,10 @@ function logRow(event, detail) {
   try {
     const prior = localStorage.getItem(LOG_KEY) || header;
     localStorage.setItem(LOG_KEY, prior + row + "\n");
-  } catch (e) { /* The structured result still remains available in this open file. */ }
+  } catch (e) {
+    storageDurable = false;
+    /* The structured result still remains available in this open file. */
+  }
 }
 
 function randKnockDelay() {
@@ -1552,6 +1526,7 @@ function showReminder(ans) {
 }
 const BASE_TITLE = document.title;
 function startTitleBlink() {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   clearInterval(titleTimer);
   let on = false;
   titleTimer = setInterval(function () {
@@ -1588,6 +1563,7 @@ function showBlockEnd() {
   $("beEyebrow").textContent = label + " · " + cfg.scope.split("–").pop().trim();
   $("blockend").classList.add("on");
   logRow("block-end-reached");
+  requestAnimationFrame(() => $("beLine").focus());
 }
 /* ---- End session (leave early) ---- */
 /* ---- Planned-time helpers ---- */
@@ -1620,16 +1596,22 @@ function renderPreStart() {
   const raw = plannedStartStr();
   const st = plannedStartDate();
   $("psWindow").textContent = cfg.scope || "";
-  let meta = "now " + nowHHMM();
+  const metaEl = $("psMeta");
+  metaEl.replaceChildren(document.createTextNode("now " + nowHHMM()));
   if (raw && st) {
     const diff = Math.round((Date.now() - st.getTime()) / 60000);
     let late, cls;
     if (diff < 0) { late = "in " + fmtDur(-diff); cls = "ps-soon"; }
     else if (diff === 0) { late = "it's time \u2014 begin"; cls = "ps-late"; }
     else { late = fmtDur(diff) + " since your " + raw + " start"; cls = "ps-late"; }
-    meta += ' <span class="cl-sep">\u00b7</span> <span class="' + cls + '">' + late + '</span>';
+    const sep = document.createElement("span");
+    sep.className = "cl-sep";
+    sep.textContent = "\u00b7";
+    const status = document.createElement("span");
+    status.className = cls;
+    status.textContent = late;
+    metaEl.append(" ", sep, " ", status);
   }
-  $("psMeta").innerHTML = meta;
 }
 function renderClockLine() {
   const el = $("clockLine");
@@ -1648,6 +1630,7 @@ function showExit(endedEarly) {
   clearInterval(elapsedTimer);
   clearTimeout(knockTimer);
   clearTimeout(blockEndTimer);
+  stopAsking();
   // "Block ended" if they stopped early, "Block complete" if the block ran its course
   $("exitEyebrow").textContent = endedEarly ? "Block ended" : "Block complete";
   // pre-fill "how far did you get" from the milestone/job data already on the card (editable)
@@ -1658,18 +1641,21 @@ function showExit(endedEarly) {
     $("finishInput").value = _jd + " of " + _jt + (_last ? " \u2014 through " + _last : "");
   }
   $("exit").classList.add("on");
+  requestAnimationFrame(() => $("finishInput").focus());
 }
 
 // clear the invalid highlight (and warning) as soon as the user types in a flagged field
 /* ---- Log: view + copy ---- */
 function getEntries() {
   let local = volatileEntries.slice();
-  try { local = mergeEntries(local, JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]")); } catch (e) {}
+  try { local = mergeEntries(local, JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]")); }
+  catch (e) { storageDurable = false; }
   const embedded = cfg && Array.isArray(cfg.learningHistory) ? cfg.learningHistory : [];
   /* Backward compatibility: recover a log saved by older Focus Files that used
      one generic key. New files use a per-file key so unrelated files cannot mix. */
   if (!local.length && !embedded.length) {
-    try { local = JSON.parse(localStorage.getItem(ENTRIES_KEY_BASE) || "[]"); } catch (e) {}
+    try { local = JSON.parse(localStorage.getItem(ENTRIES_KEY_BASE) || "[]"); }
+    catch (e) { storageDurable = false; }
   }
   const merged = mergeEntries(embedded, local);
   if (!historyResetAt) return merged;
@@ -1680,7 +1666,13 @@ function getEntries() {
 }
 function saveEntries(entries) {
   volatileEntries = mergeEntries([], entries);
-  try { localStorage.setItem(ENTRIES_KEY, JSON.stringify(volatileEntries)); } catch (e) {}
+  try {
+    localStorage.setItem(ENTRIES_KEY, JSON.stringify(volatileEntries));
+    storageDurable = true;
+  } catch (e) {
+    storageDurable = false;
+  }
+  return storageDurable;
 }
 function cleanEntry(raw) {
   if (!raw || typeof raw !== "object") return null;
@@ -1833,7 +1825,7 @@ function saveReportState(scope, since) {
     localStorage.setItem(REPORT_SCOPE_KEY, reportScopeValue);
     if (reportSinceValue) localStorage.setItem(REPORT_SINCE_KEY, String(reportSinceValue));
     else localStorage.removeItem(REPORT_SINCE_KEY);
-  } catch (e) {}
+  } catch (e) { storageDurable = false; }
 }
 function syncReportControls() {
   const option = $("periodOption");
@@ -1888,8 +1880,8 @@ function renderLog() {
     div.className = "log-entry";
     let html = '<div class="le-date">' + fmtDate(e.date) + '</div>';
     html += '<div class="le-task">' + escapeHtml(e.task) + '</div>';
-    html += '<div class="le-row"><b>Time:</b> planned ' + e.plannedStart + '–' + e.plannedFinish +
-            ' · actual ' + e.actualStart + '–' + e.actualFinish + ' (' + e.actualMinutes + ' min)' +
+    html += '<div class="le-row"><b>Time:</b> planned ' + escapeHtml(e.plannedStart) + '–' + escapeHtml(e.plannedFinish) +
+            ' · actual ' + escapeHtml(e.actualStart) + '–' + escapeHtml(e.actualFinish) + ' (' + e.actualMinutes + ' min)' +
             (e.extended ? ' · +' + e.extended + ' block(s)' : '') + '</div>';
     if (e.mode) html += '<div class="le-row"><b>Condition:</b> ' + (e.mode === "sealed" ? "internet off" : "internet required") + '</div>';
     if (e.jobsTotal) html += '<div class="le-row"><b>Jobs:</b> ' + e.jobsDone + '/' + e.jobsTotal + ' done</div>';
@@ -1921,15 +1913,21 @@ function renderLog() {
     if (!ok) return;
     historyResetAt = Date.now();
     volatileEntries = [];
+    let deletedDurably = true;
     try {
       localStorage.setItem(HISTORY_RESET_KEY, String(historyResetAt));
       localStorage.removeItem(ENTRIES_KEY);
       localStorage.removeItem(LOG_KEY);
-    } catch (e) {}
-    saveReportState("14", 0);
+    } catch (e) {
+      deletedDurably = false;
+      storageDurable = false;
+    }
+    saveReportState("1", 0);
     renderLearningReport();
     renderLog();
-    $("freshStatus").textContent = "Saved history deleted from this browser.";
+    $("freshStatus").textContent = deletedDurably
+      ? "Saved history deleted from this browser."
+      : "History is cleared only in this open tab. Browser storage is unavailable.";
   });
 }
 function renderResult(e) {
@@ -1944,15 +1942,19 @@ function escapeHtml(s) {
 }
 function copyText(txt, btn, after) {
   const done = () => { const o = btn.textContent; btn.textContent = "Copied ✓"; setTimeout(() => btn.textContent = o, 1600); if (after) after(); };
+  const manual = () => { window.prompt("Copy this text:", txt); if (after) after(); };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(txt).then(done, () => fallbackCopy(txt, done));
-  } else { fallbackCopy(txt, done); }
+    navigator.clipboard.writeText(txt).then(done, () => fallbackCopy(txt, done, manual));
+  } else { fallbackCopy(txt, done, manual); }
 }
-function fallbackCopy(txt, done) {
+function fallbackCopy(txt, done, failed) {
   const ta = document.createElement("textarea");
-  ta.value = txt; document.body.appendChild(ta); ta.select();
-  try { document.execCommand("copy"); done(); } catch (e) {}
-  document.body.removeChild(ta);
+  let copied = false;
+  ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { copied = document.execCommand("copy"); } catch (e) {}
+  ta.remove();
+  if (copied) done(); else failed();
 }
 /* ---- Optional: one-copy interview that returns the complete next file ---- */
 const NEXT_SCHEMA = [
@@ -2014,7 +2016,7 @@ function buildNextPayload(entries, templateHtml, nowMs) {
 
   ctx.push("=== TODAY'S LEARNING — USE THIS TO GUIDE THE INTERVIEW ===");
   ctx.push("Blocks completed today: " + todayEntries.length);
-  ctx.push("Repeated helpers: " + learningSignalText(summary.helps));
+  ctx.push("What consistently helps: " + learningSignalText(summary.helps));
   ctx.push("Repeated distractions: " + learningSignalText(summary.pulls));
   ctx.push("Conditions used: " + summary.conditions);
   ctx.push("Time compared with plan: " + summary.time);
@@ -2124,7 +2126,7 @@ function activateStorageKeys() {
     if (["1","7","14","all","period"].indexOf(storedScope) > -1) reportScopeValue = storedScope;
     if (storedSince > 0) reportSinceValue = storedSince;
     if (storedReset > 0) historyResetAt = storedReset;
-  } catch (e) {}
+  } catch (e) { storageDurable = false; }
   if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "1";
 }
 
@@ -2161,7 +2163,13 @@ function applyConfig() {
   $("scope").textContent     = cfg.scope;
   var _ps = plannedStartStr();
   var _isTime = _ps && /(\d{1,2}:\d{2})|(\d{1,2}\s*(am|pm))/i.test(_ps);
-  $("beginBtn").innerHTML = (_isTime ? "Begin \u2014 " + _ps + " start" : "Begin session") + ' <span class="arr">\u2192</span>';
+  const beginArrow = document.createElement("span");
+  beginArrow.className = "arr";
+  beginArrow.textContent = "\u2192";
+  $("beginBtn").replaceChildren(
+    document.createTextNode((_isTime ? "Begin \u2014 " + _ps + " start" : "Begin session") + " "),
+    beginArrow
+  );
   renderPreStart();
   preTimer = setInterval(renderPreStart, 1000);
   setInterval(renderClockLine, 20000);
@@ -2191,7 +2199,6 @@ function applyConfig() {
       const chip = document.createElement("span");
       chip.className = "lane-chip";
       chip.textContent = s;
-      chip.style.marginRight = "0";
       chipWrap.appendChild(chip);
       chipWrap.appendChild(document.createTextNode(" "));
     });
@@ -2238,9 +2245,10 @@ function applyConfig() {
 
 function wireEvents() {
   $("beginBtn").addEventListener("click", () => {
+    if (previewing) endPreview();
+    else stopAsking();
     startTime = Date.now();
     clearInterval(preTimer);
-    previewing = false;                         // clear any pre-start preview so real knocks count
     $("checkin").style.marginTop = "";
     $("preStart").style.display = "none";
     $("headerTop").style.display = "flex";
@@ -2256,6 +2264,9 @@ function wireEvents() {
     scheduleAsk();
     // block-end fires at the named block length
     blockEndTimer = setTimeout(showBlockEnd, cfg.blockMinutes * 60 * 1000);
+    const firstJob = document.querySelector(".job-check");
+    const firstCheckin = document.querySelector(".knock-answers button");
+    requestAnimationFrame(() => (firstJob || firstCheckin).focus());
   });
 
   document.querySelectorAll(".knock-answers button").forEach(b => {
@@ -2288,6 +2299,7 @@ function wireEvents() {
     $("action").style.display = "block";
     scheduleAsk();
     blockEndTimer = setTimeout(showBlockEnd, 30 * 60 * 1000); // one more ~30 min block
+    requestAnimationFrame(() => document.querySelector(".knock-answers button").focus());
   });
   $("finishBtn").addEventListener("click", () => {
     $("blockend").classList.remove("on");
@@ -2301,28 +2313,30 @@ function wireEvents() {
     showExit(true);    // ended early
   });
 
-  ["finishInput", "helpedInput", "nextInput", "outputInput"].forEach(id => {
+  ["finishInput", "helpedInput", "nextInput"].forEach(id => {
     $(id).addEventListener("input", () => {
       if ($(id).value.trim()) {
         $(id).classList.remove("invalid");
+        $(id).removeAttribute("aria-invalid");
         if (!document.querySelector(".exit-input.invalid")) $("exitLog").classList.remove("warn");
       }
     });
   });
 
   $("doneBtn").addEventListener("click", () => {
-    // Required: what finished, what helped, where they stopped, and output (only when shown).
+    // Required: what finished, what helped, and where they stopped.
     // "What got in the way" stays optional — "nothing" is a valid answer.
     const required = [$("finishInput"), $("helpedInput"), $("nextInput")];
-    if ($("outputQ").style.display !== "none") required.push($("outputInput"));
 
     let firstMissing = null;
     required.forEach(el => {
       if (!el.value.trim()) {
         el.classList.add("invalid");
+        el.setAttribute("aria-invalid", "true");
         if (!firstMissing) firstMissing = el;
       } else {
         el.classList.remove("invalid");
+        el.removeAttribute("aria-invalid");
       }
     });
     if (firstMissing) {
@@ -2360,7 +2374,7 @@ function wireEvents() {
       sortOf: sortOfCount,
       off: noCount,
       finishedAsPlanned: $("finishInput").value.trim(),
-      output: $("outputInput").value.trim(),
+      output: "",
       helped: $("helpedInput").value.trim(),
       inTheWay: $("inTheWayInput").value.trim(),
       nextStart: $("nextInput").value.trim()
@@ -2369,13 +2383,18 @@ function wireEvents() {
     // append to structured entries
     let entries = getEntries();
     entries.push(entry);
-    saveEntries(entries);
+    const savedDurably = saveEntries(entries);
     logRow("exit", { hit: entry.finishedAsPlanned, output: entry.output, helped: entry.helped, inTheWay: entry.inTheWay });
 
     $("exit").classList.remove("on");
     renderResult(entry);
     renderLearningReport();
+    $("resultQuestion").textContent = savedDurably
+      ? "This result is saved on your device."
+      : "This result is saved only while this tab stays open. Browser storage is unavailable—copy or download the log before closing.";
+    $("resultQuestion").classList.toggle("warn", !savedDurably);
     $("allDone").classList.add("on");
+    requestAnimationFrame(() => $("resultHeading").focus());
   });
 
   $("viewLogBtn").addEventListener("click", () => {

@@ -25,9 +25,11 @@ Site: **https://www.focusfile.org/**
 
 The Focus File is complete at that point. Its result screen offers optional exits: close the file, copy one next-file interview, inspect or copy the full log, copy this block’s result, download the log, or start a fresh reporting period.
 
-The learning report defaults to **Today** and shows the actual date behind its block count. The user can switch to the last 7 days, last 14 days, or all history. It also compares actual minutes with planned minutes and states the difference plainly—shorter, longer, or matched—without turning time into a percentage or score. **Start report from now…** begins a new report window from that moment without erasing anything; every earlier result remains in the full log. A separate, confirmed **Delete all saved results** action clears the history this file uses in that browser. Downloaded Focus File copies may still contain embedded history and must be deleted separately if the user wants those copies gone.
+The learning report defaults to **Today** and shows the actual date behind its block count. The user can switch to the last 7 days, last 14 days, or all history. It also compares actual minutes with planned minutes and states the difference plainly—shorter, longer, or matched—without turning time into a percentage or score. **Start report from now…** begins a new report window from that moment without erasing anything; every earlier result remains in the full log. A separate, confirmed **Delete all saved results** action clears the history this file uses in that browser. Downloaded Focus File copies may still contain embedded history and must be deleted separately if the user wants those copies gone. To keep a standalone file responsive, Focus File retains the most recent 100 structured results available to that file; copying a result forward keeps the same most-recent-100 limit.
 
-The Focus File runs entirely in the browser with no internet connection. Its current entries live in browser storage and can be copied or downloaded. **Copy next-file interview** creates one clipboard payload containing today’s results, today’s learning summary, the complete saved history, the five interview questions, and the current Focus File template. The user pastes it once into an AI. The AI conducts the interview and returns the complete next `.html` Focus File with the history embedded. There is no return box, separate settings step, learning-record download, or homepage import.
+The Focus File runs entirely in the browser with no internet connection. Its current entries live in browser storage and can be copied or downloaded. If browser storage is disabled, full, or unavailable, the result remains usable in the open tab and the file warns the user to copy or download the log before closing. Private-browsing behavior varies: some browsers keep this storage only until the private session closes, so copy or download anything that must outlast that session. **Copy next-file interview** creates one clipboard payload containing today’s results, today’s learning summary, the complete saved history, the five interview questions, and the current Focus File template. The user pastes it once into an AI. The AI conducts the interview and returns the complete next `.html` Focus File with the history embedded. There is no return box, separate settings step, learning-record download, or homepage import.
+
+Browser timers can be delayed when a tab is in the background or a device is asleep. A scheduled check-in may therefore arrive later than its nominal window; the title change and on-card state make it visible once the browser runs the timer, but the file cannot override browser throttling.
 
 That one-copy handoff is intentionally explicit about privacy: the combined results and history remain local until the user pastes the payload into an AI, at which point that provider’s terms and privacy policy apply.
 
@@ -54,8 +56,8 @@ The header links are **The interview**, **Why a file?**, **Privacy**, and **Feed
 | File | What it is | Deploy? |
 | --- | --- | --- |
 | `index.html` | **The website** — landing page, the short prompt + Copy button, and the "Build your file" box. | **Yes** |
-| `CNAME` | Declares `www.focusfile.org` as the GitHub Pages custom domain. Keep it at the repository root. | **Yes** |
 | `focus-file-logo.svg` | The worksheet logo used in the site header and browser tab. | **Yes** |
+| `focus-file-social.png` | The 1200×630 social preview card referenced by the homepage metadata. | **Yes** |
 | `focus-file.html` | **The focus-file template.** The builder fetches this file to construct each focus file. **The site breaks without it.** | **Yes** |
 | `sample-writing.html` | A downloadable writing Focus File demonstrating offline work and milestones. | **Yes** |
 | `sample-jobsearch.html` | A downloadable job-search Focus File demonstrating internet-required work and a checklist. | **Yes** |
@@ -66,21 +68,19 @@ The header links are **The interview**, **Why a file?**, **Privacy**, and **Feed
 | `LICENSE` | MIT license. | Repository only |
 | `ANALYTICS.md` | The small, privacy-safe measurement plan and GoatCounter activation notes. | Repository only |
 
-**Deploy set:** `index.html`, `CNAME`, `focus-file-logo.svg`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all seven must go up together. The homepage uses the SVG logo, the builder fetches `focus-file.html`, and the site's sample links point to the three `sample-*.html` files.
+**Deploy set:** `index.html`, `focus-file-logo.svg`, `focus-file-social.png`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all seven must go up together. The homepage uses the SVG logo and social card, the builder fetches `focus-file.html`, and the site's sample links point to the three `sample-*.html` files.
 
 ---
 
-## Deploying
+## Deploying on Vercel
 
-The deployed site is static HTML — no framework or server-side dependencies. The repo is connected to a static host that auto-deploys on every push, so **updating the site just means updating the files in GitHub**.
+The deployed site is static HTML—no framework or server-side dependencies. The GitHub repository is connected to the Vercel project **focusfile**, and each push deploys automatically.
+
+**Vercel project settings:** use the repository root as the Root Directory, choose no framework preset, and leave the build command empty. The files are served directly from the repository root. `www.focusfile.org` is configured in the Vercel project’s Domains settings; there is no GitHub Pages `CNAME` file.
 
 **To update:**
-1. In the GitHub repo, drag the changed files in (`index.html`, `CNAME`, `focus-file-logo.svg`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html`) and confirm the overwrite.
-2. Commit. The site redeploys automatically within a minute.
-
-**Keep `index.html` and `CNAME` at the repo root.** When dragging from a folder, drag the files *from inside* it—not the folder itself—so both land at the top level.
-
-The included `CNAME` points GitHub Pages at `www.focusfile.org`. The domain’s DNS and the repository’s Pages custom-domain setting must also be configured for `www.focusfile.org`; enable HTTPS once GitHub confirms the domain.
+1. Add the changed deploy files to the GitHub repository root: `index.html`, `focus-file-logo.svg`, `focus-file-social.png`, `focus-file.html`, and the three `sample-*.html` files.
+2. Commit and push. Vercel builds and publishes the new static deployment automatically.
 
 **After it deploys:** copy the prompt, run it in an AI, paste the returned Focus File plan into the builder, and confirm a Focus File downloads. Complete a sample block and verify that **Copy next-file interview** produces one payload that the AI can use to interview the user and return the complete next HTML file. Then confirm the Writing, Job search, and Study example links each download a distinct file. Clipboard and download work on the live `https://` site.
 
@@ -92,7 +92,7 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 - **The interview questions / prompt**: edit `prompt-head.md`, then `python3 build.py`. This regenerates the prompt embedded in `index.html` and the standalone `focus-file-prompt.md`.
 - **The website itself** (headline, layout, modals, the builder): edit `index.html` directly (outside the generated prompt region).
 
-`focus-file.html` keeps a `TESTS` object (dev-only, drives `?test=` preview URLs); `build.py` strips it from anything shipped. The template is kept un-minified on purpose — readability and reliable rendering win over byte count.
+`focus-file.html` keeps a `TESTS` object that drives explicit `?test=` preview URLs. It remains in the un-minified template and generated samples; normal files ignore it unless a recognized test query is present. The template stays un-minified on purpose—readability and reliable rendering win over byte count.
 
 ---
 
@@ -119,7 +119,7 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 
 **One exception: AI handoffs.** The AI chat the user chooses sees what is pasted and typed there, under that provider’s own terms and privacy policy. The first setup needs no personal details. The optional next-file handoff includes today’s results and learning plus the saved history required to carry that learning into the next file; the interface states this before the user pastes it.
 
-**For clinicians.** Because we never receive client information, no business associate agreement is needed—like a paper worksheet, the tool sits outside HIPAA. What a client shares with you falls under the policies you already follow. See HHS’s [health apps guidance](https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html). Not legal advice.
+**For clinicians.** Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS’s [health apps guidance](https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html). Not legal advice.
 
 Focus File is not medical or psychological advice.
 

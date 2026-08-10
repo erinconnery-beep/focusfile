@@ -8,13 +8,18 @@
 <meta property="og:description" content="A free focus tool for one concrete block of work—and learning what helps over time.">
 <meta property="og:url" content="https://www.focusfile.org/">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://www.focusfile.org/focus-file-social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Focus File — Finish what you set out to do">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.focusfile.org/focus-file-social.png">
 <link rel="icon" type="image/svg+xml" href="focus-file-logo.svg">
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
   :root{
     --paper:#fdfbf6; --paper-warm:#f3ede1; --paper-line:#e4d9c5; --hair:#f0e8da;
-    --ink:#26241e; --ink-soft:#5c5647; --ink-mut:#8a8474; --ink-faint:#a39c8c;
+    --ink:#26241e; --ink-soft:#5c5647; --ink-mut:#665f51; --ink-faint:#6b6557;
     --pine:#2f6a44; --pine-soft:#3d7a52; --pine-tint:#eef4ea; --clay:#b5642f;
     --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
     --sans: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -37,6 +42,9 @@
   body { font-family:var(--serif); color:var(--ink); background:var(--paper);
     line-height:1.5; min-height:100vh; display:flex; flex-direction:column; }
   html { scroll-behavior:smooth; }
+  button:focus-visible, a:focus-visible, select:focus-visible {
+    outline:2px solid var(--pine); outline-offset:3px;
+  }
 
   /* HEADER NAV */
   header { display:flex; align-items:center; justify-content:space-between;
@@ -69,11 +77,6 @@
     display:flex; flex-direction:column; width:100%; }
 
   h1 { font-size:clamp(34px,5vw,44px); font-weight:400; line-height:1.12; letter-spacing:-.015em; margin-bottom:18px; }
-  h1 .nowrap { white-space:nowrap; }
-  .nowrap { white-space:nowrap; }
-  .pitch { font-size:18px; color:var(--ink-soft); line-height:1.6; max-width:46ch; margin-bottom:28px; }
-  .pitch b { color:var(--ink); font-weight:600; }
-
   .promptbox { background:var(--paper-warm); border:1px solid var(--paper-line);
     border-radius:14px; overflow:hidden; }
   .pb-head { display:flex; justify-content:space-between; align-items:center;
@@ -84,7 +87,7 @@
   .copy { display:inline-flex; align-items:center; gap:9px; background:var(--pine); color:#fff;
     padding:13px 26px; border-radius:30px; font-family:var(--sans); font-weight:600;
     font-size:var(--type-button); border:none; cursor:pointer; transition:background .15s; }
-  .copy:hover { background:#276039; }
+  .copy:hover { background:var(--pine-soft); }
   .pb-body { position:relative; overflow:hidden; }
   .pb-code { font-family:var(--mono); font-size:13px; line-height:1.7; color:var(--ink-soft);
     white-space:pre-wrap; padding:20px 18px; transition:opacity .3s ease; }
@@ -100,19 +103,15 @@
   .ac-line { font-family:var(--sans); font-size:17px; color:var(--ink-soft); margin-bottom:16px; }
   .ac-links { font-family:var(--sans); font-size:16.5px; }
   .ac-links a { color:var(--pine); text-decoration:underline; text-underline-offset:2px; font-weight:600; }
-  .ac-links a:hover { color:#276039; }
+  .ac-links a:hover { color:var(--pine-soft); }
   .ac-links .dot { color:var(--ink-faint); margin:0 8px; }
-  .ac-note { font-family:var(--sans); font-size:13.5px; color:var(--ink-faint);
-    line-height:1.5; margin-top:14px; max-width:34ch; }
-  .ac-note code { font-family:var(--mono); font-size:12.5px; color:var(--ink-mut); }
-
   .bd-lead { font-family:var(--sans); font-size:var(--type-body); color:var(--ink-soft); margin-bottom:10px; line-height:1.5; }
   .bd-input { width:100%; font-family:var(--mono); font-size:12.5px; line-height:1.5; color:var(--ink);
     background:var(--paper); border:1px solid var(--paper-line); border-radius:9px; padding:12px; resize:vertical; }
-  .bd-input:focus { outline:none; border-color:var(--pine); }
+  .bd-input:focus-visible { outline:2px solid var(--pine); outline-offset:2px; border-color:var(--pine); }
   .bd-go { margin-top:12px; }
   .bd-msg { font-family:var(--sans); font-size:var(--type-small); margin-top:10px; min-height:1em; color:var(--ink-faint); }
-  .bd-msg.err { color:#a8442a; }
+  .bd-msg.err { color:var(--ink); border-left:3px solid var(--clay); padding-left:8px; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
   .resource-links { display:grid; grid-template-columns:minmax(190px,.8fr) minmax(0,1.2fr); align-items:center;
     gap:22px; margin-top:28px; padding:22px 24px; border:1px solid #d7e4d3; border-radius:14px;
@@ -130,43 +129,43 @@
   .resource-link:hover { color:var(--pine); border-color:var(--pine); background:#fff; }
   .resource-links + .foot { margin-top:38px; padding-top:24px; }
 
-  .coach-callout { margin-top:0; padding:28px 30px 26px; border:1px solid #d7e4d3;
-    border-radius:15px; background:var(--pine-tint); }
+  .coach-callout { margin-top:0; padding:clamp(32px,4vw,60px); border:1px solid #d7e4d3;
+    border-radius:20px; background:var(--pine-tint); }
   .coach-kicker { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--pine); margin-bottom:10px; }
-  .coach-callout h2 { font-size:var(--type-feature); line-height:1.18; letter-spacing:-.01em;
-    margin-bottom:11px; }
-  .coach-callout p { font-family:var(--sans); font-size:var(--type-nav); line-height:1.62; color:var(--ink-soft); }
-  .coach-callout .coach-question { margin:0 0 7px; font-family:var(--serif); font-size:var(--type-card-large);
-    line-height:1.25; color:var(--ink); }
-  .coach-local { margin-top:16px; padding:16px 17px; border:1px solid #cfdfcb; border-radius:11px;
-    background:rgba(253,251,246,.72); }
-  .coach-local p + p { margin-top:11px; padding-top:11px; border-top:1px solid #dfe8db; }
-  .coach-local b { color:var(--ink); font-weight:650; }
-  .coach-flags { display:flex; flex-wrap:wrap; gap:7px; margin-top:15px; }
-  .coach-flag { font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--pine); background:#e3eddf; border-radius:6px; padding:6px 8px; }
-  .coach-privacy-link { display:inline-flex; margin-top:15px; padding:0; border:0; background:none;
-    font-family:var(--sans); font-size:13px; font-weight:700; color:var(--pine); cursor:pointer;
+    text-transform:uppercase; color:var(--pine); margin-bottom:28px; }
+  .coach-callout h2 { font-size:clamp(34px,3.3vw,54px); line-height:1.08; letter-spacing:-.018em;
+    margin-bottom:20px; }
+  .coach-callout p { font-family:var(--sans); font-size:clamp(16px,1.35vw,20px); line-height:1.55; color:var(--ink-soft); }
+  .coach-callout .coach-question { margin:0 0 12px; font-family:var(--serif); font-size:clamp(25px,2.25vw,38px);
+    line-height:1.28; letter-spacing:-.01em; color:var(--ink); }
+  .coach-intro { max-width:78ch; }
+  .coach-points { margin-top:34px; border:1px solid #c9d9c5; border-radius:14px; overflow:hidden;
+    background:rgba(253,251,246,.78); }
+  .coach-point { display:grid; grid-template-columns:minmax(180px,230px) minmax(0,1fr); gap:28px;
+    padding:23px 30px; align-items:start; }
+  .coach-point + .coach-point { border-top:1px solid #d7e4d3; }
+  .coach-point-label { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700;
+    letter-spacing:.15em; line-height:1.5; text-transform:uppercase; color:var(--pine); }
+  .coach-point p { font-size:clamp(15px,1.2vw,18px); line-height:1.52; }
+  .coach-followup { margin-top:42px; padding-top:38px; border-top:1px solid #d7e4d3; }
+  .coach-callout .coach-followup-question { margin:0 0 10px; font-family:var(--serif);
+    font-size:clamp(25px,2.25vw,38px); line-height:1.28; letter-spacing:-.01em; color:var(--ink); }
+  .coach-followup h3 { margin:0 0 20px; font-family:var(--serif); font-size:clamp(34px,3.3vw,54px);
+    line-height:1.08; letter-spacing:-.018em; color:var(--ink); }
+  .coach-record { margin-top:34px; padding-top:28px; border-top:1px solid #d7e4d3; }
+  .coach-privacy-link { display:inline-flex; margin-top:22px; padding:0; border:0; background:none;
+    font-family:var(--sans); font-size:clamp(15px,1.2vw,18px); font-weight:700; color:var(--pine); cursor:pointer;
     text-decoration:underline; text-underline-offset:3px; }
-  .coach-privacy-link:hover { color:#275c3a; }
-  .coach-callout .coach-note { margin-top:13px; font-size:11.5px; color:var(--ink-mut); }
-
+  .coach-privacy-link:hover { color:var(--pine-soft); }
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
     margin-top:48px; padding-top:32px; border-top:1px solid var(--hair);
     display:flex; align-items:center; justify-content:center; text-align:center; gap:16px; flex-wrap:wrap; }
-  .foot .tag { font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink-mut); }
-  .foot-msg { font-family:var(--sans); font-size:var(--type-small); color:#756f60; }
+  .foot-msg { font-family:var(--sans); font-size:var(--type-small); color:var(--ink-mut); }
   .foot-sub { font-family:var(--sans); font-size:11.5px; color:var(--ink-faint); width:100%; text-align:center; }
   .foot-link { font-family:var(--sans); font-size:var(--type-small); font-weight:700; color:var(--ink-soft);
     background:none; border:none; padding:0; cursor:pointer; text-decoration:none;
     transition:color .15s; }
   .foot-link:hover { color:var(--ink); }
-  .foot-copy { display:inline-flex; align-items:center; gap:8px; background:none; border:1.5px solid var(--paper-line);
-    color:var(--ink-soft); padding:9px 18px; border-radius:30px; font-family:var(--sans); font-weight:600;
-    font-size:13px; cursor:pointer; transition:border-color .15s, color .15s; }
-  .foot-copy:hover { border-color:var(--pine); color:var(--pine); }
-
   /* MODAL */
   .modal-bg { position:fixed; inset:0; background:rgba(30,32,27,.55); display:none;
     align-items:center; justify-content:center; padding:24px; z-index:100; }
@@ -197,8 +196,14 @@
     .pb-label { font-size:11px; text-align:center; }
     .copy { width:100%; justify-content:center; padding:14px 26px; font-size:15px; }
     .modal { padding:28px 24px; }
-    .coach-callout { padding:23px 20px 21px; }
-    .coach-callout h2 { font-size:25px; }
+    .coach-callout { padding:26px 20px; border-radius:15px; }
+    .coach-kicker { margin-bottom:20px; }
+    .coach-callout h2,.coach-followup h3 { font-size:31px; }
+    .coach-callout .coach-question,.coach-callout .coach-followup-question { font-size:23px; }
+    .coach-points { margin-top:26px; }
+    .coach-point { grid-template-columns:1fr; gap:7px; padding:19px 18px; }
+    .coach-followup { margin-top:30px; padding-top:28px; }
+    .coach-record { margin-top:26px; padding-top:23px; }
   }
 
   /* PRODUCT-FIRST HOMEPAGE */
@@ -221,7 +226,7 @@
 
   .product-demo { min-width:0; }
   .mobile-demo-tabs { display:none; }
-  .demo-stage { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; align-items:stretch;
+  .demo-stage { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; align-items:stretch;
     padding-bottom:28px; }
   .demo-card { position:relative; background:linear-gradient(145deg,#fdfbf7,#f7f1e6);
     border:1px solid #ddd1bd; border-radius:17px; box-shadow:0 18px 40px rgba(54,44,28,.11),0 2px 5px rgba(54,44,28,.06);
@@ -271,13 +276,9 @@
   .demo-reminder p { font-style:italic; font-size:14px; line-height:1.48; color:var(--ink-soft); }
   .result .demo-body { min-height:342px; display:flex; flex-direction:column; justify-content:center;
     text-align:center; padding:18px 16px 20px; }
-  .demo-success { width:40px; height:40px; border-radius:50%; background:#e5ead7; margin:0 auto 10px;
-    position:relative; }
-  .demo-success::after { content:""; position:absolute; left:15px; top:9px; width:9px; height:17px;
-    border:solid var(--pine); border-width:0 2.5px 2.5px 0; transform:rotate(45deg); }
   .demo-kicker { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:.13em;
     text-transform:uppercase; color:var(--pine); margin:3px 0 7px; }
-  .result h3 { font-size:18px; margin-bottom:11px; }
+  .result h2 { font-size:18px; margin-bottom:11px; }
   .demo-lessons { border:1px solid #e0d6c5; border-radius:9px; overflow:hidden; text-align:left; }
   .demo-lesson { display:grid; grid-template-columns:60px 1fr; gap:7px; padding:8px 9px;
     border-bottom:1px solid #e8dfd0; font-family:var(--sans); font-size:9.5px; line-height:1.35; color:var(--ink-soft); }
@@ -308,6 +309,9 @@
     letter-spacing:-.012em; margin:7px 0 7px; }
   .flow-intro p { font-family:var(--sans); font-size:var(--type-nav); line-height:1.55; color:var(--ink-mut); }
   .postscript { max-width:760px; width:100%; margin:clamp(56px,8vh,88px) auto 0; }
+  @media (min-width:701px){
+    .coach-callout { width:min(1600px,calc(100vw - 48px)); margin-left:50%; transform:translateX(-50%); }
+  }
   @media (max-width:1180px){
     .hero { grid-template-columns:1fr; }
     .hero-copy { max-width:760px; width:100%; margin:0 auto; text-align:center; }
@@ -362,7 +366,11 @@
     .freetag { display:none; }
     header { justify-content:space-between; }
   }
-  @media (prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
+  @media (prefers-reduced-motion:reduce){
+    html { scroll-behavior:auto; }
+    *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important;
+      transition-duration:.01ms !important; }
+  }
 </style>
 <!-- Privacy-friendly pageviews and fixed-name product events. No Focus File content is sent. -->
 <script data-goatcounter="https://focusfile.goatcounter.com/count"
@@ -382,12 +390,12 @@
     </div>
     <span class="freetag">Free — no account</span>
     <div class="notes-menu">
-      <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true">Notes ▾</button>
-      <div class="notes-drop" id="notesDrop">
-        <button data-modal="interview">The interview</button>
-        <button data-modal="design">Why a file?</button>
-        <button data-modal="privacy">Privacy</button>
-        <button data-modal="feedback">Feedback</button>
+      <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true" aria-controls="notesDrop">Notes ▾</button>
+      <div class="notes-drop" id="notesDrop" role="menu">
+        <button role="menuitem" data-modal="interview">The interview</button>
+        <button role="menuitem" data-modal="design">Why a file?</button>
+        <button role="menuitem" data-modal="privacy">Privacy</button>
+        <button role="menuitem" data-modal="feedback">Feedback</button>
       </div>
     </div>
   </header>
@@ -404,12 +412,12 @@
 
       <div class="product-demo" aria-label="Three states of a Focus File: working, check-in, and learning">
         <div class="mobile-demo-tabs" role="tablist" aria-label="Focus File preview states">
-          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="true" aria-controls="demoWork" data-demo-panel="demoWork">Work</button>
-          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoCheckin" data-demo-panel="demoCheckin">Check-in</button>
-          <button class="mobile-demo-tab" type="button" role="tab" aria-selected="false" aria-controls="demoResult" data-demo-panel="demoResult">Learn</button>
+          <button class="mobile-demo-tab" id="demoWorkTab" type="button" role="tab" tabindex="0" aria-selected="true" aria-controls="demoWork" data-demo-panel="demoWork">Work</button>
+          <button class="mobile-demo-tab" id="demoCheckinTab" type="button" role="tab" tabindex="-1" aria-selected="false" aria-controls="demoCheckin" data-demo-panel="demoCheckin">Check-in</button>
+          <button class="mobile-demo-tab" id="demoResultTab" type="button" role="tab" tabindex="-1" aria-selected="false" aria-controls="demoResult" data-demo-panel="demoResult">Learn</button>
         </div>
         <div class="demo-stage">
-          <article class="demo-card work is-active" id="demoWork" role="tabpanel">
+          <article class="demo-card work is-active" id="demoWork" role="tabpanel" aria-labelledby="demoWorkTab">
             <div class="demo-brand"><b>1</b> Work</div>
             <div class="demo-body">
               <div class="demo-meta work-meta"><span>2&ndash;3:30 &middot; 2/3 complete</span></div>
@@ -424,7 +432,7 @@
             <div class="demo-footer"><span class="demo-timer">&#9711;&nbsp; 1:18:47</span><span class="demo-end">End block</span></div>
           </article>
 
-          <article class="demo-card checkin" id="demoCheckin" role="tabpanel">
+          <article class="demo-card checkin" id="demoCheckin" role="tabpanel" aria-labelledby="demoCheckinTab">
             <div class="demo-brand"><b>2</b> Check-in</div>
             <div class="demo-body">
               <div class="demo-meta"><span>2:45 PM</span><span class="late">45 min left</span></div>
@@ -441,16 +449,16 @@
             </div>
           </article>
 
-          <article class="demo-card result" id="demoResult" role="tabpanel">
+          <article class="demo-card result" id="demoResult" role="tabpanel" aria-labelledby="demoResultTab">
             <div class="demo-brand"><b>3</b> Learn</div>
             <div class="demo-body">
               <div class="demo-kicker">What you&rsquo;re learning</div>
-              <h3>4 blocks compared</h3>
+              <h2>Across 4 work sessions</h2>
               <div class="demo-lessons">
                 <div class="demo-lesson"><b>Helps</b><span>&ldquo;Submit, don&rsquo;t browse&rdquo; &times;3.</span></div>
                 <div class="demo-lesson pulled"><b>Pulls off</b><span>Unrelated role feeds &times;2.</span></div>
-                <div class="demo-lesson pattern"><b>Pattern</b><span>The cue was named helpful in 3 of 4 blocks.</span></div>
-                <div class="demo-lesson stopped"><b>Next block</b><span>Keep it visible. Start with role #3.</span></div>
+                <div class="demo-lesson pattern"><b>Pattern</b><span>The cue helped in 3 of 4 sessions.</span></div>
+                <div class="demo-lesson stopped"><b>Next session</b><span>Keep it visible. Start with role #3.</span></div>
               </div>
             </div>
           </article>
@@ -497,7 +505,7 @@
           <p class="bd-lead">Paste the Focus File plan from the AI. Your file downloads instantly.</p>
           <textarea class="bd-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste plan here"></textarea>
           <button class="copy bd-go" id="buildBtn">Create &amp; download my Focus File</button>
-          <p class="bd-msg" id="bdMsg"></p>
+          <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
         </div>
       </div>
     </section>
@@ -516,22 +524,42 @@
         <article class="after-option">
           <span class="option-tag">Patterns</span>
           <h3>Review patterns</h3>
-          <p>See repeated helpers, distractions, focus conditions, and actual versus planned time across 7 days, 14 days, or all your saved history.</p>
+          <p>See what consistently helps, what pulls you off, your focus conditions, and actual versus planned time across 7 days, 14 days, or all your saved history.</p>
         </article>
         <article class="after-option">
           <span class="option-tag">Share</span>
           <h3>Copy or share</h3>
-          <p>Choose one result to review with a therapist, coach, or anyone helping you&mdash;without giving up the file or your data.</p>
+          <p>Copy a result&mdash;or your whole log&mdash;to review with a therapist, coach, or anyone helping you.</p>
         </article>
       </div>
     </section>
 
     <section class="postscript" aria-label="Additional Focus File information">
       <aside class="coach-callout" aria-labelledby="coachTitle">
-        <div class="coach-kicker">For coaches and therapists: a tool for clients between sessions</div>
-        <p class="coach-question">Coach: &ldquo;How did your week go?&rdquo;</p>
-        <h2 id="coachTitle">Evidence, instead of &ldquo;it went okay.&rdquo;</h2>
-        <p>Each block records what was finished, what helped, what pulled your client off, and where they stopped. A few blocks in, that&rsquo;s a pattern&mdash;the conditions under which their focus actually works. Shape a block together, let them run it privately, review what they choose to share.<br>The client holds the record: everything stays on their device&mdash;no account, no server, nothing sent to us.</p>
+        <div class="coach-kicker">For coaches and therapists</div>
+        <p class="coach-question">Coach: &ldquo;Let&rsquo;s spend the last few minutes of this session building your next Focus File.&rdquo;</p>
+        <h2 id="coachTitle">A plan of action, instead of a &ldquo;should.&rdquo;</h2>
+        <p class="coach-intro">The client builds it&mdash;their motivation, their habits, their goals, in their own words. When a check-in catches a drift, those words stare back&mdash;not an assignment. Each block records what was finished, what helped, what pulled them off, where they stopped. A few blocks in, that&rsquo;s the pattern: the conditions where their focus actually works.</p>
+        <div class="coach-points">
+          <div class="coach-point">
+            <div class="coach-point-label">ADHD coaching</div>
+            <p>External structure for starting, check-ins against time blindness, and a record that&rsquo;s kinder than the client&rsquo;s memory of the week.</p>
+          </div>
+          <div class="coach-point">
+            <div class="coach-point-label">Stuck patterns</div>
+            <p>The client names their trap during setup; the file quotes it back at the exact moment it&rsquo;s happening.</p>
+          </div>
+          <div class="coach-point">
+            <div class="coach-point-label">Extra accountability</div>
+            <p>The file does the midweek checking, in the client&rsquo;s own words&mdash;so the accountability doesn&rsquo;t have to come from you.</p>
+          </div>
+        </div>
+        <div class="coach-followup">
+          <p class="coach-followup-question">Coach, next session: &ldquo;How did your week go?&rdquo;</p>
+          <h3>The whole story, instead of &ldquo;it went okay.&rdquo;</h3>
+          <p>The file gathers and counts&mdash;it never interprets. Digging beneath the pattern and building the new strategy is your craft&mdash;and the next Focus File is where it lands.</p>
+        </div>
+        <p class="coach-record">The client holds the record: everything stays on their device&mdash;no account, no server, nothing sent to us. You see what they choose to share.</p>
         <button class="coach-privacy-link" data-modal="privacy">Privacy &rarr;</button>
       </aside>
 
@@ -556,7 +584,7 @@
 
   <!-- MODALS -->
   <div class="modal-bg" id="modalBg">
-    <div class="modal" id="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalContent">
+    <div class="modal" id="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
       <div id="modalContent"></div>
     </div>
@@ -635,7 +663,7 @@ Then stop.
   <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Anonymous GoatCounter analytics count pageviews and fixed product actions&mdash;never anything typed, generated, or saved.</p>
 <p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview includes today&rsquo;s results and the saved history required to carry learning forward; nothing is shared until you paste it.</p>
-<p><b>For clinicians.</b> Because we never receive client information, no business associate agreement is needed&mdash;like a paper worksheet, the tool sits outside HIPAA. What a client shares with you falls under the policies you already follow. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
+<p><b>For clinicians.</b> Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
 <p>Focus File is not medical or psychological advice.</p>
 </script>
   <script type="text/plain" id="m-feedback"><h2>Feedback</h2>
@@ -644,16 +672,38 @@ Then stop.
 </script>
 
   <script type="text/plain" id="m-interview"><h2>The interview</h2>
-<p>Five questions, one at a time. It won't move on until each answer is concrete. Here's what it asks and why.</p>
-<p><b>1. Is this offline work, or does it need the internet?</b><br><span class="mnote">Sets the block's intent. For offline work, it asks how you'll turn the internet off (phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session), then keeps that plan on the card as a reminder. If the work genuinely needs the web, it recommends a task-specific Freedom.to session: keep only the sites and apps the block requires and block everything else for the full window. Another blocker is fine if it genuinely works.</span></p>
+<p>Five questions, one at a time. It stays with each question until the answer is concrete. What it asks, and why:</p>
+<p><b>1. Is this offline work, or does it need the internet?</b><br><span class="mnote">Sets the block's boundary. Offline work: it asks how you'll turn the internet off (phone in another room, airplane mode, a Freedom session) and keeps that plan on the card. Internet work: it helps you set up a blocker session for just this task — only what the work requires, everything else out for the full window.</span></p>
 <p><b>2. What are you working on, and what's your window?</b><br><span class="mnote">The task and the time. A window (say 9–10:30) gives the block an edge to work against, instead of "until I feel done."</span></p>
-<p><b>3. What exactly will be finished when the block ends?</b><br><span class="mnote">The heart of it. It pushes for an outcome you can't fake past ("1,500 new words at the desk," "3 applications out the door"), not a vague "work on it." Then it proposes steps only if the work needs them: nothing if it's one clean push, milestones if it's big, a checklist only if there are genuinely different actions — never padding to look busy.</span></p>
-<p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). This is the gentle nudge: it surfaces when you answer a check-in with "sort of" — you're a little distracted, drifting toward the very thing you named — and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
-<p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, in your own words — kept simple and true ("the draft finally moves," "so I stop dreading it"). This is the stronger message, held for when you need it: it surfaces when you answer a check-in with "no" — you haven't started, or you're off task entirely. The reason you gave, from you to you, right when you've drifted furthest.</span></p>
-<p class="mnote" style="margin-top:18px;">The interview builds one block. If you later choose to make another Focus File, you can bring forward the last result as optional context instead of starting from scratch.</p>
+<p><b>3. What exactly will be finished when the block ends?</b><br><span class="mnote">The heart of it. It pushes for an outcome you can't fake past ("1,500 new words," "3 applications out the door"), not a vague "work on it." Steps only if the work needs them: nothing for one clean push, milestones if it's big, a checklist only for genuinely different actions — never padding to look busy.</span></p>
+<p><b>4. Anything that tends to pull you off task? <span style="font-weight:400;">(Optional)</span></b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). Answer a check-in with "sort of" and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
+<p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, kept simple and true ("the draft finally moves," "so I stop dreading it"). Held for when you need it most: answer a check-in with "no" and it returns — from you to you, right when you've drifted furthest.</span></p>
+<p class="mnote" style="margin-top:18px;">The interview builds one block. Make another later, and the last result can come along as optional context — never a requirement.</p>
 </script>
 
   <script>
+    function validateFocusPlan(cfg){
+      if(!cfg || typeof cfg !== 'object' || Array.isArray(cfg)) return false;
+      if(cfg.templateVersion !== '2026-07-20') return false;
+      if(typeof cfg.task !== 'string' || !cfg.task.trim()) return false;
+      if(typeof cfg.scope !== 'string' || !cfg.scope.trim()) return false;
+      if(['sealed','lane'].indexOf(cfg.mode) === -1) return false;
+      if(!Array.isArray(cfg.laneSites) || !cfg.laneSites.every(function(site){ return typeof site === 'string' && site.trim(); })) return false;
+      if(typeof cfg.sealedPlan !== 'string') return false;
+      if(cfg.mode === 'lane' && !cfg.laneSites.length) return false;
+      if(typeof cfg.keepLabel !== 'string' || typeof cfg.keep !== 'string') return false;
+      if(typeof cfg.whyLabel !== 'string' || typeof cfg.why !== 'string') return false;
+      if(typeof cfg.finishFeel !== 'string' || !cfg.finishFeel.trim()) return false;
+      if(['none','milestones','checklist'].indexOf(cfg.jobsShape) === -1 || !Array.isArray(cfg.jobs)) return false;
+      if(!cfg.jobs.every(function(job){ return typeof job === 'string' && job.trim(); })) return false;
+      if(cfg.jobsShape === 'none' && cfg.jobs.length) return false;
+      if(cfg.jobsShape !== 'none' && !cfg.jobs.length) return false;
+      if(!Number.isFinite(Number(cfg.blockMinutes)) || Number(cfg.blockMinutes) <= 0) return false;
+      if(!Number.isFinite(Number(cfg.knockMinMin)) || Number(cfg.knockMinMin) <= 0) return false;
+      if(!Number.isFinite(Number(cfg.knockMaxMin)) || Number(cfg.knockMaxMin) < Number(cfg.knockMinMin)) return false;
+      if(typeof cfg.doneWhenShort !== 'string' || !cfg.doneWhenShort.trim()) return false;
+      return true;
+    }
     (function(){
       var b=document.getElementById('buildBtn'); if(!b) return;
       b.addEventListener('click', function(){
@@ -663,7 +713,7 @@ Then stop.
         if(!raw){ track('builder-error-empty', 'Builder error: empty'); msg.className='bd-msg err'; msg.textContent='Paste the Focus File plan first.'; return; }
         track('funnel-plan-submit', 'Funnel 4: plan submitted');
         raw=raw.replace(/^```[a-z]*\s*/i,'').replace(/```\s*$/,'').trim();
-        if(/=== LAST SESSION|output ONLY this JSON|Run a quick setup|You run a short setup|\bQ1 \u2014/i.test(raw)){
+        if(/# Focus File\s*[\u2014-]\s*the setup prompt|AI assistants: if this arrived|INSTRUCTIONS FOR THE AI:|Run a short setup, then output a Focus File plan|\bQ1\s*[\u2014-]\s*MODE/i.test(raw)){
           track('builder-error-prompt', 'Builder error: prompt pasted');
           msg.className='bd-msg err';
           msg.textContent="That's the interview prompt, not the completed Focus File plan. Paste it into a new AI chat (Claude, ChatGPT, or Gemini), answer the questions, then paste the plan it gives you here.";
@@ -674,7 +724,7 @@ Then stop.
         var cfg;
         try { cfg=JSON.parse(jtxt); }
         catch(e){ track('builder-error-json', 'Builder error: invalid plan'); msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
-        if(!cfg.task || !String(cfg.task).trim()){ track('builder-error-no-task', 'Builder error: missing task'); msg.className='bd-msg err'; msg.textContent="The Focus File plan looks empty \u2014 make sure you paste the completed plan, not the blank template."; return; }
+        if(!validateFocusPlan(cfg)){ track('builder-error-shape', 'Builder error: incomplete plan'); msg.className='bd-msg err'; msg.textContent="That Focus File plan is incomplete. Run the interview again and copy the entire JSON block it gives you."; return; }
         cfg.fileId=(window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
         cfg.learningHistory=[];
         msg.textContent='Building\u2026';
@@ -703,17 +753,25 @@ Then stop.
          text/plain container. Undo that on the way out, or every generated file
          carries an unclosed tag and dies silently. */
       var text = document.getElementById('fullPrompt').textContent.replace(/<\\\/script>/g, '<\/script>');
-      // swap the prompt preview for the paste options, inside the box — regardless of clipboard success
-      document.querySelector('.pb-body').classList.add('copied');
-      function showCopied(){ var o = btn.innerHTML; btn.innerHTML = '✓&nbsp;&nbsp;Copied'; setTimeout(function(){ btn.innerHTML = o; }, 1800); }
+      function showCopied(){
+        document.querySelector('.pb-body').classList.add('copied');
+        var o = btn.innerHTML; btn.innerHTML = '✓&nbsp;&nbsp;Copied'; setTimeout(function(){ btn.innerHTML = o; }, 1800);
+      }
+      function showManual(){
+        var o = btn.innerHTML; btn.textContent = 'Copy manually';
+        window.prompt('Copy the interview prompt:', text);
+        setTimeout(function(){ btn.innerHTML = o; }, 1800);
+      }
       function fallback(){
+        var ok=false, ta;
         try {
-          var ta=document.createElement('textarea'); ta.value=text;
+          ta=document.createElement('textarea'); ta.value=text;
           ta.style.position='fixed'; ta.style.opacity='0';
           document.body.appendChild(ta); ta.focus(); ta.select();
-          document.execCommand('copy'); document.body.removeChild(ta);
+          ok=document.execCommand('copy');
         } catch(e) {}
-        showCopied();
+        if(ta && ta.parentNode) ta.parentNode.removeChild(ta);
+        if(ok) showCopied(); else showManual();
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(showCopied, fallback);
@@ -722,16 +780,29 @@ Then stop.
     document.getElementById('copyAgainBtn').addEventListener('click', function(){ copyPrompt(this); });
 
     // Compact product preview on small screens.
-    document.querySelectorAll('[data-demo-panel]').forEach(function(tab){
-      tab.addEventListener('click', function(){
+    var demoTabs = Array.prototype.slice.call(document.querySelectorAll('[data-demo-panel]'));
+    function activateDemoTab(tab, moveFocus){
         var panelId=tab.getAttribute('data-demo-panel');
         track('preview-' + panelId.replace(/^demo/, '').toLowerCase(), 'Preview: ' + tab.textContent.trim());
-        document.querySelectorAll('[data-demo-panel]').forEach(function(other){
+        demoTabs.forEach(function(other){
           other.setAttribute('aria-selected', other===tab ? 'true' : 'false');
+          other.tabIndex = other===tab ? 0 : -1;
         });
         document.querySelectorAll('.demo-card').forEach(function(card){
           card.classList.toggle('is-active', card.id===panelId);
         });
+        if(moveFocus) tab.focus();
+    }
+    demoTabs.forEach(function(tab, index){
+      tab.addEventListener('click', function(){ activateDemoTab(tab, false); });
+      tab.addEventListener('keydown', function(e){
+        var next=index;
+        if(e.key==='ArrowRight') next=(index+1)%demoTabs.length;
+        else if(e.key==='ArrowLeft') next=(index-1+demoTabs.length)%demoTabs.length;
+        else if(e.key==='Home') next=0;
+        else if(e.key==='End') next=demoTabs.length-1;
+        else return;
+        e.preventDefault(); activateDemoTab(demoTabs[next], true);
       });
     });
 
@@ -776,14 +847,19 @@ Then stop.
         text: 'Focus File turns one concrete block of work into a focused session and a private record of what helped, what got in the way, and where you stopped.',
         url: publicUrl
       };
+      function manualShare(){
+        var o=btn.textContent; btn.textContent='copy manually';
+        window.prompt('Copy this link:', publicUrl);
+        setTimeout(function(){ btn.textContent=o; },1800);
+      }
       if (navigator.share) {
         navigator.share(shareData).catch(function(){});
       } else if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(publicUrl).then(function(){
           var o = btn.textContent; btn.textContent = 'link copied ✓';
           setTimeout(function(){ btn.textContent = o; }, 1800);
-        }, function(){});
-      }
+        }, manualShare);
+      } else manualShare();
     });
 
     // modals
@@ -795,6 +871,8 @@ Then stop.
       b.addEventListener('click', function(){
         track('open-note-' + b.dataset.modal, 'Open note: ' + b.dataset.modal);
         content.innerHTML = document.getElementById('m-' + b.dataset.modal).textContent;
+        var modalTitle = content.querySelector('h2');
+        if(modalTitle) modalTitle.id = 'modalTitle';
         // if the trigger is inside the (now-closing) Notes dropdown, return focus to the Notes button
         lastFocused = notesDrop.contains(b) ? document.getElementById('notesBtn') : b;
         bg.classList.add('on');
@@ -812,7 +890,15 @@ Then stop.
     modalClose.addEventListener('click', closeModal);
     bg.addEventListener('click', function(e){ if(e.target===bg) closeModal(); });
     document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key === 'Escape') {
+        if (bg.classList.contains('on')) closeModal();
+        else if (notesDrop.classList.contains('on')) {
+          notesDrop.classList.remove('on');
+          notesBtn.setAttribute('aria-expanded', 'false');
+          notesBtn.focus();
+        }
+        return;
+      }
       // trap Tab within the open modal
       if (e.key === 'Tab' && bg.classList.contains('on')) {
         var focusable = modalBox.querySelectorAll('button, a[href], input, textarea, [tabindex]:not([tabindex="-1"])');
@@ -829,6 +915,27 @@ Then stop.
       e.stopPropagation();
       var open = notesDrop.classList.toggle('on');
       notesBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    notesBtn.addEventListener('keydown', function(e){
+      if(e.key==='ArrowDown'){
+        e.preventDefault();
+        notesDrop.classList.add('on');
+        notesBtn.setAttribute('aria-expanded','true');
+        var first=notesDrop.querySelector('button'); if(first) first.focus();
+      }
+    });
+    Array.prototype.slice.call(notesDrop.querySelectorAll('[role="menuitem"]')).forEach(function(item, index, items){
+      item.addEventListener('keydown', function(e){
+        var next=index;
+        if(e.key==='ArrowDown') next=(index+1)%items.length;
+        else if(e.key==='ArrowUp') next=(index-1+items.length)%items.length;
+        else if(e.key==='Home') next=0;
+        else if(e.key==='End') next=items.length-1;
+        else if(e.key==='Escape'){
+          e.preventDefault(); notesDrop.classList.remove('on'); notesBtn.setAttribute('aria-expanded','false'); notesBtn.focus(); return;
+        } else return;
+        e.preventDefault(); items[next].focus();
+      });
     });
     document.addEventListener('click', function(e){
       if(!notesDrop.contains(e.target) && e.target!==notesBtn) {
