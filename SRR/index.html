@@ -295,21 +295,7 @@
   body.gated{overflow:hidden}
   /* belt and braces: no input anywhere may drop below 16px on a touch device */
   @media(pointer:coarse){input,textarea,select{font-size:16px}}
-
-  /* Widow control. Stops a paragraph ending on a one-word stub line by pulling an
-     extra word down. Chrome/Edge and Safari 26+ honour it; Firefox and iOS 18 and
-     earlier ignore it and render exactly as before, so there is no broken state.
-     Changes line breaks only — no font, size, colour, spacing or copy is affected. */
-  p,h2,h3,h4,figcaption,.signature-fact,.operations-fact,.water-statement,.lede{text-wrap:pretty}
 </style>
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VHNF70ML0C"></script>
-<script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments)}
-  gtag('js',new Date());
-  gtag('config','G-VHNF70ML0C');
-</script>
 </head>
 <body>
 
@@ -848,99 +834,6 @@
       if(open){setTimeout(function(){drawer.scrollIntoView({behavior:'smooth',block:'start'})},260)}
     });
   });
-</script>
-
-<script>
-/* ── Smith River Ranch — engagement tracking ───────────────────────────
-   Adds listeners only; nothing above is modified. Every call is guarded,
-   so if GA4 is blocked (ad blockers, Safari ITP) the page is unaffected. */
-(function(){
-  var send = function(name, params){
-    try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch(e){}
-  };
-  var once = {};
-  var fireOnce = function(key, name, params){ if(once[key]) return; once[key]=1; send(name, params); };
-
-  /* 1 & 8 — did they get past the password, or fail it */
-  var gate = document.getElementById('gate');
-  if (gate) {
-    if (gate.classList.contains('hidden')) {
-      send('returning_session');                       /* already unlocked this session */
-    } else {
-      new MutationObserver(function(muts, obs){
-        if (gate.classList.contains('hidden')) { send('gate_unlocked'); obs.disconnect(); }
-      }).observe(gate, {attributes:true, attributeFilter:['class']});
-    }
-    var err = document.getElementById('gate-err');
-    if (err) new MutationObserver(function(){
-      if (err.classList.contains('show')) send('gate_failed');
-    }).observe(err, {attributes:true, attributeFilter:['class']});
-  }
-
-  /* 2 & 6 — which detail drawers, with the price called out separately */
-  document.querySelectorAll('.detail-button').forEach(function(btn){
-    /* the label is captured now, before any click: his own handler swaps the
-       span to "Close details" as soon as a drawer opens */
-    var label = ((btn.querySelector('span') || {}).textContent || '').trim();
-    btn.addEventListener('click', function(){
-      /* his handler is registered first and has already flipped aria-expanded
-         by the time this runs, so "true" here means it JUST opened */
-      if (btn.getAttribute('aria-expanded') !== 'true') return;   /* opening only, not closing */
-      var target = btn.getAttribute('data-target') || 'unknown';
-      send('detail_open', {drawer: target, label: label || target});
-      if (target.indexOf('offering') > -1) send('offering_details_open');
-    });
-  });
-
-  /* 3 — gallery opened, and how deep they went */
-  var seen = {}, count = 0;
-  document.querySelectorAll('[data-final-gallery],[data-final-gallery-open]').forEach(function(el){
-    el.addEventListener('click', function(){ fireOnce('gopen','gallery_open'); });
-  });
-  var lb = document.querySelector('.lightbox-image');
-  if (lb) new MutationObserver(function(){
-    var src = lb.getAttribute('src'); if(!src) return;
-    var name = src.split('/').pop();
-    if (seen[name]) return;
-    seen[name] = 1; count++;
-    if (count === 3 || count === 8 || count === 16) send('gallery_depth', {photos_viewed: count});
-  }).observe(lb, {attributes:true, attributeFilter:['src']});
-
-  /* 4 — contact intent */
-  document.querySelectorAll('a[href^="tel:"],a[href^="mailto:"],a[href^="http"]').forEach(function(a){
-    a.addEventListener('click', function(){
-      var h = a.getAttribute('href');
-      var kind = h.indexOf('tel:')===0 ? 'phone' : h.indexOf('mailto:')===0 ? 'email' : 'website';
-      send('contact_click', {method: kind});
-    });
-  });
-
-  /* 5 — which chapters they actually reached */
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (!e.isIntersecting) return;
-        var id = e.target.id || 'section';
-        fireOnce('sec_'+id, 'section_reached', {section: id});
-        io.unobserve(e.target);
-      });
-    }, {threshold: 0.35});
-    document.querySelectorAll('section[id]').forEach(function(sec){ io.observe(sec); });
-  }
-
-  /* 7 — real scroll depth (GA4's built-in only fires at 90%) */
-  var marks = [25,50,75,100], ticking = false;
-  window.addEventListener('scroll', function(){
-    if (ticking) return; ticking = true;
-    requestAnimationFrame(function(){
-      ticking = false;
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      if (h <= 0) return;
-      var pct = Math.round(window.scrollY / h * 100);
-      marks.forEach(function(m){ if (pct >= m) fireOnce('sd'+m, 'scroll_depth', {percent: m}); });
-    });
-  }, {passive:true});
-})();
 </script>
 </body>
 </html>
