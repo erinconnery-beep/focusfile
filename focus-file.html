@@ -1298,7 +1298,7 @@ window.addEventListener("DOMContentLoaded", function () {
       <div class="next-links" id="nextLinks">
         <div class="nl-lead">Copied. Paste it into a new AI chat. It uses today&rsquo;s learning to guide five questions, then creates the complete next Focus File for you to download.</div>
         <div class="nl-row">
-          <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
         </div>
         <div class="nl-note">One paste starts the interview and file creation. The AI should return a downloadable HTML file, not a block to bring back here.</div>
       </div>
@@ -1325,8 +1325,6 @@ window.addEventListener("DOMContentLoaded", function () {
   "mode": "sealed",
   "laneSites": [],
   "sealedPlan": "phone in the other room",
-  "keepLabel": "Keep",
-  "keep": "",
   "whyLabel": "Avoid",
   "why": "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
   "finishFeel": "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
@@ -2055,8 +2053,6 @@ const NEXT_SCHEMA = [
 '  "mode": "sealed",',
 '  "sealedPlan": "",',
 '  "laneSites": [],',
-'  "keepLabel": "Keep",',
-'  "keep": "",',
 '  "whyLabel": "Avoid",',
 '  "why": "",',
 '  "finishFeel": "",',
@@ -2074,14 +2070,20 @@ const NEXT_SCHEMA = [
 const BUILD_NEXT_PROMPT = [
 "Create my next Focus File in one pass. First conduct the five-question interview below, asking ONE question at a time. Be warm and CURT: a line or two, never a long paragraph. Use TODAY'S LEARNING as evidence and optional defaults, never as a verdict. I may keep, change, or ignore anything from earlier blocks. NEVER show me configuration JSON or ask me to bring anything back to a builder. NEVER show the words 'sealed' or 'lane'; they are internal values only.",
 "",
-"Q1 \u2014 MODE. Ask whether the work can be offline or needs the internet. For offline work, ask how I will turn the internet off and offer a short numbered list, putting the most relevant earlier choice first: phone in another room, a lockbox, airplane mode, unplug the router, or a Freedom session. For internet work, recommend Freedom.to as the strongest default blocker and explain briefly: set up one Freedom session for this exact task, keep only the sites and apps the work requires, and block everything else for the full window. Then ask which sites and apps must remain available. If I already use another blocker that genuinely works, accept it.",
-"Q2 \u2014 WORK + TIME. Ask what I am working on, my start time, and the block length. Do not skip the start time.",
-"Q3 \u2014 SHAPE THE GOAL. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly.",
-"Q4 \u2014 HELP + DISTRACTIONS. Use today's learning to ask what success cue or helpful condition should stay visible, then ask what may pull me off task. Keep both in my own words. Either may be blank.",
-"Q5 \u2014 THE REASON. Why finishing matters today.",
+"CHOICE UI \u2014 PERMANENT RULE. Whenever a question or follow-up has a short finite set of known answers, including lists of 2\u20138 choices, use the chat interface's native clickable response options, quick replies, or choice buttons if available. If a choice-picker or request-user-input tool is available, CALL IT instead of merely printing the choices. NEVER make me type a binary or finite-list answer when clickable choices are supported. Do not imitate buttons with Markdown links or checkboxes. If native response buttons are unavailable, show the same choices as a compact numbered list and accept the number, label, or my own words. A selected choice counts as the answer; advance immediately unless it genuinely requires a follow-up.",
+"Use judgment about `Something else`; do not add it automatically to every choice set. Include a custom-answer option only when the listed choices might genuinely miss a valid answer. The internet-off barrier list below specifically requires it.",
+"When MOST RECENT SETUP contains a usable answer for the current question, put `Same as last time \u2014 [specific prior answer]` first and `Change it` second. If I keep it, preserve the prior answer exactly, skip follow-ups it already covers, and move on. Use choices only for real known options; never invent task details, jobs, traps, or reasons.",
 "",
-"After question 5, silently construct the configuration below. Do NOT display this intermediate configuration. Set a new unique fileId. Copy COMPLETE PRIVATE HISTORY JSON into learningHistory exactly; it must remain inside the new file. Set reportScope to \"1\" and reportSince to 0. Fill every other value only from my interview answers:",
+"Q1 \u2014 MODE. First offer the most recent mode together with its barrier or required sites as `Same as last time`, plus `Change it`. If I change it, present exactly two choices: `Offline work` and `Needs the internet`. For offline work, ask how I will turn the internet off and offer choices, putting the most relevant earlier choice first: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else \u2014 write your own`. This six-choice barrier list MUST use native clickable choices when the interface supports them; use numbered text only when it cannot. If I choose `Something else`, show a text field when supported; otherwise ask me to type my barrier in the next message. For internet work, recommend Freedom.to as the strongest default blocker and explain briefly: set up one Freedom session for this exact task, keep only the sites and apps the work requires, and block everything else for the full window. Then ask which sites and apps must remain available. If I already use another blocker that genuinely works, accept it.",
+"Q2 \u2014 WORK + TIME. Use the recent setup to offer `Same task and window`, `Same task, new window`, or `New task`. If I keep both, advance immediately. If only the window changes, ask only for the new start time and block length. Otherwise ask what I am working on, my start time, and the block length. Do not skip the start time.",
+"Q3 \u2014 SHAPE THE GOAL. If the task is continuing, offer the prior finish line and steps first as `Same as last time`, plus `Change it`. The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly.",
+"Q4 \u2014 THE TRAP. Ask what may pull me off task and keep it in my own words; it may be blank. KEEP is not part of Q4 or any other interview question.",
+"Q5 \u2014 THE REASON. Offer the most recent reason first as `Same as last time`, plus `Change it`. If I change it, ask why finishing matters today.",
+"",
+"After question 5, silently construct the configuration below. Do NOT display this intermediate configuration. Set a new unique fileId. Copy COMPLETE PRIVATE HISTORY JSON into learningHistory exactly; it must remain inside the new file. Set reportScope to \"1\" and reportSince to 0. Fill every other value from my interview answers, except KEEP, which follows the earned carry-forward rule below:",
 NEXT_SCHEMA,
+"",
+"EARNED KEEP RULE. Look only at `Most recent result` below. If its `What helped` line contains a concrete thing that actually helped, add `keepLabel: \"Keep\"` and `keep: \"[that exact proven help in my words]\"` to the configuration. If that line is absent, blank, vague, or says nothing helped, omit both fields. Do not use the older setup, aggregate learning, or general advice as a substitute. Do not ask me about KEEP, do not turn it into a sixth question, and never invent it.",
 "",
 "Then use CURRENT FOCUS FILE HTML TEMPLATE as the complete source template. Replace only the JSON inside <script id=\"focus-config\" type=\"application/json\"> with the configuration you constructed. Preserve the rest of the HTML, styling, and behavior exactly.",
 "",
@@ -2105,18 +2107,17 @@ function buildNextPayload(entries, templateHtml, nowMs) {
 
   ctx.push("=== TODAY'S LEARNING — USE THIS TO GUIDE THE INTERVIEW ===");
   ctx.push("Blocks completed today: " + todayEntries.length);
-  ctx.push("What consistently helps: " + learningSignalText(summary.helps));
+  ctx.push("What consistently helps across history (context only; never use this to create KEEP): " + learningSignalText(summary.helps));
   ctx.push("Repeated distractions: " + learningSignalText(summary.pulls));
   ctx.push("Conditions used: " + summary.conditions);
   ctx.push("Time compared with plan: " + summary.time);
-  ctx.push("Carry into the next block: " + summary.carry);
+  ctx.push("Carry into the next block (context only; KEEP still comes only from Most recent result > What helped): " + summary.carry);
   ctx.push("");
   ctx.push("Most recent setup:");
   ctx.push("- Q1 mode: " + cfg.mode + (cfg.mode === "sealed" ? " (internet off via: " + (cfg.sealedPlan || "not specified") + ")" : " (sites kept open: " + (sites || "not specified") + ")"));
   ctx.push("- Q2 task: " + cfg.task);
   ctx.push("- Q2 window: " + (cfg.scope || "not specified") + " (" + cfg.blockMinutes + " min)");
   ctx.push("- Q3 shape: " + cfg.jobsShape + ((cfg.jobs && cfg.jobs.length) ? " — steps: " + cfg.jobs.join(" | ") : " (no steps)"));
-  ctx.push("- Q4 success cue: " + (cfg.keep || "none named"));
   ctx.push("- Q4 distraction: " + (cfg.why || "none named"));
   ctx.push("- Q5 reason: " + (cfg.finishFeel || "not specified"));
   ctx.push("");

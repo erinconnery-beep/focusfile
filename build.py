@@ -65,8 +65,6 @@ SAMPLES = {
         "mode": "sealed",
         "laneSites": [],
         "sealedPlan": "phone in another room, laptop on airplane mode",
-        "keepLabel": "Keep",
-        "keep": "",
         "whyLabel": "Avoid",
         "why": "Re-reading the deck will feel like studying. It’s the detour. Recall with it closed, or you don’t know it.",
         "finishFeel": "All twelve, in order, from memory — the thing I’ve been avoiding is simply done.",

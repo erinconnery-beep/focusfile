@@ -16,12 +16,14 @@ Site: **https://www.focusfile.org/**
 
 ## How it works
 
-1. **Run a quick interview.** The site (`index.html`) shows a short prompt and a Copy button. Copy it and paste it into any AI (Claude, ChatGPT, Gemini).
-2. **Answer five questions.** The AI narrows the work to one finishable block, names what may pull you off task, and captures why it matters—then hands back a short, labeled **Focus File plan** written for a person to read and copy.
+1. **Run a quick interview.** The site (`index.html`) shows a short prompt and a Copy button. Copy it and paste it into any AI (ChatGPT, Claude, Gemini).
+2. **Answer five questions.** Whenever the chat supports native response choices, binary answers, short finite lists, and reusable prior answers appear as clickable options; otherwise the AI presents the same choices as a compact numbered list. The internet-off barrier list includes **Something else** with a custom text field when supported; other questions use that option only when it is genuinely useful. A next-file interview offers the prior confirmed answer first so the user can keep it and advance immediately. The AI narrows the work to one finishable block, names what may pull you off task, and captures why it matters—then hands back a short, labeled **Focus File plan** written for a person to read and copy.
 3. **Build your file.** Paste the labeled plan into the builder on the site ("2 — Build your file"). The site converts it into its internal configuration, inserts that into the Focus File template, and the file **downloads instantly**. Existing internal JSON plans remain accepted for backward compatibility, but new users never need to see or handle JSON.
 4. **Work inside the boundary.** Open the file when the block begins. Disconnect when the work allows it. For internet-required work, the interview recommends a task-specific Freedom.to session that keeps only required sites and apps available; another effective blocker is also acceptable.
 5. **Record the result.** At the end, save what finished, what helped, what pulled you off, and where you stopped.
 6. **Learn locally.** The file compares the saved results it can access and builds the learning report in the browser.
+
+**KEEP is earned, not interviewed.** A first Focus File has no KEEP field. A continuation carries KEEP forward only when the previous file’s most recent exit log records something concrete that actually helped. With no proven help, KEEP is omitted again; it is never blank, invented, or turned into a sixth setup question.
 
 The Focus File is complete at that point. Its result screen offers optional exits: close the file, copy one next-file interview, inspect or copy the full log, copy this block’s result, download the log, or start a fresh reporting period.
 
