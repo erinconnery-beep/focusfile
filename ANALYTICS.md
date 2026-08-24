@@ -26,11 +26,13 @@ Do not treat the AI-link rate as a required conversion step; visitors can use an
 
 - `builder_error_empty`, `builder_error_prompt`, `builder_error_json`, `builder_error_shape`, `builder_error_template`, `builder_error_load`
 - `download_sample_writing`, `download_sample_jobsearch`, `download_sample_study`
+- `open_calendar_reminder`, `open_calendar_reminder_custom`
+- `download_calendar_reminder_weekdays`, `download_calendar_reminder_daily`, `download_calendar_reminder_custom`
 - `open_note_design`, `open_note_privacy`, `open_note_feedback`
 - `send_feedback`
 - `share_site`
 
-These events answer concrete design questions: where the builder fails, which example clarifies the tool, and whether people seek explanation or privacy details.
+These events answer concrete design questions: where the builder fails, which example clarifies the tool, whether the optional reminder is useful, and whether people seek explanation or privacy details.
 
 ## What is never sent
 

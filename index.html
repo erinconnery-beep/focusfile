@@ -508,6 +508,34 @@
   .execution-input { min-height:92px; padding:13px 14px; border:1px solid var(--paper-line);
     border-radius:0; background:#fff; }
   .copy { min-height:42px; padding:11px 19px; border-radius:0; background:var(--pine); font-size:13.5px; }
+  .download-result { padding:18px; border:1px solid var(--paper-line); background:#fff; }
+  .download-result-title { margin:0; font-size:17px; font-weight:750; line-height:1.3; color:var(--pine); }
+  .download-file-note { margin:8px 0 0; font-size:13px; line-height:1.5; color:var(--ink-soft);
+    overflow-wrap:anywhere; }
+  .reminder-toggle { display:block; width:100%; margin:16px 0 0; padding:14px 0 0;
+    border:0; border-top:1px solid var(--hair); background:none; color:var(--pine);
+    font-family:var(--sans); font-size:13.5px; font-weight:700; line-height:1.4; text-align:left;
+    text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .reminder-setup { margin-top:13px; padding:14px; border-left:3px solid var(--pine);
+    background:var(--pine-tint); }
+  .reminder-question { margin:0 0 10px; font-size:13.5px; font-weight:700; color:var(--ink); }
+  .reminder-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }
+  .reminder-choice,.reminder-add { min-height:40px; padding:9px 10px; border:1px solid var(--pine);
+    background:#fff; color:var(--pine); font-family:var(--sans); font-size:12.5px; font-weight:700;
+    line-height:1.3; cursor:pointer; }
+  .reminder-choice:hover,.reminder-add:hover { background:var(--pine); color:#fff; }
+  .reminder-custom { margin-top:10px; padding-top:10px; border-top:1px solid #c8d7cd; }
+  .reminder-custom-controls { display:grid; grid-template-columns:1fr 1fr auto; gap:7px; align-items:end; }
+  .reminder-custom label { display:grid; gap:4px; color:var(--ink-soft); font-size:11px; font-weight:700; }
+  .reminder-custom select,.reminder-custom input { min-height:40px; box-sizing:border-box;
+    padding:8px 9px; border:1px solid var(--paper-line); border-radius:0; background:#fff;
+    color:var(--ink); font:13px var(--sans); }
+  .reminder-disclosure,.reminder-status { margin:10px 0 0; font-size:11.5px; line-height:1.45;
+    color:var(--ink-faint); }
+  .reminder-status { color:var(--pine); font-weight:700; }
+  .build-another { margin:14px 0 0; padding:0; border:0; background:none; color:var(--ink-faint);
+    font-family:var(--sans); font-size:12px; font-weight:600; text-decoration:underline;
+    text-underline-offset:3px; cursor:pointer; }
   .simplified-after { --coach-pad-x:25px; --coach-pad-y:23px; margin:28px 0 0;
     border:2px solid var(--ink); border-radius:0; background:#fff; }
   .coach-simple .coach-kicker { padding:13px var(--coach-pad-x); background:var(--ink); font-size:17px; }
@@ -526,6 +554,7 @@
     .hero h1 { font-size:clamp(35px,10.5vw,44px); }
     .execution-step { grid-template-columns:1fr; gap:12px; padding:21px 0; }
     .execution-step h2 { font-size:22px; }
+    .reminder-choices,.reminder-custom-controls { grid-template-columns:1fr; }
     .simplified-after { --coach-pad-x:17px; --coach-pad-y:20px; margin-top:25px; }
   }
 </style>
@@ -607,16 +636,48 @@
           <h2>Make the file</h2>
         </div>
         <div>
-          <p class="execution-lead">Paste the plan the AI gives you. Your private Focus File downloads instantly.</p>
-          <textarea class="bd-input execution-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste plan here"></textarea>
-          <button class="copy bd-go" id="buildBtn">Create &amp; download Focus File</button>
-          <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
-          <details class="execution-examples">
-            <summary>Want an example?</summary>
-            <div class="execution-example-links">
-              <a href="sample-writing.html" download="focus-file-writing-example.html">Draft 1,500 words</a>, <a href="sample-jobsearch.html" download="focus-file-job-search-example.html">submit 3 applications</a>, or <a href="sample-study.html" download="focus-file-study-example.html">recall 12 cranial nerves</a>.
+          <div id="builderForm">
+            <p class="execution-lead">Paste the plan the AI gives you. Your private Focus File downloads instantly.</p>
+            <textarea class="bd-input execution-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste plan here"></textarea>
+            <button class="copy bd-go" id="buildBtn">Create &amp; download Focus File</button>
+            <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
+            <details class="execution-examples">
+              <summary>Want an example?</summary>
+              <div class="execution-example-links">
+                <a href="sample-writing.html" download="focus-file-writing-example.html">Draft 1,500 words</a>, <a href="sample-jobsearch.html" download="focus-file-job-search-example.html">submit 3 applications</a>, or <a href="sample-study.html" download="focus-file-study-example.html">recall 12 cranial nerves</a>.
+              </div>
+            </details>
+          </div>
+          <div class="download-result" id="downloadResult" hidden>
+            <p class="download-result-title">&#10003; Focus File downloaded</p>
+            <p class="download-file-note">Open <strong id="downloadFileName">your Focus File</strong> from your Downloads folder when your block begins.</p>
+            <button class="reminder-toggle" id="reminderToggle" type="button" aria-expanded="false" aria-controls="reminderSetup">Set an evening reminder for the next one &rarr;</button>
+            <div class="reminder-setup" id="reminderSetup" hidden>
+              <p class="reminder-question">Remind me to make tomorrow&rsquo;s Focus File:</p>
+              <div class="reminder-choices">
+                <button class="reminder-choice" type="button" data-reminder-repeat="weekdays" data-reminder-time="19:00">Weeknights at 7 PM</button>
+                <button class="reminder-choice" type="button" data-reminder-repeat="daily" data-reminder-time="19:00">Every night at 7 PM</button>
+                <button class="reminder-choice" id="reminderCustomToggle" type="button" aria-expanded="false" aria-controls="reminderCustom">Choose a time</button>
+              </div>
+              <div class="reminder-custom" id="reminderCustom" hidden>
+                <div class="reminder-custom-controls">
+                  <label>Days
+                    <select id="reminderRepeat">
+                      <option value="weekdays">Weeknights</option>
+                      <option value="daily">Every night</option>
+                    </select>
+                  </label>
+                  <label>Time
+                    <input id="reminderTime" type="time" value="19:00" required>
+                  </label>
+                  <button class="reminder-add" id="reminderCustomAdd" type="button">Add reminder</button>
+                </div>
+              </div>
+              <p class="reminder-disclosure">No Focus File content is added to your calendar.</p>
+              <p class="reminder-status" id="reminderStatus" role="status" aria-live="polite"></p>
             </div>
-          </details>
+            <button class="build-another" id="buildAnother" type="button">Make another Focus File</button>
+          </div>
         </div>
       </div>
     </section>
@@ -680,17 +741,17 @@ INSTRUCTIONS FOR THE AI:
 
 Run a short setup, then output a Focus File plan. Ask ONE question at a time, wait for the answer, keep it warm and fast. Preserve the person’s wording and never invent jobs, milestones, story beats, or reasons. When prior results or guidance are supplied, carry them forward as optional context the person may keep, change, or ignore. After the last question, output the plan. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
 
-CHOICE UI — PERMANENT RULE:
-- Whenever a question or follow-up has a short finite set of known answers—including lists of 2–8 choices—use the chat interface’s native clickable response options, quick replies, or choice buttons if available. If a choice-picker or request-user-input tool is available, call it instead of merely printing the choices. Never make the person type a binary or finite-list answer when clickable choices are supported.
+NUMBERED CHOICES — PERMANENT RULE:
+- Whenever a question or follow-up has a short finite set of known answers—including lists of 2–8 choices—show the choices as a compact numbered list. End with a direct instruction such as `Reply 1 or 2.` or `Reply with a number, or type your own answer.` Never print a finite list without telling the person exactly how little they need to type.
 - Use judgment about `Something else`; do not add it automatically to every choice set. Include a custom-answer option only when the listed choices might genuinely miss a valid answer. The internet-off barrier list below specifically requires it.
-- Do not imitate buttons with Markdown links or checkboxes. If native response buttons are unavailable, show the same choices as a compact numbered list and accept the number, label, or the person’s own words.
-- When prior results or guidance contain a usable answer for the current question, put `Same as last time — [specific prior answer]` first and `Change it` second. If they choose the prior answer, preserve it exactly and advance immediately. Do not re-ask follow-ups that answer already covers.
-- A selected choice counts as the answer. Move straight to the next required question unless that choice genuinely needs a follow-up.
+- Do not imitate buttons with Markdown links or checkboxes. Accept the number, label, or the person’s own words.
+- When prior results or guidance contain a usable answer for the current question, show `1. Same as last time — [specific prior answer]` first and `2. Change it` second, followed by `Reply 1 or 2.` If they choose the prior answer, preserve it exactly and advance immediately. Do not re-ask follow-ups that answer already covers.
+- A numbered reply counts as the answer. Move straight to the next required question unless that choice genuinely needs a follow-up.
 - Use choices only for real, known options. Keep task wording, finish lines, jobs, traps, and reasons open-ended unless the person is choosing whether to carry a prior answer forward.
 
 Q1 — MODE. Ask exactly: "Is this offline work, or does it need the internet?"
-- Present `Offline work` and `Needs the internet` as the two choices, following the permanent choice rule above.
-- If it can be done offline, set mode to `sealed`. THEN ask one quick follow-up: "How will you turn the internet off?" Offer these choices: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else — write your own`. This six-choice list MUST follow the permanent choice rule: use native clickable choices when supported, and use the numbered fallback only when the interface cannot render them. If they choose `Something else`, show a text field when supported; otherwise ask them to type their barrier in the next message. Record the answer in `sealedPlan` (short, e.g. "phone in the other room"). If they skip it, set `sealedPlan` to "".
+- Present exactly `1. Offline work` and `2. Needs the internet`, followed by `Reply 1 or 2.`
+- If it can be done offline, set mode to `sealed`. THEN ask one quick follow-up: "How will you turn the internet off?" Offer these numbered choices: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else — type your own`. End with `Reply 1–6, or type your own answer.` Record the answer in `sealedPlan` (short, e.g. "phone in the other room"). If they skip it, set `sealedPlan` to "".
 - If the work genuinely needs live sites or apps, set mode to `lane` and recommend **Freedom.to as the strongest default blocker**. Explain briefly: "Set up one Freedom session for this exact task: keep only the sites and apps the work requires, and block everything else for the full window." Ask which sites and apps must remain available and record them in `laneSites`. If they already use another blocker that genuinely works, accept it. Leave `sealedPlan` as "".
 NEVER show the words "sealed" or "lane" to the person; they are internal values only. Speak plainly and keep the advice short.
 
@@ -754,8 +815,9 @@ Then stop.
 <p><b>It checks in while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file returns your response to &ldquo;Anything that tends to pull you off task?&rdquo; or &ldquo;Why does finishing this matter to you today?&rdquo; These gentle nudges bring you back to what matters.</p>
 <p><b>It works offline.</b> Your Focus File is a downloaded HTML file that opens in your browser without an internet connection. Most focused work needs less internet than we think. When a task does need the web, the interview narrows access to the necessary sites and helps block the rest.</p>
 <p><b>It gets easier over time.</b> Choosing one clear task and beginning without renegotiating become more natural. The log shows what helped, what got in the way, and what to change next time. There&rsquo;s no magic here&mdash;just enough structure to choose honestly, begin, and learn from what happened.</p></script>
-  <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
+<script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed product-action data so we can understand use of the site. It never receives anything typed, generated, downloaded, or saved. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
+<p><b>Calendar reminders are optional.</b> If you choose one, the builder creates a generic calendar file on your device containing only the reminder time, the words &ldquo;Make tomorrow&rsquo;s Focus File,&rdquo; and a link to focusfile.org. It never includes a task, answer, log, client name, or other Focus File content. Once added, the reminder is handled by your calendar provider under its own terms.</p>
 <p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview includes today&rsquo;s results and the saved history required to carry learning forward; nothing is shared until you paste it.</p>
 <p><b>For clinicians.</b> Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
 <p>Focus File is not medical or psychological advice.</p>
@@ -943,9 +1005,92 @@ Then stop.
 
     (function(){
       var b=document.getElementById('buildBtn'); if(!b) return;
+      var form=document.getElementById('builderForm');
+      var result=document.getElementById('downloadResult');
+      var input=document.getElementById('cfgInput');
+      var msg=document.getElementById('bdMsg');
+      var fileName=document.getElementById('downloadFileName');
+      var reminderToggle=document.getElementById('reminderToggle');
+      var reminderSetup=document.getElementById('reminderSetup');
+      var customToggle=document.getElementById('reminderCustomToggle');
+      var customPanel=document.getElementById('reminderCustom');
+      var reminderStatus=document.getElementById('reminderStatus');
+
+      function pad(value){ return String(value).padStart(2,'0'); }
+      function localStamp(date){
+        return date.getFullYear()+pad(date.getMonth()+1)+pad(date.getDate())+'T'+pad(date.getHours())+pad(date.getMinutes())+'00';
+      }
+      function utcStamp(date){ return date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z'); }
+      function escapeCalendarText(value){
+        return String(value).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+      }
+      function foldCalendarLine(line){
+        var parts=[];
+        while(line.length>72){ parts.push(line.slice(0,72)); line=line.slice(72); }
+        parts.push(line);
+        return parts.join('\r\n ');
+      }
+      function nextReminderDate(repeat,time,nowValue){
+        var pieces=String(time||'19:00').split(':');
+        var hour=Number(pieces[0]), minute=Number(pieces[1]);
+        var now=nowValue?new Date(nowValue):new Date();
+        var start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),hour,minute,0,0);
+        if(start<=now) start.setDate(start.getDate()+1);
+        if(repeat==='weekdays'){
+          while(start.getDay()===0 || start.getDay()===6) start.setDate(start.getDate()+1);
+        }
+        return start;
+      }
+      function buildReminderCalendar(repeat,time,now,uid){
+        var match=String(time||'').match(/^(\d{2}):(\d{2})$/);
+        if(!match || Number(match[1])>23 || Number(match[2])>59) return '';
+        var start=nextReminderDate(repeat,time,now);
+        var lines=[
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Focus File//Evening Reminder//EN',
+          'CALSCALE:GREGORIAN',
+          'METHOD:PUBLISH',
+          'BEGIN:VEVENT',
+          'UID:'+uid,
+          'DTSTAMP:'+utcStamp(now),
+          'DTSTART:'+localStamp(start),
+          'DURATION:PT10M',
+          repeat==='weekdays'?'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR':'RRULE:FREQ=DAILY',
+          'SUMMARY:'+escapeCalendarText("Make tomorrow's Focus File"),
+          'DESCRIPTION:'+escapeCalendarText("Five questions, then you're done.\nhttps://www.focusfile.org/#setup"),
+          'URL:https://www.focusfile.org/#setup',
+          'TRANSP:TRANSPARENT',
+          'BEGIN:VALARM',
+          'TRIGGER:PT0M',
+          'ACTION:DISPLAY',
+          'DESCRIPTION:'+escapeCalendarText("Make tomorrow's Focus File"),
+          'END:VALARM',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ];
+        return lines.map(foldCalendarLine).join('\r\n')+'\r\n';
+      }
+      function downloadReminder(repeat,time,source){
+        var now=new Date();
+        var uid=((window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)))+'@focusfile.org';
+        var calendar=buildReminderCalendar(repeat,time,now,uid);
+        if(!calendar){
+          reminderStatus.textContent='Choose a reminder time first.';
+          return;
+        }
+        var calendarUrl=URL.createObjectURL(new Blob([calendar],{type:'text/calendar;charset=utf-8'}));
+        var link=document.createElement('a');
+        link.href=calendarUrl;
+        link.download='focus-file-evening-reminder.ics';
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        setTimeout(function(){ URL.revokeObjectURL(calendarUrl); },1000);
+        track('download_calendar_reminder_'+source);
+        reminderStatus.textContent='Calendar reminder downloaded. Open it and add it to your calendar.';
+      }
+
       b.addEventListener('click', function(){
-        var msg=document.getElementById('bdMsg');
-        var raw=(document.getElementById('cfgInput').value||'').trim();
+        var raw=(input.value||'').trim();
         msg.className='bd-msg';
         if(!raw){ track('builder_error_empty'); msg.className='bd-msg err'; msg.textContent='Paste the Focus File plan first.'; return; }
         track('funnel_plan_submit');
@@ -972,16 +1117,53 @@ Then stop.
           var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
           if(out===tpl){ track('builder_error_template'); msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email hello@focusfile.org.'; return; }
           var slug=String(cfg.task||'').toLowerCase().replace(/,/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-          if(slug.length>22){ slug=slug.slice(0,22).replace(/-[^-]*$/,''); }   // keep it short, cut at a word boundary
-          while(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/.test(slug)){ slug=slug.replace(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/,''); }   // drop dangling stopwords
+          if(slug.length>22){ slug=slug.slice(0,22).replace(/-[^-]*$/,''); }
+          while(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/.test(slug)){ slug=slug.replace(/-(the|of|a|an|on|in|to|and|for|with|at|by|is|it)$/,''); }
           var fname=(slug?'focus-'+slug:'focus')+'.html';
           var url=URL.createObjectURL(new Blob([out],{type:'text/html'}));
           var a=document.createElement('a'); a.href=url; a.download=fname;
           document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          track('funnel_file_created');
           setTimeout(function(){ URL.revokeObjectURL(url); },1000);
-          msg.className='bd-msg ok'; msg.textContent='Saved as '+fname+' \u2014 open it when your block begins.';
+          track('funnel_file_created');
+          fileName.textContent=fname;
+          msg.textContent='';
+          form.hidden=true;
+          result.hidden=false;
+          result.setAttribute('tabindex','-1');
+          result.focus();
         }).catch(function(){ track('builder_error_load'); msg.className='bd-msg err'; msg.textContent='Could not load the template. Check your connection and try again.'; });
+      });
+
+      reminderToggle.addEventListener('click', function(){
+        var willOpen=reminderSetup.hidden;
+        reminderSetup.hidden=!willOpen;
+        reminderToggle.setAttribute('aria-expanded',String(willOpen));
+        if(willOpen){ track('open_calendar_reminder'); reminderSetup.querySelector('button').focus(); }
+      });
+      document.querySelectorAll('[data-reminder-repeat]').forEach(function(choice){
+        choice.addEventListener('click', function(){
+          downloadReminder(choice.dataset.reminderRepeat,choice.dataset.reminderTime,choice.dataset.reminderRepeat);
+        });
+      });
+      customToggle.addEventListener('click', function(){
+        var willOpen=customPanel.hidden;
+        customPanel.hidden=!willOpen;
+        customToggle.setAttribute('aria-expanded',String(willOpen));
+        if(willOpen){ track('open_calendar_reminder_custom'); document.getElementById('reminderTime').focus(); }
+      });
+      document.getElementById('reminderCustomAdd').addEventListener('click', function(){
+        downloadReminder(document.getElementById('reminderRepeat').value,document.getElementById('reminderTime').value,'custom');
+      });
+      document.getElementById('buildAnother').addEventListener('click', function(){
+        result.hidden=true;
+        form.hidden=false;
+        input.value='';
+        reminderSetup.hidden=true;
+        reminderToggle.setAttribute('aria-expanded','false');
+        customPanel.hidden=true;
+        customToggle.setAttribute('aria-expanded','false');
+        reminderStatus.textContent='';
+        input.focus();
       });
     })();
 
