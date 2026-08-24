@@ -22,7 +22,7 @@ Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing t
 - "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
 Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
 
-Q4 — THE TRAP (optional). Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
+Q4 — THE TRAP. Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
 If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
 For a first Focus File, set `keep` to "" and `keepLabel` to "Keep". If the person later chooses to create another Focus File from a saved result, that optional interview may fill `keep` with something they say genuinely helped. It is context they can keep or change, not a required continuation.
 

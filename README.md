@@ -39,15 +39,14 @@ A person can use the report alone, or someone helping them can review only the r
 
 ## Homepage structure
 
-The public page is intentionally ordered around trying the product before reading the larger idea:
+The public page is intentionally ordered around execution rather than explanation:
 
-1. **Product promise and preview:** Work → Check-in → Learn. On desktop, the equal-size cards form a shallow stack with Work in front and Learn furthest back; on mobile, the same states become tabs.
-2. **Builder:** Copy the interview prompt, then paste the returned Focus File plan to download a file.
-3. **Optional result uses:** Create another file, review patterns, or copy/share a result.
-4. **Professional use:** “For coaches and therapists: a tool for clients between sessions.” It is not part of the required product flow.
-5. **Downloadable examples:** Writing, Job search, and Study.
+1. **Short promise:** “Finish what you set out to do.”
+2. **Two actions:** Copy the five-question setup prompt, then paste the returned Focus File plan to download the file.
+3. **Professional use:** A distinct green section showing the three-step coach/therapist workflow: identify in session, build together, and return with evidence, followed by a checked “Great for” list and a small privacy note.
+4. **Examples:** Concrete finished-file links sit directly in the second action: Draft 1,500 words, submit 3 applications, and recall 12 cranial nerves.
 
-The header links are **The interview**, **Why a file?**, **Privacy**, and **Feedback**. “The interview” explains the five questions; “Why a file?” explains the offline, accountless format without repeating the workflow.
+The wide header links are **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. At narrower desktop, tablet, and mobile widths, the same links live in the **Notes** dropdown. “Why a file?” explains the offline, accountless format without interrupting the execution flow.
 
 ---
 

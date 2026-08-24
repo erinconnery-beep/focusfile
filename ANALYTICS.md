@@ -8,11 +8,10 @@ Can a first-time visitor understand the product well enough to create a Focus Fi
 
 The primary funnel is:
 
-1. `funnel_start_builder` — chose **Build a Focus File**.
-2. `funnel_copy_interview` — copied the five-question interview.
-3. `funnel_open_ai_claude`, `funnel_open_ai_chatgpt`, or `funnel_open_ai_gemini` — used one of the offered AI links. This step is optional because someone may paste into an AI they already have open.
-4. `funnel_plan_submit` — returned and submitted a non-empty plan to the builder.
-5. `funnel_file_created` — the browser successfully created and downloaded the Focus File.
+1. `funnel_copy_interview` — copied the five-question interview.
+2. `funnel_open_ai_claude`, `funnel_open_ai_chatgpt`, or `funnel_open_ai_gemini` — used one of the offered AI links. This step is optional because someone may paste into an AI they already have open.
+3. `funnel_plan_submit` — returned and submitted a non-empty plan to the builder.
+4. `funnel_file_created` — the browser successfully created and downloaded the Focus File.
 
 The most useful weekly numbers are:
 
@@ -26,13 +25,12 @@ Do not treat the AI-link rate as a required conversion step; visitors can use an
 ## Diagnostic events
 
 - `builder_error_empty`, `builder_error_prompt`, `builder_error_json`, `builder_error_shape`, `builder_error_template`, `builder_error_load`
-- `preview_work`, `preview_checkin`, `preview_result`
 - `download_sample_writing`, `download_sample_jobsearch`, `download_sample_study`
-- `open_note_interview`, `open_note_design`, `open_note_privacy`, `open_note_feedback`
+- `open_note_design`, `open_note_privacy`, `open_note_feedback`
 - `send_feedback`
 - `share_site`
 
-These events answer concrete design questions: where the builder fails, whether visitors inspect the product states, which example clarifies the tool, and whether people seek explanation or privacy details.
+These events answer concrete design questions: where the builder fails, which example clarifies the tool, and whether people seek explanation or privacy details.
 
 ## What is never sent
 
