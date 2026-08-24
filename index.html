@@ -42,7 +42,7 @@
   body { font-family:var(--serif); color:var(--ink); background:var(--paper);
     line-height:1.5; min-height:100vh; display:flex; flex-direction:column; }
   html { scroll-behavior:smooth; }
-  button:focus-visible, a:focus-visible, select:focus-visible {
+  button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visible {
     outline:2px solid var(--pine); outline-offset:3px;
   }
 
@@ -112,6 +112,7 @@
   .bd-input:focus-visible { outline:2px solid var(--pine); outline-offset:2px; border-color:var(--pine); }
   .bd-go { margin-top:12px; }
   .bd-msg { font-family:var(--sans); font-size:var(--type-small); margin-top:10px; min-height:1em; color:var(--ink-faint); }
+  .bd-msg:empty { display:none; }
   .bd-msg.err { color:var(--ink); border-left:3px solid var(--clay); padding-left:8px; }
   .bd-msg.ok { color:var(--pine); font-weight:600; }
   .resource-links { display:grid; grid-template-columns:minmax(190px,.8fr) minmax(0,1.2fr); align-items:center;
@@ -394,7 +395,16 @@
     letter-spacing:-.025em; }
   .execution-lead { margin:0 0 20px; font-family:var(--sans); font-size:17px;
     line-height:1.58; color:var(--ink-soft); }
-  .execution-examples a { color:var(--pine); font-weight:700; text-underline-offset:3px; }
+  .execution-examples { margin:10px 0 0; padding-bottom:14px; font-family:var(--sans);
+    font-size:12px; line-height:1.45; color:var(--ink-faint); }
+  .execution-examples summary { display:inline-flex; align-items:center; gap:6px;
+    color:var(--ink-faint); font-weight:600; cursor:pointer; list-style:none; }
+  .execution-examples summary::-webkit-details-marker { display:none; }
+  .execution-examples summary::before { content:"+"; color:var(--pine); font-family:var(--mono);
+    font-weight:700; }
+  .execution-examples[open] summary::before { content:"\2212"; }
+  .execution-example-links { display:block; margin-top:7px; }
+  .execution-example-links a { color:var(--pine); font-weight:600; text-underline-offset:3px; }
   .execution-prompt { margin:0 0 20px; background:var(--paper-warm); border-left:3px solid var(--pine); }
   .execution-prompt .pb-code { padding:18px 20px; font-size:13px; line-height:1.7; }
   .execution-prompt .aftercopy { background:var(--paper-warm); }
@@ -436,12 +446,19 @@
   .coach-great-for li span { display:inline-grid; flex:0 0 23px; width:23px; height:23px;
     place-items:center; border-radius:50%; background:var(--pine); color:var(--paper);
     font-size:14px; line-height:1; }
-  .coach-small-privacy { grid-column:1 / -1; margin:20px 0 0; padding:0;
-    font-family:var(--sans); font-size:13.5px; line-height:1.5; color:var(--ink-soft); }
-  .coach-small-privacy strong { color:var(--ink); }
-  .coach-small-privacy button { appearance:none; margin-left:5px; padding:0; border:0; background:none;
-    color:var(--pine); font:inherit; font-weight:700; cursor:pointer; text-decoration:underline;
-    text-underline-offset:3px; }
+  .coach-privacy-bar { grid-column:1 / -1; display:grid;
+    grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:clamp(28px,6vw,64px);
+    align-items:start; margin:20px calc(0px - var(--coach-pad-x)) calc(0px - var(--coach-pad-y));
+    padding:16px var(--coach-pad-x); border-top:1px solid #d7e4d3;
+    background:rgba(253,251,246,.78); }
+  .coach-privacy-bar h3 { margin:0; font-family:var(--mono); font-size:var(--type-label);
+    font-weight:700; letter-spacing:.14em; line-height:1.5; text-transform:uppercase;
+    color:var(--pine); }
+  .coach-privacy-bar p { margin:0; font-family:var(--sans); font-size:13.5px;
+    line-height:1.5; color:var(--ink-soft); }
+  .coach-privacy-bar button { appearance:none; margin-left:6px; padding:0; border:0;
+    background:none; color:var(--pine); font:inherit; font-weight:700; cursor:pointer;
+    text-decoration:underline; text-underline-offset:3px; }
 
   @media (max-width:700px){
     .wrap { padding:0 20px 32px; }
@@ -459,11 +476,61 @@
     .coach-use-list { grid-column:1; grid-row:auto; }
     .coach-use-row { grid-template-columns:1fr; gap:7px; padding:16px; }
     .coach-great-for ul { grid-template-columns:1fr; }
+    .coach-privacy-bar { grid-template-columns:1fr; gap:6px; }
   }
   @media (prefers-reduced-motion:reduce){
     html { scroll-behavior:auto; }
     *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important;
       transition-duration:.01ms !important; }
+  }
+
+  /* DESIGN 03 — EVIDENCE LEDGER
+     Rule-based, high-legibility, and deliberately unembellished. */
+  :root{
+    --paper:#fbfbfa; --paper-warm:#ffffff; --paper-line:#aeb6b1; --hair:#d5d9d6;
+    --ink:#17201c; --ink-soft:#3f4b45; --ink-mut:#5b6761; --ink-faint:#6c7772;
+    --pine:#2f6a44; --pine-soft:#275739; --pine-tint:#edf3ef; --clay:#8f4339;
+    --serif:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --mono:"SF Mono", ui-monospace, Menlo, monospace;
+  }
+  body { font-family:var(--sans); background:var(--paper); line-height:1.45; }
+  .wrap { max-width:960px; padding:0 28px 30px; }
+  .hero { display:block; padding:34px 0 18px; text-align:left; }
+  .hero h1 { max-width:none; margin:0; font-size:clamp(40px,5vw,52px); font-weight:720;
+    line-height:1; letter-spacing:-.045em; }
+  .execution-flow { margin:0; border-bottom:2px solid var(--ink); }
+  .execution-step { grid-template-columns:240px minmax(0,1fr); gap:30px; padding:23px 0;
+    border-top:2px solid var(--ink); }
+  .execution-number { display:block; margin-bottom:9px; color:var(--pine); font-size:10px; letter-spacing:.2em; }
+  .execution-step h2 { margin:0; font-size:24px; font-weight:700; line-height:1.16; letter-spacing:-.02em; }
+  .execution-lead { margin-bottom:14px; font-size:14.5px; line-height:1.5; }
+  .execution-prompt { margin-bottom:13px; background:#fff; border:1px solid var(--paper-line);
+    border-left:1px solid var(--paper-line); border-radius:0; }
+  .execution-prompt .pb-code { padding:14px 15px; font-size:12px; line-height:1.55; }
+  .execution-prompt .aftercopy { background:#fff; }
+  .execution-input { min-height:92px; padding:13px 14px; border:1px solid var(--paper-line);
+    border-radius:0; background:#fff; }
+  .copy { min-height:42px; padding:11px 19px; border-radius:0; background:var(--pine); font-size:13.5px; }
+  .simplified-after { --coach-pad-x:25px; --coach-pad-y:23px; margin:28px 0 0;
+    border:2px solid var(--ink); border-radius:0; background:#fff; }
+  .coach-simple .coach-kicker { padding:13px var(--coach-pad-x); background:var(--ink); font-size:17px; }
+  .coach-simple h2 { font-size:24px; font-weight:700; }
+  .coach-use-list,.coach-great-for { border-color:var(--paper-line); border-radius:0; background:#fff; }
+  .coach-use-row { padding:13px 15px; }
+  .coach-use-row + .coach-use-row { border-color:var(--paper-line); }
+  .coach-use-row p,.coach-great-for li { font-size:13.5px; }
+  .coach-great-for { margin-top:14px; padding:14px 15px; }
+  .coach-great-for li span { border-radius:2px; }
+  .coach-privacy-bar { margin-top:15px; border-color:var(--paper-line); background:var(--pine-tint); }
+  .modal { border:2px solid var(--ink); border-radius:0; }
+  @media (max-width:700px){
+    .wrap { padding:0 17px 26px; }
+    .hero { padding:29px 0 16px; }
+    .hero h1 { font-size:clamp(35px,10.5vw,44px); }
+    .execution-step { grid-template-columns:1fr; gap:12px; padding:21px 0; }
+    .execution-step h2 { font-size:22px; }
+    .simplified-after { --coach-pad-x:17px; --coach-pad-y:20px; margin-top:25px; }
   }
 </style>
 <!-- Google Analytics receives page data and fixed-name product events. No Focus File content is sent. -->
@@ -544,10 +611,16 @@
           <h2>Make the file</h2>
         </div>
         <div>
-          <p class="execution-lead">Paste the plan the AI gives you. Your private Focus File downloads instantly. <span class="execution-examples">See examples: <a href="sample-writing.html" download="focus-file-writing-example.html">Draft 1,500 words</a>, <a href="sample-jobsearch.html" download="focus-file-job-search-example.html">submit 3 applications</a>, and <a href="sample-study.html" download="focus-file-study-example.html">recall 12 cranial nerves</a>.</span></p>
+          <p class="execution-lead">Paste the plan the AI gives you. Your private Focus File downloads instantly.</p>
           <textarea class="bd-input execution-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste plan here"></textarea>
           <button class="copy bd-go" id="buildBtn">Create &amp; download Focus File</button>
           <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
+          <details class="execution-examples">
+            <summary>Need an example?</summary>
+            <div class="execution-example-links">
+              <a href="sample-writing.html" download="focus-file-writing-example.html">Draft 1,500 words</a>, <a href="sample-jobsearch.html" download="focus-file-job-search-example.html">submit 3 applications</a>, or <a href="sample-study.html" download="focus-file-study-example.html">recall 12 cranial nerves</a>.
+            </div>
+          </details>
         </div>
       </div>
     </section>
@@ -577,7 +650,10 @@
           <li><span aria-hidden="true">&#10003;</span>Between-session follow-through</li>
         </ul>
       </div>
-      <p class="coach-small-privacy">Each Focus File and its log stay on the client&rsquo;s device unless they choose to share them. <button data-modal="privacy">Privacy</button></p>
+      <div class="coach-privacy-bar">
+        <h3>Privacy by default</h3>
+        <p>Each Focus File and its log stay on the client&rsquo;s device unless they choose to share them. <button data-modal="privacy">Read details &rarr;</button></p>
+      </div>
     </section>
 
     <section class="postscript" aria-label="Additional Focus File information">
@@ -600,71 +676,78 @@
 
 **AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
 
-Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer a few quick questions. At the end it gives you a short Focus File plan — paste that into the builder at www.focusfile.org and your Focus File downloads instantly.
+Paste this whole message into any AI assistant (Claude, ChatGPT, Gemini). Answer five setup questions. At the end it gives you a short Focus File plan — paste that into the builder at www.focusfile.org and your Focus File downloads instantly.
 
 ---
 
 INSTRUCTIONS FOR THE AI:
 
-Run a short setup, then output a Focus File plan. Ask ONE question at a time, wait for the answer, keep it warm and fast. After the last question, output the plan. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+Run a short setup, then output a Focus File plan. Ask ONE question at a time, wait for the answer, keep it warm and fast. Preserve the person’s wording and never invent jobs, milestones, story beats, or reasons. When prior results or guidance are supplied, carry them forward as optional context the person may keep, change, or ignore. After the last question, output the plan. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
 
-Q1 — MODE. Ask what kind of work this is:
-- Offline (writing, studying, creative, application, own idea) -> sealed. THEN ask a quick follow-up: "How will you turn the internet off? (phone in another room, a lockbox, airplane mode, unplug the router, a Freedom session — whatever you'll really do). Offer these as a short numbered list they can pick from." Set `sealedPlan` to their answer (short, e.g. "phone in the other room"). If they don't have one, offer those options. If they truly skip, set `sealedPlan` to "".
-- Needs internet (job search, research, brainstorm, new project, strategy) -> lane: recommend **Freedom.to as the strongest default blocker**. Explain briefly: "Set up one Freedom session for this exact task: keep only the sites and apps the work requires, and block everything else for the full window." Then ask which sites and apps must remain available, and record the required sites in `laneSites`. If they already use another blocker that genuinely works, accept it. Leave `sealedPlan` as "". NEVER show the words "sealed" or "lane" to the person — those are internal mode values only. Speak plainly and keep the advice short.
+Q1 — MODE. Ask exactly: "Is this offline work, or does it need the internet?"
+- If it can be done offline, set mode to `sealed`. THEN ask one quick follow-up: "How will you turn the internet off?" Offer a short numbered list they can choose from: phone in another room, a lockbox, airplane mode, unplug the router, or a Freedom session. Record the answer in `sealedPlan` (short, e.g. "phone in the other room"). If they skip it, set `sealedPlan` to "".
+- If the work genuinely needs live sites or apps, set mode to `lane` and recommend **Freedom.to as the strongest default blocker**. Explain briefly: "Set up one Freedom session for this exact task: keep only the sites and apps the work requires, and block everything else for the full window." Ask which sites and apps must remain available and record them in `laneSites`. If they already use another blocker that genuinely works, accept it. Leave `sealedPlan` as "".
+NEVER show the words "sealed" or "lane" to the person; they are internal values only. Speak plainly and keep the advice short.
 
-Q2 — WORK + TIME. Ask what they're working on and their window — including a start time. Set scope to a real clock range like "9:00 – 10:00" (the start time drives the Begin button and the log) and get the block length in minutes. Model a full answer, e.g. "new chapter, 9-12, 2,000 words."
+Q2 — WORK + TIME. Ask exactly: "What are you working on, and what's your window?" Require a real start time and clock range such as "9:00 – 10:00"; the start time drives the Begin button and the log. Record the block length in minutes. If useful, model a complete answer such as "new chapter, 9–12, 2,000 words."
 
-Q3 — SHAPE THE GOAL. The header (task) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Never say "header" or "outcome" to the person — restate the finish line plainly (e.g. "So: 2,000 new words on the page."). Then pick jobsShape:
+Q3 — SHAPE THE GOAL. Ask exactly: "What exactly will be finished when the block ends?" The header (`task`) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Never say "header" or "outcome" to the person — restate the finish line plainly (e.g. "So: 2,000 new words on the page."). Then pick jobsShape:
 - "none": atomic, nothing to break down without faking it (write 1,500 words, meditate). Header stands alone.
 - "milestones": atomic but large (1,500 words -> 500/1,000/1,500), only if worth splitting.
 - "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
 Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
 
-Q4 — THE TRAP. Ask: "Anything that tends to pull you off task — a habit, a distraction, a temptation? I'll remind you of it. (Or skip.)"
+Q4 — THE TRAP. Ask exactly: "Anything that tends to pull you off task — a habit, a distraction, or a temptation? I'll remind you of it."
 If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
 For a first Focus File, set `keep` to "" and `keepLabel` to "Keep". If the person later chooses to create another Focus File from a saved result, that optional interview may fill `keep` with something they say genuinely helped. It is context they can keep or change, not a required continuation.
 
-Q5 — THE REASON. Ask: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.'" I'll show this back to you if you drift.
+Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.' I'll show this back to you if you drift."
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
 
 THEN, in this order:
-1. Reply briefly (a sentence) to acknowledge their answers.
-2. Give ONE short plain-language recap line of the block (e.g. "Back on the saddle - 9 to 12, airplane mode, four milestones to 2,000."). Then output the Focus File plan below, as JSON in ONE code block, filled in from the interview. Every value comes from the interview, never invented (if they skipped the trap, `why` is ""). Copy `templateVersion` through unchanged.
+1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
 
-```json
-{
-  "templateVersion": "2026-07-20",
-  "task": "",
-  "scope": "",
-  "mode": "sealed",
-  "sealedPlan": "",
-  "laneSites": [],
-  "keepLabel": "Keep",
-  "keep": "",
-  "whyLabel": "Avoid",
-  "why": "",
-  "finishFeel": "",
-  "jobsShape": "none",
-  "jobs": [],
-  "blockMinutes": 90,
-  "knockMinMin": 28,
-  "knockMaxMin": 33,
-  "doneWhenShort": ""
-}
+```text
+FOCUS FILE
+
+TASK: 2,000 new words on Moose
+TIME: 9:00 AM–12:00 PM
+INTERNET: OFF — phone in another room; router unplugged
+KEEP:
+AVOID: Stopping when the draft gets uncertain.
+WHY: I want proof I can write through uncertainty.
+
+MILESTONES:
+- 500 words
+- 1,000 words
+- 1,500 words
+- 2,000 words
+
+END FOCUS FILE
 ```
 
-3. Then tell them, in one line: **Paste that plan into the builder at www.focusfile.org to download your Focus File.**
+Fill the block from the confirmed interview answers, following these branches:
+- Offline work: `INTERNET: OFF — [confirmed barrier]`
+- Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
+- Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
+- Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
+- Atomic work: omit both `MILESTONES` and `JOBS`.
+- Always include `KEEP:` and `AVOID:`; either value may be blank.
+- `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
+- Do not show internal field names, configuration values, or JSON.
+
+2. Then tell them, in one line: **Paste that plan into the builder at www.focusfile.org to download your Focus File.**
 
 Then stop.
 
 </script>
   <script type="text/plain" id="m-design"><h2>Why a Focus File?</h2>
 <p>Focus File was built to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
-<p><b>AI doesn&rsquo;t think for you.</b> It asks the questions and insists on specifics. You provide the answers. The task, trap, boundary, and reason are yours; the file only holds what you chose.</p>
-<p><b>It lets you make a real choice.</b> The short interview narrows the work to one concrete block, a real start time, and a finish line you can recognize. This cuts through all the other things competing for your attention.</p>
+<p><b>AI doesn&rsquo;t think for you.</b> It asks the questions and insists on specifics. You provide the answers. The short interview narrows the work to one concrete block, a real start time, and a finish line you can recognize.</p>
+<p><b>It lets you make a real choice.</b> Often a hundred things are competing for our attention. This is a ritual of slowing down and making a real commitment.</p>
 <p><b>It works offline.</b> The setup asks how you will disconnect. If the work needs the web, it names only the sites that belong inside the block.</p>
-<p><b>It holds your own words while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file returns your own warning (&ldquo;that one thing that tends to pull you off task&rdquo;) or your reason (&ldquo;Why does finishing this matter to you today?&rdquo;). These gentle nudges bring you back to what matters.</p>
-<p><b>You just begin.</b> The deciding has already been done. It does not manufacture motivation; it keeps yours from disappearing into thought (&ldquo;Is this really the right task?&rdquo;) or distraction (&ldquo;Maybe I need something else to help me before I begin...&rdquo;).</p>
+<p><b>It checks in while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file returns your own warning (&ldquo;that one thing that tends to pull you off task&rdquo;) or your reason (&ldquo;Why does finishing this matter to you today?&rdquo;). These gentle nudges bring you back to what matters.</p>
+<p><b>Just begin.</b> When the file is ready, the deciding has already been done. It keeps you from disappearing into second guessing (&ldquo;Is this really the right task?&rdquo;) or distraction (&ldquo;Maybe I need something else to help me before I begin...&rdquo;).</p>
 <p><b>It improves the next Focus File.</b> At the end, you see what worked, what got in the way, and how the actual time compared with the plan. Those lessons shape how you design the next one.</p>
 <p><b>Over time, it builds three muscles:</b></p>
 <ul class="muscle-list">
@@ -717,6 +800,149 @@ Then stop.
       if(typeof cfg.doneWhenShort !== 'string' || !cfg.doneWhenShort.trim()) return false;
       return true;
     }
+
+    function parseClockRange(value){
+      var text=String(value||'').trim();
+      var match=text.match(/^(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?\s*[-\u2013\u2014]\s*(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?$/i);
+      if(!match) return null;
+      var startHour=Number(match[1]), startMinute=Number(match[2]||0);
+      var endHour=Number(match[4]), endMinute=Number(match[5]||0);
+      var startMeridiem=(match[3]||'').replace(/\./g,'').toUpperCase();
+      var endMeridiem=(match[6]||'').replace(/\./g,'').toUpperCase();
+      if(startMinute>59 || endMinute>59) return null;
+      if((startMeridiem && !endMeridiem) || (!startMeridiem && endMeridiem)) return null;
+      function clockMinutes(hour,minute,meridiem){
+        if(meridiem){
+          if(hour<1 || hour>12) return null;
+          hour=hour%12+(meridiem==='PM'?12:0);
+        } else if(hour<0 || hour>23){ return null; }
+        return hour*60+minute;
+      }
+      var start=clockMinutes(startHour,startMinute,startMeridiem);
+      var end=clockMinutes(endHour,endMinute,endMeridiem);
+      if(start===null || end===null || start===end) return null;
+      if(end<start) end+=24*60;
+      var minutes=end-start;
+      if(minutes<=0 || minutes>24*60) return null;
+      return {scope:text,minutes:minutes};
+    }
+
+    function parseLabeledFocusFile(raw){
+      var lines=String(raw||'').replace(/\r\n?/g,'\n').split('\n');
+      var start=-1, end=-1;
+      for(var i=0;i<lines.length;i++){
+        if(start<0 && /^\s*FOCUS\s+FILE\s*$/i.test(lines[i])){ start=i; continue; }
+        if(start>=0 && /^\s*END\s+FOCUS\s+FILE\s*$/i.test(lines[i])){ end=i; break; }
+      }
+      if(start<0) return {matched:false};
+      if(end<0) return {matched:true,ok:false,code:'incomplete'};
+
+      var fields={};
+      var lists={milestones:[],jobs:[]};
+      var section='';
+      var seenSections={};
+      for(var lineIndex=start+1;lineIndex<end;lineIndex++){
+        var line=lines[lineIndex];
+        if(!line.trim()) continue;
+        var label=line.match(/^\s*(TASK|TIME|INTERNET|KEEP|AVOID|WHY|MILESTONES|JOBS)\s*:\s*(.*?)\s*$/i);
+        if(label){
+          var key=label[1].toLowerCase();
+          var value=label[2].trim();
+          if(key==='milestones' || key==='jobs'){
+            if(value || seenSections[key]) return {matched:true,ok:false,code:'sections'};
+            seenSections[key]=true;
+            section=key;
+          } else {
+            if(Object.prototype.hasOwnProperty.call(fields,key)) return {matched:true,ok:false,code:'duplicate'};
+            fields[key]=value;
+            section='';
+          }
+          continue;
+        }
+        if(section){
+          var bullet=line.match(/^\s*[-\u2013\u2014\u2022]\s+(.+?)\s*$/);
+          if(!bullet) return {matched:true,ok:false,code:'sections'};
+          lists[section].push(bullet[1].trim());
+          continue;
+        }
+        return {matched:true,ok:false,code:'format'};
+      }
+
+      var required=['task','time','internet','why'];
+      var missing=required.filter(function(key){ return !fields[key] || !fields[key].trim(); });
+      if(missing.length) return {matched:true,ok:false,code:'missing',missing:missing.map(function(key){ return key.toUpperCase(); })};
+      if(seenSections.milestones && seenSections.jobs) return {matched:true,ok:false,code:'sections'};
+      if(seenSections.milestones && !lists.milestones.length) return {matched:true,ok:false,code:'sections'};
+      if(seenSections.jobs && !lists.jobs.length) return {matched:true,ok:false,code:'sections'};
+
+      var time=parseClockRange(fields.time);
+      if(!time) return {matched:true,ok:false,code:'time'};
+      var internet=fields.internet.match(/^\s*(OFF|ONLY)\b\s*(?:[-\u2013\u2014]\s*)?(.*?)\s*$/i);
+      if(!internet || !internet[2].trim()) return {matched:true,ok:false,code:'internet'};
+      var internetMode=internet[1].toUpperCase();
+      var internetDetail=internet[2].trim();
+      var laneSites=internetMode==='ONLY'
+        ? internetDetail.split(',').map(function(item){ return item.trim(); }).filter(Boolean)
+        : [];
+      if(internetMode==='ONLY' && !laneSites.length) return {matched:true,ok:false,code:'internet'};
+
+      var jobsShape='none', jobs=[];
+      if(seenSections.milestones){ jobsShape='milestones'; jobs=lists.milestones; }
+      if(seenSections.jobs){ jobsShape='checklist'; jobs=lists.jobs; }
+      var cfg={
+        templateVersion:'2026-07-20',
+        task:fields.task.trim(),
+        scope:time.scope,
+        mode:internetMode==='OFF'?'sealed':'lane',
+        sealedPlan:internetMode==='OFF'?internetDetail:'',
+        laneSites:laneSites,
+        keepLabel:'Keep',
+        keep:(fields.keep||'').trim(),
+        whyLabel:'Avoid',
+        why:(fields.avoid||'').trim(),
+        finishFeel:fields.why.trim(),
+        jobsShape:jobsShape,
+        jobs:jobs,
+        blockMinutes:time.minutes,
+        knockMinMin:28,
+        knockMaxMin:33,
+        doneWhenShort:fields.task.trim()
+      };
+      return {matched:true,ok:true,cfg:cfg,format:'labeled'};
+    }
+
+    function parseBuilderInput(raw){
+      var labeled=parseLabeledFocusFile(raw);
+      if(labeled.matched) return labeled;
+      var cleaned=String(raw||'').trim().replace(/^```(?:json)?\s*/i,'').replace(/```\s*$/,'').trim();
+      var first=cleaned.indexOf('{'), last=cleaned.lastIndexOf('}');
+      var jsonText=(first!==-1 && last>first)?cleaned.slice(first,last+1):cleaned;
+      try {
+        var cfg=JSON.parse(jsonText);
+        if(validateFocusPlan(cfg)) return {matched:true,ok:true,cfg:cfg,format:'json'};
+        return {matched:true,ok:false,code:'legacy-shape'};
+      } catch(error){
+        return {matched:false,ok:false,code:'format'};
+      }
+    }
+
+    function builderPlanError(result){
+      var base='That doesn\u2019t look right\u2014copy the complete FOCUS FILE block, from FOCUS FILE through END FOCUS FILE.';
+      if(result && result.code==='missing') return base+' Missing required: '+result.missing.join(', ')+'.';
+      if(result && result.code==='time') return base+' TIME must be a clock range such as 9:00 AM\u201312:00 PM.';
+      if(result && result.code==='internet') return base+' INTERNET must be OFF \u2014 barrier or ONLY \u2014 comma-separated sites and apps.';
+      if(result && result.code==='sections') return base+' Include either MILESTONES or JOBS, with at least one item, but not both.';
+      return base;
+    }
+
+    window.FocusFileBuilder=Object.freeze({
+      parseClockRange:parseClockRange,
+      parseLabeledFocusFile:parseLabeledFocusFile,
+      parseBuilderInput:parseBuilderInput,
+      validateFocusPlan:validateFocusPlan,
+      errorMessage:builderPlanError
+    });
+
     (function(){
       var b=document.getElementById('buildBtn'); if(!b) return;
       b.addEventListener('click', function(){
@@ -725,19 +951,20 @@ Then stop.
         msg.className='bd-msg';
         if(!raw){ track('builder_error_empty'); msg.className='bd-msg err'; msg.textContent='Paste the Focus File plan first.'; return; }
         track('funnel_plan_submit');
-        raw=raw.replace(/^```[a-z]*\s*/i,'').replace(/```\s*$/,'').trim();
         if(/# Focus File\s*[\u2014-]\s*the setup prompt|AI assistants: if this arrived|INSTRUCTIONS FOR THE AI:|Run a short setup, then output a Focus File plan|\bQ1\s*[\u2014-]\s*MODE/i.test(raw)){
           track('builder_error_prompt');
           msg.className='bd-msg err';
           msg.textContent="That's the interview prompt, not the completed Focus File plan. Paste it into a new AI chat (Claude, ChatGPT, or Gemini), answer the questions, then paste the plan it gives you here.";
           return;
         }
-        var i=raw.indexOf('{'), j=raw.lastIndexOf('}');
-        var jtxt=(i!==-1 && j>i)?raw.slice(i,j+1):raw;   // tolerate a reply line before/after the JSON
-        var cfg;
-        try { cfg=JSON.parse(jtxt); }
-        catch(e){ track('builder_error_json'); msg.className='bd-msg err'; msg.textContent="That doesn't look right \u2014 copy the whole block, including the { and the }."; return; }
-        if(!validateFocusPlan(cfg)){ track('builder_error_shape'); msg.className='bd-msg err'; msg.textContent="That Focus File plan is incomplete. Run the interview again and copy the entire JSON block it gives you."; return; }
+        var parsed=parseBuilderInput(raw);
+        if(!parsed.ok){
+          track(parsed.code==='legacy-shape'?'builder_error_shape':'builder_error_json');
+          msg.className='bd-msg err';
+          msg.textContent=builderPlanError(parsed);
+          return;
+        }
+        var cfg=parsed.cfg;
         cfg.fileId=(window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
         cfg.learningHistory=[];
         msg.textContent='Building\u2026';

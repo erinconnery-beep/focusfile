@@ -2,7 +2,7 @@
 
 A free, offline focus tool.
 
-You answer five quick questions in any AI chat. The AI returns a small Focus File plan; paste it into the site and the site downloads a self-contained HTML page that holds one block of work. Open it when the block begins. If the work can be offline, disconnect; if it genuinely needs the internet, use a task-specific blocker. The file keeps the task and reason visible, quietly tracks time, and checks in about every half hour using the user’s own words.
+You answer five setup questions in any AI chat. The AI returns a small Focus File plan; paste it into the site and the site downloads a self-contained HTML page that holds one block of work. Open it when the block begins. If the work can be offline, disconnect; if it genuinely needs the internet, use a task-specific blocker. The file keeps the task and reason visible, quietly tracks time, and checks in about every half hour using the user’s own words.
 
 When you're done, a short exit records what finished, what helped, what pulled you away, and where you stopped. The file then turns its saved results into a local **What you're learning** report: repeated helpful cues, repeated distractions, the conditions used, and a concrete carry-forward for the next block. Check-ins stay in the saved results; they are never converted into a score.
 
@@ -17,8 +17,8 @@ Site: **https://www.focusfile.org/**
 ## How it works
 
 1. **Run a quick interview.** The site (`index.html`) shows a short prompt and a Copy button. Copy it and paste it into any AI (Claude, ChatGPT, Gemini).
-2. **Answer five questions.** The AI narrows the work to one finishable block, names what may pull you off task, and captures why it matters—then hands back a small **Focus File plan**. It is JSON under the hood, but the user does not need to understand or edit it.
-3. **Build your file.** Paste the returned plan into the builder on the site ("2 — Build your file"). The site inserts it into the Focus File template and the file **downloads instantly**.
+2. **Answer five questions.** The AI narrows the work to one finishable block, names what may pull you off task, and captures why it matters—then hands back a short, labeled **Focus File plan** written for a person to read and copy.
+3. **Build your file.** Paste the labeled plan into the builder on the site ("2 — Build your file"). The site converts it into its internal configuration, inserts that into the Focus File template, and the file **downloads instantly**. Existing internal JSON plans remain accepted for backward compatibility, but new users never need to see or handle JSON.
 4. **Work inside the boundary.** Open the file when the block begins. Disconnect when the work allows it. For internet-required work, the interview recommends a task-specific Freedom.to session that keeps only required sites and apps available; another effective blocker is also acceptable.
 5. **Record the result.** At the end, save what finished, what helped, what pulled you off, and where you stopped.
 6. **Learn locally.** The file compares the saved results it can access and builds the learning report in the browser.
@@ -42,11 +42,11 @@ A person can use the report alone, or someone helping them can review only the r
 The public page is intentionally ordered around execution rather than explanation:
 
 1. **Short promise:** “Finish what you set out to do.”
-2. **Two actions:** Copy the five-question setup prompt, then paste the returned Focus File plan to download the file.
-3. **Professional use:** A distinct green section showing the three-step coach/therapist workflow: identify in session, build together, and return with evidence, followed by a checked “Great for” list and a small privacy note.
-4. **Examples:** Concrete finished-file links sit directly in the second action: Draft 1,500 words, submit 3 applications, and recall 12 cranial nerves.
+2. **01 — Answer five setup questions:** Show the actual questions and one clear action to copy the interview prompt.
+3. **02 — Make the file:** Paste the returned Focus File plan and download the file immediately. If examples remain, they belong inside this step rather than in a detached section.
+4. **For coaches and therapists:** A distinct green section showing the three-step professional workflow: identify goals, habits, and avoidance patterns in session; build while the client has clarity and readiness to act; and return with the Focus File log rather than a vague retelling. It ends with three checked ADHD-coaching uses and a compact privacy note.
 
-The wide header links are **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. At narrower desktop, tablet, and mobile widths, the same links live in the **Notes** dropdown. “Why a file?” explains the offline, accountless format without interrupting the execution flow.
+The Focus File logo and **Notes** dropdown remain in the header at every width. The dropdown contains **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. Longer explanation belongs there, not in the execution path.
 
 ---
 
@@ -95,7 +95,25 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 
 ---
 
-## Design principles
+## Design protocol
+
+### Evidence Ledger direction
+
+- **Instrument, not article.** The page should feel like a precise working record: enter a concrete plan, download the Focus File, and get to work. Longer explanation belongs in **Notes**.
+- **Preserve the product.** Keep the existing logo, header, Notes dropdown, footer, builder behavior, prompt pipeline, privacy guarantees, and analytics. A visual redesign must not invent a dashboard, new workflow, output screen, metrics, or extra controls.
+- **One brand accent.** Use charcoal and white as the working palette, with the existing logo green as the only non-semantic accent. Reserve muted red for warnings, errors, and destructive actions. Do not introduce competing blue, beige, gradient, or decorative color roles.
+- **Evidence-led structure.** Use sharp borders, visible rules, square controls, and restrained surfaces. Avoid decorative shadows, oversized rounded cards, overlapping panels, and lifestyle-product styling.
+- **Disciplined type.** Use the system sans-serif for headlines, body copy, instructions, buttons, and controls. Use monospace only for small numbered steps, timestamps, counters, and uppercase evidence labels. Keep type highly legible offline and prevent dangling final words at each breakpoint.
+- **Compact hero.** Lead with “Finish what you set out to do.” and move directly into step 01. Do not leave a large empty gap between the promise and the tool.
+- **Two numbered actions.** Step 01 shows the five questions and one clear full-width Copy button. Step 02 keeps the textarea visually connected to the matching Create & download button. Do not add top-level Answer → Make → Work cards.
+- **Integrated examples.** Keep examples compact and inside step 02. Never leave them floating above the footer or create a competing examples section.
+- **Professional use is a primary audience.** Give the coach/therapist section a strong charcoal header band, a clean white evidence panel, green status cues, the In session → Build together → Next session process, the three checked ADHD-coaching uses, and one compact privacy sentence.
+- **Compact rhythm.** Use short, consistent vertical intervals and rules to separate tasks. Keep prompt and Copy connected, textarea and Download connected, and enough neutral space between the primary action and professional section to preserve hierarchy without dead space.
+- **Carry the system through the tool.** Apply the same typography, palette, rules, square controls, compact spacing, and evidence labels to the working Focus File, check-ins, exit form, result card, learning report, and saved log.
+- **Mobile is an instrument, not scaled desktop.** At 320px and 375px, stack step labels above their content, keep buttons full width, keep the prompt readable without horizontal scrolling, reduce hero size and section gaps, and prevent overflow or isolated one-word lines. Also verify 768px, 1024px, and 1440px.
+- **Preview before replacement.** Produce a complete clickable preview and receive explicit approval before replacing an established site design.
+
+### Product principles
 
 - **Decide once, then just begin.** The setup ends fast so the doing can start. It plans just enough to begin, not enough to keep you planning.
 - **It thinks with you, not for you.** It helps shape the work but builds nothing until you approve it.

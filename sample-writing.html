@@ -1006,6 +1006,98 @@ window.addEventListener("DOMContentLoaded", function () {
     line-height: 1.45;
     color: var(--ink-mut);
   }
+
+  /* EVIDENCE LEDGER — selected site system
+     Compact, rule-based, and limited to charcoal, white, logo green, and semantic warning red. */
+  :root {
+    --paper:#fbfbfa;
+    --paper-warm:#ffffff;
+    --paper-line:#aeb6b1;
+    --hair:#d5d9d6;
+    --ink:#17201c;
+    --ink-body:#26312c;
+    --ink-soft:#3f4b45;
+    --ink-mut:#5b6761;
+    --ink-faint:#6c7772;
+    --ink-ghost:#77817c;
+    --pine:#2f6a44;
+    --pine-soft:#275739;
+    --pine-tint:#edf3ef;
+    --pine-chip:#cbdacf;
+    --pine-chip-ink:#214b31;
+    --clay:#8f4339;
+    --clay-tint:#f7efed;
+    --serif:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  }
+  html,body { background:#eef0ee; font-family:var(--sans); line-height:1.45; }
+  body { padding:26px 14px 50px; }
+  .card { max-width:580px; border:2px solid var(--ink); border-radius:0; background:var(--paper); }
+  .flash { border-radius:0; }
+  .masthead { padding:12px 22px 11px; border-bottom:2px solid var(--ink); }
+  .mast-name { font-family:var(--sans); font-size:14px; font-weight:750; letter-spacing:-.01em; }
+  .header { padding:20px 22px 18px; background:var(--paper); border-bottom:1px solid var(--paper-line); }
+  .header-top { margin-bottom:11px; }
+  .task-title { font-family:var(--sans); font-size:29px; font-weight:720; line-height:1.06; letter-spacing:-.035em; }
+  .progress-track,.progress-fill { border-radius:0; }
+  .lane,.sealed-strip { padding:11px 22px; border-bottom-color:var(--paper-line); }
+  .lane-chip { padding:3px 9px; border:1px solid #b6c9bd; border-radius:0; background:#fff; }
+  .keep { padding:16px 22px; border-bottom-color:var(--paper-line); }
+  .keep p { font-family:var(--sans); font-size:14.5px; }
+  .why { padding:17px 22px; border-bottom-color:var(--paper-line); }
+  .why p { font-family:var(--sans); font-size:15px; font-style:normal; line-height:1.48; }
+  .jobs { padding:18px 22px; border-bottom-color:var(--paper-line); }
+  .jobs-head { margin-bottom:13px; }
+  .job-list { gap:12px; }
+  .job .box { width:20px; height:20px; border-radius:0; background:#fff; }
+  .job-check { width:20px; height:20px; }
+  .job.done .box::after { left:5px; top:2px; }
+  .job .label { font-size:14.5px; line-height:1.38; }
+  .action { padding:19px 22px; background:#fff; }
+  .btn-begin { gap:10px; padding:12px 17px; border-radius:0; font-size:14px; font-weight:700; }
+  .btn-begin .arr { width:auto; height:auto; border-radius:0; background:transparent; color:#fff; }
+  .checkin-head { margin-bottom:13px; }
+  .knock-answers { gap:8px; }
+  .knock-answers button { padding:11px 7px; border-radius:0; }
+  .pull { margin-top:17px; padding-top:16px; }
+  .pull-text,.knock-reason { font-family:var(--sans); font-style:normal; font-size:14px; }
+  .preview-row { margin-top:8px; }
+  .blockend { padding:23px 22px; background:#fff; }
+  .be-line { font-family:var(--sans); font-size:20px; font-weight:680; }
+  .be-where { margin-bottom:18px; }
+  .btn-finish { padding:13px 22px; border-radius:0; box-shadow:none; font-size:15px; }
+  .btn-more { padding:12px 18px; border-radius:0; font-size:14px; }
+  .be-note { margin-top:15px; }
+  .exit { padding:22px; }
+  .exit-eyebrow { margin-bottom:12px; }
+  .exit-title { font-family:var(--sans); font-size:20px; font-weight:680; margin-bottom:19px; }
+  .exit-q { margin-bottom:7px; }
+  .exit-input { padding:11px 12px; border-radius:0; margin-bottom:14px; background:#fff; }
+  .exit-foot { margin-top:13px; padding-top:14px; }
+  .btn-done { padding:10px 17px; border-radius:0; }
+  .alldone { padding:23px 22px 22px; }
+  .alldone .msg { font-family:var(--sans); font-size:21px; font-weight:680; margin-bottom:17px; }
+  .result-card { margin-bottom:17px; border-radius:0; background:#fff; }
+  .result-row { padding:10px 13px; }
+  .learning-report { margin-bottom:17px; padding:16px; border:2px solid var(--ink); border-radius:0; background:var(--pine-tint); }
+  .learning-summary { font-family:var(--sans); font-size:22px; font-weight:700; line-height:1.15; }
+  .learning-window select { border-color:var(--paper-line); border-radius:0; background:#fff; }
+  .learning-grid { gap:8px; margin-bottom:8px; }
+  .learning-signal,.learning-insight,.learning-time,.learning-carry { border-color:var(--paper-line); border-radius:0; background:#fff; padding:10px 11px; }
+  .learning-insight,.learning-time,.learning-carry { margin-top:8px; }
+  .btn-buildnext,.result-action { min-height:46px; border-radius:0; font-size:12px; }
+  .btn-log { padding:8px 13px; border-radius:0; }
+  .log-view { margin-top:17px; padding-top:15px; }
+  .log-entry { border-radius:0; padding:12px 13px; margin-bottom:9px; background:#fff; }
+  @media (max-width:480px) {
+    body { padding:0; background:var(--paper); }
+    .card { border-left:0; border-right:0; border-top:0; max-width:none; }
+    .masthead { padding-left:18px; padding-right:18px; }
+    .header,.exit,.alldone { padding-left:18px; padding-right:18px; }
+    .lane,.sealed-strip,.keep,.why,.jobs,.action,.blockend { padding-left:18px; padding-right:18px; }
+    .task-title { font-size:27px; }
+    .learning-report { padding:14px; }
+  }
 </style>
 </head>
 <body>
