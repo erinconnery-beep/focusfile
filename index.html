@@ -609,7 +609,7 @@
       <div class="execution-step">
         <div>
           <span class="execution-number">02</span>
-          <h2>Make the file</h2>
+          <h2>Make your file</h2>
         </div>
         <div>
           <div id="builderForm">
@@ -787,7 +787,7 @@ Fill the block from the confirmed interview answers, following these branches:
 - `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
 - Do not show internal field names, configuration values, or JSON.
 
-2. After the code block, write exactly this one line: **Copy the FOCUS FILE block above, open https://www.focusfile.org/, and paste it into Make the file.**
+2. After the code block, write exactly this one line: **Copy the FOCUS FILE block above, open https://www.focusfile.org/, and paste it into Make your file.**
 
 Do not add anything else. Then stop.
 
@@ -795,11 +795,11 @@ Do not add anything else. Then stop.
   <script type="text/plain" id="m-design"><h2>Why a Focus File?</h2>
 <p>Focus File was built to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
 <p><b>AI doesn&rsquo;t think for you.</b> It asks the questions and insists on specifics. You provide the answers. The short interview narrows the work to one concrete block and a finish line you can recognize.</p>
-<p><b>It lets you make a real choice.</b> Often a hundred things are competing for our attention. This is a ritual of slowing down, choosing what you will do and when you will do it, and owning that commitment. That ownership helps create the motivation to begin.</p>
-<p><b>Just begin.</b> When the file is ready, the deciding has already been done. It keeps you from disappearing into second guessing (&ldquo;Is this really the right task?&rdquo;) or distraction (&ldquo;Maybe I need something else to help me before I start.&rdquo;).</p>
-<p><b>It checks in while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file returns your response to &ldquo;Anything that tends to pull you off task?&rdquo; or &ldquo;Why does finishing this matter to you today?&rdquo; These gentle nudges bring you back to what matters.</p>
-<p><b>It works offline.</b> Your Focus File is a downloaded HTML file that opens in your browser without an internet connection. Most focused work needs less internet than we think. When a task does need the web, the interview narrows access to the necessary sites and helps block the rest.</p>
-<p><b>It records lessons learned.</b> At the end of each block, the log captures what pulled you off task, what worked well enough to repeat, and where you will start next session. You can use that record yourself or share it with a coach or therapist to build a stronger strategy for the next attempt.</p>
+<p><b>It lets you make a real choice.</b> Often a hundred things are competing for our attention. This is a ritual of slowing down, choosing what you will do and when you will do it, and owning that commitment. This helps create the motivation to begin.</p>
+<p><b>It turns the decision into action.</b> You have already chosen what to do and when to do it. This keeps you from disappearing into second guessing (&ldquo;Is this really the right task?&rdquo;) or distraction (&ldquo;Maybe I need something else to help me before I start.&rdquo;). Open the file and begin.</p>
+<p><b>It checks in while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file brings back your own words: what you said might pull you off task or why finishing matters today. The motivation and accountability come from the commitment you made.</p>
+<p><b>It works offline.</b> Your Focus File is a downloaded HTML file that opens in your browser without an internet connection. Most focused work needs less internet than we think.</p>
+<p><b>It carries lessons into the next file.</b> At the end of each block, the log captures what pulled you off task, what worked well enough to repeat, and where you will start next session. Those lessons can guide your next five-question interview. You can also review the record yourself or share it with a coach or therapist.</p>
 <p><b>It builds three muscles over time:</b> choosing one clear task, starting without renegotiating, and recognizing the patterns that help or derail you. There&rsquo;s no magic here. It&rsquo;s just enough structure to choose honestly, begin, and learn from what happened.</p></script>
 <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed product-action data so we can understand use of the site. It never receives anything typed, generated, downloaded, or saved. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
@@ -1262,8 +1262,13 @@ Do not add anything else. Then stop.
         track('funnel_open_ai_' + a.dataset.ai);
       });
     });
-    // the sample links
-    document.querySelectorAll('a[href^="sample-"]').forEach(function(a){
+    // Keep sample previews in the current tab on small screens. Some mobile
+    // browsers treat a new-tab navigation to a standalone HTML file as a download.
+    var sampleLinks=document.querySelectorAll('a[href^="sample-"]');
+    if(window.matchMedia && window.matchMedia('(max-width: 700px)').matches){
+      sampleLinks.forEach(function(a){ a.removeAttribute('target'); });
+    }
+    sampleLinks.forEach(function(a){
       a.addEventListener('click', function(){
         var sample=(a.getAttribute('href').match(/sample-([a-z]+)\.html/) || [,'unknown'])[1];
         track('download_sample_' + sample);

@@ -123,7 +123,7 @@ def main():
         (ROOT / name).write_text(generated)
 
     print("build OK - short prompt %d chars; template %d chars" % (len(head), len(template)))
-    print("Deploy to Vercel: index.html + focus-file-logo.svg + focus-file-social-v2.png + focus-file.html + sample-writing.html + sample-jobsearch.html + sample-study.html")
+    print("Deploy to Vercel: vercel.json + index.html + focus-file-logo.svg + focus-file-social-v2.png + focus-file.html + sample-writing.html + sample-jobsearch.html + sample-study.html")
 
 
 if __name__ == "__main__":

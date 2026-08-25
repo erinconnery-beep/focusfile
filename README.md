@@ -19,7 +19,7 @@ Site: **https://www.focusfile.org/**
 1. **Run a quick interview.** The site (`index.html`) shows a short prompt and a Copy button. Copy it and paste it into any AI (ChatGPT, Claude, Gemini).
 2. **Answer five questions.** Binary answers, short finite lists, and reusable prior answers appear as compact numbered choices. Every finite choice ends with a direct instruction such as **Reply 1 or 2**, so the user never has to retype an option. The internet-off barrier list includes **Something else — type your own**; other questions use that option only when it is genuinely useful. A next-file interview offers the prior confirmed answer first so the user can keep it and advance immediately. The AI narrows the work to one finishable block, names what may pull you off task, and captures why it matters—then hands back a short, labeled **Focus File plan** written for a person to read and copy.
    For quantified work large enough to track, Q3 offers a short cumulative milestone checklist and asks the person to confirm or edit it. The AI may omit those milestones only when the person explicitly declines a breakdown.
-3. **Make the file.** Paste the labeled plan into “02 — Make the file” and choose **Download my Focus File**. The site converts the plan into its internal configuration, inserts it into the Focus File template, and downloads the self-contained file. Each download gets a clean session-based name such as `Focus File — Aug 24, 9 AM.html`; the task stays inside the file rather than leaking into its filename. The builder confirms the exact filename without guessing where the browser saved it. An optional, secondary control can create a generic recurring reminder in Google Calendar or another calendar. Existing internal JSON plans remain accepted for backward compatibility, but new users never need to see or handle JSON.
+3. **Make your file.** Paste the labeled plan into “02 — Make your file” and choose **Download my Focus File**. The site converts the plan into its internal configuration, inserts it into the Focus File template, and downloads the self-contained file. Each download gets a clean session-based name such as `Focus File — Aug 24, 9 AM.html`; the task stays inside the file rather than leaking into its filename. The builder confirms the exact filename without guessing where the browser saved it. An optional, secondary control can create a generic recurring reminder in Google Calendar or another calendar. Existing internal JSON plans remain accepted for backward compatibility, but new users never need to see or handle JSON.
 4. **Work inside the boundary.** Open the file when the block begins. Disconnect when the work allows it. For internet-required work, the interview recommends a task-specific Freedom.to session that keeps only required sites and apps available; another effective blocker is also acceptable.
 5. **Record the result.** The fast exit automatically reports time spent versus expected and checked steps, then asks what pulled the user off task, what worked well enough to repeat, and where the user will start next session. All three answers may be left blank. The file infers a backward-compatible internal completion status from checked steps when available; it never makes the user choose one. Blank answers and non-signals such as “nothing” are never carried forward as KEEP or counted as a recurring distraction.
 6. **Keep the evidence locally.** The saved-result screen shows one concise record. The full retained history is available only when the user chooses **View all results** or **Download all results**.
@@ -32,7 +32,7 @@ The current record contains the date and task, condition, time spent versus expe
 
 The Focus File runs entirely in the browser with no internet connection. Its current entries live in browser storage and can be viewed or downloaded. If browser storage is disabled, full, or unavailable, the result remains usable in the open tab and the file warns the user to download the log before closing. Private-browsing behavior varies: some browsers keep this storage only until the private session closes, so download anything that must outlast that session.
 
-**Copy next-file interview** uses the smallest private scope: the current setup and this block’s result. The current setup is presented as optional guidance the user may keep, change, or ignore. The AI conducts a fresh five-question interview and returns one labeled `FOCUS FILE` plan—never JSON, the HTML template, or a generated HTML file—followed by one direct instruction to open focusfile.org and paste it into **Make the file**. KEEP is drawn only from concrete help in that result.
+**Copy next-file interview** uses the smallest private scope: the current setup and this block’s result. The current setup is presented as optional guidance the user may keep, change, or ignore. The AI conducts a fresh five-question interview and returns one labeled `FOCUS FILE` plan—never JSON, the HTML template, or a generated HTML file—followed by one direct instruction to open focusfile.org and paste it into **Make your file**. KEEP is drawn only from concrete help in that result.
 
 Browser timers can be delayed when a tab is in the background or a device is asleep. When the tab becomes visible or the window regains focus, the file checks the saved schedule and immediately shows one overdue check-in when appropriate. An active scheduled question stays visible until answered; the normal self-check remains in its original position. The title change, sound, and flash remain intact. After an answer, the file highlights either **Avoid** or **Why it matters** in place rather than repeating the same text in another reminder panel. The former preview control is intentionally absent because a real scheduled check-in already demonstrates the behavior.
 
@@ -48,7 +48,7 @@ The public page is intentionally ordered around execution rather than explanatio
 
 1. **Short promise:** “Keep the work in front of you.”
 2. **01 — Choose one clear objective:** Show the five focused questions and one clear action to copy the prompt.
-3. **02 — Make the file:** Paste the returned Focus File plan and download the file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
+3. **02 — Make your file:** Paste the returned Focus File plan and download the file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
 4. **For coaches and therapists:** A charcoal header and clean white evidence panel show the three-step workflow: name the goal and interrupting action, build from the session’s clarity, and review what happened without relying on memory alone. Simple rules separate the steps; plain green ticks identify three ADHD-coaching uses without looking interactive. A pale-green privacy band closes the section.
 
 The Focus File logo and **Notes** dropdown remain in the header at every width. The dropdown contains **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. Longer explanation belongs there, not in the execution path.
@@ -63,16 +63,17 @@ The Focus File logo and **Notes** dropdown remain in the header at every width. 
 | `focus-file-logo.svg` | The worksheet logo used in the site header and browser tab. | **Yes** |
 | `focus-file-social-v2.png` | The 1200×630 social preview card referenced by the homepage metadata. | **Yes** |
 | `focus-file.html` | **The focus-file template.** The builder fetches this file to construct each focus file. **The site breaks without it.** | **Yes** |
-| `sample-writing.html` | A downloadable writing Focus File demonstrating offline work and milestones. | **Yes** |
-| `sample-jobsearch.html` | A downloadable job-search Focus File demonstrating internet-required work and a checklist. | **Yes** |
-| `sample-study.html` | A downloadable study Focus File demonstrating active recall and a specific avoidance pattern. | **Yes** |
+| `vercel.json` | Keeps the three example Focus Files on clean preview URLs and explicitly serves them as browser pages instead of downloads. | **Yes** |
+| `sample-writing.html` | A previewable writing Focus File demonstrating offline work and milestones. | **Yes** |
+| `sample-jobsearch.html` | A previewable job-search Focus File demonstrating internet-required work and a checklist. | **Yes** |
+| `sample-study.html` | A previewable study Focus File demonstrating active recall and a specific avoidance pattern. | **Yes** |
 | `focus-file-prompt.md` | A standalone copy of the setup prompt. Not referenced by the site. | Optional |
 | `prompt-head.md` | The editable source of the interview instructions. `build.py` reads it. | Source only |
 | `build.py` | Rebuilds the generated copies safely. Never hand-edit the generated regions. | Source only |
 | `LICENSE` | MIT license. | Repository only |
 | `ANALYTICS.md` | The small measurement plan and GA4 verification notes. | Repository only |
 
-**Deploy set:** `index.html`, `focus-file-logo.svg`, `focus-file-social-v2.png`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all seven must go up together. The homepage uses the SVG logo and social card, the builder fetches `focus-file.html`, and the site's sample links point to the three `sample-*.html` files.
+**Deploy set:** `vercel.json`, `index.html`, `focus-file-logo.svg`, `focus-file-social-v2.png`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all eight must go up together. The homepage uses the SVG logo and social card, the builder fetches `focus-file.html`, and `vercel.json` keeps the three sample files opening as browser previews on desktop and mobile.
 
 ---
 
@@ -83,10 +84,10 @@ The deployed site is static HTML—no framework or server-side dependencies. The
 **Vercel project settings:** use the repository root as the Root Directory, choose no framework preset, and leave the build command empty. The files are served directly from the repository root. `www.focusfile.org` is configured in the Vercel project’s Domains settings; there is no GitHub Pages `CNAME` file.
 
 **To update:**
-1. Add the changed deploy files to the GitHub repository root: `index.html`, `focus-file-logo.svg`, `focus-file-social-v2.png`, `focus-file.html`, and the three `sample-*.html` files.
+1. Add the changed deploy files to the GitHub repository root: `vercel.json`, `index.html`, `focus-file-logo.svg`, `focus-file-social-v2.png`, `focus-file.html`, and the three `sample-*.html` files.
 2. Commit and push. Vercel builds and publishes the new static deployment automatically.
 
-**After it deploys:** copy the prompt, run it in an AI, and confirm it returns one labeled Focus File plan followed by the direct instruction to open focusfile.org and paste the block into **Make the file**. Paste the plan into the builder and confirm a Focus File downloads. Complete a sample block and verify that **Copy next-file interview** uses only the current setup and this block’s result and follows the same plan-plus-instruction handoff—not JSON or HTML. Then confirm the Writing, Job search, and Study example links each open a distinct sample file. Clipboard and download work on the live `https://` site.
+**After it deploys:** copy the prompt, run it in an AI, and confirm it returns one labeled Focus File plan followed by the direct instruction to open focusfile.org and paste the block into **Make your file**. Paste the plan into the builder and confirm a Focus File downloads. Complete a sample block and verify that **Copy next-file interview** uses only the current setup and this block’s result and follows the same plan-plus-instruction handoff—not JSON or HTML. Then confirm that the Writing, Job search, and Study links open distinct browser pages rather than downloading them: desktop uses a new tab, while small screens use the current tab so the browser Back control returns to the builder. Clipboard and download work on the live `https://` site.
 
 ## Editing the tool
 
