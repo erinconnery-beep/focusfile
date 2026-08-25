@@ -47,8 +47,8 @@ A person can use the report alone, or someone helping them can review only the r
 The public page is intentionally ordered around execution rather than explanation:
 
 1. **Short promise:** “Keep the work in front of you.”
-2. **01 — Choose one clear objective:** Show the five focused questions and one clear action to copy the prompt.
-3. **02 — Make your file:** Paste the returned Focus File plan and download the file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
+2. **01 — Narrow the work with a short AI interview:** Show the five focused questions and one clear action to copy the prompt.
+3. **02 — Make your Focus File:** Paste the result from the chat and download the file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
 4. **For coaches and therapists:** A charcoal header and clean white evidence panel show the three-step workflow: name the goal and interrupting action, build from the session’s clarity, and review what happened without relying on memory alone. Simple rules separate the steps; plain green ticks identify three ADHD-coaching uses without looking interactive. A pale-green privacy band closes the section.
 
 The Focus File logo and **Notes** dropdown remain in the header at every width. The dropdown contains **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. Longer explanation belongs there, not in the execution path.
@@ -137,15 +137,15 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 
 ## Privacy
 
-**Everything stays on the user’s device.** The setup plan, files, and logs never reach us—we have no accounts, no storage, and no way to read what the user writes. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed-name product-action data—never task text, interview answers, plans, Focus Files, or logs. Google Analytics is installed only on `index.html`; downloaded Focus Files and samples contain no analytics.
+**Your Focus File stays with you.** Files, settings, and logs remain on the device where you use them unless you choose to share them. We have no accounts, no storage, and no way to read what is written.
 
-**Calendar reminders are optional and generic.** The user can open the reminder directly in Google Calendar or create a local `.ics` file for Apple, Outlook, or another calendar. The reminder contains only the chosen time, “Make tomorrow’s Focus File,” and a link to focusfile.org—never a task, answer, log, client name, or other Focus File content. After the user adds it, the calendar provider handles the event under its own terms.
+**The public website collects limited usage information.** Google Analytics counts page visits and fixed actions, such as copying the prompt or creating a file, along with standard referral and device information. It never receives your task, interview answers, Focus File plan, downloaded file, check-ins, or log. See [Google’s privacy policy](https://policies.google.com/privacy).
 
-**One exception: AI handoffs.** The AI chat the user chooses sees what is pasted and typed there, under that provider’s own terms and privacy policy. The first setup needs no personal details. The optional next-file handoff contains the current setup and one result; nothing is sent until the user pastes it.
+**When you use an AI chat.** The AI provider sees only what you choose to paste or type, under that provider’s privacy policy. Nothing is sent automatically. The first interview needs no personal details. If you use a previous result to make your next Focus File, that information is shared only when you paste the copied prompt.
 
-**For clinicians.** Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS’s [health apps guidance](https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html). Not legal advice.
+**For clinicians.** Focus File never receives or stores client information. If a client shares a result with you, handle it according to your organization’s usual privacy practices.
 
-Focus File is not medical or psychological advice.
+Focus File is a work-support tool, not medical or psychological advice.
 
 ---
 

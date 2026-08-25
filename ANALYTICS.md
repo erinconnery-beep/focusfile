@@ -13,12 +13,18 @@ The primary funnel is:
 3. `funnel_plan_submit` — returned and submitted a non-empty plan to the builder.
 4. `funnel_file_created` — the browser successfully created and downloaded the Focus File.
 
+Two one-time creation milestones distinguish initial success from adoption:
+
+- `funnel_first_file_created` — the first successful creation observed in that browser.
+- `funnel_repeat_file_created` — the next successful creation in that browser, recorded once as evidence that the person made another Focus File.
+
 The most useful weekly numbers are:
 
 - Interview-copy rate: `funnel_copy_interview` ÷ homepage views.
 - Return-to-builder rate: `funnel_plan_submit` ÷ `funnel_copy_interview`.
 - Builder success rate: `funnel_file_created` ÷ `funnel_plan_submit`.
 - Full creation rate: `funnel_file_created` ÷ homepage views.
+- Repeat-creation rate: `funnel_repeat_file_created` ÷ `funnel_first_file_created` for the same reporting cohort.
 
 Do not treat the AI-link rate as a required conversion step; visitors can use another AI or an already-open chat.
 
@@ -35,6 +41,12 @@ Do not treat the AI-link rate as a required conversion step; visitors can use an
 - `share_site`
 
 These events answer concrete design questions: where the builder fails, which example clarifies the tool, whether the optional reminder is useful, and whether people seek explanation or privacy details.
+
+## First and repeat creation
+
+After a successful creation, the homepage stores one content-free value named `focusfile_creation_stage` in that browser. Its only possible values are `first` and `repeat`. It contains no task, answer, date, filename, or identifier.
+
+The first milestone fires once, the repeat milestone fires once on the next successful creation, and `funnel_file_created` continues to count every successful creation. Clearing browser data resets the milestone. Using another browser or device starts a separate sequence. Creations made before this measurement was introduced cannot be recognized retroactively.
 
 ## What is never sent
 

@@ -72,6 +72,6 @@ Fill the block from the confirmed interview answers, following these branches:
 - `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
 - Do not show internal field names, configuration values, or JSON.
 
-2. After the code block, write exactly this one line: **Copy the FOCUS FILE block above, open https://www.focusfile.org/, and paste it into Make your file.**
+2. After the code block, write exactly this one line: **Copy the answer above, open https://www.focusfile.org/, and paste it into the box under step 02.**
 
 Do not add anything else. Then stop.

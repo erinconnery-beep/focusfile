@@ -581,10 +581,10 @@
       <div class="execution-step">
         <div>
           <span class="execution-number">01</span>
-          <h2>Choose one clear objective</h2>
+          <h2>Narrow the work with a short AI interview</h2>
         </div>
         <div>
-          <p class="execution-lead">Copy the prompt into any AI chat. Answer five quick questions, then copy the Focus File block it returns.</p>
+          <p class="execution-lead">Copy the prompt into any AI chat.</p>
           <div class="pb-body execution-prompt">
             <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
 2. What are you working on, and what's your window?
@@ -609,12 +609,12 @@
       <div class="execution-step">
         <div>
           <span class="execution-number">02</span>
-          <h2>Make your file</h2>
+          <h2>Make your Focus File</h2>
         </div>
         <div>
           <div id="builderForm">
-            <p class="execution-lead">Paste it below to download a private work page that stays open beside you and checks in as you go.</p>
-            <textarea class="bd-input execution-input" id="cfgInput" rows="4" spellcheck="false" placeholder="Paste plan here"></textarea>
+            <p class="execution-lead">Paste the result below. It becomes a simple offline file that helps you start and stay with one task.</p>
+            <textarea class="bd-input execution-input" id="cfgInput" rows="4" spellcheck="false" placeholder="Paste result here"></textarea>
             <button class="copy bd-go" id="buildBtn">Download my Focus File</button>
             <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
             <details class="execution-examples">
@@ -787,7 +787,7 @@ Fill the block from the confirmed interview answers, following these branches:
 - `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
 - Do not show internal field names, configuration values, or JSON.
 
-2. After the code block, write exactly this one line: **Copy the FOCUS FILE block above, open https://www.focusfile.org/, and paste it into Make your file.**
+2. After the code block, write exactly this one line: **Copy the answer above, open https://www.focusfile.org/, and paste it into the box under step 02.**
 
 Do not add anything else. Then stop.
 
@@ -802,11 +802,11 @@ Do not add anything else. Then stop.
 <p><b>It carries lessons into the next file.</b> At the end of each block, the log captures what pulled you off task, what worked well enough to repeat, and where you will start next session. Those lessons can guide your next five-question interview. You can also review the record yourself or share it with a coach or therapist.</p>
 <p><b>It builds three muscles over time:</b> choosing one clear task, starting without renegotiating, and recognizing the patterns that help or derail you. There&rsquo;s no magic here. It&rsquo;s just enough structure to choose honestly, begin, and learn from what happened.</p></script>
 <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
-<p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed product-action data so we can understand use of the site. It never receives anything typed, generated, downloaded, or saved. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
-<p><b>Calendar reminders are optional.</b> If you choose one, you can open a generic reminder in Google Calendar or download a calendar file for another provider. It contains only the reminder time, the words &ldquo;Make tomorrow&rsquo;s Focus File,&rdquo; and a link to focusfile.org. It never includes a task, answer, log, client name, or other Focus File content. Once added, the reminder is handled by your calendar provider under its own terms.</p>
-<p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview contains the current setup and this block&rsquo;s result. Nothing is shared until you paste it.</p>
-<p><b>For clinicians.</b> Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
-<p>Focus File is not medical or psychological advice.</p>
+<p><b>Your Focus File stays with you.</b> Files, settings, and logs remain on the device where you use them unless you choose to share them. We have no accounts, no storage, and no way to read what is written.</p>
+<p><b>The public website collects limited usage information.</b> Google Analytics counts page visits and fixed actions, such as copying the prompt or creating a file, along with standard referral and device information. It never receives your task, interview answers, Focus File plan, downloaded file, check-ins, or log. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
+<p><b>When you use an AI chat.</b> The AI provider sees only what you choose to paste or type, under that provider&rsquo;s privacy policy. Nothing is sent automatically. The first interview needs no personal details. If you use a previous result to make your next Focus File, that information is shared only when you paste the copied prompt.</p>
+<p><b>For clinicians.</b> Focus File never receives or stores client information. If a client shares a result with you, handle it according to your organization&rsquo;s usual privacy practices.</p>
+<p>Focus File is a work-support tool, not medical or psychological advice.</p>
 </script>
   <script type="text/plain" id="m-feedback"><h2>Feedback</h2>
 <p>Tell us what's working, what's not, or any new ideas.</p>
@@ -1160,6 +1160,7 @@ Do not add anything else. Then stop.
           document.body.appendChild(a); a.click(); document.body.removeChild(a);
           setTimeout(function(){ URL.revokeObjectURL(url); },1000);
           track('funnel_file_created');
+          trackCreationMilestone();
           fileName.textContent=fname;
           msg.textContent='';
           form.hidden=true;
@@ -1252,6 +1253,22 @@ Do not add anything else. Then stop.
       try {
         if(typeof window.gtag === 'function'){
           window.gtag('event', name);
+        }
+      } catch(e) {}
+    }
+
+    // Content-free browser state: records only whether this browser has reached
+    // its first and second successful creation. No plan or task data is stored.
+    function trackCreationMilestone(){
+      try {
+        var key='focusfile_creation_stage';
+        var stage=window.localStorage.getItem(key);
+        if(!stage){
+          track('funnel_first_file_created');
+          window.localStorage.setItem(key,'first');
+        } else if(stage==='first'){
+          track('funnel_repeat_file_created');
+          window.localStorage.setItem(key,'repeat');
         }
       } catch(e) {}
     }
