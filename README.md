@@ -46,9 +46,9 @@ A person can use the report alone, or someone helping them can review only the r
 
 The public page is intentionally ordered around execution rather than explanation:
 
-1. **Short promise:** “Keep the work in front of you.”
-2. **01 — Narrow the work with a short AI interview:** Show the five focused questions and one clear action to copy the prompt.
-3. **02 — Make your Focus File:** Paste the result from the chat and download the file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
+1. **Short promise:** “Keep one clear objective in front of you.”
+2. **01 — A short AI interview helps you choose it:** Show the five focused questions and one clear action to copy the prompt.
+3. **02 — Your Focus File helps you start and follow through:** Paste the result from the chat and download the simple offline file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
 4. **For coaches and therapists:** A charcoal header and clean white evidence panel show the three-step workflow: name the goal and interrupting action, build from the session’s clarity, and review what happened without relying on memory alone. Simple rules separate the steps; plain green ticks identify three ADHD-coaching uses without looking interactive. A pale-green privacy band closes the section.
 
 The Focus File logo and **Notes** dropdown remain in the header at every width. The dropdown contains **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. Longer explanation belongs there, not in the execution path.
@@ -110,7 +110,7 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 - **One brand accent.** Use charcoal and white as the working palette, with the existing logo green as the only non-semantic accent. Reserve muted red for warnings, errors, and destructive actions. Do not introduce competing blue, beige, gradient, or decorative color roles.
 - **Evidence-led structure.** Use sharp borders, visible rules, square controls, and restrained surfaces. Avoid decorative shadows, oversized rounded cards, overlapping panels, and lifestyle-product styling.
 - **Disciplined type.** Use the system sans-serif for headlines, body copy, instructions, buttons, and controls. Use monospace only for small numbered steps, timestamps, counters, and uppercase evidence labels. Keep type highly legible offline and prevent dangling final words at each breakpoint.
-- **Compact hero.** Lead with “Keep the work in front of you.” and move directly into step 01. Do not leave a large empty gap between the promise and the tool.
+- **Compact hero.** Lead with “Keep one clear objective in front of you.” and move directly into step 01. Do not leave a large empty gap between the promise and the tool.
 - **Two numbered actions.** Step 01 shows the five questions and one clear full-width Copy button. Step 02 keeps the textarea visually connected to the matching **Download my Focus File** button, then replaces it with a compact filename confirmation—no redundant instruction about when to open the file. Its follow-up controls form one clear pair: a filled primary “Make another Focus File” button first, then an outlined “Set a recurring reminder” button. The reminder setup stays collapsed. Do not add top-level Answer → Make → Work cards.
 - **Integrated examples.** Keep examples compact and inside step 02. Never leave them floating above the footer or create a competing examples section.
 - **Professional use is a primary audience.** Give the coach/therapist section a strong charcoal header band, a clean white evidence panel, green status cues, the In session → Build together → Next session process, the three checked ADHD-coaching uses, and one compact privacy sentence.
