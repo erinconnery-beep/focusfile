@@ -156,10 +156,6 @@
   .coach-followup h3 { margin:0 0 20px; font-family:var(--serif); font-size:clamp(34px,3.3vw,54px);
     line-height:1.08; letter-spacing:-.018em; color:var(--ink); }
   .coach-record { margin-top:34px; padding-top:28px; border-top:1px solid #d7e4d3; }
-  .coach-privacy-link { display:inline-flex; margin-top:22px; padding:0; border:0; background:none;
-    font-family:var(--sans); font-size:clamp(15px,1.2vw,18px); font-weight:700; color:var(--pine); cursor:pointer;
-    text-decoration:underline; text-underline-offset:3px; }
-  .coach-privacy-link:hover { color:var(--pine-soft); }
   .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
     margin-top:48px; padding-top:32px; border-top:1px solid var(--hair);
     display:flex; align-items:center; justify-content:center; text-align:center; gap:16px; flex-wrap:wrap; }
@@ -224,7 +220,6 @@
     max-width:39ch; margin-bottom:14px; }
   .hero-deck:last-of-type { margin-bottom:30px; }
   .hero-actions { display:flex; flex-direction:column; align-items:flex-start; }
-  .hero-copy .copy { min-width:320px; justify-content:center; padding:15px 28px; font-size:16px; }
   .hero-cta { text-decoration:none; }
 
   .product-demo { min-width:0; }
@@ -338,7 +333,6 @@
     .hero h1 { font-size:clamp(32px,10.5vw,44px); line-height:1.08; max-width:none; margin-bottom:20px; }
     .hero-deck { font-size:16px; line-height:1.55; margin-left:0; margin-right:0; margin-bottom:24px; }
     .hero-actions { align-items:flex-start; }
-    .hero-copy .copy { min-width:0; width:100%; }
     .mobile-demo-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px;
       padding:4px; border:1px solid var(--paper-line); border-radius:11px; background:var(--paper-warm); }
     .mobile-demo-tab { appearance:none; border:0; border-radius:8px; background:transparent; color:var(--ink-mut);
@@ -404,7 +398,6 @@
   .execution-prompt { margin:0 0 20px; background:var(--paper-warm); border-left:3px solid var(--pine); }
   .execution-prompt .pb-code { padding:18px 20px; font-size:13px; line-height:1.7; }
   .execution-prompt .aftercopy { background:var(--paper-warm); }
-  .execution-input { min-height:108px; font-size:14px; padding:15px 17px; }
   .execution-step .bd-go { margin-top:13px; }
   .execution-step .copy { width:100%; justify-content:center; }
   .execution-step:last-child { padding-bottom:20px; }
@@ -588,10 +581,10 @@
       <div class="execution-step">
         <div>
           <span class="execution-number">01</span>
-          <h2>Answer five setup questions</h2>
+          <h2>Define exactly what you&rsquo;ll finish</h2>
         </div>
         <div>
-          <p class="execution-lead">Copy the prompt into any AI chat. It turns your answers into one clear work block&mdash;one question at a time.</p>
+          <p class="execution-lead">Copy the prompt into any AI chat. Five quick questions lock in the task, time, boundaries, and finish line.</p>
           <div class="pb-body execution-prompt">
             <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
 2. What are you working on, and what's your window?
@@ -609,7 +602,7 @@
               </p>
             </div>
           </div>
-          <button class="copy" id="copyAgainBtn">Copy interview prompt</button>
+          <button class="copy" id="copyAgainBtn">Copy prompt</button>
         </div>
       </div>
 
@@ -749,9 +742,10 @@ NEVER show the words "sealed" or "lane" to the person; they are internal values 
 Q2 — WORK + TIME. Ask exactly: "What are you working on, and what's your window?" Require a real start time and clock range such as "9:00 – 10:00"; the start time drives the Begin button and the log. Record the block length in minutes. If useful, model a complete answer such as "new chapter, 9–12, 2,000 words."
 
 Q3 — SHAPE THE GOAL. Ask exactly: "What exactly will be finished when the block ends?" The header (`task`) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Never say "header" or "outcome" to the person — restate the finish line plainly (e.g. "So: 2,000 new words on the page."). Then pick jobsShape:
-- "none": atomic, nothing to break down without faking it (write 1,500 words, meditate). Header stands alone.
-- "milestones": atomic but large (1,500 words -> 500/1,000/1,500), only if worth splitting.
+- "none": atomic, with nothing useful to track or break down (meditate, send one email). Header stands alone.
+- "milestones": one large, measurable output (1,500 words -> 500/1,000/1,500).
 - "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
+For a quantified output large enough to track—such as 1,500 words, 12 items, or 20 pages—offer a short cumulative milestone list and ask the person to confirm or edit it. Do not omit milestones for a quantified output unless the person explicitly declines a breakdown. Example: 1,500 words → 500 words / 1,000 words / 1,500 words. These are progress markers, not invented work steps.
 Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
 
 Q4 — THE TRAP. Ask exactly: "Anything that tends to pull you off task — a habit, a distraction, or a temptation? I'll remind you of it."
@@ -809,23 +803,13 @@ Do not add anything else. Then stop.
 <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed product-action data so we can understand use of the site. It never receives anything typed, generated, downloaded, or saved. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
 <p><b>Calendar reminders are optional.</b> If you choose one, you can open a generic reminder in Google Calendar or download a calendar file for another provider. It contains only the reminder time, the words &ldquo;Make tomorrow&rsquo;s Focus File,&rdquo; and a link to focusfile.org. It never includes a task, answer, log, client name, or other Focus File content. Once added, the reminder is handled by your calendar provider under its own terms.</p>
-<p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview defaults to the current setup and this block&rsquo;s result; you can deliberately include today, the last 7 days, or all saved results. Nothing is shared until you paste it.</p>
+<p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview contains the current setup and this block&rsquo;s result. Nothing is shared until you paste it.</p>
 <p><b>For clinicians.</b> Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
 <p>Focus File is not medical or psychological advice.</p>
 </script>
   <script type="text/plain" id="m-feedback"><h2>Feedback</h2>
 <p>Tell us what's working, what's not, or any new ideas.</p>
 <p>Send us an email: <a href="mailto:hello@focusfile.org">hello@focusfile.org</a></p>
-</script>
-
-  <script type="text/plain" id="m-interview"><h2>The interview</h2>
-<p>Five questions, one at a time. It stays with each question until the answer is concrete. What it asks, and why:</p>
-<p><b>1. Is this offline work, or does it need the internet?</b><br><span class="mnote">Sets the block's boundary. Offline work: it asks how you'll turn the internet off (phone in another room, airplane mode, a Freedom session) and keeps that plan on the card. Internet work: it helps you set up a blocker session for just this task — only what the work requires, everything else out for the full window.</span></p>
-<p><b>2. What are you working on, and what's your window?</b><br><span class="mnote">The task and the time. A window (say 9–10:30) gives the block an edge to work against, instead of "until I feel done."</span></p>
-<p><b>3. What exactly will be finished when the block ends?</b><br><span class="mnote">The heart of it. It pushes for an outcome you can't fake past ("1,500 new words," "3 applications out the door"), not a vague "work on it." Steps only if the work needs them: nothing for one clean push, milestones if it's big, a checklist only for genuinely different actions — never padding to look busy.</span></p>
-<p><b>4. Anything that tends to pull you off task?</b><br><span class="mnote">Your specific trap — the thing that feels like progress but isn't (editing instead of writing, "researching" instead of applying). Answer a check-in with "sort of" and the file quotes it back to you. Skip it and the nudge simply doesn't appear.</span></p>
-<p><b>5. Why does finishing this matter to you today?</b><br><span class="mnote">Your reason, kept simple and true ("the draft finally moves," "so I stop dreading it"). Held for when you need it most: answer a check-in with "no" and it returns — from you to you, right when you've drifted furthest.</span></p>
-<p class="mnote" style="margin-top:18px;">The interview builds one block. Make another later, and the last result can come along as optional context — never a requirement.</p>
 </script>
 
   <script>
@@ -998,6 +982,15 @@ Do not add anything else. Then stop.
       if(!input) return;
       var styles=window.getComputedStyle(input);
       var minimum=parseFloat(styles.getPropertyValue('--builder-min-height'))||112;
+      var questionBox=document.querySelector('.execution-prompt');
+      var questionText=document.getElementById('pbCode');
+      if(questionBox&&questionText){
+        var questionStyles=window.getComputedStyle(questionBox);
+        minimum=questionText.getBoundingClientRect().height+
+          (parseFloat(questionStyles.borderTopWidth)||0)+
+          (parseFloat(questionStyles.borderBottomWidth)||0);
+        input.style.setProperty('--builder-min-height',Math.ceil(minimum)+'px');
+      }
       var borders=(parseFloat(styles.borderTopWidth)||0)+(parseFloat(styles.borderBottomWidth)||0);
       input.style.height='auto';
       input.style.height=Math.ceil(Math.max(minimum,input.scrollHeight+borders))+'px';
