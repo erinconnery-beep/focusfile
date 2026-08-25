@@ -18,12 +18,12 @@
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
   :root{
-    --paper:#fdfbf6; --paper-warm:#f3ede1; --paper-line:#e4d9c5; --hair:#f0e8da;
-    --ink:#26241e; --ink-soft:#5c5647; --ink-mut:#665f51; --ink-faint:#6b6557;
-    --pine:#2f6a44; --pine-soft:#3d7a52; --pine-tint:#eef4ea; --clay:#b5642f;
-    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-    --sans: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --mono: "SF Mono", ui-monospace, Menlo, monospace;
+    --paper:#fbfbfa; --paper-warm:#ffffff; --paper-line:#aeb6b1; --hair:#d5d9d6;
+    --ink:#17201c; --ink-soft:#3f4b45; --ink-mut:#5b6761; --ink-faint:#6c7772;
+    --pine:#2f6a44; --pine-soft:#275739; --pine-tint:#edf3ef; --clay:#8f4339;
+    --serif:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --mono:"SF Mono", ui-monospace, Menlo, monospace;
     /* Page type scale. The miniature product preview intentionally has its own compact scale. */
     --type-display:clamp(46px,3.5vw,58px);
     --type-section:clamp(30px,2.5vw,36px);
@@ -405,48 +405,44 @@
   .execution-prompt .pb-code { padding:18px 20px; font-size:13px; line-height:1.7; }
   .execution-prompt .aftercopy { background:var(--paper-warm); }
   .execution-input { min-height:108px; font-size:14px; padding:15px 17px; }
-  .execution-step .bd-go { margin-top:0; }
+  .execution-step .bd-go { margin-top:13px; }
   .execution-step .copy { width:100%; justify-content:center; }
   .execution-step:last-child { padding-bottom:20px; }
 
-  .simplified-after { --coach-pad-x:clamp(26px,4vw,36px); --coach-pad-y:clamp(26px,4vw,36px);
-    max-width:none; margin:44px 0 0; padding:var(--coach-pad-y) var(--coach-pad-x);
-    overflow:hidden; border:1px solid #d7e4d3; border-radius:16px; background:var(--pine-tint); }
+  .simplified-after { --coach-pad-x:25px; --coach-pad-y:23px;
+    max-width:none; margin:28px 0 0; padding:var(--coach-pad-y) var(--coach-pad-x) 0;
+    overflow:hidden; border:2px solid var(--ink); border-radius:0; background:#fff; }
 
   .postscript { max-width:none; margin:0; }
-  .coach-simple { display:grid; grid-template-columns:minmax(180px,.42fr) 1fr;
-    column-gap:clamp(28px,6vw,64px); }
+  .coach-simple { display:grid; grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:42px; }
   #coaches { scroll-margin-top:24px; }
   .coach-simple .coach-kicker { grid-column:1 / -1;
     margin:calc(0px - var(--coach-pad-y)) calc(0px - var(--coach-pad-x)) var(--coach-pad-y);
-    padding:18px var(--coach-pad-x); background:var(--pine); color:var(--paper);
-    font-family:var(--sans); font-size:clamp(18px,2.2vw,22px); font-weight:700;
+    padding:13px var(--coach-pad-x); background:var(--ink); color:var(--paper);
+    font-family:var(--sans); font-size:17px; font-weight:700;
     line-height:1.25; letter-spacing:0; text-transform:none; }
-  .coach-simple h2 { grid-column:1; margin:0; font-size:27px; font-weight:400; line-height:1.14;
+  .coach-simple h2 { grid-column:1; margin:0; font-size:24px; font-weight:700; line-height:1.14;
     letter-spacing:-.025em; }
-  .coach-use-list { grid-column:2; grid-row:2; margin:0; overflow:hidden;
-    border:1px solid #c9d9c5; border-radius:11px; background:rgba(253,251,246,.78); }
-  .coach-use-row { display:grid; grid-template-columns:130px 1fr; gap:20px; padding:16px 18px; }
-  .coach-use-row + .coach-use-row { border-top:1px solid #d7e4d3; }
+  .coach-use-list { grid-column:2; grid-row:2; margin:0; }
+  .coach-use-row { display:grid; grid-template-columns:126px 1fr; gap:18px; padding:0 0 14px; }
+  .coach-use-row + .coach-use-row { padding-top:14px; border-top:1px solid var(--paper-line); }
   .coach-use-row h3 { margin:0; font-family:var(--mono); font-size:var(--type-label); font-weight:700;
     letter-spacing:.14em; line-height:1.5; text-transform:uppercase; color:var(--pine); }
-  .coach-use-row p { margin:0; font-family:var(--sans); font-size:14.5px; line-height:1.5; color:var(--ink-soft); }
-  .coach-great-for { grid-column:1 / -1; margin-top:20px; padding:17px 18px;
-    border:1px solid #c9d9c5; border-radius:11px; background:rgba(253,251,246,.78); }
-  .coach-great-for h3 { margin:0 0 13px; font-family:var(--mono); font-size:var(--type-label);
+  .coach-use-row p { margin:0; font-family:var(--sans); font-size:13.5px; line-height:1.5; color:var(--ink-soft); }
+  .coach-great-for { grid-column:1 / -1; display:grid;
+    grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:42px;
+    align-items:start; margin-top:4px; padding:16px 0; border-top:1px solid var(--paper-line); }
+  .coach-great-for h3 { margin:0; font-family:var(--mono); font-size:var(--type-label);
     font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--pine); }
-  .coach-great-for ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 22px;
-    margin:0; padding:0; list-style:none; }
-  .coach-great-for li { display:flex; align-items:center; gap:9px; font-family:var(--sans);
-    font-size:14.5px; font-weight:700; line-height:1.35; color:var(--ink-soft); }
-  .coach-great-for li span { display:inline-grid; flex:0 0 23px; width:23px; height:23px;
-    place-items:center; border-radius:50%; background:var(--pine); color:var(--paper);
-    font-size:14px; line-height:1; }
+  .coach-great-for ul { display:flex; flex-wrap:wrap; gap:8px 24px; margin:0; padding:0; list-style:none; }
+  .coach-great-for li { display:flex; align-items:baseline; gap:7px; font-family:var(--sans);
+    font-size:13.5px; font-weight:700; line-height:1.35; color:var(--ink-soft); }
+  .coach-great-for li span { display:inline; flex:0 0 auto; width:auto; height:auto;
+    background:none; color:var(--pine); font-size:17px; line-height:1; }
   .coach-privacy-bar { grid-column:1 / -1; display:grid;
-    grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:clamp(28px,6vw,64px);
-    align-items:start; margin:20px calc(0px - var(--coach-pad-x)) calc(0px - var(--coach-pad-y));
-    padding:16px var(--coach-pad-x); border-top:1px solid #d7e4d3;
-    background:rgba(253,251,246,.78); }
+    grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:42px;
+    align-items:start; margin:0 calc(0px - var(--coach-pad-x));
+    padding:16px var(--coach-pad-x); border-top:1px solid var(--paper-line); background:var(--pine-tint); }
   .coach-privacy-bar h3 { margin:0; font-family:var(--mono); font-size:var(--type-label);
     font-weight:700; letter-spacing:.14em; line-height:1.5; text-transform:uppercase;
     color:var(--pine); }
@@ -465,14 +461,15 @@
     .execution-step { padding:36px 0; }
     .execution-step h2 { font-size:29px; }
     .execution-step:last-child { padding-bottom:0; }
-    .simplified-after { margin-top:40px; }
-    .simplified-after { --coach-pad-x:20px; --coach-pad-y:24px; }
+    .simplified-after { --coach-pad-x:17px; --coach-pad-y:20px; margin-top:25px; }
     .coach-simple { grid-template-columns:1fr; }
-    .coach-simple h2 { grid-column:1; margin-bottom:20px; font-size:25px; }
+    .coach-simple h2 { grid-column:1; margin-bottom:17px; font-size:22px; }
     .coach-use-list { grid-column:1; grid-row:auto; }
-    .coach-use-row { grid-template-columns:1fr; gap:7px; padding:16px; }
-    .coach-great-for ul { grid-template-columns:1fr; }
-    .coach-privacy-bar { grid-template-columns:1fr; gap:6px; }
+    .coach-use-row { grid-template-columns:1fr; gap:5px; padding:0 0 13px; }
+    .coach-use-row + .coach-use-row { padding-top:13px; }
+    .coach-great-for { grid-template-columns:1fr; gap:9px; padding:15px 0; }
+    .coach-great-for ul { display:grid; gap:7px; }
+    .coach-privacy-bar { grid-template-columns:1fr; gap:5px; padding:15px var(--coach-pad-x); }
   }
   @media (prefers-reduced-motion:reduce){
     html { scroll-behavior:auto; }
@@ -482,14 +479,6 @@
 
   /* DESIGN 03 — EVIDENCE LEDGER
      Rule-based, high-legibility, and deliberately unembellished. */
-  :root{
-    --paper:#fbfbfa; --paper-warm:#ffffff; --paper-line:#aeb6b1; --hair:#d5d9d6;
-    --ink:#17201c; --ink-soft:#3f4b45; --ink-mut:#5b6761; --ink-faint:#6c7772;
-    --pine:#2f6a44; --pine-soft:#275739; --pine-tint:#edf3ef; --clay:#8f4339;
-    --serif:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    --mono:"SF Mono", ui-monospace, Menlo, monospace;
-  }
   body { font-family:var(--sans); background:var(--paper); line-height:1.45; }
   .wrap { max-width:960px; padding:0 28px 30px; }
   .hero { display:block; padding:34px 0 18px; text-align:left; }
@@ -505,8 +494,10 @@
     border-left:1px solid var(--paper-line); border-radius:0; }
   .execution-prompt .pb-code { padding:14px 15px; font-size:12px; line-height:1.55; }
   .execution-prompt .aftercopy { background:#fff; }
-  .execution-input { min-height:92px; padding:13px 14px; border:1px solid var(--paper-line);
-    border-radius:0; background:#fff; }
+  .execution-input { display:block; --builder-min-height:154px; height:var(--builder-min-height);
+    min-height:var(--builder-min-height); max-width:100%; padding:13px 14px;
+    overflow-x:hidden; overflow-y:hidden; white-space:pre-wrap; overflow-wrap:anywhere;
+    border:1px solid var(--paper-line); border-radius:0; background:#fff; }
   .copy { min-height:42px; padding:11px 19px; border-radius:0; background:var(--pine); font-size:13.5px; }
   .download-result { padding:16px 0 0; border-top:2px solid var(--ink); background:#fff; }
   .download-result-title { margin:0; font-size:17px; font-weight:750; line-height:1.3; color:var(--pine); }
@@ -536,20 +527,9 @@
   .reminder-custom select,.reminder-custom input { min-height:40px; box-sizing:border-box;
     padding:8px 9px; border:1px solid var(--paper-line); border-radius:0; background:#fff;
     color:var(--ink); font:13px var(--sans); }
-  .reminder-disclosure,.reminder-status { margin:10px 0 0; font-size:11.5px; line-height:1.45;
+  .reminder-status { margin:10px 0 0; font-size:11.5px; line-height:1.45;
     color:var(--ink-faint); }
   .reminder-status { color:var(--pine); font-weight:700; }
-  .simplified-after { --coach-pad-x:25px; --coach-pad-y:23px; margin:28px 0 0;
-    border:2px solid var(--ink); border-radius:0; background:#fff; }
-  .coach-simple .coach-kicker { padding:13px var(--coach-pad-x); background:var(--ink); font-size:17px; }
-  .coach-simple h2 { font-size:24px; font-weight:700; }
-  .coach-use-list,.coach-great-for { border-color:var(--paper-line); border-radius:0; background:#fff; }
-  .coach-use-row { padding:13px 15px; }
-  .coach-use-row + .coach-use-row { border-color:var(--paper-line); }
-  .coach-use-row p,.coach-great-for li { font-size:13.5px; }
-  .coach-great-for { margin-top:14px; padding:14px 15px; }
-  .coach-great-for li span { border-radius:2px; }
-  .coach-privacy-bar { margin-top:15px; border-color:var(--paper-line); background:var(--pine-tint); }
   .modal { border:2px solid var(--ink); border-radius:0; }
   @media (max-width:700px){
     .wrap { padding:0 17px 26px; }
@@ -557,8 +537,8 @@
     .hero h1 { font-size:clamp(35px,10.5vw,44px); }
     .execution-step { grid-template-columns:1fr; gap:12px; padding:21px 0; }
     .execution-step h2 { font-size:22px; }
+    .execution-input { --builder-min-height:112px; }
     .download-result-actions,.reminder-choices,.reminder-custom-controls,.reminder-provider-choices { grid-template-columns:1fr; }
-    .simplified-after { --coach-pad-x:17px; --coach-pad-y:20px; margin-top:25px; }
   }
 </style>
 <!-- Google Analytics receives page data and fixed-name product events. No Focus File content is sent. -->
@@ -641,13 +621,13 @@
         <div>
           <div id="builderForm">
             <p class="execution-lead">Paste the plan the AI gives you. Your private Focus File downloads instantly.</p>
-            <textarea class="bd-input execution-input" id="cfgInput" rows="6" spellcheck="false" placeholder="Paste plan here"></textarea>
-            <button class="copy bd-go" id="buildBtn">Create &amp; download Focus File</button>
+            <textarea class="bd-input execution-input" id="cfgInput" rows="4" spellcheck="false" placeholder="Paste plan here"></textarea>
+            <button class="copy bd-go" id="buildBtn">Download my Focus File</button>
             <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
             <details class="execution-examples">
               <summary>Want an example?</summary>
               <div class="execution-example-links">
-                <a href="sample-writing.html" download="focus-file-writing-example.html">Draft 1,500 words</a>, <a href="sample-jobsearch.html" download="focus-file-job-search-example.html">submit 3 applications</a>, or <a href="sample-study.html" download="focus-file-study-example.html">recall 12 cranial nerves</a>.
+                <a href="sample-writing.html" target="_blank" rel="noopener">Draft 1,500 words</a>, <a href="sample-jobsearch.html" target="_blank" rel="noopener">submit 3 applications</a>, or <a href="sample-study.html" target="_blank" rel="noopener">recall 12 cranial nerves</a>.
               </div>
             </details>
           </div>
@@ -659,7 +639,7 @@
               <button class="reminder-toggle" id="reminderToggle" type="button" aria-expanded="false" aria-controls="reminderSetup">Set a recurring reminder</button>
             </div>
             <div class="reminder-setup" id="reminderSetup" hidden>
-              <p class="reminder-question">When should we remind you to make tomorrow&rsquo;s Focus File?</p>
+              <p class="reminder-question">When would you like to be reminded to make tomorrow&rsquo;s Focus File?</p>
               <div class="reminder-choices">
                 <button class="reminder-choice" type="button" data-reminder-repeat="weekdays" data-reminder-time="19:00">Weeknights at 7 PM</button>
                 <button class="reminder-choice" type="button" data-reminder-repeat="daily" data-reminder-time="19:00">Every night at 7 PM</button>
@@ -686,7 +666,6 @@
                   <button class="reminder-choice" id="reminderOtherCalendar" type="button">Apple, Outlook, or other</button>
                 </div>
               </div>
-              <p class="reminder-disclosure">No Focus File content is added to your calendar.</p>
               <p class="reminder-status" id="reminderStatus" role="status" aria-live="polite"></p>
             </div>
           </div>
@@ -700,15 +679,15 @@
       <div class="coach-use-list">
         <div class="coach-use-row">
           <h3>01 &middot; In session</h3>
-          <p>Identify the client&rsquo;s goal, the habit or avoidance pattern that gets in the way, and the specific reminder or action that can interrupt it.</p>
+          <p>Name the client&rsquo;s goal, the pattern that gets in the way, and the reminder or action that can interrupt it.</p>
         </div>
         <div class="coach-use-row">
           <h3>02 &middot; Build together</h3>
-          <p>At the end of a session, turn the client&rsquo;s clarity and readiness to act into a Focus File. Their own words become the goal, boundaries, and check-ins they carry between sessions.</p>
+          <p>Turn the session&rsquo;s clarity into a Focus File. Their words become the goal, boundaries, and check-ins they carry between sessions.</p>
         </div>
         <div class="coach-use-row">
           <h3>03 &middot; Next session</h3>
-          <p>Review the Focus File log to see what was finished, what helped, and what pulled them off across the week, rather than relying on memory alone.</p>
+          <p>Review what was finished, what helped, and what pulled them off&mdash;without relying on memory alone.</p>
         </div>
       </div>
       <div class="coach-great-for">
@@ -830,7 +809,7 @@ Then stop.
 <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
 <p><b>Everything stays on the device where Focus File is used.</b> Settings, files, and logs never reach us&mdash;we have no accounts, no storage, and no way to read what is written. Even the builder runs in the browser. Google Analytics receives page, referral, device, and fixed product-action data so we can understand use of the site. It never receives anything typed, generated, downloaded, or saved. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
 <p><b>Calendar reminders are optional.</b> If you choose one, you can open a generic reminder in Google Calendar or download a calendar file for another provider. It contains only the reminder time, the words &ldquo;Make tomorrow&rsquo;s Focus File,&rdquo; and a link to focusfile.org. It never includes a task, answer, log, client name, or other Focus File content. Once added, the reminder is handled by your calendar provider under its own terms.</p>
-<p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview includes today&rsquo;s results and the saved history required to carry learning forward; nothing is shared until you paste it.</p>
+<p><b>One exception: AI handoffs.</b> The AI chat you choose sees what you paste or type there, under that provider&rsquo;s own terms and privacy policy. Initial setup needs no personal details. The optional next-file interview defaults to the current setup and this block&rsquo;s result; you can deliberately include today, the last 7 days, or all saved results. Nothing is shared until you paste it.</p>
 <p><b>For clinicians.</b> Focus File does not receive or store client information. Any result a client chooses to share with you is governed by the policies you already follow. Whether HIPAA or a business associate agreement applies depends on how your organization uses and handles that information. See HHS&rsquo;s <a href="https://www.hhs.gov/hipaa/for-professionals/special-topics/health-apps/index.html" target="_blank" rel="noopener">health apps guidance</a>. Not legal advice.</p>
 <p>Focus File is not medical or psychological advice.</p>
 </script>
@@ -1015,6 +994,15 @@ Then stop.
       errorMessage:builderPlanError
     });
 
+    function resizeBuilderTextarea(input){
+      if(!input) return;
+      var styles=window.getComputedStyle(input);
+      var minimum=parseFloat(styles.getPropertyValue('--builder-min-height'))||112;
+      var borders=(parseFloat(styles.borderTopWidth)||0)+(parseFloat(styles.borderBottomWidth)||0);
+      input.style.height='auto';
+      input.style.height=Math.ceil(Math.max(minimum,input.scrollHeight+borders))+'px';
+    }
+
     (function(){
       var b=document.getElementById('buildBtn'); if(!b) return;
       var form=document.getElementById('builderForm');
@@ -1031,6 +1019,11 @@ Then stop.
       var otherCalendar=document.getElementById('reminderOtherCalendar');
       var reminderStatus=document.getElementById('reminderStatus');
       var selectedReminder=null;
+
+      function resizeInput(){ resizeBuilderTextarea(input); }
+      input.addEventListener('input',resizeInput);
+      window.addEventListener('resize',resizeInput);
+      resizeInput();
 
       function pad(value){ return String(value).padStart(2,'0'); }
       function localStamp(date){
@@ -1082,7 +1075,7 @@ Then stop.
           'UID:'+uid,
           'DTSTAMP:'+utcStamp(now),
           'DTSTART:'+localStamp(start),
-          'DURATION:PT10M',
+          'DURATION:PT5M',
           repeat==='weekdays'?'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR':'RRULE:FREQ=DAILY',
           'SUMMARY:'+escapeCalendarText("Make tomorrow's Focus File"),
           'DESCRIPTION:'+escapeCalendarText("Five questions, then you're done.\nhttps://www.focusfile.org/#setup"),
@@ -1100,7 +1093,7 @@ Then stop.
       }
       function googleReminderUrl(repeat,time,nowValue){
         var start=nextReminderDate(repeat,time,nowValue);
-        var end=new Date(start.getTime()+10*60*1000);
+        var end=new Date(start.getTime()+5*60*1000);
         var recurrence=repeat==='weekdays'?'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR':'RRULE:FREQ=DAILY';
         var params=new URLSearchParams({
           action:'TEMPLATE',
@@ -1216,6 +1209,7 @@ Then stop.
         result.hidden=true;
         form.hidden=false;
         input.value='';
+        resizeInput();
         reminderSetup.hidden=true;
         reminderToggle.setAttribute('aria-expanded','false');
         customPanel.hidden=true;
