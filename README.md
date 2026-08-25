@@ -4,9 +4,9 @@ A free, offline focus tool.
 
 You answer five setup questions in any AI chat. The AI returns a small Focus File plan; paste it into the site and the site downloads a self-contained HTML page that holds one block of work. Open it when the block begins. If the work can be offline, disconnect; if it genuinely needs the internet, use a task-specific blocker. The file keeps the task and reason visible, quietly tracks time, and checks in about every half hour using the user’s own words.
 
-When you're done, the file automatically reports time spent versus expected and any checked steps or milestones, including the latest completed word milestone. The quick checkout asks what helped the user stay focused, what distracted or pulled focus, and where to start next time. All three answers may be left blank, and blank or “nothing” answers never become learning signals. The file then turns its saved results into a local **What you're learning** report: repeated helpful cues, repeated distractions, and time spent versus expected. Check-ins stay in the saved results; they are never converted into a score.
+When you're done, the file automatically reports time spent versus expected and any checked steps, including the latest completed word target. Beneath that record it asks what pulled the user off task, what worked well enough to repeat, and where the user will start next session. All three answers may be left blank, and blank or “nothing” answers never become learning signals. Check-ins stay in the saved results; they are never converted into a score.
 
-What happens after that is the user's choice: stop there, make another Focus File, review the learning report and its underlying results, or copy a result to discuss with a therapist, coach, or anyone else helping them. Those are separate possible uses, not required steps in one loop.
+What happens after that is the user's choice: stop there, make a new Focus File, carry the current result into a new five-question interview, view all results, or download all results. Those are separate possible uses, not required steps in one loop.
 
 No account. The site does not upload or store your setup plan, Focus File, or log. The AI interview is governed by the provider you choose; the homepage uses Google Analytics for pageviews and fixed-name product actions. It never sends task text, interview answers, plans, Focus Files, or logs.
 
@@ -21,20 +21,20 @@ Site: **https://www.focusfile.org/**
    For quantified work large enough to track, Q3 offers a short cumulative milestone checklist and asks the person to confirm or edit it. The AI may omit those milestones only when the person explicitly declines a breakdown.
 3. **Make the file.** Paste the labeled plan into “02 — Make the file” and choose **Download my Focus File**. The site converts the plan into its internal configuration, inserts it into the Focus File template, and downloads the self-contained file. Each download gets a clean session-based name such as `Focus File — Aug 24, 9 AM.html`; the task stays inside the file rather than leaking into its filename. The builder confirms the exact filename without guessing where the browser saved it. An optional, secondary control can create a generic recurring reminder in Google Calendar or another calendar. Existing internal JSON plans remain accepted for backward compatibility, but new users never need to see or handle JSON.
 4. **Work inside the boundary.** Open the file when the block begins. Disconnect when the work allows it. For internet-required work, the interview recommends a task-specific Freedom.to session that keeps only required sites and apps available; another effective blocker is also acceptable.
-5. **Record the result.** The fast exit automatically reports time spent versus expected and checked milestones or steps, then asks what helped the user stay focused, what distracted or pulled focus, and where to start next time. All three answers may be left blank. The file infers a backward-compatible internal completion status from checked steps when available; it never makes the user choose one. Blank answers and non-signals such as “nothing” are never carried forward as KEEP or counted as a recurring distraction.
-6. **Learn locally.** The file compares the saved results it can access and builds the learning report in the browser.
+5. **Record the result.** The fast exit automatically reports time spent versus expected and checked steps, then asks what pulled the user off task, what worked well enough to repeat, and where the user will start next session. All three answers may be left blank. The file infers a backward-compatible internal completion status from checked steps when available; it never makes the user choose one. Blank answers and non-signals such as “nothing” are never carried forward as KEEP or counted as a recurring distraction.
+6. **Keep the evidence locally.** The saved-result screen shows one concise record. The full retained history is available only when the user chooses **View all results** or **Download all results**.
 
 **KEEP is earned, not interviewed.** A first Focus File has no KEEP field. A continuation carries KEEP forward only when the previous file’s most recent exit log records something concrete that actually helped. With no proven help, KEEP is omitted again; it is never blank, invented, or turned into a sixth setup question.
 
-The Focus File is complete at that point. Its result screen offers optional exits: close the file, copy one next-file interview, inspect the full log, download it, or clear the saved log.
+The Focus File is complete at that point. Its result screen shows the current record once. Under **Set up your next session**, **Use this result** copies a new interview using the saved result as context, while **New file** copies the fresh five-question prompt. Only the most recently copied choice shows confirmation, and each choice gets its own handoff explanation. Compact controls in the result card let the user view or download all results.
 
-The concise learning report stays visible after a result is saved. It defaults to **Today** and shows three useful tallies: average time spent versus expected, what helped over time, and what pulled the user off over time. The range may be changed to the last 7 days, last 14 days, or all history. Deliberate 30-minute extensions remain part of the expected time so intentional extra work is not treated as unexplained overtime. **Clear log** asks for confirmation, then removes all saved results from that browser and resets the learning tallies. To keep a standalone file responsive, Focus File retains the most recent 100 structured results available to that file.
+The current record contains the date and task, condition, time spent versus expected, check-ins, trackable progress, and any reflection answers the user supplied. Unanswered reflection rows and untrackable progress are omitted. Deliberate 30-minute extensions remain part of expected time so intentional extra work is not treated as unexplained overtime. **Clear log** lives inside **View all results**, asks for confirmation, and removes all saved results from that browser. To keep a standalone file responsive, Focus File retains the most recent 100 structured results available to that file.
 
 The Focus File runs entirely in the browser with no internet connection. Its current entries live in browser storage and can be viewed or downloaded. If browser storage is disabled, full, or unavailable, the result remains usable in the open tab and the file warns the user to download the log before closing. Private-browsing behavior varies: some browsers keep this storage only until the private session closes, so download anything that must outlast that session.
 
 **Copy next-file interview** uses the smallest private scope: the current setup and this block’s result. The current setup is presented as optional guidance the user may keep, change, or ignore. The AI conducts a fresh five-question interview and returns one labeled `FOCUS FILE` plan—never JSON, the HTML template, or a generated HTML file—followed by one direct instruction to open focusfile.org and paste it into **Make the file**. KEEP is drawn only from concrete help in that result.
 
-Browser timers can be delayed when a tab is in the background or a device is asleep. When the tab becomes visible or the window regains focus, the file checks the saved schedule and immediately shows one overdue check-in when appropriate. An active scheduled question stays visible until answered; the normal self-check remains in its original position. The title change, sound, flash, and tailored reminders remain intact.
+Browser timers can be delayed when a tab is in the background or a device is asleep. When the tab becomes visible or the window regains focus, the file checks the saved schedule and immediately shows one overdue check-in when appropriate. An active scheduled question stays visible until answered; the normal self-check remains in its original position. The title change, sound, and flash remain intact. After an answer, the file highlights either **Avoid** or **Why it matters** in place rather than repeating the same text in another reminder panel. The former preview control is intentionally absent because a real scheduled check-in already demonstrates the behavior.
 
 That one-copy handoff remains local until the user pastes it into an AI, at which point that provider’s terms and privacy policy apply. Pressing Copy sends nothing.
 
@@ -46,8 +46,8 @@ A person can use the report alone, or someone helping them can review only the r
 
 The public page is intentionally ordered around execution rather than explanation:
 
-1. **Short promise:** “Finish what you set out to do.”
-2. **01 — Define exactly what you’ll finish:** Show the five quick questions and one clear action to copy the prompt.
+1. **Short promise:** “Keep the work in front of you.”
+2. **01 — Choose one clear objective:** Show the five focused questions and one clear action to copy the prompt.
 3. **02 — Make the file:** Paste the returned Focus File plan and download the file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
 4. **For coaches and therapists:** A charcoal header and clean white evidence panel show the three-step workflow: name the goal and interrupting action, build from the session’s clarity, and review what happened without relying on memory alone. Simple rules separate the steps; plain green ticks identify three ADHD-coaching uses without looking interactive. A pale-green privacy band closes the section.
 
@@ -61,7 +61,7 @@ The Focus File logo and **Notes** dropdown remain in the header at every width. 
 | --- | --- | --- |
 | `index.html` | **The website** — landing page, the short prompt + Copy button, and the "Build your file" box. | **Yes** |
 | `focus-file-logo.svg` | The worksheet logo used in the site header and browser tab. | **Yes** |
-| `focus-file-social.png` | The 1200×630 social preview card referenced by the homepage metadata. | **Yes** |
+| `focus-file-social-v2.png` | The 1200×630 social preview card referenced by the homepage metadata. | **Yes** |
 | `focus-file.html` | **The focus-file template.** The builder fetches this file to construct each focus file. **The site breaks without it.** | **Yes** |
 | `sample-writing.html` | A downloadable writing Focus File demonstrating offline work and milestones. | **Yes** |
 | `sample-jobsearch.html` | A downloadable job-search Focus File demonstrating internet-required work and a checklist. | **Yes** |
@@ -72,7 +72,7 @@ The Focus File logo and **Notes** dropdown remain in the header at every width. 
 | `LICENSE` | MIT license. | Repository only |
 | `ANALYTICS.md` | The small measurement plan and GA4 verification notes. | Repository only |
 
-**Deploy set:** `index.html`, `focus-file-logo.svg`, `focus-file-social.png`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all seven must go up together. The homepage uses the SVG logo and social card, the builder fetches `focus-file.html`, and the site's sample links point to the three `sample-*.html` files.
+**Deploy set:** `index.html`, `focus-file-logo.svg`, `focus-file-social-v2.png`, `focus-file.html`, `sample-writing.html`, `sample-jobsearch.html`, `sample-study.html` — all seven must go up together. The homepage uses the SVG logo and social card, the builder fetches `focus-file.html`, and the site's sample links point to the three `sample-*.html` files.
 
 ---
 
@@ -83,7 +83,7 @@ The deployed site is static HTML—no framework or server-side dependencies. The
 **Vercel project settings:** use the repository root as the Root Directory, choose no framework preset, and leave the build command empty. The files are served directly from the repository root. `www.focusfile.org` is configured in the Vercel project’s Domains settings; there is no GitHub Pages `CNAME` file.
 
 **To update:**
-1. Add the changed deploy files to the GitHub repository root: `index.html`, `focus-file-logo.svg`, `focus-file-social.png`, `focus-file.html`, and the three `sample-*.html` files.
+1. Add the changed deploy files to the GitHub repository root: `index.html`, `focus-file-logo.svg`, `focus-file-social-v2.png`, `focus-file.html`, and the three `sample-*.html` files.
 2. Commit and push. Vercel builds and publishes the new static deployment automatically.
 
 **After it deploys:** copy the prompt, run it in an AI, and confirm it returns one labeled Focus File plan followed by the direct instruction to open focusfile.org and paste the block into **Make the file**. Paste the plan into the builder and confirm a Focus File downloads. Complete a sample block and verify that **Copy next-file interview** uses only the current setup and this block’s result and follows the same plan-plus-instruction handoff—not JSON or HTML. Then confirm the Writing, Job search, and Study example links each open a distinct sample file. Clipboard and download work on the live `https://` site.
@@ -109,12 +109,12 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 - **One brand accent.** Use charcoal and white as the working palette, with the existing logo green as the only non-semantic accent. Reserve muted red for warnings, errors, and destructive actions. Do not introduce competing blue, beige, gradient, or decorative color roles.
 - **Evidence-led structure.** Use sharp borders, visible rules, square controls, and restrained surfaces. Avoid decorative shadows, oversized rounded cards, overlapping panels, and lifestyle-product styling.
 - **Disciplined type.** Use the system sans-serif for headlines, body copy, instructions, buttons, and controls. Use monospace only for small numbered steps, timestamps, counters, and uppercase evidence labels. Keep type highly legible offline and prevent dangling final words at each breakpoint.
-- **Compact hero.** Lead with “Finish what you set out to do.” and move directly into step 01. Do not leave a large empty gap between the promise and the tool.
+- **Compact hero.** Lead with “Keep the work in front of you.” and move directly into step 01. Do not leave a large empty gap between the promise and the tool.
 - **Two numbered actions.** Step 01 shows the five questions and one clear full-width Copy button. Step 02 keeps the textarea visually connected to the matching **Download my Focus File** button, then replaces it with a compact filename confirmation—no redundant instruction about when to open the file. Its follow-up controls form one clear pair: a filled primary “Make another Focus File” button first, then an outlined “Set a recurring reminder” button. The reminder setup stays collapsed. Do not add top-level Answer → Make → Work cards.
 - **Integrated examples.** Keep examples compact and inside step 02. Never leave them floating above the footer or create a competing examples section.
 - **Professional use is a primary audience.** Give the coach/therapist section a strong charcoal header band, a clean white evidence panel, green status cues, the In session → Build together → Next session process, the three checked ADHD-coaching uses, and one compact privacy sentence.
 - **Compact rhythm.** Use short, consistent vertical intervals and rules to separate tasks. Keep prompt and Copy connected, textarea and Download connected, and enough neutral space between the primary action and professional section to preserve hierarchy without dead space.
-- **Carry the system through the tool.** Apply the same typography, palette, rules, square controls, compact spacing, and evidence labels to the working Focus File, check-ins, exit form, learning report, and saved log.
+- **Carry the system through the tool.** Apply the same typography, palette, rules, square controls, compact spacing, and evidence labels to the working Focus File, check-ins, exit form, current result, and saved log.
 - **Mobile is an instrument, not scaled desktop.** At 320px and 375px, stack step labels above their content, keep buttons full width, keep the prompt readable without horizontal scrolling, reduce hero size and section gaps, and prevent overflow or isolated one-word lines. Also verify 768px, 1024px, and 1440px.
 - **Preview before replacement.** Produce a complete clickable preview and receive explicit approval before replacing an established site design.
 
@@ -122,13 +122,12 @@ Edits flow one direction — never hand-edit generated regions. Run `python3 bui
 
 - **Decide once, then just begin.** The setup ends fast so the doing can start. It plans just enough to begin, not enough to keep you planning.
 - **It thinks with you, not for you.** It helps shape the work but builds nothing until you approve it.
-- **Accountability in your own words.** The knock replays what *you* said: your task, your reason, your usual escape.
+- **Accountability in your own words.** The working file keeps the reason and usual escape visible once; a check-in points back to the relevant cue without repeating it.
 - **Offline when possible; tightly bounded when not.** Internet-required work gets a task-specific blocker plan rather than an unrestricted browser window.
-- **The result is evidence; the report makes it useful.** The block ends with an accurate record, then the local report compares the evidence it actually has. It labels one block as a signal rather than pretending it is already a pattern.
-- **A count needs a timeframe.** The report names its date span and can show today, 7 days, 14 days, all history, or a new report window the user starts deliberately.
+- **The result is evidence.** The block ends with one concise record of the facts and the user's own reflections, without adding a dashboard or invented interpretation.
 - **No invented insight or judgment.** Repeated wording is counted; differently worded answers remain separate, and check-ins never become a score.
 - **Time is evidence, not a grade.** The report shows actual versus planned minutes and the difference in plain language; it does not convert time into a performance percentage.
-- **The user chooses the exit.** A result can stand alone, seed another file, feed the learning report, or be copied for discussion. None of those later uses is required.
+- **The user chooses the exit.** A result can stand alone, seed another file, remain in the full history, or be downloaded for discussion. None of those later uses is required.
 - **Evidence without surveillance.** The user owns the file and log. They can review it alone or choose to bring a result to a therapist, coach, or other person helping them.
 - **The file holds the commitment between sessions.** Made ahead of time, it waits open beside the work like a note from an earlier self.
 - **Why a file?** No account and no dashboard asking for attention. The file and log work with Wi-Fi off; when the task needs the internet, that access belongs to the task rather than the tool.

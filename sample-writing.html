@@ -149,7 +149,6 @@ window.addEventListener("DOMContentLoaded", function () {
     letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mut); }
   .ps-meta { font-family: -apple-system, system-ui, sans-serif; font-size: 12.5px; color: var(--ink-faint);
     margin-top: 7px; font-variant-numeric: tabular-nums; }
-  .ps-meta .cl-sep { color: var(--paper-line); margin: 0 4px; }
   .clockline {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 11px;
@@ -198,6 +197,21 @@ window.addEventListener("DOMContentLoaded", function () {
     font-size: 12px;
     font-weight: 600;
     color: var(--ink-mut);
+  }
+  .time-progress {
+    display: none;
+    height: 6px;
+    margin-top: 15px;
+    background: var(--paper-line);
+    overflow: hidden;
+  }
+  .time-progress.on { display: block; }
+  .time-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--pine);
+    transition: width .25s linear;
   }
   /* ---------- Lane strip ---------- */
   .lane {
@@ -295,6 +309,20 @@ window.addEventListener("DOMContentLoaded", function () {
     font-style: italic;
     color: var(--ink-soft);
     line-height: 1.5;
+  }
+  .why-matters {
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .why-matters-label { color: var(--pine); }
+  .cue-card { transition: background-color .16s, box-shadow .16s; }
+  .cue-card.cue-active {
+    background: var(--pine-tint);
+    box-shadow: inset 5px 0 0 var(--pine);
+  }
+  .why.cue-active {
+    background: var(--clay-tint);
+    box-shadow: inset 5px 0 0 var(--clay);
   }
 
   /* ---------- Jobs ---------- */
@@ -418,7 +446,7 @@ window.addEventListener("DOMContentLoaded", function () {
     z-index: 60;
     left: 50%;
     bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    width: min(580px, calc(100vw - 28px));
+    width: min(760px, calc(100vw - 28px));
     max-height: calc(100dvh - 24px - env(safe-area-inset-bottom, 0px));
     overflow-y: auto;
     transform: translateX(-50%);
@@ -482,20 +510,6 @@ window.addEventListener("DOMContentLoaded", function () {
     .checkin.scheduled-asking .knock-answers button { padding-left: 5px; padding-right: 5px; }
   }
 
-  .knock-reason {
-    display: none;
-    font-size: 15px;
-    font-style: italic;
-    color: var(--ink-soft);
-    border-left: 2px solid var(--paper-line);
-    padding-left: 14px;
-    margin: 0 auto 18px;
-    max-width: 40ch;
-    text-align: left;
-    line-height: 1.45;
-  }
-  .knock-reason.on { display: block; }
-
   .knock-answers {
     display: flex;
     gap: 10px;
@@ -522,33 +536,12 @@ window.addEventListener("DOMContentLoaded", function () {
   .k-no   { border: 1.5px solid var(--clay); color: var(--clay); }
   .k-no:hover   { background: var(--clay); color: var(--paper); }
 
-  /* the finish-feeling pull, shown on sort-of / no */
-  .pull { display: none; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--hair); }
-  .pull.on { display: block; }
-  .pull-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 10px;
-  }
-  .pull-text {
-    font-size: 16px;
-    font-style: italic;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    margin: 0 auto;
-    max-width: 42ch;
-  }
-
-  /* preview the knock */
-  .preview-row {
+  /* Session timing and finish controls. */
+  .session-row {
     margin-top: 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 4px 14px;
   }
@@ -560,7 +553,7 @@ window.addEventListener("DOMContentLoaded", function () {
     padding: 8px 4px;
   }
   .next-knock:empty { display: none; }
-  .preview-link {
+  .session-link {
     display: inline-block;
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 12px;
@@ -573,7 +566,7 @@ window.addEventListener("DOMContentLoaded", function () {
     transition: color 0.15s;
     padding: 10px 8px;   /* larger tap target — comfortable to press */
   }
-  .preview-link:hover { color: var(--ink-soft); }
+  .session-link:hover { color: var(--ink-soft); }
 
   /* ---------- Block-end ---------- */
   .blockend {
@@ -643,13 +636,7 @@ window.addEventListener("DOMContentLoaded", function () {
   /* ---------- Exit ---------- */
   .exit { display: none; padding: 30px 28px; }
   .exit.on { display: block; }
-  .exit-eyebrow { color: var(--pine-soft); margin-bottom: 16px; }
-  .exit-title {
-    font-size: 22px;
-    line-height: 1.2;
-    color: var(--ink);
-    margin-bottom: 24px;
-  }
+  .exit-eyebrow { color: var(--pine-soft); margin-bottom: 20px; }
   .exit-q {
     display: block;
     font-family: -apple-system, system-ui, sans-serif;
@@ -723,14 +710,18 @@ window.addEventListener("DOMContentLoaded", function () {
     padding-left: 10px;
     text-align: left;
   }
-  .result-actions {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 9px;
-    max-width: 480px;
-    margin: 0 auto;
+  .result-actions { display:grid; gap:9px; margin:0; }
+  .result-actions-heading {
+    margin: 0;
+    color: var(--ink);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.025em;
   }
-  .btn-buildnext, .result-action {
+  .result-actions-heading span { color:var(--pine); }
+  .btn-buildnext, .btn-newfile {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -748,116 +739,40 @@ window.addEventListener("DOMContentLoaded", function () {
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
   }
-  .btn-buildnext:hover, .result-action:hover { background: var(--pine-tint); }
+  .btn-buildnext:hover, .btn-newfile:hover { background: var(--pine-tint); }
+  .result-history-actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 8px 14px 9px;
+    border-top: 1px solid var(--paper-line);
+  }
+  .result-history-action {
+    min-height: 38px;
+    padding: 6px 2px;
+    border: 0;
+    background: transparent;
+    color: var(--pine);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .result-history-action:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .result-privacy-note {
+    margin: -2px 14px 12px;
+    color: var(--ink-mut);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    text-align: center;
+  }
   .next-links { display:none; margin-top:14px; }
   .next-links.on { display:block; }
   .nl-lead { font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:var(--ink-mut); margin-bottom:6px; }
   .nl-row { font-family:-apple-system,system-ui,sans-serif; font-size:15px; font-weight:600; }
   .nl-row a { color:var(--pine); text-decoration:underline; text-underline-offset:2px; }
   .nl-sep { color:var(--paper-line); margin:0 8px; }
-  .learning-report {
-    max-width: 480px;
-    margin: 0 auto 22px;
-    border: 1.5px solid var(--pine);
-    border-radius: 13px;
-    background: var(--pine-tint);
-    text-align: left;
-  }
-  .learning-report-head {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:15px 16px;
-  }
-  .learning-report-head { border-bottom:1px solid var(--paper-line); }
-  .learning-body { padding:14px 16px 16px; }
-  .learning-kicker {
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--pine);
-    margin-bottom: 0;
-  }
-  .learning-head {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-bottom: 8px;
-  }
-  .learning-window {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--ink-mut);
-  }
-  .learning-window select {
-    min-height: 30px;
-    border: 1px solid var(--pine-chip);
-    border-radius: 7px;
-    background: rgba(255,255,255,.75);
-    color: var(--ink-soft);
-    font: inherit;
-    padding: 5px 24px 5px 8px;
-  }
-  .learning-summary {
-    font-size: 13px;
-    font-weight:700;
-    line-height: 1.25;
-    color: var(--ink-soft);
-    margin:0;
-  }
-  .learning-time {
-    margin-bottom: 10px;
-    border: 1px solid var(--pine-chip);
-    border-radius: 9px;
-    background: rgba(255,255,255,.58);
-    padding: 12px 13px;
-  }
-  .learning-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .learning-signal {
-    border: 1px solid var(--pine-chip);
-    border-radius: 9px;
-    background: rgba(255,255,255,.58);
-    padding: 12px 13px;
-  }
-  .learning-label {
-    display: block;
-    font-family: var(--mono);
-    font-size: 8.5px;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--pine);
-    margin-bottom: 6px;
-  }
-  .learning-signal.pulled .learning-label { color: var(--clay); }
-  .learning-text {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    line-height: 1.48;
-    color: var(--ink-soft);
-  }
-  .learning-list { margin: 0; padding-left: 17px; }
-  .learning-list li + li { margin-top: 5px; }
-  .result-secondary {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
   .btn-log {
     background: transparent;
     color: var(--ink-soft);
@@ -878,15 +793,6 @@ window.addEventListener("DOMContentLoaded", function () {
     font-size: 11px;
     color: var(--pine);
     text-align: center;
-  }
-  @media (max-width: 480px) {
-    .result-actions { grid-template-columns: 1fr; }
-    .btn-buildnext, .result-action { min-height: 46px; }
-    .learning-report { padding: 17px; }
-    .learning-summary { font-size: 22px; }
-    .learning-grid { grid-template-columns: 1fr; }
-    .learning-head { align-items: flex-start; }
-    .learning-window { flex-direction: column; align-items: flex-end; gap: 3px; }
   }
   .log-view {
     display: none;
@@ -950,109 +856,133 @@ window.addEventListener("DOMContentLoaded", function () {
      Compact, rule-based, and limited to charcoal, white, logo green, and semantic warning red. */
   html,body { background:#eef0ee; font-family:var(--sans); line-height:1.45; }
   body { padding:26px 14px 50px; }
-  .card { max-width:580px; border:2px solid var(--ink); border-radius:0; background:var(--paper); }
+  .card { max-width:760px; border:2px solid var(--ink); border-radius:0; background:var(--paper); }
   .flash { border-radius:0; }
-  .masthead { padding:9px 22px 8px; border-bottom:2px solid var(--ink); }
-  .mast-name { font-family:var(--sans); font-size:14px; font-weight:750; letter-spacing:-.01em; }
-  .header { padding:16px 22px 15px; background:var(--paper); border-bottom:1px solid var(--paper-line); }
-  .header-top { margin:10px 0 0; }
+  .masthead { padding:11px 28px 10px; border-bottom:2px solid var(--ink); }
+  .mast-name { font-family:var(--sans); font-size:15px; font-weight:750; letter-spacing:-.01em; }
+  .header { padding:25px 28px 22px; background:var(--paper); border-bottom:1px solid var(--paper-line); }
+  .header-top { margin:12px 0 0; }
   .prestart { display:grid; gap:5px; }
   .ps-window { color:var(--ink-soft); }
   .ps-meta { display:flex; align-items:center; flex-wrap:wrap; gap:0; margin-top:0; }
-  .ps-ready { color:var(--pine); font-weight:700; }
-  .task-title { font-family:var(--sans); font-size:29px; font-weight:720; line-height:1.06; letter-spacing:-.035em; }
-  .task-title,.end-summary-task,.job .label,.learning-text { overflow-wrap:anywhere; }
-  .elapsed { display:flex; align-items:baseline; text-align:left; }
-  .elapsed .big { font-size:12.5px; font-weight:750; color:var(--ink-soft); letter-spacing:0; }
-  .elapsed .unit { font-size:12.5px; font-weight:500; color:var(--ink-mut); }
+  .task-title { font-family:var(--sans); font-size:clamp(32px,5.2vw,43px); font-weight:740; line-height:1.02; letter-spacing:-.04em; }
+  .task-title,.end-summary-task,.job .label { overflow-wrap:anywhere; }
+  .elapsed { display:flex; align-items:baseline; column-gap:4px; text-align:left; }
+  .elapsed .big { font-size:13px; font-weight:750; color:var(--ink-soft); letter-spacing:0; }
+  .elapsed .unit { font-size:13px; font-weight:500; color:var(--ink-mut); }
+  .time-progress { height:7px; margin-top:18px; }
   .scope { color:var(--ink-soft); }
   .clockline { color:var(--ink-mut); }
-  .lane,.sealed-strip,.keep,.why { padding:13px 22px; border-bottom-color:var(--paper-line); }
+  .lane,.sealed-strip,.keep { padding:16px 28px; border-bottom-color:var(--paper-line); }
   .focus-rule-row { display:grid; grid-template-columns:132px minmax(0,1fr); gap:14px; align-items:baseline; }
   .focus-rule-label { margin:0; white-space:nowrap; }
   .focus-rule-value { min-width:0; margin:0; font-family:var(--sans); font-size:14.5px; font-style:normal; font-weight:400; line-height:1.45; color:var(--ink-soft); overflow-wrap:anywhere; }
   .lane-value { display:flex; align-items:baseline; flex-wrap:wrap; gap:5px; }
   .lane-chip { max-width:100%; padding:0; border:0; border-radius:0; background:transparent; color:var(--ink-soft); font-size:14.5px; font-weight:400; overflow-wrap:anywhere; }
   .lane-rest { color:var(--ink-mut); font-size:12.5px; font-style:normal; }
-  .keep p,.why p { margin:0; font-family:var(--sans); font-size:14.5px; font-style:normal; line-height:1.45; }
-  .jobs { padding:18px 22px; border-bottom-color:var(--paper-line); }
+  .keep p,.why p,.why-matters p { margin:0; font-family:var(--sans); font-size:15px; font-style:normal; line-height:1.48; }
+  .cue-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-bottom:1px solid var(--paper-line); }
+  .cue-grid.single { grid-template-columns:1fr; }
+  .cue-card { min-width:0; padding:20px 28px 21px; border:0; }
+  .cue-card + .cue-card { border-left:1px solid var(--paper-line); }
+  .cue-grid.single .cue-card + .cue-card { border-left:0; }
+  .cue-grid .focus-rule-row { display:block; }
+  .cue-grid .focus-rule-label { display:block; margin-bottom:9px; }
+  .jobs { padding:20px 28px; border-bottom-color:var(--paper-line); }
   .jobs-head { margin-bottom:13px; }
   .job-list { gap:12px; }
   .job .box { width:20px; height:20px; border-radius:0; background:#fff; }
   .job-check { width:20px; height:20px; }
   .job.done .box::after { left:5px; top:2px; }
   .job .label { font-size:14.5px; line-height:1.38; }
-  .action { padding:19px 22px; background:#fff; }
+  .action { padding:24px 28px 23px; background:#fff; }
   .btn-begin { gap:10px; padding:12px 17px; border-radius:0; font-size:14px; font-weight:700; }
   .btn-begin .arr { width:auto; height:auto; border-radius:0; background:transparent; color:#fff; }
   .checkin.asking { padding:14px; border:2px solid var(--ink); background:var(--pine-tint); }
   .checkin.asking .checkin-dot { background:var(--pine); }
   .checkin.asking .checkin-label { color:var(--ink); font-size:15px; font-weight:750; }
   .checkin.scheduled-asking { background:var(--pine-tint); box-shadow:none; }
+  .checkin {
+    transition:background-color .18s ease, box-shadow .18s ease;
+  }
+  .checkin.yes-feedback {
+    background:var(--pine-tint);
+    box-shadow:0 0 0 14px var(--pine-tint);
+  }
+  .checkin.yes-feedback .checkin-dot { background:var(--pine); }
+  .checkin.yes-feedback .checkin-label { color:var(--pine); }
+  .checkin.yes-feedback .k-yes {
+    border-color:var(--pine);
+    background:var(--pine);
+    color:#fff;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .checkin { transition:none; }
+  }
   .checkin-head { margin-bottom:13px; }
   .knock-answers { gap:8px; }
   .knock-answers button { min-height:44px; padding:11px 7px; border-radius:0; }
-  .pull { margin-top:17px; padding-top:16px; }
-  .pull-text,.knock-reason { font-family:var(--sans); font-style:normal; font-size:14px; }
-  .preview-row { margin-top:8px; }
-  .preview-link { min-height:44px; }
+  .session-row { margin-top:8px; }
+  .session-link { min-height:44px; }
   .blockend { padding:23px 22px; background:#fff; }
   .be-line { font-family:var(--sans); font-size:20px; font-weight:680; }
   .be-where { margin-bottom:18px; }
   .btn-finish { padding:13px 22px; border-radius:0; box-shadow:none; font-size:15px; }
   .btn-more { padding:12px 18px; border-radius:0; font-size:14px; }
   .be-note { margin-top:15px; }
-  .end-summary { display:none; padding:18px 22px 16px; border-bottom:1px solid var(--paper-line); background:var(--pine-tint); }
+  .end-summary { display:none; padding:19px 22px 17px; border-bottom:1px solid var(--paper-line); background:var(--paper); }
   .end-summary.on { display:block; }
-  .end-summary-task { font-family:var(--sans); font-size:20px; font-weight:720; line-height:1.18; letter-spacing:-.02em; color:var(--ink); }
-  .end-summary-meta { margin-top:5px; font-family:var(--sans); font-size:12.5px; line-height:1.45; color:var(--ink-soft); }
-  .exit { padding:19px 22px 22px; }
-  .exit-eyebrow { margin-bottom:8px; }
-  .exit-title { font-family:var(--sans); font-size:20px; font-weight:680; margin-bottom:14px; }
+  .end-summary-heading { margin:0 0 11px; font-family:var(--sans); font-size:24px; font-weight:740; line-height:1.08; letter-spacing:-.03em; color:var(--ink); }
+  .end-summary-task { margin:0 0 7px; font-family:var(--sans); font-size:15px; font-weight:720; line-height:1.35; letter-spacing:-.01em; color:var(--ink); }
+  .end-summary-facts { display:grid; gap:2px; }
+  .end-summary-fact { margin:0; font-family:var(--sans); font-size:13px; line-height:1.45; color:var(--ink-soft); }
+  .end-summary-fact strong { color:var(--ink); font-weight:700; }
+  .exit { padding:18px 22px 22px; }
   .exit-q { margin-bottom:7px; }
   .exit-input { min-height:42px; padding:9px 12px; border-radius:0; margin-bottom:10px; background:#fff; }
   .exit-foot { margin-top:4px; padding-top:12px; }
   .btn-done { padding:10px 17px; border-radius:0; }
-  .alldone { padding:23px 22px 22px; }
+  .alldone { padding:23px 22px 22px; text-align:left; }
   .alldone .msg { justify-content:flex-start; font-family:var(--sans); font-size:23px; font-weight:720; margin-bottom:14px; }
-  .learning-report { margin-bottom:17px; padding:0; border:2px solid var(--ink); border-radius:0; background:var(--pine-tint); }
-  .learning-report-head { padding:13px 14px; }
-  .learning-body { padding:12px 14px 14px; }
-  .learning-summary { font-family:var(--sans); font-size:12px; font-weight:700; line-height:1.25; }
-  .learning-window select { border-color:var(--paper-line); border-radius:0; background:#fff; }
-  .learning-time { margin:0; padding:12px 0; border:1px solid var(--paper-line); border-width:1px 0; border-radius:0; background:transparent; }
-  .learning-grid { gap:0; margin:0; border-bottom:1px solid var(--paper-line); }
-  .learning-signal { border:0; border-radius:0; background:transparent; padding:12px 0; }
-  .learning-signal + .learning-signal { padding-left:13px; border-left:1px solid var(--paper-line); }
-  .learning-label { font-size:9px; }
-  .result-actions { grid-template-columns:1fr; }
-  .btn-buildnext,.result-action { min-height:46px; border-radius:0; font-size:12px; }
-  .btn-buildnext,.result-action,.btn-log { overflow-wrap:anywhere; }
-  .btn-buildnext { grid-column:1 / -1; border-color:var(--pine); background:var(--pine); color:#fff; }
-  .btn-buildnext:hover { background:var(--pine-soft); color:#fff; }
-  .result-action { background:#fff; }
-  .result-action:hover { background:var(--pine-tint); }
+  .result-record { margin-bottom:16px; border:2px solid var(--ink); background:#fff; }
+  .result-record-heading { margin:0; padding:13px 14px; border-bottom:1px solid var(--paper-line); font-family:var(--sans); font-size:16px; font-weight:720; line-height:1.35; letter-spacing:-.01em; color:var(--ink); overflow-wrap:anywhere; }
+  .result-record-list { margin:0; padding:9px 14px 11px; }
+  .result-record-row { display:grid; grid-template-columns:122px minmax(0,1fr); gap:10px; padding:3px 0; font-family:var(--sans); font-size:13px; line-height:1.45; color:var(--ink-soft); }
+  .result-record-row dt { font-weight:700; color:var(--ink); }
+  .result-record-row dd { min-width:0; margin:0; overflow-wrap:anywhere; }
+  .result-actions { max-width:none; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .result-actions-heading { grid-column:1 / -1; font-family:var(--sans); font-size:22px; letter-spacing:-.025em; text-transform:none; color:var(--ink); }
+  .btn-newfile,.btn-buildnext { min-height:46px; border-radius:0; font-size:12px; overflow-wrap:anywhere; }
+  .btn-buildnext,.btn-newfile { border-color:var(--pine); background:#fff; color:var(--pine); font-weight:700; }
+  .btn-buildnext:hover,.btn-newfile:hover { background:var(--pine-tint); color:var(--pine); }
+  .next-links { text-align:center; }
   .btn-log { min-height:44px; padding:8px 12px; border-width:1px; border-radius:0; color:var(--ink-mut); font-size:11.5px; }
-  .log-view { margin-top:17px; padding-top:15px; }
+  .result-record .log-view { margin:0; padding:14px; border-top:1px solid var(--paper-line); }
+  .log-tools { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid var(--hair); }
+  .log-tools .fresh-status { width:auto; min-height:0; text-align:left; }
   .log-entry { border-radius:0; padding:12px 13px; margin-bottom:9px; background:#fff; }
   @media (max-width:480px) {
     body { padding:0; background:var(--paper); }
     .card { border-left:0; border-right:0; border-top:0; max-width:none; }
-    .masthead { padding:8px 18px 7px; }
-    .header { padding:14px 18px 13px; }
+    .masthead { padding:9px 18px 8px; }
+    .header { padding:20px 18px 18px; }
     .end-summary,.exit,.alldone { padding-left:18px; padding-right:18px; }
-    .lane,.sealed-strip,.keep,.why,.jobs,.action,.blockend { padding-left:18px; padding-right:18px; }
-    .task-title { font-size:26px; }
+    .lane,.sealed-strip,.keep,.jobs,.action,.blockend { padding-left:18px; padding-right:18px; }
+    .cue-grid { grid-template-columns:1fr; }
+    .cue-card { padding:16px 18px 17px; }
+    .cue-card + .cue-card { border-left:0; border-top:1px solid var(--paper-line); }
+    .task-title { font-size:31px; }
     .header-top { gap:6px; }
     .focus-rule-row { grid-template-columns:112px minmax(0,1fr); gap:10px; }
-    .learning-report-head { align-items:flex-start; }
-    .learning-head { align-items:flex-start; flex-direction:column; }
-    .learning-window { width:100%; flex-direction:row; align-items:center; justify-content:space-between; }
-    .learning-window select { min-height:44px; }
-    .learning-grid { grid-template-columns:1fr; }
-    .learning-signal + .learning-signal { padding-left:0; border-left:0; border-top:1px solid var(--paper-line); }
-    .result-actions { grid-template-columns:1fr; }
-    .btn-buildnext { grid-column:auto; }
+    .result-history-actions { justify-content:space-between; gap:12px; }
+    .result-record-row { grid-template-columns:100px minmax(0,1fr); gap:8px; }
+    .log-tools { align-items:flex-start; flex-direction:column; }
+  }
+  @media (max-width:350px) {
+    .task-title { font-size:28px; }
+    .header-top { gap:5px; }
+    .time-sep { display:none; }
+    .session-row { align-items:flex-start; flex-direction:column; gap:0; }
   }
 </style>
 </head>
@@ -1084,6 +1014,9 @@ window.addEventListener("DOMContentLoaded", function () {
         <span class="time-sep" aria-hidden="true">·</span>
         <div class="clockline" id="clockLine"></div>
       </div>
+      <div class="time-progress" id="timeProgress" role="progressbar" aria-label="Time used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="time-progress-fill" id="timeProgressFill"></span>
+      </div>
     </div>
 
     <!-- LANE (lane mode only) -->
@@ -1110,11 +1043,19 @@ window.addEventListener("DOMContentLoaded", function () {
       </div>
     </div>
 
-    <!-- WHY (watch-for: the trap to avoid) -->
-    <div class="why" id="why">
-      <div class="focus-rule-row">
-        <div class="eyebrow why-label focus-rule-label" id="whyLabel">Avoid</div>
-        <p class="focus-rule-value" id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
+    <!-- The two interview cues stay visible once, then the relevant one is highlighted after a check-in. -->
+    <div class="cue-grid" id="cueGrid">
+      <div class="why cue-card" id="why">
+        <div class="focus-rule-row">
+          <div class="eyebrow why-label focus-rule-label" id="whyLabel">Avoid</div>
+          <p class="focus-rule-value" id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
+        </div>
+      </div>
+      <div class="why-matters cue-card" id="whyMatters">
+        <div class="focus-rule-row">
+          <div class="eyebrow why-matters-label focus-rule-label">Why it matters</div>
+          <p class="focus-rule-value" id="whyMattersText"></p>
+        </div>
       </div>
     </div>
 
@@ -1139,24 +1080,16 @@ window.addEventListener("DOMContentLoaded", function () {
           <span class="checkin-dot" id="checkinDot"></span>
           <span class="checkin-label" id="checkinLabel">On task?</span>
         </div>
-        <p class="knock-reason" id="knockReason"></p>
         <div class="knock-answers">
           <button class="k-yes"  data-a="yes">Yes</button>
           <button class="k-sort" data-a="sort-of">Sort of</button>
           <button class="k-no"   data-a="no">No</button>
         </div>
-
-        <!-- the pull (finish-feeling), on sort-of/no -->
-        <div class="pull" id="pull">
-          <div class="pull-label" id="pullLabel">Remember what you're after</div>
-          <p class="pull-text" id="pullText"></p>
-        </div>
       </div>
 
-      <div class="preview-row">
+      <div class="session-row">
         <span class="next-knock" id="nextKnock"></span>
-        <button type="button" class="preview-link" id="previewLink">Preview a check-in</button>
-        <button type="button" class="preview-link end-link" id="endLink" style="display:none;">Finish session</button>
+        <button type="button" class="session-link end-link" id="endLink" style="display:none;">Finish session</button>
       </div>
     </div>
 
@@ -1174,23 +1107,26 @@ window.addEventListener("DOMContentLoaded", function () {
     </div>
 
     <!-- CONDENSED END-OF-BLOCK CONTEXT -->
-    <section class="end-summary" id="endSummary" aria-labelledby="endSummaryTask">
-      <h1 class="end-summary-task" id="endSummaryTask"></h1>
-      <p class="end-summary-meta" id="endSummaryMeta"></p>
+    <section class="end-summary" id="endSummary" aria-labelledby="endSummaryHeading">
+      <h1 class="end-summary-heading" id="endSummaryHeading" tabindex="-1">Block ended</h1>
+      <p class="end-summary-task" id="endSummaryTask"></p>
+      <div class="end-summary-facts">
+        <p class="end-summary-fact" id="endSummaryTime"></p>
+        <p class="end-summary-fact" id="endSummaryProgress"></p>
+        <p class="end-summary-fact" id="endSummaryCheckins"></p>
+      </div>
     </section>
 
     <!-- EXIT -->
-    <div class="exit" id="exit">
-      <div class="eyebrow exit-eyebrow" id="exitEyebrow">Block complete</div>
-      <h2 class="exit-title" id="exitTitle" tabindex="-1">Quick checkout.</h2>
+    <div class="exit" id="exit" role="region" aria-labelledby="endSummaryHeading">
 
-      <label class="exit-q" for="helpedInput">What helped you stay focused?</label>
-      <textarea class="exit-input" id="helpedInput" rows="1"></textarea>
-
-      <label class="exit-q" for="inTheWayInput">If anything, what distracted or pulled focus?</label>
+      <label class="exit-q" for="inTheWayInput">What, if anything, pulled you off task?</label>
       <textarea class="exit-input" id="inTheWayInput" rows="1"></textarea>
 
-      <label class="exit-q" for="nextInput">Where to start next time?</label>
+      <label class="exit-q" for="helpedInput">What, if anything, worked well enough to repeat?</label>
+      <textarea class="exit-input" id="helpedInput" rows="1"></textarea>
+
+      <label class="exit-q" for="nextInput">Where will you start next session?</label>
       <textarea class="exit-input" id="nextInput" rows="1"></textarea>
 
       <div class="exit-foot">
@@ -1202,60 +1138,37 @@ window.addEventListener("DOMContentLoaded", function () {
     <div class="alldone" id="allDone">
       <div class="msg" id="resultHeading" role="heading" aria-level="2" tabindex="-1"><span class="mark">✓</span> Block recorded.</div>
 
-      <section class="learning-report" id="learningReport" aria-labelledby="learningTitle">
-        <div class="learning-report-head">
-          <span class="learning-kicker" id="learningTitle">What you&rsquo;re learning</span>
-          <span class="learning-summary" id="learningSummary"></span>
+      <section class="result-record" id="resultRecord" aria-labelledby="resultRecordHeading">
+        <h3 class="result-record-heading" id="resultRecordHeading"></h3>
+        <dl class="result-record-list" id="resultRecordList"></dl>
+        <div class="result-history-actions">
+          <button class="result-history-action" id="viewLogBtn" aria-expanded="false" aria-controls="logView">View all results</button>
+          <button class="result-history-action" id="downloadLogBtn">Download all results</button>
         </div>
-        <div class="learning-body">
-        <div class="learning-head">
-          <label class="learning-window" for="learningRange">
-            <span>Range:</span>
-            <select id="learningRange">
-              <option value="1" selected>Today</option>
-              <option value="7">Last 7 days</option>
-              <option value="14">Last 14 days</option>
-              <option value="all">All history</option>
-              <option value="period" id="periodOption" hidden>Current period</option>
-            </select>
-          </label>
-        </div>
-        <div class="learning-time">
-          <span class="learning-label">Time spent vs expected</span>
-          <div class="learning-text" id="learningTime"></div>
-        </div>
-        <div class="learning-grid">
-          <div class="learning-signal">
-            <span class="learning-label">What helps</span>
-            <div class="learning-text" id="learningHelps"></div>
+        <p class="result-privacy-note">Your saved results stay on this device unless you choose to share them.</p>
+        <div class="log-view" id="logView">
+          <div id="logEntries"></div>
+          <div class="log-tools">
+            <button class="btn-log" id="clearLogBtn">Clear log</button>
+            <span class="fresh-status" id="freshStatus" aria-live="polite"></span>
           </div>
-          <div class="learning-signal pulled">
-            <span class="learning-label">What pulls you off</span>
-            <div class="learning-text" id="learningPulls"></div>
-          </div>
-        </div>
         </div>
       </section>
 
       <p class="result-question warn" id="resultQuestion" role="status" aria-live="polite" hidden></p>
-      <div class="result-actions">
-        <button class="btn-buildnext" id="buildNextBtn">Copy next-file interview</button>
-        <button class="result-action" id="viewLogBtn">View full log</button>
+      <div class="result-actions" aria-labelledby="resultActionsHeading">
+        <h3 class="result-actions-heading" id="resultActionsHeading">Set up your next session <span aria-hidden="true">→</span></h3>
+        <button class="btn-buildnext" id="buildNextBtn">Use this result</button>
+        <button class="btn-newfile" id="newFileBtn">New file</button>
       </div>
 
       <div class="next-links" id="nextLinks">
-        <div class="nl-lead">Copied. Paste it into a new AI chat. After five questions, copy the labeled Focus File plan it returns and paste that into focusfile.org.</div>
+        <div class="nl-lead" id="handoffLead"></div>
         <div class="nl-row">
           <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
         </div>
       </div>
 
-      <div class="result-secondary">
-        <button class="btn-log" id="downloadLogBtn">Download log</button>
-        <button class="btn-log" id="clearLogBtn">Clear log</button>
-        <span class="fresh-status" id="freshStatus" aria-live="polite"></span>
-      </div>
-      <div class="log-view" id="logView"></div>
     </div>
 
   </div>
@@ -1282,6 +1195,85 @@ window.addEventListener("DOMContentLoaded", function () {
   "knockMaxMin": 33,
   "doneWhenShort": "1,500 new words"
 }
+</script>
+<script type="text/plain" id="freshInterviewPrompt"># Focus File — the setup prompt
+
+**AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
+
+Paste this whole message into any AI assistant (ChatGPT, Claude, Gemini). Answer five setup questions. At the end it gives you a short Focus File plan — paste that into the builder at www.focusfile.org and your Focus File downloads instantly.
+
+---
+
+INSTRUCTIONS FOR THE AI:
+
+Run a short setup, then output a Focus File plan. Ask ONE question at a time, wait for the answer, keep it warm and fast. Preserve the person’s wording and never invent jobs, milestones, story beats, or reasons. When prior results or guidance are supplied, carry them forward as optional context the person may keep, change, or ignore. After the last question, output the plan. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+
+NUMBERED CHOICES — PERMANENT RULE:
+- Whenever a question or follow-up has a short finite set of known answers—including lists of 2–8 choices—show the choices as a compact numbered list. End with a direct instruction such as `Reply 1 or 2.` or `Reply with a number, or type your own answer.` Never print a finite list without telling the person exactly how little they need to type.
+- Use judgment about `Something else`; do not add it automatically to every choice set. Include a custom-answer option only when the listed choices might genuinely miss a valid answer. The internet-off barrier list below specifically requires it.
+- Do not imitate buttons with Markdown links or checkboxes. Accept the number, label, or the person’s own words.
+- When prior results or guidance contain a usable answer for the current question, show `1. Same as last time — [specific prior answer]` first and `2. Change it` second, followed by `Reply 1 or 2.` If they choose the prior answer, preserve it exactly and advance immediately. Do not re-ask follow-ups that answer already covers.
+- A numbered reply counts as the answer. Move straight to the next required question unless that choice genuinely needs a follow-up.
+- Use choices only for real, known options. Keep task wording, finish lines, jobs, traps, and reasons open-ended unless the person is choosing whether to carry a prior answer forward.
+
+Q1 — MODE. Ask exactly: "Is this offline work, or does it need the internet?"
+- Present exactly `1. Offline work` and `2. Needs the internet`, followed by `Reply 1 or 2.`
+- If it can be done offline, set mode to `sealed`. THEN ask one quick follow-up: "How will you turn the internet off?" Offer these numbered choices: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else — type your own`. End with `Reply 1–6, or type your own answer.` Record the answer in `sealedPlan` (short, e.g. "phone in the other room"). If they skip it, set `sealedPlan` to "".
+- If the work genuinely needs live sites or apps, set mode to `lane` and recommend **Freedom.to as the strongest default blocker**. Explain briefly: "Set up one Freedom session for this exact task: keep only the sites and apps the work requires, and block everything else for the full window." Ask which sites and apps must remain available and record them in `laneSites`. If they already use another blocker that genuinely works, accept it. Leave `sealedPlan` as "".
+NEVER show the words "sealed" or "lane" to the person; they are internal values only. Speak plainly and keep the advice short.
+
+Q2 — WORK + TIME. Ask exactly: "What are you working on, and what's your window?" Require a real start time and clock range such as "9:00 – 10:00"; the start time drives the Begin button and the log. Record the block length in minutes. If useful, model a complete answer such as "new chapter, 9–12, 2,000 words."
+
+Q3 — SHAPE THE GOAL. Ask exactly: "What exactly will be finished when the block ends?" The header (`task`) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Never say "header" or "outcome" to the person — restate the finish line plainly (e.g. "So: 2,000 new words on the page."). Then pick jobsShape:
+- "none": atomic, with nothing useful to track or break down (meditate, send one email). Header stands alone.
+- "milestones": one large, measurable output (1,500 words -> 500/1,000/1,500).
+- "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
+For a quantified output large enough to track—such as 1,500 words, 12 items, or 20 pages—offer a short cumulative milestone list and ask the person to confirm or edit it. Do not omit milestones for a quantified output unless the person explicitly declines a breakdown. Example: 1,500 words → 500 words / 1,000 words / 1,500 words. These are progress markers, not invented work steps.
+Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
+
+Q4 — THE TRAP. Ask exactly: "Anything that tends to pull you off task — a habit, a distraction, or a temptation? I'll remind you of it."
+If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
+KEEP is earned carry-forward information, never an interview question. For a first Focus File, omit `KEEP:` entirely. For a continuation, include `KEEP:` only when the previous Focus File’s most recent exit log contains a concrete answer to “What helped you focus?” Preserve that proven help in the person’s own words. If the exit log is blank, vague, says nothing helped, or contains no proven help, omit `KEEP:` again. Never print a blank `KEEP:`, never invent one, and never ask a sixth question to fill it.
+
+Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.' I'll show this back to you if you drift."
+Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
+
+THEN, in this order:
+1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
+
+```text
+FOCUS FILE
+
+TASK: 2,000 new words on Moose
+TIME: 9:00 AM–12:00 PM
+INTERNET: OFF — phone in another room; router unplugged
+AVOID: Stopping when the draft gets uncertain.
+WHY: I want proof I can write through uncertainty.
+
+MILESTONES:
+- 500 words
+- 1,000 words
+- 1,500 words
+- 2,000 words
+
+END FOCUS FILE
+```
+
+Fill the block from the confirmed interview answers, following these branches:
+- Offline work: `INTERNET: OFF — [confirmed barrier]`
+- Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
+- Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
+- Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
+- Atomic work: omit both `MILESTONES` and `JOBS`.
+- KEEP carry-forward: omit `KEEP:` for a first Focus File. For a continuation, include it only when the previous file’s most recent exit log records concrete, proven help. Never output a blank or invented `KEEP:`.
+- Always include `AVOID:`; its value may be blank.
+- `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
+- Do not show internal field names, configuration values, or JSON.
+
+2. After the code block, write exactly this one line: **Copy the FOCUS FILE block above, open https://www.focusfile.org/, and paste it into Make the file.**
+
+Do not add anything else. Then stop.
+
 </script>
 <script>
 /* ===================== STATE — every declaration lives here, before any code runs.
@@ -1380,14 +1372,10 @@ const $ = id => document.getElementById(id);
 
 const LOG_KEY_BASE = "focusfile_log";          // raw event stream (CSV-ish)
 const ENTRIES_KEY_BASE = "focusfile_entries"; // structured per-session entries (JSON)
-const REPORT_SCOPE_KEY_BASE = "focusfile_report_scope";
-const REPORT_SINCE_KEY_BASE = "focusfile_report_since";
 const HISTORY_RESET_KEY_BASE = "focusfile_history_reset";
 const UI_STATE_KEY_BASE = "focusfile_ui_state";
 let LOG_KEY = LOG_KEY_BASE;
 let ENTRIES_KEY = ENTRIES_KEY_BASE;
-let REPORT_SCOPE_KEY = REPORT_SCOPE_KEY_BASE;
-let REPORT_SINCE_KEY = REPORT_SINCE_KEY_BASE;
 let HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE;
 let UI_STATE_KEY = UI_STATE_KEY_BASE;
 let startTime = null;
@@ -1401,8 +1389,6 @@ let sortOfCount = 0;
 let noCount = 0;
 let volatileEntries = [];
 let storageDurable = true;
-let reportScopeValue = "1";
-let reportSinceValue = 0;
 let historyResetAt = 0;
 let exitEndedEarly = null;
 let sessionEndTime = null;
@@ -1410,6 +1396,7 @@ let sessionRunning = false;
 let blockEndsAt = null;
 let knockScheduleId = 0;
 let scheduledCheckinActive = false;
+let checkinFeedbackTimer = null;
 
 let nextKnockAt = null;
 
@@ -1493,16 +1480,11 @@ function sessionCanPrompt() {
 
 function activateScheduledCheckin(scheduleId) {
   if (scheduleId !== knockScheduleId || scheduledCheckinActive || !sessionCanPrompt()) return false;
-  if (previewing) {
-    clearTimeout(knockTimer);
-    knockTimer = setTimeout(() => activateScheduledCheckin(scheduleId), 1000);
-    return false;
-  }
   clearTimeout(knockTimer);
   knockTimer = null;
   nextKnockAt = null;
   scheduledCheckinActive = true;
-  startAsking(false);
+  startAsking();
   return true;
 }
 
@@ -1513,7 +1495,7 @@ function maybeShowOverdueCheckin() {
     showBlockEnd();
     return false;
   }
-  if (scheduledCheckinActive || previewing) return false;
+  if (scheduledCheckinActive) return false;
   if (!nextKnockAt || now < nextKnockAt || $('checkin').classList.contains('asking')) return false;
   return activateScheduledCheckin(knockScheduleId);
 }
@@ -1531,7 +1513,14 @@ function updateNextKnock() {
 function updateElapsed() {
   if (!startTime) return;
   const mins = (Date.now() - startTime) / 60000;
-  $("elapsedNum").textContent = Math.floor(mins);
+  const elapsed = Math.max(0, Math.floor(mins));
+  const expected = Math.max(1, Number(cfg.blockMinutes) + (Math.max(0, Number(extended) || 0) * 30));
+  const percent = Math.min(100, (mins / expected) * 100);
+  $("elapsedNum").textContent = elapsed;
+  $("elapsedUnit").textContent = " of " + expected + " minutes";
+  $("timeProgressFill").style.width = percent + "%";
+  $("timeProgress").setAttribute("aria-valuenow", String(Math.round(percent)));
+  $("timeProgress").setAttribute("aria-valuetext", elapsed + " of " + expected + " minutes");
   updateNextKnock();
 }
 
@@ -1570,48 +1559,40 @@ function knockFlash() {
 }
 
 let titleTimer = null;
-let previewing = false;
-let previewWasVisible = false;
-let previewTimer = null;
-function endPreview() {
-  previewing = false;
-  clearTimeout(previewTimer);
-  stopAsking();
-  $("checkin").style.marginTop = "";
-  $("pull").classList.remove("on");
-  if (!previewWasVisible) $("checkin").classList.remove("on");
+function clearCueHighlight() {
+  $("why").classList.remove("cue-active");
+  $("whyMatters").classList.remove("cue-active");
 }
 
-/* ---- The tailored reminder shown after a check-in answer ----
-   Yes      -> nothing (you're on it).
-   Sort of  -> the trap you named (Q4): a little distracted, on the thing you said.
-   No       -> why it matters (Q5): off task or not started.
-   Sort-of with no trap falls back to the reason.                                  */
-function showReminder(ans) {
-  $("pull").classList.remove("on");
-  if (ans === "yes") return;             // on task: no message, don't interrupt the flow
-  var label, text;
-  if (ans === "sort-of" && hasTrap) {
-    label = cfg.whyLabel || "Avoid";
-    text  = cfg.why;
-  } else {
-    label = "Remember what you're after";
-    text  = cfg.finishFeel;
-  }
-  if (!text || !text.trim()) return;   // nothing meaningful to show
-  $("pullLabel").textContent = label;
-  $("pullText").textContent  = text;
-  $("pull").classList.add("on");
+/* A check-in never repeats the interview answer. It simply points back to the
+   one permanent cue that is useful right now. */
+function highlightCheckinCue(ans) {
+  clearCueHighlight();
+  if (ans === "yes") return;
+  const target = ans === "sort-of" && hasTrap ? $("why") : $("whyMatters");
+  target.classList.add("cue-active");
+  const label = target === $("why") ? "Avoid" : "Why it matters";
+  $("checkinAnnouncement").textContent = "Review " + label + ".";
+}
+function clearCheckinFeedback() {
+  clearTimeout(checkinFeedbackTimer);
+  checkinFeedbackTimer = null;
+  $("checkin").classList.remove("yes-feedback");
+  if (!$("checkin").classList.contains("asking")) $("checkinLabel").textContent = "On task?";
+  if ($("checkinAnnouncement").textContent === "Keep it up.") $("checkinAnnouncement").textContent = "";
+}
+function showYesFeedback() {
+  clearCheckinFeedback();
+  $("checkin").classList.add("yes-feedback");
+  $("checkinLabel").textContent = "\u2713 Keep it up.";
+  $("checkinAnnouncement").textContent = "Keep it up.";
+  checkinFeedbackTimer = setTimeout(() => {
+    clearCheckinFeedback();
+  }, 1400);
 }
 function handleCheckinAnswer(ans) {
-  if (previewing) {
-    stopAsking();
-    showReminder(ans);
-    clearTimeout(previewTimer);
-    previewTimer = setTimeout(endPreview, 3800);
-    return "preview";
-  }
   if (!sessionCanPrompt()) return false;
+  clearCheckinFeedback();
   const wasAsking = $("checkin").classList.contains("asking");
   knockCount++;
   if (ans === "yes") onTaskCount++;
@@ -1619,8 +1600,9 @@ function handleCheckinAnswer(ans) {
   else if (ans === "no") noCount++;
   logRow(wasAsking ? "knock" : "self-check", ans);
   stopAsking();
-  showReminder(ans);
+  highlightCheckinCue(ans);
   scheduleAsk();
+  if (ans === "yes") showYesFeedback();
   return wasAsking ? "scheduled" : "self-check";
 }
 const BASE_TITLE = document.title;
@@ -1656,19 +1638,19 @@ function announceScheduledCheckin() {
     if (scheduledCheckinActive) live.textContent = "Are you on task?";
   });
 }
-function startAsking(isPreview) {
+function startAsking() {
+  clearCheckinFeedback();
   $("checkinLabel").textContent = "Are you on task?";
-  $("pull").classList.remove("on");
+  clearCueHighlight();
   $("checkin").classList.add("asking");   // dot pulses clay, reason shows
-  if (!isPreview) {
-    setScheduledAskingLayout(true);
-    announceScheduledCheckin();
-  }
+  setScheduledAskingLayout(true);
+  announceScheduledCheckin();
   knockBeep();
   knockFlash();
-  if (!isPreview) startTitleBlink();       // real knock only: blink the tab for when they're in another window
+  startTitleBlink();
 }
 function stopAsking() {
+  clearCheckinFeedback();
   scheduledCheckinActive = false;
   setScheduledAskingLayout(false);
   $("checkin").classList.remove("asking");
@@ -1686,9 +1668,8 @@ function showBlockEnd() {
   cancelKnockSchedule();
   clearTimeout(blockEndTimer);
   blockEndTimer = null;
-  if (previewing) endPreview();
-  else stopAsking();
-  $("pull").classList.remove("on");
+  stopAsking();
+  clearCueHighlight();
   $("action").style.display = "none";
   const label = extended > 0 ? "Extra block's up" : "Your block's up";
   $("beEyebrow").textContent = label + " · " + cfg.scope.split("–").pop().trim();
@@ -1730,15 +1711,7 @@ function blockDurationLabel(min) {
 }
 function renderPreStart() {
   $("psWindow").textContent = "Planned · " + (cfg.scope || "Time not recorded");
-  const metaEl = $("psMeta");
-  metaEl.replaceChildren(document.createTextNode("Now " + nowHHMM()));
-  const sep = document.createElement("span");
-  sep.className = "cl-sep";
-  sep.textContent = "\u00b7";
-  const status = document.createElement("span");
-  status.className = "ps-ready";
-  status.textContent = "Ready when you are";
-  metaEl.append(" ", sep, " ", status);
+  $("psMeta").textContent = "Now " + nowHHMM();
 }
 function renderClockLine() {
   const el = $("clockLine");
@@ -1752,33 +1725,53 @@ function nowHHMM() {
 /* ---- Exit ---- */
 function renderEndSummary() {
   const jobs = Array.from(document.querySelectorAll(".job"));
-  const done = jobs.filter(job => job.classList.contains("done")).length;
   const endedAt = sessionEndTime || Date.now();
   const actualMinutes = startTime ? Math.max(0, Math.round((endedAt - startTime) / 60000)) : 0;
   const expectedMinutes = Math.max(0, Number(cfg.blockMinutes) || 0) + (Math.max(0, Number(extended) || 0) * 30);
   $("endSummaryTask").textContent = cfg.task;
-  const meta = [actualMinutes + " of " + expectedMinutes + " minutes"];
-  if (jobs.length) {
-    const kind = cfg.jobsShape === "milestones" ? "milestones" : "steps";
-    meta.push(done + " of " + jobs.length + " " + kind + " completed");
-    if (cfg.jobsShape === "milestones" && done) {
-      const completed = jobs.filter(job => job.classList.contains("done"));
-      const last = completed[completed.length - 1].querySelector(".label");
-      if (last) meta.push("through " + last.textContent);
+  $("endSummaryTime").innerHTML = "<strong>Time:</strong> " + actualMinutes + " " + plural(actualMinutes, "minute") + " spent vs " + expectedMinutes + " " + plural(expectedMinutes, "minute") + " expected.";
+  const progress = progressSummary();
+  $("endSummaryProgress").hidden = !progress;
+  $("endSummaryProgress").innerHTML = progress ? "<strong>Progress:</strong> " + progress + "." : "";
+  $("endSummaryCheckins").innerHTML = "<strong>Check-ins:</strong> " + knockCount + " · " + onTaskCount + " on task, " + sortOfCount + " sort of, " + noCount + " off.";
+}
+
+function numberMeasure(text) {
+  const match = String(text || "").match(/(\d[\d,]*(?:\.\d+)?)\s+([A-Za-z][A-Za-z-]*)/);
+  if (!match) return null;
+  return {
+    value: Number(match[1].replace(/,/g, "")),
+    unit: match[2].toLowerCase()
+  };
+}
+
+function formatQuantity(value) {
+  return Number(value).toLocaleString("en-US", {maximumFractionDigits:2});
+}
+
+function plural(value, singular) {
+  return Number(value) === 1 ? singular : singular + "s";
+}
+
+function progressSummary() {
+  const jobs = Array.from(document.querySelectorAll(".job"));
+  const completed = jobs.filter(job => job.classList.contains("done"));
+  if (!jobs.length) return "";
+  if (cfg.jobsShape === "milestones") {
+    const last = completed.length ? completed[completed.length - 1].querySelector(".label") : null;
+    if (!last) return "No steps completed";
+    const current = numberMeasure(last.textContent);
+    const target = numberMeasure(cfg.doneWhenShort || cfg.task);
+    if (current && target && current.unit === target.unit && current.value <= target.value) {
+      return formatQuantity(current.value) + " of " + formatQuantity(target.value) + " " + target.unit;
     }
+    return last.textContent.replace(/\s*[—-]\s*done\s*$/i, "");
   }
-  $("endSummaryMeta").textContent = meta.join(" · ");
+  return completed.length + " of " + jobs.length + " steps completed";
 }
 
 function automaticProgressText() {
-  const jobs = Array.from(document.querySelectorAll(".job"));
-  const completed = jobs.filter(job => job.classList.contains("done"));
-  if (!jobs.length) return "Time recorded automatically; no milestone checklist.";
-  if (cfg.jobsShape === "milestones") {
-    const last = completed.length ? completed[completed.length - 1].querySelector(".label") : null;
-    return completed.length + " of " + jobs.length + (last ? " \u2014 through " + last.textContent : " milestones completed");
-  }
-  return completed.length + " of " + jobs.length + " steps completed";
+  return progressSummary();
 }
 
 function exitStateData() {
@@ -1854,18 +1847,16 @@ function showExit(endedEarly, restoring) {
   cancelKnockSchedule();
   clearTimeout(blockEndTimer);
   blockEndTimer = null;
-  if (previewing) endPreview();
-  else stopAsking();
+  stopAsking();
+  clearCueHighlight();
   exitEndedEarly = !!endedEarly;
   if (!restoring || !sessionEndTime) sessionEndTime = Date.now();
-  // "Block ended" if they stopped early, "Block complete" if the block ran its course
-  $("exitEyebrow").textContent = endedEarly ? "Block ended" : "Block complete";
   renderEndSummary();
   $("workStage").hidden = true;
   $("endSummary").classList.add("on");
   $("exit").classList.add("on");
   if (!restoring) persistExitState();
-  requestAnimationFrame(() => $("exitTitle").focus());
+  requestAnimationFrame(() => $("endSummaryHeading").focus());
 }
 
 /* ---- Log: view + copy ---- */
@@ -1902,7 +1893,17 @@ function normalizeCompletionStatus(value) {
   return ["finished", "partly-finished", "didnt-begin"].indexOf(status) > -1 ? status : "";
 }
 function progressText(entry) {
-  return String(entry.progress || entry.finishedAsPlanned || entry.output || "").trim();
+  const text = String(entry.progress || entry.finishedAsPlanned || entry.output || "").trim();
+  if (!text || /^(no steps tracked|time recorded automatically; no milestone checklist\.?$)/i.test(text)) return "";
+  const oldMilestone = text.match(/^\d+\s+of\s+\d+\s+[—-]\s+through\s+(.+)$/i);
+  if (!oldMilestone) return text;
+  const currentLabel = oldMilestone[1].replace(/\s*[—-]\s*done\s*$/i, "");
+  const current = numberMeasure(currentLabel);
+  const target = numberMeasure(entry.task);
+  if (current && target && current.unit === target.unit && current.value <= target.value) {
+    return formatQuantity(current.value) + " of " + formatQuantity(target.value) + " " + target.unit;
+  }
+  return currentLabel;
 }
 function isConcreteHelp(value) {
   const text = signalKey(value);
@@ -1996,16 +1997,67 @@ function timeReportText(entry) {
   const detail = extension ? " (" + minuteAmount(original) + " planned + " + minuteAmount(extension) + " extension)" : "";
   return minuteAmount(actual) + " spent vs " + minuteAmount(expected) + " expected" + detail + ".";
 }
+function timeCountText(entry) {
+  const original = Math.max(0, Number(entry.plannedMinutes) || 0);
+  const extension = extensionMinutesFor(entry);
+  const expected = adjustedPlannedMinutesFor(entry);
+  const actual = Math.max(0, Number(entry.actualMinutes) || 0);
+  const detail = extension ? " (" + original + "-minute plan + " + extension + "-minute extension)" : "";
+  return actual + " of " + expected + " minutes" + detail + ".";
+}
+function windowText(start, finish) {
+  const a = String(start || "").trim();
+  const b = String(finish || "").trim();
+  return a && b ? a + "–" + b : (a || b);
+}
+function conditionText(entry) {
+  if (entry.mode === "sealed") {
+    return "Internet off" + (entry.sealedPlan ? " · " + entry.sealedPlan : "");
+  }
+  if (entry.mode === "lane") {
+    return "Internet only" + (entry.laneSites && entry.laneSites.length ? " · " + entry.laneSites.join(", ") : "");
+  }
+  return "";
+}
+function checkinText(entry) {
+  return entry.checkins + " · " + entry.onTask + " on task, " + entry.sortOf + " sort of, " + entry.off + " off";
+}
+function addResultRecordRow(label, value) {
+  const text = String(value || "").trim();
+  if (!text) return;
+  const row = document.createElement("div");
+  row.className = "result-record-row";
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const detail = document.createElement("dd");
+  detail.textContent = text;
+  row.appendChild(term);
+  row.appendChild(detail);
+  $("resultRecordList").appendChild(row);
+}
+function renderCurrentResult(entry) {
+  $("resultRecordHeading").textContent = shortReportDate(entry.date, false) + " · " + entry.task;
+  $("resultRecordList").replaceChildren();
+  addResultRecordRow("Condition:", conditionText(entry));
+  addResultRecordRow("Time:", timeReportText(entry));
+  if (entry.jobsTotal > 0) addResultRecordRow("Progress:", progressText(entry));
+  addResultRecordRow("Check-ins:", checkinText(entry));
+  addResultRecordRow("Pulled off:", entry.inTheWay);
+  addResultRecordRow("Worked well:", entry.helped);
+  addResultRecordRow("Next starting point:", entry.nextStart);
+}
 function entryToText(e) {
   const lines = [];
   lines.push(fmtDate(e.date) + " — " + e.task);
-  lines.push(timeReportText(e));
-  if (e.mode) lines.push("Condition: " + (e.mode === "sealed" ? "internet off" : "internet required"));
-  lines.push("Check-ins: " + e.checkins + " (" + e.onTask + " on task, " + e.sortOf + " sort of, " + e.off + " off)");
-  lines.push("Progress: " + (progressText(e) || "Not recorded."));
-  lines.push("Helped: " + (e.helped || (e.helpedStatus === "none" ? "Nothing helped." : "Not recorded.")));
-  lines.push("Pulled off: " + (e.inTheWay || "Nothing recorded."));
-  lines.push("Next step / Resume point: " + (e.nextStart || "Nothing recorded."));
+  if (conditionText(e)) lines.push("Condition: " + conditionText(e));
+  lines.push("Time: " + timeCountText(e));
+  if (windowText(e.plannedStart, e.plannedFinish)) lines.push("Planned: " + windowText(e.plannedStart, e.plannedFinish));
+  if (windowText(e.actualStart, e.actualFinish)) lines.push("Actual: " + windowText(e.actualStart, e.actualFinish));
+  if (e.jobsTotal > 0 && progressText(e)) lines.push("Progress: " + progressText(e));
+  lines.push("Check-ins: " + checkinText(e));
+  if (e.inTheWay) lines.push("Pulled off: " + e.inTheWay);
+  if (e.helped) lines.push("Worked well: " + e.helped);
+  if (e.nextStart) lines.push("Next starting point: " + e.nextStart);
   return lines.join("\n");
 }
 function signalKey(value) {
@@ -2074,85 +2126,29 @@ function shortReportDate(value, withTime) {
   if (withTime) { options.hour = "numeric"; options.minute = "2-digit"; }
   return d.toLocaleDateString([], options);
 }
-function reportDateSpan(entries, scope, since) {
-  if (!entries.length) {
-    if (scope === "period" && since) return "since " + shortReportDate(since, true);
-    if (scope === "all") return "all history";
-    if (scope === "1") return "today";
-    return "last " + (scope === "7" ? "7" : "14") + " days";
-  }
-  const first = new Date(entries[0].date), last = new Date(entries[entries.length - 1].date);
-  if (first.toDateString() === last.toDateString()) return shortReportDate(first, false);
-  if (first.getFullYear() === last.getFullYear() && first.getMonth() === last.getMonth()) {
-    return first.toLocaleDateString([], {month:"short"}) + " " + first.getDate() + "–" + last.getDate();
-  }
-  return shortReportDate(first, false) + "–" + shortReportDate(last, false);
-}
-function saveReportState(scope, since) {
-  reportScopeValue = ["1","7","14","all","period"].indexOf(String(scope)) > -1 ? String(scope) : "1";
-  reportSinceValue = Number(since) || 0;
-  cfg.reportScope = reportScopeValue;
-  cfg.reportSince = reportSinceValue;
-  try {
-    localStorage.setItem(REPORT_SCOPE_KEY, reportScopeValue);
-    if (reportSinceValue) localStorage.setItem(REPORT_SINCE_KEY, String(reportSinceValue));
-    else localStorage.removeItem(REPORT_SINCE_KEY);
-  } catch (e) { storageDurable = false; }
-}
-function syncReportControls() {
-  const option = $("periodOption");
-  option.hidden = !reportSinceValue;
-  if (reportSinceValue) option.textContent = "Current period · " + shortReportDate(reportSinceValue, false);
-  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "1";
-  $("learningRange").value = reportScopeValue;
-}
-function renderSignalList(id, signals, emptyText) {
-  const target = $(id);
-  target.innerHTML = "";
-  if (!signals.length) { target.textContent = emptyText; return; }
-  const list = document.createElement("ul");
-  list.className = "learning-list";
-  signals.forEach(signal => {
-    const li = document.createElement("li");
-    li.textContent = signal.text + (signal.count > 1 ? " \u00d7" + signal.count : "");
-    list.appendChild(li);
-  });
-  target.appendChild(list);
-}
-function renderLearningReport() {
-  syncReportControls();
-  const reportEntries = filterReportEntries(getEntries(), reportScopeValue, reportSinceValue, Date.now());
-  const summary = summarizeLearning(reportEntries);
-  const span = reportDateSpan(reportEntries, reportScopeValue, reportSinceValue);
-  $("learningSummary").textContent = summary.blocks
-    ? summary.blocks + " " + (summary.blocks === 1 ? "block" : "blocks") + " · " + span
-    : "No blocks · " + span;
-  renderSignalList("learningHelps", summary.helps, "Nothing named yet.");
-  renderSignalList("learningPulls", summary.pulls, "Nothing named yet.");
-  $("learningTime").textContent = summary.time;
-}
 function renderLog() {
   const entries = getEntries();
-  const v = $("logView");
+  const v = $("logEntries");
   if (!entries.length) { v.innerHTML = '<div class="log-empty">No entries yet.</div>'; return; }
   v.innerHTML = "";
   const title = document.createElement("div");
   title.className = "log-title";
-  title.textContent = "All saved results";
+  title.textContent = "All results";
   v.appendChild(title);
   entries.slice().reverse().forEach(e => {
     const div = document.createElement("div");
     div.className = "log-entry";
     let html = '<div class="le-date">' + fmtDate(e.date) + '</div>';
     html += '<div class="le-task">' + escapeHtml(e.task) + '</div>';
-    html += '<div class="le-row"><b>Time:</b> ' + escapeHtml(timeReportText(e)) + '</div>';
-    if (e.mode) html += '<div class="le-row"><b>Condition:</b> ' + (e.mode === "sealed" ? "internet off" : "internet required") + '</div>';
-    html += '<div class="le-row"><b>Check-ins:</b> ' + e.checkins + ' — ' + e.onTask + ' on task, ' +
-            e.sortOf + ' sort of, ' + e.off + ' off</div>';
-    html += '<div class="le-row"><b>Progress:</b> ' + escapeHtml(progressText(e) || "Not recorded.") + '</div>';
-    html += '<div class="le-row"><b>Helped:</b> ' + escapeHtml(e.helped || (e.helpedStatus === "none" ? "Nothing helped." : "Not recorded.")) + '</div>';
-    html += '<div class="le-row"><b>Pulled off:</b> ' + escapeHtml(e.inTheWay || "Nothing recorded.") + '</div>';
-    html += '<div class="le-row"><b>Next step / Resume point:</b> ' + escapeHtml(e.nextStart || "Nothing recorded.") + '</div>';
+    if (conditionText(e)) html += '<div class="le-row"><b>Condition:</b> ' + escapeHtml(conditionText(e)) + '</div>';
+    html += '<div class="le-row"><b>Time:</b> ' + escapeHtml(timeCountText(e)) + '</div>';
+    if (windowText(e.plannedStart, e.plannedFinish)) html += '<div class="le-row"><b>Planned:</b> ' + escapeHtml(windowText(e.plannedStart, e.plannedFinish)) + '</div>';
+    if (windowText(e.actualStart, e.actualFinish)) html += '<div class="le-row"><b>Actual:</b> ' + escapeHtml(windowText(e.actualStart, e.actualFinish)) + '</div>';
+    if (e.jobsTotal > 0 && progressText(e)) html += '<div class="le-row"><b>Progress:</b> ' + escapeHtml(progressText(e)) + '</div>';
+    html += '<div class="le-row"><b>Check-ins:</b> ' + escapeHtml(checkinText(e)) + '</div>';
+    if (e.inTheWay) html += '<div class="le-row"><b>Pulled off:</b> ' + escapeHtml(e.inTheWay) + '</div>';
+    if (e.helped) html += '<div class="le-row"><b>Worked well:</b> ' + escapeHtml(e.helped) + '</div>';
+    if (e.nextStart) html += '<div class="le-row"><b>Next starting point:</b> ' + escapeHtml(e.nextStart) + '</div>';
     div.innerHTML = html;
     v.appendChild(div);
   });
@@ -2169,16 +2165,32 @@ function clearSavedLog() {
     deletedDurably = false;
     storageDurable = false;
   }
-  saveReportState("1", 0);
-  renderLearningReport();
   renderLog();
   return deletedDurably;
 }
 function escapeHtml(s) {
   return (s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 }
+let copyRequestId = 0;
+let copiedResultButton = null;
+let copiedResultTimer = null;
+function resetCopiedResultButton() {
+  clearTimeout(copiedResultTimer);
+  copiedResultTimer = null;
+  if (copiedResultButton) copiedResultButton.textContent = copiedResultButton.dataset.copyLabel;
+  copiedResultButton = null;
+}
 function copyText(txt, btn, after) {
-  const done = () => { const o = btn.textContent; btn.textContent = "Copied ✓"; setTimeout(() => btn.textContent = o, 1600); if (after) after(); };
+  const requestId = ++copyRequestId;
+  if (!btn.dataset.copyLabel) btn.dataset.copyLabel = btn.textContent;
+  resetCopiedResultButton();
+  const done = () => {
+    if (requestId !== copyRequestId) return;
+    copiedResultButton = btn;
+    btn.textContent = "Copied ✓";
+    copiedResultTimer = setTimeout(resetCopiedResultButton, 1600);
+    if (after) after();
+  };
   const manual = () => { window.prompt("Copy this text:", txt); if (after) after(); };
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(txt).then(done, () => fallbackCopy(txt, done, manual));
@@ -2192,6 +2204,10 @@ function fallbackCopy(txt, done, failed) {
   try { copied = document.execCommand("copy"); } catch (e) {}
   ta.remove();
   if (copied) done(); else failed();
+}
+function showHandoff(message) {
+  $("handoffLead").textContent = message;
+  $("nextLinks").classList.add("on");
 }
 /* ---- Optional: one-copy interview that returns a builder-ready plan ---- */
 const BUILD_NEXT_PROMPT = [
@@ -2317,8 +2333,6 @@ function downloadText(txt, filename, mime) {
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-/* ---- Preview a check-in: demo the flash + beep + asking state ---- */
-
 /* ---- Boot steps ---- */
 function normalizeConfig(raw) {
   const c = Object.assign({
@@ -2364,22 +2378,13 @@ function activateStorageKeys() {
   const suffix = shortHash(identity);
   LOG_KEY = LOG_KEY_BASE + "_" + suffix;
   ENTRIES_KEY = ENTRIES_KEY_BASE + "_" + suffix;
-  REPORT_SCOPE_KEY = REPORT_SCOPE_KEY_BASE + "_" + suffix;
-  REPORT_SINCE_KEY = REPORT_SINCE_KEY_BASE + "_" + suffix;
   HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE + "_" + suffix;
   UI_STATE_KEY = UI_STATE_KEY_BASE + "_" + suffix;
-  reportScopeValue = cfg.reportScope || "1";
-  reportSinceValue = Number(cfg.reportSince) || 0;
   historyResetAt = 0;
   try {
-    const storedScope = localStorage.getItem(REPORT_SCOPE_KEY);
-    const storedSince = Number(localStorage.getItem(REPORT_SINCE_KEY));
     const storedReset = Number(localStorage.getItem(HISTORY_RESET_KEY));
-    if (["1","7","14","all","period"].indexOf(storedScope) > -1) reportScopeValue = storedScope;
-    if (storedSince > 0) reportSinceValue = storedSince;
     if (storedReset > 0) historyResetAt = storedReset;
   } catch (e) { storageDurable = false; }
-  if (reportScopeValue === "period" && !reportSinceValue) reportScopeValue = "1";
 }
 
 function loadConfig() {
@@ -2419,7 +2424,7 @@ function applyConfig() {
   renderPreStart();
   preTimer = setInterval(renderPreStart, 1000);
   setInterval(renderClockLine, 20000);
-  $("pullText").textContent  = cfg.finishFeel;
+  $("whyMattersText").textContent = cfg.finishFeel;
   $("beLine").textContent    = "You said done was " + cfg.doneWhenShort + ".";
 
   if (cfg.keep && cfg.keep.trim()) {
@@ -2432,10 +2437,9 @@ function applyConfig() {
   if (hasTrap) {
     $("whyLabel").textContent = cfg.whyLabel || "Avoid";
     $("whyText").textContent  = cfg.why;
-    $("knockReason").textContent = "\u201C" + cfg.why + "\u201D";
   } else {
-    $("why").style.display = "none";        // no Watch-for section
-    $("knockReason").style.display = "none"; // knock just asks, quotes nothing
+    $("why").style.display = "none";
+    $("cueGrid").classList.add("single");
   }
 
   if (cfg.mode === "lane" && cfg.laneSites.length) {
@@ -2457,7 +2461,7 @@ function applyConfig() {
 
   if (cfg.jobsShape !== "none" && cfg.jobs.length) {
     $("jobsSection").classList.remove("hidden");
-    $("jobsEyebrow").textContent = (cfg.jobsShape === "milestones") ? "Milestones" : "The jobs";
+    $("jobsEyebrow").textContent = "Steps";
     const list = $("jobList");
     cfg.jobs.forEach((label, i) => {
       const row = document.createElement("label");
@@ -2490,8 +2494,7 @@ function applyConfig() {
 
 function wireEvents() {
   $("beginBtn").addEventListener("click", () => {
-    if (previewing) endPreview();
-    else stopAsking();
+    stopAsking();
     startTime = Date.now();
     sessionEndTime = null;
     sessionRunning = true;
@@ -2504,6 +2507,7 @@ function wireEvents() {
     $("endLink").style.display = "";      // End session becomes available once begun
     $("checkin").classList.add("on");     // check-in is now always visible
     $("timerWrap").classList.add("on");
+    $("timeProgress").classList.add("on");
     logRow("begin");
     renderClockLine();
     updateElapsed();
@@ -2601,7 +2605,7 @@ function wireEvents() {
 
     $("exit").classList.remove("on");
     $("endSummary").classList.remove("on");
-    renderLearningReport();
+    renderCurrentResult(entry);
     $("resultQuestion").hidden = savedDurably;
     $("resultQuestion").textContent = savedDurably
       ? ""
@@ -2613,12 +2617,10 @@ function wireEvents() {
   $("viewLogBtn").addEventListener("click", () => {
     const v = $("logView");
     v.classList.toggle("on");
-    if (v.classList.contains("on")) { renderLog(); $("viewLogBtn").textContent = "Hide full log"; }
-    else $("viewLogBtn").textContent = "View full log";
-  });
-  $("learningRange").addEventListener("change", (e) => {
-    saveReportState(e.target.value, reportSinceValue);
-    renderLearningReport();
+    const open = v.classList.contains("on");
+    $("viewLogBtn").setAttribute("aria-expanded", String(open));
+    if (open) { renderLog(); $("viewLogBtn").textContent = "Hide all results"; }
+    else $("viewLogBtn").textContent = "View all results";
   });
   $("clearLogBtn").addEventListener("click", () => {
     if (!getEntries().length) {
@@ -2636,7 +2638,7 @@ function wireEvents() {
     const entries = getEntries();
     if (!entries.length) return;
     const all = entries.map(entryToText).join("\n\n———\n\n");
-    downloadText(all, "focus-log.txt");
+    downloadText(all, "focus-file-results.txt");
     const b = e.target, o = b.textContent;
     b.textContent = "Saved ✓"; setTimeout(() => b.textContent = o, 1600);
   });
@@ -2645,17 +2647,14 @@ function wireEvents() {
     const entries = getEntries();
     if (!entries.length) return;
     copyText(buildNextPayload(entries, Date.now(), "block"), e.target,
-             () => { $("nextLinks").classList.add("on"); });
+             () => { showHandoff("Copied. Paste the prompt into a new AI chat. The next interview asks the same five questions, using what pulled you off, what worked, and where to start as context."); });
+  });
+  $("newFileBtn").addEventListener("click", (e) => {
+    const prompt = $("freshInterviewPrompt").textContent.trim();
+    copyText(prompt, e.target,
+             () => { showHandoff("Copied. This starts a new five-question interview without using the previous result. Open a new AI chat and paste the prompt."); });
   });
 
-  $("previewLink").addEventListener("click", () => {
-    if (previewing || scheduledCheckinActive) return; // do not replace a real scheduled question
-    previewing = true;
-    previewWasVisible = $("checkin").classList.contains("on");
-    $("checkin").classList.add("on");           // show it if pre-start
-    if (!previewWasVisible) $("checkin").style.marginTop = "22px";  // gap from the Begin button (pre-start only)
-    startAsking(true);                          // flash, beep, asking — no tab blink. Stays until an answer is tapped.
-  });
 }
 
 /* ===== SELF-TEST — the setup instructions refer to this block; never modify it =====
@@ -2672,13 +2671,17 @@ function selfTest() {
   must(cfg.jobsShape === "none" || document.querySelectorAll(".job").length === cfg.jobs.length, "jobs did not render");
   must(cfg.knockMinMin > 0 && cfg.knockMaxMin >= cfg.knockMinMin, "check-in window invalid");
   must(!!document.getElementById("beginBtn"), "begin button missing");
-  must(!!document.getElementById("learningRange"), "learning timeframe control missing");
-  must(document.getElementById("learningReport").tagName === "SECTION", "learning report must stay visible");
-  must(!!document.getElementById("learningTime"), "time comparison summary missing");
+  must(!!document.getElementById("resultRecord"), "current-result record missing");
+  must(!!document.getElementById("newFileBtn"), "new-file action missing");
+  must(!!document.getElementById("buildNextBtn"), "continuation action missing");
+  must(!!document.getElementById("viewLogBtn") && !!document.getElementById("downloadLogBtn"), "history actions missing");
   must(!!document.getElementById("clearLogBtn"), "clear-log control missing");
   must(!document.getElementById("nextHistoryScope"), "next-interview scope control should not duplicate the saved log");
   must(!!document.getElementById("checkinAnnouncement"), "check-in live region missing");
-  must(document.getElementById("previewLink").textContent.trim() === "Preview a check-in", "check-in preview label is incorrect");
+  must(typeof showYesFeedback === "function" && typeof clearCheckinFeedback === "function", "yes check-in feedback missing");
+  must(!document.getElementById("previewLink"), "obsolete check-in preview should not be present");
+  must(!!document.getElementById("whyMattersText"), "why-it-matters cue is missing");
+  must(!!document.getElementById("timeProgressFill"), "time progress bar is missing");
   must(!!document.getElementById("workStage"), "work stage missing");
   must(!!document.getElementById("endSummary"), "end summary missing");
   must(document.querySelectorAll(".exit-input").length === 3, "quick checkout must contain three optional fields");

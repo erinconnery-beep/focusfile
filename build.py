@@ -3,6 +3,7 @@
 
   prompt-head.md    -> focus-file-prompt.md
                     -> index.html's generated fullPrompt region
+                    -> focus-file.html's fresh-interview prompt
   focus-file.html   -> sample-*.html using the source configs below
 
 Never hand-edit the generated prompt region or the generated sample files.
@@ -16,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 ISLAND = re.compile(r'<script id="focus-config" type="application/json">[\s\S]*?</script>')
 PROMPT_OPEN = '<script type="text/plain" id="fullPrompt">'
+FRESH_PROMPT_OPEN = '<script type="text/plain" id="freshInterviewPrompt">'
 CANONICAL = '<link rel="canonical" href="https://www.focusfile.org/">'
 
 SAMPLES = {
@@ -106,7 +108,14 @@ def main():
     if "fetch('focus-file.html')" not in index:
         sys.exit("build: builder fetch missing from index.html")
 
-    template = (ROOT / "focus-file.html").read_text()
+    template_path = ROOT / "focus-file.html"
+    template = template_path.read_text()
+    fresh_start = template.find(FRESH_PROMPT_OPEN)
+    fresh_end = template.find("</script>", fresh_start)
+    if fresh_start < 0 or fresh_end < 0:
+        sys.exit("build: freshInterviewPrompt block not found in focus-file.html")
+    template = template[:fresh_start] + FRESH_PROMPT_OPEN + embedded_head + "\n" + template[fresh_end:]
+    template_path.write_text(template)
     if not ISLAND.search(template):
         sys.exit("build: focus-config island missing from focus-file.html")
     for name, config in SAMPLES.items():
@@ -114,7 +123,7 @@ def main():
         (ROOT / name).write_text(generated)
 
     print("build OK - short prompt %d chars; template %d chars" % (len(head), len(template)))
-    print("Deploy to Vercel: index.html + focus-file-logo.svg + focus-file-social.png + focus-file.html + sample-writing.html + sample-jobsearch.html + sample-study.html")
+    print("Deploy to Vercel: index.html + focus-file-logo.svg + focus-file-social-v2.png + focus-file.html + sample-writing.html + sample-jobsearch.html + sample-study.html")
 
 
 if __name__ == "__main__":
