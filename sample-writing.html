@@ -138,31 +138,30 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   .header-top {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 14px;
-    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 7px;
   }
   #headerTop { display: none; }
-  .prestart { text-align: left; }
+  .prestart { margin-top: 10px; text-align: left; }
   .ps-window { font-family: var(--mono); font-size: 10px; font-weight: 600;
     letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mut); }
   .ps-meta { font-family: -apple-system, system-ui, sans-serif; font-size: 12.5px; color: var(--ink-faint);
     margin-top: 7px; font-variant-numeric: tabular-nums; }
   .ps-meta .cl-sep { color: var(--paper-line); margin: 0 4px; }
-  .scope-wrap { text-align: right; }
   .clockline {
     font-family: -apple-system, system-ui, sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.02em;
     color: var(--ink-faint);
-    text-align: right;
-    margin-top: 4px;
+    text-align: left;
+    margin: 0;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
-  .clockline .cl-sep { color: var(--paper-line); margin: 0 5px; }
+  .time-sep { color: var(--ink-faint); }
   .scope {
     font-family: var(--mono);
     font-size: 10px;
@@ -170,8 +169,8 @@ window.addEventListener("DOMContentLoaded", function () {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-mut);
-    text-align: right;
-    padding-top: 3px;
+    text-align: left;
+    padding: 0;
     white-space: nowrap;
   }
   .task-title {
@@ -186,7 +185,7 @@ window.addEventListener("DOMContentLoaded", function () {
   .timer-wrap.on { display: block; }
   .elapsed {
     font-family: -apple-system, system-ui, sans-serif;
-    text-align: right;
+    text-align: left;
   }
   .elapsed .big {
     font-size: 20px;
@@ -200,21 +199,6 @@ window.addEventListener("DOMContentLoaded", function () {
     font-weight: 600;
     color: var(--ink-mut);
   }
-  .progress-track {
-    height: 5px;
-    background: var(--paper-line);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 14px;
-  }
-  .progress-fill {
-    width: 0%;
-    height: 100%;
-    background: var(--pine);
-    border-radius: 3px;
-    transition: width 0.6s ease;
-  }
-
   /* ---------- Lane strip ---------- */
   .lane {
     display: none;
@@ -751,46 +735,10 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   .result-actions {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 9px;
     max-width: 480px;
     margin: 0 auto;
-  }
-  .next-interview-scope {
-    max-width: 480px;
-    margin: 0 auto 12px;
-    padding: 12px 14px;
-    border: 1px solid var(--paper-line);
-    border-radius: 10px;
-    background: var(--paper);
-    text-align: left;
-  }
-  .next-scope-control {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--ink-soft);
-  }
-  .next-scope-control select {
-    min-height: 34px;
-    max-width: 190px;
-    padding: 5px 28px 5px 9px;
-    border: 1px solid var(--paper-line);
-    border-radius: 6px;
-    background: var(--paper);
-    color: var(--ink);
-    font: inherit;
-  }
-  .next-scope-summary {
-    margin: 7px 0 0;
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 11.5px;
-    line-height: 1.45;
-    color: var(--ink-mut);
   }
   .btn-buildnext, .result-action {
     display: inline-flex;
@@ -821,49 +769,28 @@ window.addEventListener("DOMContentLoaded", function () {
     margin-top:8px; line-height:1.5; }
   .share-note { font-family:-apple-system,system-ui,sans-serif; font-size:12.5px; color:var(--ink-mut);
     line-height:1.6; max-width:44ch; margin:18px auto 0; }
-  .result-card {
+  .learning-report {
     max-width: 480px;
     margin: 0 auto 22px;
-    border: 1px solid var(--paper-line);
-    border-radius: 12px;
-    background: var(--paper-warm);
-    overflow: hidden;
-    text-align: left;
-  }
-  .result-row {
-    display: grid;
-    grid-template-columns: 74px 1fr;
-    gap: 12px;
-    padding: 12px 15px;
-    border-bottom: 1px solid var(--paper-line);
-  }
-  .result-row:last-child { border-bottom: 0; }
-  .result-key {
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--pine);
-    padding-top: 2px;
-  }
-  .result-row.pulled .result-key { color: var(--clay); }
-  .result-row.stopped .result-key { color: var(--ink-mut); }
-  .result-value {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 13px;
-    line-height: 1.45;
-    color: var(--ink-soft);
-  }
-  .learning-report {
-    max-width: 520px;
-    margin: 0 auto 22px;
-    padding: 20px;
     border: 1.5px solid var(--pine);
     border-radius: 13px;
     background: var(--pine-tint);
     text-align: left;
   }
+  .learning-disclosure {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:15px 16px;
+    cursor:pointer;
+    list-style:none;
+  }
+  .learning-disclosure::-webkit-details-marker { display:none; }
+  .learning-disclosure::after { content:"+"; flex:0 0 auto; color:var(--pine); font:800 15px/1 var(--mono); }
+  .learning-report[open] .learning-disclosure::after { content:"−"; }
+  .learning-report[open] .learning-disclosure { border-bottom:1px solid var(--paper-line); }
+  .learning-body { padding:14px 16px 16px; }
   .learning-kicker {
     font-family: var(--mono);
     font-size: 9px;
@@ -876,7 +803,7 @@ window.addEventListener("DOMContentLoaded", function () {
   .learning-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 12px;
     margin-bottom: 8px;
   }
@@ -899,17 +826,18 @@ window.addEventListener("DOMContentLoaded", function () {
     padding: 5px 24px 5px 8px;
   }
   .learning-summary {
-    font-size: 25px;
-    line-height: 1.16;
-    color: var(--ink);
-    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight:700;
+    line-height: 1.25;
+    color: var(--ink-soft);
+    margin:0;
   }
-  .learning-context {
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 12.5px;
-    line-height: 1.5;
-    color: var(--ink-mut);
-    margin-bottom: 17px;
+  .learning-time {
+    margin-bottom: 10px;
+    border: 1px solid var(--pine-chip);
+    border-radius: 9px;
+    background: rgba(255,255,255,.58);
+    padding: 12px 13px;
   }
   .learning-grid {
     display: grid;
@@ -917,13 +845,12 @@ window.addEventListener("DOMContentLoaded", function () {
     gap: 10px;
     margin-bottom: 10px;
   }
-  .learning-signal, .learning-insight, .learning-time, .learning-carry {
+  .learning-signal {
     border: 1px solid var(--pine-chip);
     border-radius: 9px;
     background: rgba(255,255,255,.58);
     padding: 12px 13px;
   }
-  .learning-insight, .learning-time, .learning-carry { margin-top: 10px; }
   .learning-label {
     display: block;
     font-family: var(--mono);
@@ -971,21 +898,9 @@ window.addEventListener("DOMContentLoaded", function () {
     color: var(--pine);
     text-align: center;
   }
-  .fresh-explainer {
-    width: 100%;
-    margin: -2px 0 0;
-    font-family: -apple-system, system-ui, sans-serif;
-    font-size: 10.5px;
-    line-height: 1.45;
-    color: var(--ink-mut);
-    text-align: center;
-  }
   @media (max-width: 480px) {
     .result-actions { grid-template-columns: 1fr; }
     .btn-buildnext, .result-action { min-height: 46px; }
-    .next-scope-control { align-items: flex-start; flex-direction: column; gap: 6px; }
-    .next-scope-control select { width: 100%; max-width: none; }
-    .result-row { grid-template-columns: 66px 1fr; }
     .learning-report { padding: 17px; }
     .learning-summary { font-size: 22px; }
     .learning-grid { grid-template-columns: 1fr; }
@@ -1050,33 +965,6 @@ window.addEventListener("DOMContentLoaded", function () {
     text-align: center;
     padding: 12px;
   }
-  .log-controls {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--hair);
-    font-family: -apple-system, system-ui, sans-serif;
-  }
-  .delete-history {
-    appearance: none;
-    border: 0;
-    background: transparent;
-    color: var(--ink-soft);
-    font: inherit;
-    font-size: 12px;
-    font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: var(--clay);
-    cursor: pointer;
-    padding: 0;
-  }
-  .delete-note {
-    margin: 7px 0 0;
-    font-size: 10.5px;
-    line-height: 1.45;
-    color: var(--ink-mut);
-  }
-
   /* EVIDENCE LEDGER — selected site system
      Compact, rule-based, and limited to charcoal, white, logo green, and semantic warning red. */
   html,body { background:#eef0ee; font-family:var(--sans); line-height:1.45; }
@@ -1086,25 +974,26 @@ window.addEventListener("DOMContentLoaded", function () {
   .masthead { padding:9px 22px 8px; border-bottom:2px solid var(--ink); }
   .mast-name { font-family:var(--sans); font-size:14px; font-weight:750; letter-spacing:-.01em; }
   .header { padding:16px 22px 15px; background:var(--paper); border-bottom:1px solid var(--paper-line); }
-  .header-top { margin-bottom:9px; }
+  .header-top { margin:10px 0 0; }
   .prestart { display:grid; gap:5px; }
   .ps-window { color:var(--ink-soft); }
   .ps-meta { display:flex; align-items:center; flex-wrap:wrap; gap:0; margin-top:0; }
   .ps-ready { color:var(--pine); font-weight:700; }
   .task-title { font-family:var(--sans); font-size:29px; font-weight:720; line-height:1.06; letter-spacing:-.035em; }
-  .task-title,.end-summary-task,.job .label,.learning-text,.result-value,.next-scope-summary,.share-note { overflow-wrap:anywhere; }
-  .elapsed { text-align:left; }
-  .elapsed .big { font-size:32px; font-weight:750; color:var(--ink); letter-spacing:-.045em; }
-  .elapsed .unit { font-size:11px; color:var(--ink-mut); }
+  .task-title,.end-summary-task,.job .label,.learning-text,.share-note { overflow-wrap:anywhere; }
+  .elapsed { display:flex; align-items:baseline; text-align:left; }
+  .elapsed .big { font-size:12.5px; font-weight:750; color:var(--ink-soft); letter-spacing:0; }
+  .elapsed .unit { font-size:12.5px; font-weight:500; color:var(--ink-mut); }
   .scope { color:var(--ink-soft); }
   .clockline { color:var(--ink-mut); }
-  .progress-track,.progress-fill { border-radius:0; }
-  .lane,.sealed-strip { padding:11px 22px; border-bottom-color:var(--paper-line); }
-  .lane-chip { max-width:100%; padding:3px 9px; border:1px solid #b6c9bd; border-radius:0; background:#fff; overflow-wrap:anywhere; }
-  .keep { padding:16px 22px; border-bottom-color:var(--paper-line); }
-  .keep p { font-family:var(--sans); font-size:14.5px; }
-  .why { padding:17px 22px; border-bottom-color:var(--paper-line); }
-  .why p { font-family:var(--sans); font-size:15px; font-style:normal; line-height:1.48; }
+  .lane,.sealed-strip,.keep,.why { padding:13px 22px; border-bottom-color:var(--paper-line); }
+  .focus-rule-row { display:grid; grid-template-columns:132px minmax(0,1fr); gap:14px; align-items:baseline; }
+  .focus-rule-label { margin:0; white-space:nowrap; }
+  .focus-rule-value { min-width:0; margin:0; font-family:var(--sans); font-size:14.5px; font-style:normal; font-weight:400; line-height:1.45; color:var(--ink-soft); overflow-wrap:anywhere; }
+  .lane-value { display:flex; align-items:baseline; flex-wrap:wrap; gap:5px; }
+  .lane-chip { max-width:100%; padding:0; border:0; border-radius:0; background:transparent; color:var(--ink-soft); font-size:14.5px; font-weight:400; overflow-wrap:anywhere; }
+  .lane-rest { color:var(--ink-mut); font-size:12.5px; font-style:normal; }
+  .keep p,.why p { margin:0; font-family:var(--sans); font-size:14.5px; font-style:normal; line-height:1.45; }
   .jobs { padding:18px 22px; border-bottom-color:var(--paper-line); }
   .jobs-head { margin-bottom:13px; }
   .job-list { gap:12px; }
@@ -1136,52 +1025,26 @@ window.addEventListener("DOMContentLoaded", function () {
   .end-summary.on { display:block; }
   .end-summary-task { font-family:var(--sans); font-size:20px; font-weight:720; line-height:1.18; letter-spacing:-.02em; color:var(--ink); }
   .end-summary-meta { margin-top:5px; font-family:var(--sans); font-size:12.5px; line-height:1.45; color:var(--ink-soft); }
-  .end-summary-details { margin-top:12px; padding-top:11px; border-top:1px solid var(--paper-line); }
-  .end-summary-details summary { width:max-content; max-width:100%; font-family:var(--sans); font-size:12.5px; font-weight:700; color:var(--pine); cursor:pointer; }
-  .end-summary-body { display:grid; gap:9px; margin-top:12px; }
-  .end-detail-row { display:grid; grid-template-columns:82px minmax(0,1fr); gap:10px; font-family:var(--sans); font-size:12.5px; line-height:1.45; }
-  .end-detail-label { color:var(--ink-mut); font-weight:700; }
-  .end-detail-value { color:var(--ink-soft); min-width:0; overflow-wrap:anywhere; }
-  .end-detail-jobs { margin:0; padding:0; list-style:none; }
-  .end-detail-jobs li + li { margin-top:4px; }
-  .end-detail-jobs .done { color:var(--ink-faint); text-decoration:line-through; text-decoration-color:var(--paper-line); }
-  .exit { padding:22px; }
-  .exit-eyebrow { margin-bottom:12px; }
-  .exit-title { font-family:var(--sans); font-size:20px; font-weight:680; margin-bottom:19px; }
+  .exit { padding:19px 22px 22px; }
+  .exit-eyebrow { margin-bottom:8px; }
+  .exit-title { font-family:var(--sans); font-size:20px; font-weight:680; margin-bottom:14px; }
   .exit-q { margin-bottom:7px; }
-  .exit-choice-group { margin:0 0 14px; padding:0; border:0; min-width:0; }
-  .exit-choice-group .exit-q { padding:0; }
-  .exit-options { display:grid; gap:7px; }
-  .completion-options { grid-template-columns:repeat(3,minmax(0,1fr)); }
-  .helped-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .exit-option { position:relative; min-width:0; cursor:pointer; }
-  .exit-option input { position:absolute; opacity:0; pointer-events:none; }
-  .exit-option span { display:flex; align-items:center; justify-content:center; min-height:42px; padding:8px 7px; border:1px solid var(--paper-line); background:#fff; color:var(--ink-soft); font-family:var(--sans); font-size:12px; font-weight:700; line-height:1.2; text-align:center; }
-  .exit-option input:checked + span { border:2px solid var(--pine); background:var(--pine-tint); color:var(--pine); }
-  .exit-option input:focus-visible + span { outline:2px solid var(--pine); outline-offset:2px; }
-  .exit-choice-group.invalid .exit-options { outline:2px solid var(--clay); outline-offset:2px; }
-  .helped-detail[hidden] { display:none; }
-  .exit-input { padding:11px 12px; border-radius:0; margin-bottom:14px; background:#fff; }
-  .exit-foot { margin-top:13px; padding-top:14px; }
+  .exit-input { min-height:42px; padding:9px 12px; border-radius:0; margin-bottom:10px; background:#fff; }
+  .exit-foot { margin-top:4px; padding-top:12px; }
   .btn-done { padding:10px 17px; border-radius:0; }
   .alldone { padding:23px 22px 22px; }
   .alldone .msg { justify-content:flex-start; font-family:var(--sans); font-size:23px; font-weight:720; margin-bottom:14px; }
-  .result-card { margin-bottom:17px; border-color:var(--ink); border-radius:0; background:#fff; }
-  .result-row { grid-template-columns:88px minmax(0,1fr); padding:9px 13px; border-bottom-color:var(--hair); }
-  .result-row.pulled { background:var(--clay-tint); }
-  .result-value { overflow-wrap:anywhere; }
-  .result-status { color:var(--pine); font-weight:750; }
-  .result-progress { display:block; margin-top:3px; color:var(--ink-mut); }
-  .learning-report { margin-bottom:17px; padding:16px; border:2px solid var(--ink); border-radius:0; background:var(--pine-tint); }
-  .learning-summary { font-family:var(--sans); font-size:22px; font-weight:700; line-height:1.15; }
+  .learning-report { margin-bottom:17px; border:2px solid var(--ink); border-radius:0; background:var(--pine-tint); }
+  .learning-disclosure { padding:13px 14px; }
+  .learning-body { padding:12px 14px 14px; }
+  .learning-summary { font-family:var(--sans); font-size:12px; font-weight:700; line-height:1.25; }
   .learning-window select { border-color:var(--paper-line); border-radius:0; background:#fff; }
-  .learning-grid { gap:0; margin:15px 0 0; border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line); }
-  .learning-signal,.learning-insight,.learning-time,.learning-carry { border:0; border-radius:0; background:transparent; padding:12px 0; }
+  .learning-time { margin:0; padding:12px 0; border:1px solid var(--paper-line); border-width:1px 0; border-radius:0; background:transparent; }
+  .learning-grid { gap:0; margin:0; border-bottom:1px solid var(--paper-line); }
+  .learning-signal { border:0; border-radius:0; background:transparent; padding:12px 0; }
   .learning-signal + .learning-signal { padding-left:13px; border-left:1px solid var(--paper-line); }
-  .learning-insight,.learning-time,.learning-carry { margin-top:0; border-bottom:1px solid var(--paper-line); }
-  .learning-carry { border-bottom:0; padding-bottom:0; }
   .learning-label { font-size:9px; }
-  .result-actions { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .result-actions { grid-template-columns:1fr; }
   .btn-buildnext,.result-action { min-height:46px; border-radius:0; font-size:12px; }
   .btn-buildnext,.result-action,.btn-log { overflow-wrap:anywhere; }
   .btn-buildnext { grid-column:1 / -1; border-color:var(--pine); background:var(--pine); color:#fff; }
@@ -1200,16 +1063,14 @@ window.addEventListener("DOMContentLoaded", function () {
     .end-summary,.exit,.alldone { padding-left:18px; padding-right:18px; }
     .lane,.sealed-strip,.keep,.why,.jobs,.action,.blockend { padding-left:18px; padding-right:18px; }
     .task-title { font-size:26px; }
-    .elapsed .big { font-size:30px; }
-    .header-top { gap:10px; }
-    .end-detail-row { grid-template-columns:1fr; gap:2px; }
-    .learning-report { padding:14px; }
+    .header-top { gap:6px; }
+    .focus-rule-row { grid-template-columns:112px minmax(0,1fr); gap:10px; }
+    .learning-disclosure { align-items:flex-start; }
     .learning-head { align-items:flex-start; flex-direction:column; }
     .learning-window { width:100%; flex-direction:row; align-items:center; justify-content:space-between; }
     .learning-window select { min-height:44px; }
     .learning-grid { grid-template-columns:1fr; }
     .learning-signal + .learning-signal { padding-left:0; border-left:0; border-top:1px solid var(--paper-line); }
-    .result-row { grid-template-columns:1fr; gap:3px; }
     .result-actions { grid-template-columns:1fr; }
     .btn-buildnext { grid-column:auto; }
   }
@@ -1227,6 +1088,7 @@ window.addEventListener("DOMContentLoaded", function () {
     <div class="work-stage" id="workStage">
     <!-- HEADER -->
     <div class="header">
+      <h1 class="task-title" id="taskTitle">1,500 new words on the story</h1>
       <div class="prestart" id="preStart">
         <div class="ps-window" id="psWindow"></div>
         <div class="ps-meta" id="psMeta"></div>
@@ -1237,44 +1099,43 @@ window.addEventListener("DOMContentLoaded", function () {
             <span class="big" id="elapsedNum">0</span><span class="unit" id="elapsedUnit"> min elapsed</span>
           </div>
         </div>
-        <div class="scope-wrap">
-          <div class="scope" id="scope">9:00 – 12:00</div>
-          <div class="clockline" id="clockLine"></div>
-        </div>
-      </div>
-      <h1 class="task-title" id="taskTitle">1,500 new words on the story</h1>
-      <div class="progress-track timer-wrap" id="progressWrap" style="margin-top:16px;">
-        <div class="progress-fill" id="progressFill"></div>
+        <span class="time-sep" aria-hidden="true">·</span>
+        <div class="scope" id="scope">9:00 – 12:00</div>
+        <span class="time-sep" aria-hidden="true">·</span>
+        <div class="clockline" id="clockLine"></div>
       </div>
     </div>
 
     <!-- LANE (lane mode only) -->
     <div class="lane" id="lane">
-      <div class="lane-inner">
-        <span class="lane-label">Internet plan</span>
-        <span id="laneChips"></span>
-        <span class="lane-rest">— blocker on</span>
+      <div class="lane-inner focus-rule-row">
+        <span class="lane-label focus-rule-label">Internet only</span>
+        <div class="lane-value focus-rule-value"><span id="laneChips"></span><span class="lane-rest">— blocker on</span></div>
       </div>
     </div>
 
     <!-- SEALED reminder: how they're keeping the internet off -->
     <div class="sealed-strip" id="sealedStrip">
-      <div class="sealed-inner">
-        <span class="sealed-label">Internet off</span>
-        <span class="sealed-plan" id="sealedPlan"></span>
+      <div class="sealed-inner focus-rule-row">
+        <span class="sealed-label focus-rule-label">Internet off</span>
+        <span class="sealed-plan focus-rule-value" id="sealedPlan"></span>
       </div>
     </div>
 
     <!-- KEEP (a success cue learned from the previous block) -->
     <div class="keep" id="keep">
-      <div class="eyebrow keep-label" id="keepLabel">Keep</div>
-      <p id="keepText"></p>
+      <div class="focus-rule-row">
+        <div class="eyebrow keep-label focus-rule-label" id="keepLabel">Keep</div>
+        <p class="focus-rule-value" id="keepText"></p>
+      </div>
     </div>
 
     <!-- WHY (watch-for: the trap to avoid) -->
     <div class="why" id="why">
-      <div class="eyebrow why-label" id="whyLabel">Avoid</div>
-      <p id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
+      <div class="focus-rule-row">
+        <div class="eyebrow why-label focus-rule-label" id="whyLabel">Avoid</div>
+        <p class="focus-rule-value" id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
+      </div>
     </div>
 
     <!-- JOBS (hidden / milestones / checklist) with counter -->
@@ -1336,46 +1197,24 @@ window.addEventListener("DOMContentLoaded", function () {
     <section class="end-summary" id="endSummary" aria-labelledby="endSummaryTask">
       <h1 class="end-summary-task" id="endSummaryTask"></h1>
       <p class="end-summary-meta" id="endSummaryMeta"></p>
-      <details class="end-summary-details" id="endSummaryDetails">
-        <summary>View task details</summary>
-        <div class="end-summary-body" id="endSummaryBody"></div>
-      </details>
     </section>
 
     <!-- EXIT -->
     <div class="exit" id="exit">
       <div class="eyebrow exit-eyebrow" id="exitEyebrow">Block complete</div>
-      <h2 class="exit-title">A few quick things — this records what happened.</h2>
+      <h2 class="exit-title">Quick checkout.</h2>
 
-      <fieldset class="exit-choice-group" id="completionGroup">
-        <legend class="exit-q">How did this block end?</legend>
-        <div class="exit-options completion-options">
-          <label class="exit-option"><input type="radio" name="completionStatus" value="finished"><span>Finished</span></label>
-          <label class="exit-option"><input type="radio" name="completionStatus" value="partly-finished"><span>Partly finished</span></label>
-          <label class="exit-option"><input type="radio" name="completionStatus" value="didnt-begin"><span>Didn&rsquo;t begin</span></label>
-        </div>
-      </fieldset>
+        <label class="exit-q" for="progressInput">What did you complete?</label>
+        <textarea class="exit-input" id="progressInput" rows="1"></textarea>
 
-      <label class="exit-q" for="progressInput">What did you complete?</label>
-      <textarea class="exit-input" id="progressInput" rows="2" placeholder="e.g. 600 of 1,000 words, through the second milestone"></textarea>
-
-      <fieldset class="exit-choice-group" id="helpedGroup">
-        <legend class="exit-q">What helped you focus?</legend>
-        <div class="exit-options helped-options">
-          <label class="exit-option"><input type="radio" name="helpedStatus" value="concrete"><span>Something helped</span></label>
-          <label class="exit-option"><input type="radio" name="helpedStatus" value="none"><span>Nothing helped</span></label>
-        </div>
-      </fieldset>
-      <div class="helped-detail" id="helpedDetail" hidden>
         <label class="exit-q" for="helpedInput">What helped?</label>
-        <textarea class="exit-input" id="helpedInput" rows="2" placeholder="e.g. the no-editing reminder kept me moving"></textarea>
-      </div>
+        <textarea class="exit-input" id="helpedInput" rows="1"></textarea>
 
       <label class="exit-q" for="inTheWayInput">What pulled you off? <span style="font-weight:400;">(optional)</span></label>
-      <textarea class="exit-input" id="inTheWayInput" rows="2" placeholder="e.g. drifted into note-taking — leave blank if nothing"></textarea>
+      <textarea class="exit-input" id="inTheWayInput" rows="1"></textarea>
 
-      <label class="exit-q" for="nextInput" id="nextLabel">Where should you resume?</label>
-      <textarea class="exit-input" id="nextInput" rows="2" placeholder="e.g. Scene C — before the confrontation"></textarea>
+      <label class="exit-q" for="nextInput">What comes next? <span style="font-weight:400;">(optional)</span></label>
+      <textarea class="exit-input" id="nextInput" rows="1"></textarea>
 
       <div class="exit-foot">
         <span class="exit-log" id="exitLog" role="status" aria-live="polite"></span>
@@ -1387,19 +1226,15 @@ window.addEventListener("DOMContentLoaded", function () {
     <div class="alldone" id="allDone">
       <div class="msg" id="resultHeading" role="heading" aria-level="2" tabindex="-1"><span class="mark">✓</span> Block recorded.</div>
 
-      <div class="result-card" aria-label="Result from this block">
-        <div class="result-row"><span class="result-key">Completion</span><span class="result-value"><span class="result-status" id="resultStatus"></span><span class="result-progress" id="resultProgress"></span></span></div>
-        <div class="result-row"><span class="result-key">Helped</span><span class="result-value" id="resultHelped"></span></div>
-        <div class="result-row pulled"><span class="result-key">Pulled off</span><span class="result-value" id="resultPulled"></span></div>
-        <div class="result-row stopped"><span class="result-key">Why it stopped</span><span class="result-value" id="resultStopped"></span></div>
-        <div class="result-row stopped"><span class="result-key">Next step / Resume point</span><span class="result-value" id="resultNext"></span></div>
-      </div>
-
-      <section class="learning-report" id="learningReport" aria-labelledby="learningTitle">
+      <details class="learning-report" id="learningReport">
+        <summary class="learning-disclosure">
+          <span class="learning-kicker" id="learningTitle">What you&rsquo;re learning</span>
+          <span class="learning-summary" id="learningSummary"></span>
+        </summary>
+        <div class="learning-body">
         <div class="learning-head">
-          <h2 class="learning-kicker" id="learningTitle">What you&rsquo;re learning</h2>
           <label class="learning-window" for="learningRange">
-            <span>Learning from:</span>
+            <span>Range:</span>
             <select id="learningRange">
               <option value="1" selected>Today</option>
               <option value="7">Last 7 days</option>
@@ -1409,8 +1244,10 @@ window.addEventListener("DOMContentLoaded", function () {
             </select>
           </label>
         </div>
-        <div class="learning-summary" id="learningSummary"></div>
-        <p class="learning-context" id="learningContext"></p>
+        <div class="learning-time">
+          <span class="learning-label">Time spent vs expected</span>
+          <div class="learning-text" id="learningTime"></div>
+        </div>
         <div class="learning-grid">
           <div class="learning-signal">
             <span class="learning-label">What helps</span>
@@ -1421,37 +1258,13 @@ window.addEventListener("DOMContentLoaded", function () {
             <div class="learning-text" id="learningPulls"></div>
           </div>
         </div>
-        <div class="learning-insight">
-          <span class="learning-label">Conditions you used</span>
-          <div class="learning-text" id="learningConditions"></div>
         </div>
-        <div class="learning-time">
-          <span class="learning-label">Time in the block</span>
-          <div class="learning-text" id="learningTime"></div>
-        </div>
-        <div class="learning-carry">
-          <span class="learning-label">Carry into the next block</span>
-          <div class="learning-text" id="learningCarry"></div>
-        </div>
-      </section>
+      </details>
 
-      <p class="result-question" id="resultQuestion" role="status" aria-live="polite">This result is saved on your device.</p>
-      <div class="next-interview-scope">
-        <label class="next-scope-control" for="nextHistoryScope">
-          <span>Include in the interview</span>
-          <select id="nextHistoryScope">
-            <option value="block" selected>This block only</option>
-            <option value="today">Today</option>
-            <option value="7">Last 7 days</option>
-            <option value="all">All saved results</option>
-          </select>
-        </label>
-        <p class="next-scope-summary" id="nextScopeSummary" aria-live="polite">Copies the current setup and this block&rsquo;s result.</p>
-      </div>
+      <p class="result-question warn" id="resultQuestion" role="status" aria-live="polite" hidden></p>
       <div class="result-actions">
         <button class="btn-buildnext" id="buildNextBtn">Copy next-file interview</button>
         <button class="result-action" id="viewLogBtn">View full log</button>
-        <button class="result-action" id="copyLastBtn" title="Copies only the result from this block">Copy this block&rsquo;s result</button>
       </div>
 
       <div class="next-links" id="nextLinks">
@@ -1467,8 +1280,7 @@ window.addEventListener("DOMContentLoaded", function () {
       <div class="result-secondary">
         <button class="btn-log" id="copyAllBtn">Copy full log</button>
         <button class="btn-log" id="downloadLogBtn">Download log</button>
-        <button class="btn-log" id="startFreshBtn">Start report from now&hellip;</button>
-        <p class="fresh-explainer">Keeps every saved result; only changes which ones shape the learning report.</p>
+        <button class="btn-log" id="clearLogBtn">Clear log</button>
         <span class="fresh-status" id="freshStatus" aria-live="polite"></span>
       </div>
       <div class="log-view" id="logView"></div>
@@ -1748,9 +1560,6 @@ function updateElapsed() {
   if (!startTime) return;
   const mins = (Date.now() - startTime) / 60000;
   $("elapsedNum").textContent = Math.floor(mins);
-  const pct = Math.min(100, (mins / cfg.blockMinutes) * 100);
-  // always show a small starting block so the bar reads as "begun," never empty
-  $("progressFill").style.width = Math.max(3, pct).toFixed(1) + "%";
   updateNextKnock();
 }
 
@@ -1962,31 +1771,13 @@ function renderPreStart() {
 function renderClockLine() {
   const el = $("clockLine");
   if (!el || !startTime) return;
-  const parts = [];
-  parts.push("Actual start " + fmtClock(new Date(startTime)));
-  parts.push("Now " + nowHHMM());
-  el.innerHTML = parts.join('<span class="cl-sep">\u00b7</span>');
+  el.textContent = "Started " + fmtClock(new Date(startTime));
 }
 function nowHHMM() {
   return new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
 }
 
 /* ---- Exit ---- */
-function appendEndDetail(label, value) {
-  if (!value) return;
-  const row = document.createElement("div");
-  row.className = "end-detail-row";
-  const key = document.createElement("div");
-  key.className = "end-detail-label";
-  key.textContent = label;
-  const detail = document.createElement("div");
-  detail.className = "end-detail-value";
-  if (value instanceof Node) detail.appendChild(value);
-  else detail.textContent = value;
-  row.append(key, detail);
-  $("endSummaryBody").appendChild(row);
-}
-
 function renderEndSummary() {
   const jobs = Array.from(document.querySelectorAll(".job"));
   const done = jobs.filter(job => job.classList.contains("done")).length;
@@ -1997,73 +1788,6 @@ function renderEndSummary() {
     meta.push(done + " of " + jobs.length + " " + kind + " completed");
   }
   $("endSummaryMeta").textContent = meta.join(" · ");
-  $("endSummaryBody").replaceChildren();
-
-  if (cfg.mode === "sealed" && cfg.sealedPlan) {
-    appendEndDetail("Internet", "Off — " + cfg.sealedPlan);
-  } else if (cfg.mode === "lane" && cfg.laneSites.length) {
-    appendEndDetail("Internet", "Only — " + cfg.laneSites.join(", "));
-  }
-  if (cfg.keep && cfg.keep.trim()) appendEndDetail(cfg.keepLabel || "Keep", cfg.keep);
-  if (hasTrap) appendEndDetail(cfg.whyLabel || "Avoid", cfg.why);
-
-  if (jobs.length) {
-    const list = document.createElement("ul");
-    list.className = "end-detail-jobs";
-    jobs.forEach(job => {
-      const item = document.createElement("li");
-      const checked = job.classList.contains("done");
-      item.classList.toggle("done", checked);
-      item.textContent = (checked ? "✓ " : "○ ") + job.querySelector(".label").textContent;
-      list.appendChild(item);
-    });
-    appendEndDetail(cfg.jobsShape === "milestones" ? "Milestones" : "Steps", list);
-  }
-  $("endSummaryDetails").open = false;
-}
-
-function selectedExitValue(name) {
-  const selected = document.querySelector('input[name="' + name + '"]:checked');
-  return selected ? selected.value : "";
-}
-
-function setExitValue(name, value) {
-  document.querySelectorAll('input[name="' + name + '"]').forEach(input => {
-    input.checked = input.value === value;
-  });
-}
-
-function updateExitFormRequirements() {
-  const status = selectedExitValue("completionStatus");
-  const finished = status === "finished";
-  const didNotBegin = status === "didnt-begin";
-  $("nextLabel").textContent = finished ? "What comes next? (optional)" : "Where should you resume?";
-  $("nextInput").placeholder = finished
-    ? "e.g. Send the draft tomorrow — leave blank if there is no next step"
-    : "e.g. Open Scene C and write the confrontation";
-  $("nextInput").setAttribute("aria-required", finished ? "false" : "true");
-  if (finished && !$("nextInput").value.trim()) {
-    $("nextInput").classList.remove("invalid");
-    $("nextInput").removeAttribute("aria-invalid");
-  }
-  if (didNotBegin && !$("progressInput").value.trim()) {
-    $("progressInput").value = "Nothing completed.";
-    $("progressInput").dataset.autoEmpty = "true";
-  } else if (didNotBegin && $("progressInput").value.trim() === "Nothing completed.") {
-    $("progressInput").dataset.autoEmpty = "true";
-  } else if (!didNotBegin && $("progressInput").dataset.autoEmpty === "true") {
-    $("progressInput").value = "";
-    delete $("progressInput").dataset.autoEmpty;
-  }
-
-  const helpedStatus = selectedExitValue("helpedStatus");
-  const needsHelpDetail = helpedStatus === "concrete";
-  $("helpedDetail").hidden = !needsHelpDetail;
-  $("helpedInput").setAttribute("aria-required", needsHelpDetail ? "true" : "false");
-  if (!needsHelpDetail) {
-    $("helpedInput").classList.remove("invalid");
-    $("helpedInput").removeAttribute("aria-invalid");
-  }
 }
 
 function exitStateData() {
@@ -2079,8 +1803,12 @@ function exitStateData() {
     sortOfCount: sortOfCount,
     noCount: noCount,
     jobsChecked: Array.from(document.querySelectorAll(".job-check")).map(input => input.checked),
-    completionStatus: selectedExitValue("completionStatus"),
-    helpedStatus: selectedExitValue("helpedStatus"),
+    completionStatus: inferCompletionStatus(
+      $("progressInput").value,
+      document.querySelectorAll(".job.done").length,
+      document.querySelectorAll(".job").length
+    ),
+    helpedStatus: isConcreteHelp($("helpedInput").value) ? "concrete" : "none",
     fields: {
       progressInput: $("progressInput").value,
       helpedInput: $("helpedInput").value,
@@ -2123,8 +1851,6 @@ function restoreExitState() {
   });
   updateCounter();
   showExit(!!saved.endedEarly, true);
-  setExitValue("completionStatus", String(saved.completionStatus || ""));
-  setExitValue("helpedStatus", String(saved.helpedStatus || ""));
   const fields = saved.fields && typeof saved.fields === "object" ? saved.fields : {};
   if (!Object.prototype.hasOwnProperty.call(fields, "progressInput") && Object.prototype.hasOwnProperty.call(fields, "finishInput")) {
     fields.progressInput = fields.finishInput;
@@ -2132,7 +1858,6 @@ function restoreExitState() {
   ["progressInput", "helpedInput", "inTheWayInput", "nextInput"].forEach(id => {
     if (Object.prototype.hasOwnProperty.call(fields, id)) $(id).value = String(fields[id] || "");
   });
-  updateExitFormRequirements();
   return true;
 }
 
@@ -2162,10 +1887,7 @@ function showExit(endedEarly, restoring) {
   $("endSummary").classList.add("on");
   $("exit").classList.add("on");
   if (!restoring) persistExitState();
-  requestAnimationFrame(() => {
-    const chosen = document.querySelector('input[name="completionStatus"]:checked');
-    (chosen ? $("progressInput") : document.querySelector('input[name="completionStatus"]')).focus();
-  });
+  requestAnimationFrame(() => $("progressInput").focus());
 }
 
 // clear the invalid highlight (and warning) as soon as the user types in a flagged field
@@ -2217,15 +1939,25 @@ function isConcreteHelp(value) {
   if (!text) return false;
   return !/^(nothing|none|nothing helped|nothing helped me|no|nope|na|n\/a|nothing in particular|not sure)$/.test(text);
 }
+function inferCompletionStatus(progress, jobsDone, jobsTotal) {
+  const text = signalKey(progress);
+  const done = Math.max(0, Number(jobsDone) || 0);
+  const total = Math.max(0, Number(jobsTotal) || 0);
+  if (total) {
+    if (done >= total) return "finished";
+    if (done > 0) return "partly-finished";
+  }
+  if (/^(nothing|none|nothing completed|didnt begin|didn t begin|did not begin|not started|didnt start|didn t start|did not start)$/.test(text)) {
+    return "didnt-begin";
+  }
+  if (/\b(done|finished|complete|completed)\b/.test(text)) return "finished";
+  const finishLine = signalKey((cfg && (cfg.doneWhenShort || cfg.task)) || "");
+  if (finishLine && text && (text === finishLine || text.indexOf(finishLine) > -1)) return "finished";
+  return text ? "partly-finished" : "";
+}
 function validateExitRecord(values) {
-  const status = normalizeCompletionStatus(values.completionStatus);
-  const helpedStatus = values.helpedStatus === "concrete" || values.helpedStatus === "none" ? values.helpedStatus : "";
   const errors = [];
-  if (!status) errors.push("completionStatus");
   if (!String(values.progress || "").trim()) errors.push("progress");
-  if (!helpedStatus) errors.push("helpedStatus");
-  if (helpedStatus === "concrete" && !isConcreteHelp(values.helped)) errors.push("helped");
-  if (status && status !== "finished" && !String(values.nextStart || "").trim()) errors.push("nextStart");
   return errors;
 }
 function extensionMinutesFor(entry) {
@@ -2298,14 +2030,10 @@ function minuteAmount(value) {
 function timeReportText(entry) {
   const original = Math.max(0, Number(entry.plannedMinutes) || 0);
   const extension = extensionMinutesFor(entry);
-  const adjusted = adjustedPlannedMinutesFor(entry);
+  const expected = adjustedPlannedMinutesFor(entry);
   const actual = Math.max(0, Number(entry.actualMinutes) || 0);
-  const delta = actual - adjusted;
-  let comparison = "matched the adjusted plan";
-  if (delta > 0) comparison = minuteAmount(delta) + " longer than the adjusted plan";
-  if (delta < 0) comparison = minuteAmount(Math.abs(delta)) + " shorter than the adjusted plan";
-  return "Original plan: " + minuteAmount(original) + " · extension: " + minuteAmount(extension) +
-    " · adjusted plan: " + minuteAmount(adjusted) + " · actual: " + minuteAmount(actual) + " — " + comparison + ".";
+  const detail = extension ? " (" + minuteAmount(original) + " planned + " + minuteAmount(extension) + " extension)" : "";
+  return minuteAmount(actual) + " spent vs " + minuteAmount(expected) + " expected" + detail + ".";
 }
 function entryToText(e) {
   const lines = [];
@@ -2344,48 +2072,26 @@ function collectSignals(entries, field) {
 }
 function summarizeLearning(rawEntries) {
   const entries = mergeEntries([], rawEntries);
-  const totals = entries.reduce((a, e) => {
-    const mode = e.mode === "sealed" ? "sealed" : (e.mode === "lane" ? "lane" : "other");
-    a.modes[mode] += 1;
-    return a;
-  }, {modes:{sealed:0,lane:0,other:0}});
-  const conditionParts = [];
-  if (totals.modes.sealed) conditionParts.push("Internet off in " + totals.modes.sealed + " " + (totals.modes.sealed === 1 ? "block" : "blocks"));
-  if (totals.modes.lane) conditionParts.push("internet needed in " + totals.modes.lane + " " + (totals.modes.lane === 1 ? "block" : "blocks"));
-  const conditions = conditionParts.length ? conditionParts.join(" \u00b7 ") + "." : "No block conditions recorded yet.";
   const timed = entries.filter(e => Number(e.plannedMinutes) > 0 && Number(e.actualMinutes) >= 0);
-  const originalTotal = timed.reduce((sum, e) => sum + Number(e.plannedMinutes), 0);
-  const extensionTotal = timed.reduce((sum, e) => sum + extensionMinutesFor(e), 0);
-  const adjustedTotal = timed.reduce((sum, e) => sum + adjustedPlannedMinutesFor(e), 0);
+  const expectedTotal = timed.reduce((sum, e) => sum + adjustedPlannedMinutesFor(e), 0);
   const actualTotal = timed.reduce((sum, e) => sum + Number(e.actualMinutes), 0);
-  const delta = actualTotal - adjustedTotal;
-  let time = "No planned-and-actual time recorded yet.";
+  let time = "No time comparison recorded yet.";
   if (timed.length) {
     if (timed.length === 1) {
       time = timeReportText(timed[0]);
     } else {
-      let comparison = "matched the adjusted plan overall";
-      if (delta > 0) comparison = minuteAmount(delta) + " longer than the adjusted plan overall";
-      if (delta < 0) comparison = minuteAmount(Math.abs(delta)) + " shorter than the adjusted plan overall";
-      time = "Across " + timed.length + " blocks: original plan " + minuteAmount(originalTotal) +
-        " \u00b7 extensions " + minuteAmount(extensionTotal) + " \u00b7 adjusted plan " + minuteAmount(adjustedTotal) +
-        " \u00b7 actual " + minuteAmount(actualTotal) + " \u2014 " + comparison + ".";
+      const actualAverage = Math.round(actualTotal / timed.length);
+      const expectedAverage = Math.round(expectedTotal / timed.length);
+      time = "Average per block: " + minuteAmount(actualAverage) + " spent vs " + minuteAmount(expectedAverage) + " expected.";
     }
   }
   const helps = collectSignals(entries, "helped");
   const pulls = collectSignals(entries, "inTheWay");
-  const latest = entries[entries.length - 1] || {};
-  const carry = [];
-  if (helps.length) carry.push("Keep \u201c" + helps[0].text + "\u201d visible" + (helps[0].count > 1 ? "; it helped in " + helps[0].count + " blocks" : ""));
-  if (pulls.length) carry.push("Watch for \u201c" + pulls[0].text + "\u201d" + (pulls[0].count > 1 ? "; it appeared in " + pulls[0].count + " blocks" : ""));
-  if (latest.nextStart) carry.push("Restart at \u201c" + latest.nextStart + "\u201d");
   return {
     blocks: entries.length,
     helps,
     pulls,
-    conditions,
-    time,
-    carry: carry.length ? carry.join(". ") + "." : "Complete another result to create a useful handoff for the next block."
+    time
   };
 }
 function filterReportEntries(rawEntries, scope, since, nowMs) {
@@ -2465,16 +2171,9 @@ function renderLearningReport() {
   $("learningSummary").textContent = summary.blocks
     ? summary.blocks + " " + (summary.blocks === 1 ? "block" : "blocks") + " · " + span
     : "No blocks · " + span;
-  $("learningContext").textContent = summary.blocks === 0
-    ? "No results fall inside this timeframe yet. Choose another range or complete a block."
-    : (summary.blocks < 2
-      ? "One result is a signal, not a pattern yet. Another block will make comparison possible."
-      : "Repeated wording is counted; different wording stays separate. Check-ins remain part of the record, never a score.");
   renderSignalList("learningHelps", summary.helps, "Nothing named yet.");
   renderSignalList("learningPulls", summary.pulls, "Nothing named yet.");
-  $("learningConditions").textContent = summary.conditions;
   $("learningTime").textContent = summary.time;
-  $("learningCarry").textContent = summary.carry;
 }
 function renderLog() {
   const entries = getEntries();
@@ -2508,49 +2207,23 @@ function renderLog() {
     div.innerHTML = html;
     v.appendChild(div);
   });
-  const controls = document.createElement("div");
-  controls.className = "log-controls";
-  const remove = document.createElement("button");
-  remove.type = "button";
-  remove.className = "delete-history";
-  remove.textContent = "Delete all saved results…";
-  const note = document.createElement("p");
-  note.className = "delete-note";
-  note.textContent = "Deletes the history this file uses in this browser. Downloaded Focus File copies may still contain embedded history; delete those files separately.";
-  controls.appendChild(remove);
-  controls.appendChild(note);
-  v.appendChild(controls);
-  remove.addEventListener("click", () => {
-    const count = getEntries().length;
-    const ok = window.confirm("Delete " + count + " saved " + (count === 1 ? "result" : "results") + " from this browser? This cannot remove history already embedded in downloaded Focus File copies; delete those files separately.");
-    if (!ok) return;
-    historyResetAt = Date.now();
-    volatileEntries = [];
-    let deletedDurably = true;
-    try {
-      localStorage.setItem(HISTORY_RESET_KEY, String(historyResetAt));
-      localStorage.removeItem(ENTRIES_KEY);
-      localStorage.removeItem(LOG_KEY);
-    } catch (e) {
-      deletedDurably = false;
-      storageDurable = false;
-    }
-    saveReportState("1", 0);
-    renderLearningReport();
-    renderLog();
-    updateNextScopeSummary();
-    $("freshStatus").textContent = deletedDurably
-      ? "Saved history deleted from this browser."
-      : "History is cleared only in this open tab. Browser storage is unavailable.";
-  });
 }
-function renderResult(e) {
-  $("resultStatus").textContent = completionStatusLabel(e.completionStatus);
-  $("resultProgress").textContent = progressText(e) || "Not recorded.";
-  $("resultHelped").textContent = e.helped || (e.helpedStatus === "none" ? "Nothing helped." : "Not recorded.");
-  $("resultPulled").textContent = e.inTheWay || "Nothing named.";
-  $("resultStopped").textContent = blockStoppedText(e);
-  $("resultNext").textContent = e.nextStart || "Nothing recorded.";
+function clearSavedLog() {
+  historyResetAt = Date.now();
+  volatileEntries = [];
+  let deletedDurably = true;
+  try {
+    localStorage.setItem(HISTORY_RESET_KEY, String(historyResetAt));
+    localStorage.removeItem(ENTRIES_KEY);
+    localStorage.removeItem(LOG_KEY);
+  } catch (e) {
+    deletedDurably = false;
+    storageDurable = false;
+  }
+  saveReportState("1", 0);
+  renderLearningReport();
+  renderLog();
+  return deletedDurably;
 }
 function escapeHtml(s) {
   return (s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
@@ -2586,7 +2259,7 @@ const BUILD_NEXT_PROMPT = [
 "Q4 \u2014 THE TRAP. Ask what may pull me off task and keep it in my own words; it may be blank. KEEP is not part of Q4 or any other interview question.",
 "Q5 \u2014 THE REASON. Offer the most recent reason first as `1. Same as last time \u2014 [specific prior reason]` and `2. Change it`, followed by `Reply 1 or 2.` If I change it, ask why finishing matters today.",
 "",
-"After Q5, follow REQUIRED OUTPUT FORMAT. Return the plan once and stop."
+"After Q5, follow REQUIRED OUTPUT FORMAT. Return the plan, add the exact builder instruction, and stop."
 ].join("\n");
 
 function learningSignalText(signals) {
@@ -2607,18 +2280,6 @@ function continuationScopeLabel(scope) {
   if (scope === "7") return "Last 7 days";
   if (scope === "all") return "All saved results";
   return "This block only";
-}
-function continuationScopeSummary(entries, scope, nowMs) {
-  const selectedScope = ["block", "today", "7", "all"].indexOf(scope) > -1 ? scope : "block";
-  const count = selectedContinuationEntries(entries, selectedScope, nowMs).length;
-  if (selectedScope === "block") return "Copies the current setup and this block’s result.";
-  if (selectedScope === "today") return "Copies the current setup and " + count + " " + (count === 1 ? "result" : "results") + " from today.";
-  if (selectedScope === "7") return "Copies the current setup and " + count + " " + (count === 1 ? "result" : "results") + " from the last 7 days.";
-  return "Copies the current setup and " + count + " saved " + (count === 1 ? "result" : "results") + ".";
-}
-function updateNextScopeSummary() {
-  if (!$("nextHistoryScope") || !$("nextScopeSummary")) return;
-  $("nextScopeSummary").textContent = continuationScopeSummary(getEntries(), $("nextHistoryScope").value, Date.now());
 }
 function buildNextPayload(entries, nowMs, scope) {
   const allEntries = mergeEntries([], Array.isArray(entries) ? entries : []);
@@ -2651,7 +2312,6 @@ function buildNextPayload(entries, nowMs, scope) {
   ctx.push("Results included: " + selectedEntries.length);
   ctx.push("What helps (context only; never use this aggregate to create KEEP): " + learningSignalText(summary.helps));
   ctx.push("What pulls you off: " + learningSignalText(summary.pulls));
-  ctx.push("Conditions: " + summary.conditions);
   ctx.push("Timing: " + summary.time);
   ctx.push("=== END SELECTED LEARNING SUMMARY ===");
   ctx.push("");
@@ -2676,7 +2336,7 @@ function buildNextPayload(entries, nowMs, scope) {
   ctx.push("=== END EARNED KEEP RULE ===");
   ctx.push("");
   ctx.push("=== REQUIRED OUTPUT FORMAT ===");
-  ctx.push("After Q5, return exactly one plain-text code block and nothing else. It must use this fixed labeled format:");
+  ctx.push("After Q5, return exactly one plain-text code block containing the plan. It must use this fixed labeled format:");
   ctx.push("```text");
   ctx.push("FOCUS FILE");
   ctx.push("");
@@ -2693,7 +2353,10 @@ function buildNextPayload(entries, nowMs, scope) {
   ctx.push("END FOCUS FILE");
   ctx.push("```");
   ctx.push("");
-  ctx.push("Use `INTERNET: ONLY — [comma-separated required sites/apps]` for internet-required work. Use `JOBS:` instead of `MILESTONES:` for genuinely different actions. Omit both sections for atomic work. Add `KEEP: [exact earned help]` after INTERNET only when the earned rule above permits it. TASK, TIME, INTERNET, and WHY are required. AVOID may be blank. Do not output JSON or HTML. The block must be ready to paste into the builder at https://focusfile.org.");
+  ctx.push("Use `INTERNET: ONLY — [comma-separated required sites/apps]` for internet-required work. Use `JOBS:` instead of `MILESTONES:` for genuinely different actions. Omit both sections for atomic work. Add `KEEP: [exact earned help]` after INTERNET only when the earned rule above permits it. TASK, TIME, INTERNET, and WHY are required. AVOID may be blank. Do not output JSON or HTML.");
+  ctx.push("");
+  ctx.push("After the code block, write exactly this one line: Copy the FOCUS FILE block above, open https://www.focusfile.org/, and paste it into Make the file.");
+  ctx.push("Do not add anything else.");
   ctx.push("=== END REQUIRED OUTPUT FORMAT ===");
   return ctx.join("\n");
 }
@@ -2830,11 +2493,11 @@ function applyConfig() {
     $("lane").classList.add("on");
     const chipWrap = $("laneChips");
     cfg.laneSites.forEach((s, i) => {
+      if (i) chipWrap.appendChild(document.createTextNode(", "));
       const chip = document.createElement("span");
       chip.className = "lane-chip";
       chip.textContent = s;
       chipWrap.appendChild(chip);
-      chipWrap.appendChild(document.createTextNode(" "));
     });
   }
 
@@ -2892,7 +2555,6 @@ function wireEvents() {
     $("endLink").style.display = "";      // End session becomes available once begun
     $("checkin").classList.add("on");     // check-in is now always visible
     $("timerWrap").classList.add("on");
-    $("progressWrap").classList.add("on");
     logRow("begin");
     renderClockLine();
     updateElapsed();
@@ -2927,28 +2589,8 @@ function wireEvents() {
   });
   window.addEventListener("focus", maybeShowOverdueCheckin);
 
-  document.querySelectorAll('input[name="completionStatus"]').forEach(input => {
-    input.addEventListener("change", () => {
-      $("completionGroup").classList.remove("invalid");
-      $("completionGroup").removeAttribute("aria-invalid");
-      updateExitFormRequirements();
-      if (!document.querySelector(".exit .invalid")) $("exitLog").classList.remove("warn");
-      persistExitState();
-    });
-  });
-  document.querySelectorAll('input[name="helpedStatus"]').forEach(input => {
-    input.addEventListener("change", () => {
-      $("helpedGroup").classList.remove("invalid");
-      $("helpedGroup").removeAttribute("aria-invalid");
-      updateExitFormRequirements();
-      if (!document.querySelector(".exit .invalid")) $("exitLog").classList.remove("warn");
-      persistExitState();
-    });
-  });
-
   ["progressInput", "helpedInput", "inTheWayInput", "nextInput"].forEach(id => {
     $(id).addEventListener("input", () => {
-      if (id === "progressInput") delete $(id).dataset.autoEmpty;
       if ($(id).value.trim()) {
         $(id).classList.remove("invalid");
         $(id).removeAttribute("aria-invalid");
@@ -2959,8 +2601,10 @@ function wireEvents() {
   });
 
   $("doneBtn").addEventListener("click", () => {
-    const completionStatus = selectedExitValue("completionStatus");
-    const helpedStatus = selectedExitValue("helpedStatus");
+    const jobsTotal = document.querySelectorAll(".job").length;
+    const jobsDone = document.querySelectorAll(".job.done").length;
+    const completionStatus = inferCompletionStatus($("progressInput").value, jobsDone, jobsTotal);
+    const helpedStatus = isConcreteHelp($("helpedInput").value) ? "concrete" : "none";
     const validationErrors = validateExitRecord({
       completionStatus: completionStatus,
       progress: $("progressInput").value,
@@ -2968,18 +2612,9 @@ function wireEvents() {
       helped: $("helpedInput").value,
       nextStart: $("nextInput").value
     });
-    const markGroup = (id, ok) => {
-      $(id).classList.toggle("invalid", !ok);
-      if (ok) $(id).removeAttribute("aria-invalid");
-      else $(id).setAttribute("aria-invalid", "true");
-    };
-    markGroup("completionGroup", validationErrors.indexOf("completionStatus") === -1);
-    markGroup("helpedGroup", validationErrors.indexOf("helpedStatus") === -1);
 
     [
-      ["progressInput", "progress"],
-      ["helpedInput", "helped"],
-      ["nextInput", "nextStart"]
+      ["progressInput", "progress"]
     ].forEach(([id, error]) => {
       const el = $(id);
       const invalid = validationErrors.indexOf(error) > -1;
@@ -2989,16 +2624,10 @@ function wireEvents() {
       } else el.removeAttribute("aria-invalid");
     });
     let firstMissing = null;
-    if (validationErrors.indexOf("completionStatus") > -1) firstMissing = $("completionGroup").querySelector("input");
-    else if (validationErrors.indexOf("progress") > -1) firstMissing = $("progressInput");
-    else if (validationErrors.indexOf("helpedStatus") > -1) firstMissing = $("helpedGroup").querySelector("input");
-    else if (validationErrors.indexOf("helped") > -1) firstMissing = $("helpedInput");
-    else if (validationErrors.indexOf("nextStart") > -1) firstMissing = $("nextInput");
+    if (validationErrors.indexOf("progress") > -1) firstMissing = $("progressInput");
     if (firstMissing) {
       const log = $("exitLog");
-      log.textContent = firstMissing === $("helpedInput")
-        ? "Name a concrete thing that helped, or choose Nothing helped."
-        : "Choose the options and fill the highlighted fields to save.";
+      log.textContent = "Add what you completed to save this result.";
       log.classList.add("warn");
       firstMissing.focus();
       return;   // block save
@@ -3008,10 +2637,8 @@ function wireEvents() {
     const planned = parsePlanned(cfg.scope);
     const endedAt = sessionEndTime || Date.now();
     const actualMin = startTime ? Math.round((endedAt - startTime) / 60000) : 0;
-    const jobsTotal = document.querySelectorAll(".job").length;
-    const jobsDone = document.querySelectorAll(".job.done").length;
     const extensionMinutes = extended * 30;
-    const concreteHelp = helpedStatus === "concrete" && isConcreteHelp($("helpedInput").value)
+    const concreteHelp = isConcreteHelp($("helpedInput").value)
       ? $("helpedInput").value.trim()
       : "";
 
@@ -3054,13 +2681,11 @@ function wireEvents() {
 
     $("exit").classList.remove("on");
     $("endSummary").classList.remove("on");
-    renderResult(entry);
     renderLearningReport();
-    updateNextScopeSummary();
+    $("resultQuestion").hidden = savedDurably;
     $("resultQuestion").textContent = savedDurably
-      ? "This result is saved on your device."
-      : "This result is saved only while this tab stays open. Browser storage is unavailable—copy or download the log before closing.";
-    $("resultQuestion").classList.toggle("warn", !savedDurably);
+      ? ""
+      : "Browser storage is unavailable. This result lasts only while this tab stays open—copy or download the log before closing.";
     $("allDone").classList.add("on");
     requestAnimationFrame(() => $("resultHeading").focus());
   });
@@ -3075,17 +2700,17 @@ function wireEvents() {
     saveReportState(e.target.value, reportSinceValue);
     renderLearningReport();
   });
-  $("startFreshBtn").addEventListener("click", () => {
-    const ok = window.confirm("Start the learning report from now? No saved results will be deleted. Earlier results will remain in the full log but will no longer shape the report.");
+  $("clearLogBtn").addEventListener("click", () => {
+    if (!getEntries().length) {
+      $("freshStatus").textContent = "The log is already empty.";
+      return;
+    }
+    const ok = window.confirm("Clear all saved results from this browser? This cannot be undone. Downloaded Focus File copies will remain unchanged.");
     if (!ok) return;
-    saveReportState("period", Date.now());
-    renderLearningReport();
-    $("freshStatus").textContent = "The report now starts here. No saved results were deleted.";
-  });
-  $("copyLastBtn").addEventListener("click", (e) => {
-    const entries = getEntries();
-    if (!entries.length) return;
-    copyText(entryToText(entries[entries.length - 1]), e.target);
+    const deletedDurably = clearSavedLog();
+    $("freshStatus").textContent = deletedDurably
+      ? "Log cleared."
+      : "Log cleared only in this open tab. Browser storage is unavailable.";
   });
   $("copyAllBtn").addEventListener("click", (e) => {
     const entries = getEntries();
@@ -3103,12 +2728,10 @@ function wireEvents() {
     b.textContent = "Saved ✓"; setTimeout(() => b.textContent = o, 1600);
   });
 
-  $("nextHistoryScope").addEventListener("change", updateNextScopeSummary);
-
   $("buildNextBtn").addEventListener("click", (e) => {
     const entries = getEntries();
     if (!entries.length) return;
-    copyText(buildNextPayload(entries, Date.now(), $("nextHistoryScope").value), e.target,
+    copyText(buildNextPayload(entries, Date.now(), "block"), e.target,
              () => { $("nextLinks").classList.add("on"); });
   });
 
@@ -3137,15 +2760,16 @@ function selfTest() {
   must(cfg.knockMinMin > 0 && cfg.knockMaxMin >= cfg.knockMinMin, "check-in window invalid");
   must(!!document.getElementById("beginBtn"), "begin button missing");
   must(!!document.getElementById("learningRange"), "learning timeframe control missing");
-  must(!!document.getElementById("learningTime"), "planned-versus-actual time missing");
-  must(!!document.getElementById("resultStopped"), "block-stop summary missing");
-  must(!!document.getElementById("startFreshBtn"), "fresh-period control missing");
-  must(!!document.getElementById("nextHistoryScope"), "next-interview privacy control missing");
-  must(document.getElementById("nextHistoryScope").value === "block", "next-interview privacy control must default to this block");
+  must(document.getElementById("learningReport").tagName === "DETAILS" && !document.getElementById("learningReport").open, "learning report must start collapsed");
+  must(!!document.getElementById("learningTime"), "time comparison summary missing");
+  must(!!document.getElementById("clearLogBtn"), "clear-log control missing");
+  must(!document.getElementById("nextHistoryScope"), "next-interview scope control should not duplicate the saved log");
   must(!!document.getElementById("checkinAnnouncement"), "check-in live region missing");
   must(document.getElementById("previewLink").textContent.trim() === "Preview a check-in", "check-in preview label is incorrect");
   must(!!document.getElementById("workStage"), "work stage missing");
   must(!!document.getElementById("endSummary"), "end summary missing");
+  must(document.querySelectorAll(".exit-input").length === 4, "quick checkout must contain four fields");
+  must(!document.querySelector('input[name="completionStatus"]'), "quick checkout must not show completion choices");
 }
 
 /* ===================== BOOT — the only top-level call in this file ===================== */
@@ -3154,7 +2778,6 @@ function init() {
   applyConfig();
   wireEvents();
   restoreExitState();
-  updateNextScopeSummary();
   selfTest();
   window.__focusFileBooted = true;
 }
