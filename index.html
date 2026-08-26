@@ -389,8 +389,14 @@
     font-family:var(--sans); line-height:1.45; }
   .execution-example-title { margin:0; color:var(--ink); font-size:14px; font-weight:700; }
   .execution-example-note { margin:3px 0 9px; color:var(--ink-faint); font-size:12px; }
-  .execution-example-links { display:grid; grid-template-columns:1fr; gap:6px; }
-  .execution-example-links a { color:var(--pine); font-weight:600; text-underline-offset:3px; }
+  .execution-example-links { display:grid; grid-template-columns:1fr; gap:0;
+    border:1px solid var(--paper-line); background:#fff; }
+  .execution-example-links a { display:flex; align-items:center; justify-content:space-between;
+    gap:12px; padding:9px 11px; color:var(--ink-soft); font-size:13px; font-weight:600;
+    line-height:1.35; text-decoration:none; }
+  .execution-example-links a + a { border-top:1px solid var(--paper-line); }
+  .execution-example-links a:hover { color:var(--ink); background:var(--pine-tint); }
+  .execution-example-links a span { flex:0 0 auto; color:var(--pine); font-weight:700; }
   .execution-prompt { margin:0 0 20px; background:var(--paper-warm); border-left:3px solid var(--pine); }
   .execution-prompt .pb-code { padding:18px 20px; font-size:13px; line-height:1.7; }
   .execution-prompt .aftercopy { background:var(--paper-warm); }
@@ -531,7 +537,7 @@
     line-height:1.15; letter-spacing:-.025em; }
   .evidence-loop-head p { max-width:730px; margin:10px 0 0; color:var(--ink-soft);
     font-size:15px; line-height:1.55; }
-  .evidence-steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .evidence-steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
   .evidence-step { min-width:0; padding:20px 18px 22px; }
   .evidence-step + .evidence-step { border-left:1px solid var(--paper-line); }
   .evidence-step-number { display:block; margin-bottom:12px; font-family:var(--mono);
@@ -561,11 +567,9 @@
     .evidence-loop { margin-top:28px; }
     .evidence-loop-head { padding:19px 17px; }
     .evidence-loop h2,.coach-bridge h2 { font-size:22px; }
-    .evidence-steps { grid-template-columns:1fr 1fr; }
+    .evidence-steps { grid-template-columns:1fr; }
     .evidence-step { padding:17px; }
-    .evidence-step + .evidence-step { border-left:0; }
-    .evidence-step:nth-child(even) { border-left:1px solid var(--paper-line); }
-    .evidence-step:nth-child(n+3) { border-top:1px solid var(--paper-line); }
+    .evidence-step + .evidence-step { border-left:0; border-top:1px solid var(--paper-line); }
     .coach-bridge { grid-template-columns:1fr; gap:18px; padding:20px 17px; }
     .coach-bridge-link { width:100%; white-space:normal; text-align:center; }
   }
@@ -657,9 +661,9 @@
               <p class="execution-example-title">Try a live Focus File</p>
               <p class="execution-example-note">Fully interactive examples open in a new tab.</p>
               <div class="execution-example-links">
-                <a href="sample-writing.html" target="_blank" rel="noopener">Draft 1,500 words ↗</a>
-                <a href="sample-jobsearch.html" target="_blank" rel="noopener">Submit 3 applications ↗</a>
-                <a href="sample-study.html" target="_blank" rel="noopener">Recall 12 cranial nerves ↗</a>
+                <a href="sample-writing.html" target="_blank" rel="noopener">Draft 1,500 words <span aria-hidden="true">↗</span></a>
+                <a href="sample-jobsearch.html" target="_blank" rel="noopener">Submit 3 applications <span aria-hidden="true">↗</span></a>
+                <a href="sample-study.html" target="_blank" rel="noopener">Recall 12 cranial nerves <span aria-hidden="true">↗</span></a>
               </div>
             </div>
           </div>
@@ -708,30 +712,24 @@
     <section class="evidence-loop" aria-labelledby="evidenceLoopTitle">
       <div class="evidence-loop-head">
         <span class="section-kicker">The evidence loop</span>
-        <h2 id="evidenceLoopTitle">Each file makes the next one better</h2>
-        <p>Every Focus File records a small, private piece of evidence about how you actually worked. Carry that result into the next interview, so your next commitment is shaped by your own experience instead of generic productivity advice.</p>
+        <h2 id="evidenceLoopTitle">What happened shapes the next Focus File</h2>
+        <p>Each file captures how the work went. The next interview uses that result to help you adjust.</p>
       </div>
       <div class="evidence-steps">
         <div class="evidence-step">
-          <span class="evidence-step-number">01 &middot; Commit</span>
-          <h3>Draft 1,500 words</h3>
-          <p>Make one concrete commitment.</p>
+          <span class="evidence-step-number">Pulled online</span>
+          <h3>Strengthen the boundary</h3>
+          <p>Keep the internet out of the next work period.</p>
         </div>
         <div class="evidence-step">
-          <span class="evidence-step-number">02 &middot; Work</span>
-          <h3>Keep it visible</h3>
-          <p>Work with the file beside you.</p>
+          <span class="evidence-step-number">Kids interrupted</span>
+          <h3>Protect the time</h3>
+          <p>Make the next commitment and its boundary clearer.</p>
         </div>
         <div class="evidence-step">
-          <span class="evidence-step-number">03 &middot; Record</span>
-          <h3>Example result</h3>
-          <strong>Pulled off: phone notifications</strong>
-          <p>Worked well: starting with the easiest step.</p>
-        </div>
-        <div class="evidence-step">
-          <span class="evidence-step-number">04 &middot; Carry forward</span>
-          <h3>Use this result</h3>
-          <p>The next interview starts with real evidence.</p>
+          <span class="evidence-step-number">Organized instead of wrote</span>
+          <h3>Make the reminder direct</h3>
+          <p>&ldquo;New words only.&rdquo;</p>
         </div>
       </div>
     </section>
@@ -846,7 +844,7 @@ Do not add anything else. Then stop.
 <p><b>The motivation comes from making the choice yourself.</b> Creating a Focus File becomes a ritual of slowing down, choosing what you will do and when, and committing to it. For self-directed workers, writers, and people working with therapists or ADHD coaches, it adds structure without feeling like policing. It keeps your own reasons and anticipated distractions in front of you, so the accountability comes from your own words rather than a generic timer notification. That helps create the motivation to begin and a reason to return when attention drifts.</p>
 <p><b>It turns the decision into action.</b> You have already chosen what to do and when to do it. This keeps you from disappearing into second guessing (&ldquo;Is this really the right task?&rdquo;) or distraction (&ldquo;Maybe I need something else to help me before I start.&rdquo;). Open the file and begin.</p>
 <p><b>It checks in while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file brings back your own words: what you said might pull you off task or why finishing matters today. The motivation and accountability come from the commitment you made.</p>
-<p><b>It works offline.</b> Your Focus File is a downloaded HTML file that opens in your browser without an internet connection. Most focused work needs less internet than we think.</p>
+<p><b>It works offline.</b> Your Focus File is a downloaded HTML file that opens in your browser without an internet connection. Most focused work needs less internet than we think. Once downloaded, the file and its data stay on your device unless you choose to share them.</p>
 <p><b>It carries lessons into the next file.</b> At the end of each block, the log captures what pulled you off task, what worked well enough to repeat, and where you will start next session. Those lessons can guide your next five-question interview. You can also review the record yourself or share it with a coach or therapist.</p>
 <p><b>It builds three muscles over time:</b> choosing one clear task, starting without renegotiating, and recognizing the patterns that help or derail you. There&rsquo;s no magic here. It&rsquo;s just enough structure to choose honestly, begin, and learn from what happened.</p></script>
 <script type="text/plain" id="m-privacy"><h2>Privacy</h2>
