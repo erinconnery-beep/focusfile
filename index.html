@@ -389,7 +389,7 @@
     font-family:var(--sans); line-height:1.45; }
   .execution-example-title { margin:0; color:var(--ink); font-size:14px; font-weight:700; }
   .execution-example-note { margin:3px 0 9px; color:var(--ink-faint); font-size:12px; }
-  .execution-example-links { display:flex; flex-wrap:wrap; gap:6px 18px; }
+  .execution-example-links { display:grid; grid-template-columns:1fr; gap:6px; }
   .execution-example-links a { color:var(--pine); font-weight:600; text-underline-offset:3px; }
   .execution-prompt { margin:0 0 20px; background:var(--paper-warm); border-left:3px solid var(--pine); }
   .execution-prompt .pb-code { padding:18px 20px; font-size:13px; line-height:1.7; }
@@ -520,6 +520,35 @@
     color:var(--ink-faint); }
   .reminder-status { color:var(--pine); font-weight:700; }
   .modal { border:2px solid var(--ink); border-radius:0; }
+
+  /* SOLO-FIRST STRUCTURE */
+  .evidence-loop { margin-top:34px; border:2px solid var(--ink); background:#fff; }
+  .evidence-loop-head { padding:22px 24px; border-bottom:1px solid var(--paper-line); }
+  .section-kicker { display:block; margin-bottom:8px; font-family:var(--mono);
+    font-size:var(--type-label); font-weight:700; letter-spacing:.17em;
+    text-transform:uppercase; color:var(--pine); }
+  .evidence-loop h2,.coach-bridge h2 { margin:0; font-size:26px; font-weight:750;
+    line-height:1.15; letter-spacing:-.025em; }
+  .evidence-loop-head p { max-width:730px; margin:10px 0 0; color:var(--ink-soft);
+    font-size:15px; line-height:1.55; }
+  .evidence-steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .evidence-step { min-width:0; padding:20px 18px 22px; }
+  .evidence-step + .evidence-step { border-left:1px solid var(--paper-line); }
+  .evidence-step-number { display:block; margin-bottom:12px; font-family:var(--mono);
+    font-size:var(--type-label-small); font-weight:700; letter-spacing:.16em; color:var(--pine); }
+  .evidence-step h3 { margin:0 0 7px; font-size:16px; line-height:1.25; }
+  .evidence-step strong { display:block; margin-bottom:5px; color:var(--ink-soft);
+    font-size:13px; line-height:1.4; }
+  .evidence-step p { margin:0; color:var(--ink-faint); font-size:12px; line-height:1.45; }
+  .coach-bridge { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px;
+    align-items:center; margin-top:28px; padding:24px; border:2px solid var(--ink);
+    background:var(--pine-tint); }
+  .coach-bridge p { max-width:650px; margin:9px 0 0; color:var(--ink-soft);
+    font-size:14px; line-height:1.5; }
+  .coach-bridge-link { display:inline-flex; align-items:center; justify-content:center;
+    min-height:44px; padding:11px 18px; border:1px solid var(--pine); background:var(--pine);
+    color:#fff; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; }
+  .coach-bridge-link:hover { filter:brightness(.92); }
   @media (max-width:700px){
     .wrap { padding:0 17px 26px; }
     .hero { padding:29px 0 16px; }
@@ -529,6 +558,16 @@
     .execution-step h2 { font-size:22px; }
     .execution-input { --builder-min-height:112px; }
     .download-result-actions,.reminder-choices,.reminder-custom-controls,.reminder-provider-choices { grid-template-columns:1fr; }
+    .evidence-loop { margin-top:28px; }
+    .evidence-loop-head { padding:19px 17px; }
+    .evidence-loop h2,.coach-bridge h2 { font-size:22px; }
+    .evidence-steps { grid-template-columns:1fr 1fr; }
+    .evidence-step { padding:17px; }
+    .evidence-step + .evidence-step { border-left:0; }
+    .evidence-step:nth-child(even) { border-left:1px solid var(--paper-line); }
+    .evidence-step:nth-child(n+3) { border-top:1px solid var(--paper-line); }
+    .coach-bridge { grid-template-columns:1fr; gap:18px; padding:20px 17px; }
+    .coach-bridge-link { width:100%; white-space:normal; text-align:center; }
   }
 </style>
 <!-- Google Analytics receives page data and fixed-name product events. No Focus File content is sent. -->
@@ -550,7 +589,7 @@
       <span class="logo"><img class="logo-mark" src="focus-file-logo.svg" width="22" height="22" alt="">Focus File</span>
       <nav class="nav-links">
         <button data-modal="design">Why a file?</button>
-        <a href="#coaches" data-section-link="coaches">For coaches &amp; therapists</a>
+        <a href="coaches.html" data-section-link="coaches">For coaches &amp; therapists</a>
         <button data-modal="privacy">Privacy</button>
         <button data-modal="feedback">Feedback</button>
       </nav>
@@ -560,7 +599,7 @@
       <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true" aria-controls="notesDrop">Notes ▾</button>
       <div class="notes-drop" id="notesDrop" role="menu">
         <button role="menuitem" data-modal="design">Why a file?</button>
-        <a role="menuitem" href="#coaches" data-section-link="coaches">For coaches &amp; therapists</a>
+        <a role="menuitem" href="coaches.html" data-section-link="coaches">For coaches &amp; therapists</a>
         <button role="menuitem" data-modal="privacy">Privacy</button>
         <button role="menuitem" data-modal="feedback">Feedback</button>
       </div>
@@ -666,35 +705,44 @@
       </div>
     </section>
 
-    <section class="after-block simplified-after coach-simple" id="coaches" aria-labelledby="coachTitle">
-      <div class="coach-kicker">For coaches and therapists</div>
-      <h2 id="coachTitle">A private tool from one session to the next.</h2>
-      <div class="coach-use-list">
-        <div class="coach-use-row">
-          <h3>01 &middot; In session</h3>
-          <p>Name the client&rsquo;s goal, the pattern that gets in the way, and the reminder or action that can interrupt it.</p>
+    <section class="evidence-loop" aria-labelledby="evidenceLoopTitle">
+      <div class="evidence-loop-head">
+        <span class="section-kicker">The evidence loop</span>
+        <h2 id="evidenceLoopTitle">Each file makes the next one better</h2>
+        <p>Every Focus File records a small, private piece of evidence about how you actually worked. Carry that result into the next interview, so your next commitment is shaped by your own experience instead of generic productivity advice.</p>
+      </div>
+      <div class="evidence-steps">
+        <div class="evidence-step">
+          <span class="evidence-step-number">01 &middot; Commit</span>
+          <h3>Draft 1,500 words</h3>
+          <p>Make one concrete commitment.</p>
         </div>
-        <div class="coach-use-row">
-          <h3>02 &middot; Build together</h3>
-          <p>Turn the session&rsquo;s clarity into a Focus File. Their words become the goal, boundaries, and check-ins they carry between sessions.</p>
+        <div class="evidence-step">
+          <span class="evidence-step-number">02 &middot; Work</span>
+          <h3>Keep it visible</h3>
+          <p>Work with the file beside you.</p>
         </div>
-        <div class="coach-use-row">
-          <h3>03 &middot; Next session</h3>
-          <p>Review what was finished, what helped, and what pulled them off&mdash;without relying on memory alone.</p>
+        <div class="evidence-step">
+          <span class="evidence-step-number">03 &middot; Record</span>
+          <h3>Example result</h3>
+          <strong>Pulled off: phone notifications</strong>
+          <p>Worked well: starting with the easiest step.</p>
+        </div>
+        <div class="evidence-step">
+          <span class="evidence-step-number">04 &middot; Carry forward</span>
+          <h3>Use this result</h3>
+          <p>The next interview starts with real evidence.</p>
         </div>
       </div>
-      <div class="coach-great-for">
-        <h3>Great for ADHD coaching</h3>
-        <ul>
-          <li><span aria-hidden="true">&#10003;</span>Task initiation</li>
-          <li><span aria-hidden="true">&#10003;</span>Breaking unhelpful habits</li>
-          <li><span aria-hidden="true">&#10003;</span>Between-session follow-through</li>
-        </ul>
+    </section>
+
+    <section class="coach-bridge" aria-labelledby="coachBridgeTitle">
+      <div>
+        <span class="section-kicker">Coaches and therapists</span>
+        <h2 id="coachBridgeTitle">Using Focus File with clients?</h2>
+        <p>Help clients carry one concrete commitment between sessions and return with a private record of what actually happened.</p>
       </div>
-      <div class="coach-privacy-bar">
-        <h3>Privacy by default</h3>
-        <p>Each Focus File and its log stay on the client&rsquo;s device unless they choose to share them. <button data-modal="privacy">Read details &rarr;</button></p>
-      </div>
+      <a class="coach-bridge-link" href="coaches.html">For coaches and therapists &rarr;</a>
     </section>
 
     <section class="postscript" aria-label="Additional Focus File information">
@@ -1340,6 +1388,10 @@ Do not add anything else. Then stop.
         modalClose.focus();                  // move focus into the dialog
       });
     });
+    if (window.location.hash === '#privacy') {
+      var privacyTrigger = document.querySelector('[data-modal="privacy"]');
+      if (privacyTrigger) privacyTrigger.click();
+    }
     function closeModal(){
       if (!bg.classList.contains('on')) return;
       bg.classList.remove('on');
