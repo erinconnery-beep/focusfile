@@ -48,7 +48,7 @@ The public page is intentionally ordered around execution rather than explanatio
 
 1. **Short promise:** “Keep one clear objective in front of you.”
 2. **01 — A short AI interview helps you choose it:** Show the five focused questions and one clear action to copy the prompt.
-3. **02 — Your Focus File helps you start and follow through:** Paste the result from the chat and download the simple offline file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. If examples remain, they belong inside this step rather than in a detached section.
+3. **02 — Your Focus File helps you begin and follow through:** Paste the result from the chat and download the simple offline file immediately. After download, replace the input with a clear filename confirmation and an optional evening-reminder link. Keep the three live, fully interactive sample files permanently visible inside this step; each opens in a new tab.
 4. **For coaches and therapists:** A charcoal header and clean white evidence panel show the three-step workflow: name the goal and interrupting action, build from the session’s clarity, and review what happened without relying on memory alone. Simple rules separate the steps; plain green ticks identify three ADHD-coaching uses without looking interactive. A pale-green privacy band closes the section.
 
 The Focus File logo and **Notes** dropdown remain in the header at every width. The dropdown contains **Why a file?**, **For coaches & therapists**, **Privacy**, and **Feedback**. Longer explanation belongs there, not in the execution path.
