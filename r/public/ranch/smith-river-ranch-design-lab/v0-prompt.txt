@@ -1,0 +1,33 @@
+Build a controlled, full-site design laboratory for Smith River Ranch from the attached source bundle.
+
+SOURCE OF TRUTH
+Read index.html and the local assets/ directory before designing. The supplied site is authoritative. Preserve its copy character-for-character, its facts, its section order, its image-to-section assignments, its maps, captions, contact information, disclosure, fonts, monogram, and gallery content. All three treatments must use one shared content/data source so their material cannot drift.
+
+NON-NEGOTIABLE LOCKS
+- Preserve the existing hero exactly and identically in A, B, and C: same srr-hero.jpg, monogram, words, crop/cover behavior, full-viewport scale, overlay, typography, placement, and scroll cue. Do not reinterpret it.
+- Keep this exact ranch-content sequence: Hero; Holding/Acreage overview; The Land; Location & Access; Water Resources; Elk & Wildlife; Equestrian & Recreation; Lodge & Guest Experience; Turnkey Operations; Photography Gallery; private offering/contact/footer.
+- Use ONLY the local files supplied in assets/. Do not generate images, search for images, use Unsplash or other remote media, create image placeholders, substitute photography, or invent maps/diagrams.
+- Do not rewrite, shorten, expand, “improve,” paraphrase, or add copy. Do not invent ranch facts, measurements, amenities, claims, prices, labels, captions, or calls to action.
+- Do not add ranch-facing sections, cards, testimonials, timelines, stats, navigation concepts, or decorative Western motifs. A small neutral lab switcher/comparison index is allowed, but it is not part of the ranch page.
+- Do not omit source material. Preserve the existing gallery and functional detail drawers/lightbox behavior, adapting implementation only as needed for the chosen framework.
+
+BUILD THREE CONTROLLED TREATMENTS OF THE SAME COMPLETE SITE
+
+A — CINEMA
+Make the real photography overwhelmingly dominant. Major chapter photographs should be edge-to-edge and generally 85–100vh. Text should appear sparingly in calm, legible intervals or restrained overlays. The ranch—not interface decoration—is the experience.
+
+B — EDITORIAL
+Use the same large photography, interrupted by beautifully composed warm-cream editorial pages for acreage, prose, facts, maps, and detail. Aim for an exceptional private auction catalogue or architectural monograph, not a conventional luxury-real-estate template.
+
+C — CINEMATIC EDITORIAL
+Combine full-width photographic chapter openings with quiet informational interludes. Use deliberate dark/light shifts for rhythm. Photography supplies emotion; typography supplies authority. Keep ornament extremely restrained.
+
+IMPLEMENTATION
+Create three complete, responsive variants at /a-cinema, /b-editorial, and /c-cinematic-editorial, plus a minimal /compare index that links to them. Keep the hero component shared and visually frozen. Keep all content/assets in a single shared source and vary only composition, scale, typography, spacing, backgrounds, transitions, and restrained motion. Do not make three separately authored content trees.
+
+The four main comparison anchors are: (1) what happens immediately after the hero, (2) how 21,497± acres lands, (3) how The Land begins, and (4) how much visual consequence the river receives. Apply the winning logic consistently across the rest of each complete site.
+
+Use the bundled Cormorant Garamond and Inter font files. Make desktop, tablet, and mobile layouts deliberate. Respect reduced-motion preferences. Keep text contrast and controls accessible.
+
+FINAL AUDIT BEFORE HANDOFF
+Compare every visible line of copy, fact, caption, contact detail, section position, and asset path against index.html. Confirm there are no remote image URLs, generated images, replacement words, new ranch-facing sections, missing source sections, or hallucinated facts. Report any unavoidable implementation deviation; otherwise state that the source lock passed.

@@ -1,0 +1,12 @@
+V0 SPLIT UPLOAD
+
+Attach all five ZIP files from this set to the same new v0 chat:
+1. smith-river-ranch-v0-01-source-hero-maps.zip
+2. smith-river-ranch-v0-02-chapters.zip
+3. smith-river-ranch-v0-03-gallery-a.zip
+4. smith-river-ranch-v0-04-gallery-b.zip
+5. smith-river-ranch-v0-05-gallery-c.zip
+
+Then paste v0-prompt.txt, which is included in part 01 and also supplied separately.
+
+The five archives are parts of one logical source bundle. Their shared smith-river-ranch-design-lab/ paths should be treated as one project. No file is a substitute, derivative, or optional extra. Together they contain the unchanged full source site and every original asset.
