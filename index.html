@@ -1,1463 +1,1217 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Focus File: Keep one clear objective in front of you</title>
-<meta name="description" content="Turn one concrete block of work into a focused session and a private record of what helped.">
-<link rel="canonical" href="https://www.focusfile.org/">
-<meta property="og:title" content="Focus File: Keep one clear objective in front of you">
-<meta property="og:description" content="A free focus tool for one concrete block of work—and learning what helps over time.">
-<meta property="og:url" content="https://www.focusfile.org/">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://www.focusfile.org/focus-file-social-v2.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Focus File: Keep one clear objective in front of you">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.focusfile.org/focus-file-social-v2.png">
-<link rel="icon" type="image/svg+xml" href="focus-file-logo.svg">
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+<title>Smith River Ranch · Private Preview</title>
+<meta name="description" content="Smith River Ranch — 21,497± contiguous deeded acres, six miles of the Smith River, a resident elk herd exceeding 500, and a fully turnkey compound." />
+<!-- Link preview (iMessage, WhatsApp, Slack, email). Deliberately discreet:
+     no photography, no location, no brokerage — matches the password gate. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Smith River Ranch" />
+<meta property="og:url" content="https://www.focusfile.org/smithmap/" />
+<meta property="og:title" content="Smith River Ranch" />
+<meta property="og:description" content="Private preview" />
+<meta property="og:image" content="https://www.focusfile.org/smithmap/assets/og-preview.jpg" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Smith River Ranch" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Smith River Ranch" />
+<meta name="twitter:description" content="Private preview" />
+<meta name="twitter:image" content="https://www.focusfile.org/smithmap/assets/og-preview.jpg" />
+<link rel="icon" href="assets/icon-512.png" type="image/png" sizes="512x512" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-500.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-300.woff2" crossorigin />
 <style>
-  * { box-sizing:border-box; margin:0; padding:0; }
+  /* Fonts served from this site — no third-party request. SIL Open Font License. */
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant-400-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/inter-300.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/inter-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/inter-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:'Inter';src:url('assets/fonts/inter-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
   :root{
-    --paper:#fbfbfa; --paper-warm:#ffffff; --paper-line:#aeb6b1; --hair:#d5d9d6;
-    --ink:#17201c; --ink-soft:#3f4b45; --ink-mut:#5b6761; --ink-faint:#6c7772;
-    --pine:#2f6a44; --pine-soft:#275739; --pine-tint:#edf3ef; --clay:#8f4339;
-    --serif:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    --mono:"SF Mono", ui-monospace, Menlo, monospace;
-    /* Page type scale. The miniature product preview intentionally has its own compact scale. */
-    --type-display:clamp(46px,3.5vw,58px);
-    --type-section:clamp(30px,2.5vw,36px);
-    --type-feature:clamp(25px,2.25vw,31px);
-    --type-card:19px;
-    --type-card-large:20px;
-    --type-lead:clamp(17px,1.45vw,21px);
-    --type-body:15px;
-    --type-small:13.5px;
-    --type-nav:14px;
-    --type-label:11px;
-    --type-label-small:10px;
-    --type-label-tiny:9px;
-    --type-button:14.5px;
+    --ink:#11100d;
+    --forest:#18231d;
+    --forest-2:#213128;
+    --stone:#d9d0c1;
+    --cream:#f3eee5;
+    --cream-dim:#c9c1b5;
+    --paper:#e9e1d4;
+    --paper-ink:#2a251e;
+    --paper-sub:#373129;
+    --gold:#c0a267;
+    --gold-light:#dbc38f;
+    --line:rgba(192,162,103,.34);
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Inter',system-ui,sans-serif;
   }
-  body { font-family:var(--serif); color:var(--ink); background:var(--paper);
-    line-height:1.5; min-height:100vh; display:flex; flex-direction:column; }
-  html { scroll-behavior:smooth; }
-  button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visible {
-    outline:2px solid var(--pine); outline-offset:3px;
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit}
+  .progress{position:fixed;inset:0 auto auto 0;height:2px;width:0;background:var(--gold);z-index:500}
+
+  .topbar{position:fixed;inset:0 0 auto;z-index:420;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,64px);transition:padding .35s ease,background .35s ease,border-color .35s ease;pointer-events:none;border-bottom:1px solid transparent}
+  .topbar.scrolled{padding-top:12px;padding-bottom:12px;background:rgba(17,16,13,.9);border-color:var(--line);backdrop-filter:blur(12px)}
+  .brand{pointer-events:auto;display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1;color:var(--cream)}
+  .brand img{display:block;width:auto;height:34px;filter:drop-shadow(0 2px 5px rgba(0,0,0,.5))}
+  .brand span{display:block;margin-top:8px;color:var(--gold-light);font-family:var(--sans);font-size:9px;letter-spacing:.3em;text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+  .topbar-actions{pointer-events:auto;display:flex;align-items:center;gap:10px}
+  .map-quick,.nav-toggle{display:inline-flex;align-items:center;justify-content:center;min-height:40px;border:1px solid rgba(219,195,143,.48);background:rgba(17,16,13,.55);color:var(--cream);padding:0 16px;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;transition:.25s;cursor:pointer}
+  .map-quick:hover,.map-quick:focus-visible,.nav-toggle:hover,.nav-toggle:focus-visible{background:var(--gold);border-color:var(--gold);color:var(--ink);outline:none}
+  .nav-toggle{gap:10px}
+  .nav-toggle-lines{display:grid;gap:4px;width:16px}
+  .nav-toggle-lines::before,.nav-toggle-lines::after{content:"";display:block;height:1px;background:currentColor}
+  .site-nav-backdrop{position:fixed;inset:0;z-index:430;background:rgba(5,6,5,.62);opacity:0;visibility:hidden;transition:.35s;backdrop-filter:blur(3px)}
+  .site-nav-backdrop.open{opacity:1;visibility:visible}
+  .site-nav{position:fixed;z-index:440;inset:0 0 0 auto;width:min(430px,100%);padding:28px clamp(24px,5vw,48px);background:var(--forest);border-left:1px solid var(--line);transform:translateX(100%);visibility:hidden;transition:transform .45s cubic-bezier(.4,0,.2,1),visibility .45s;overflow:auto}
+  .site-nav.open{transform:none;visibility:visible}
+  .site-nav-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:24px;border-bottom:1px solid var(--line)}
+  .site-nav-title{color:var(--gold-light);font-size:9px;font-weight:500;letter-spacing:.3em;text-transform:uppercase}
+  .site-nav-close{width:42px;height:42px;border:1px solid var(--line);background:transparent;color:var(--cream);font-size:24px;font-weight:300;line-height:1;cursor:pointer;transition:.2s}
+  .site-nav-close:hover,.site-nav-close:focus-visible{background:var(--gold);border-color:var(--gold);color:var(--ink);outline:none}
+  .site-nav-links{display:grid;padding:22px 0}
+  .site-nav-links a{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:13px 0;border-bottom:1px solid rgba(192,162,103,.18);font-family:var(--serif);font-size:clamp(25px,4vw,34px);line-height:1.05;transition:.2s}
+  .site-nav-links a::after{content:"\2192";color:var(--gold);font-family:var(--sans);font-size:16px}
+  .site-nav-links a:hover,.site-nav-links a:focus-visible{color:var(--gold-light);padding-left:8px;outline:none}
+  .site-nav-contact{margin-top:18px;color:var(--cream-dim);font-size:11px;line-height:1.8}
+  body.nav-open{overflow:hidden}
+  .hero{position:relative;height:100svh;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  .hero .image{position:absolute;inset:0;background:url('assets/hero-river-high-res.jpg') center/cover no-repeat;animation:heroScale 14s ease-out forwards}
+  @keyframes heroScale{from{transform:scale(1.055)}to{transform:scale(1)}}
+  .hero::after{content:"";position:absolute;inset:0;background:rgba(8,9,7,.10)}
+  .hero-copy{position:relative;z-index:2;padding:0 22px;max-width:1050px;animation:rise 1.35s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .hero h1{font-family:var(--serif);font-size:clamp(54px,10vw,132px);font-weight:500;line-height:.9;letter-spacing:-.025em;text-shadow:0 2px 24px rgba(0,0,0,.28)}
+  .hero .subtitle{margin-top:20px;font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.7vw,32px);text-shadow:0 2px 3px rgba(0,0,0,.65),0 0 9px rgba(0,0,0,.35)}
+  .scroll-cue{position:absolute;z-index:2;bottom:25px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--cream-dim);text-shadow:0 2px 5px rgba(0,0,0,.65)}
+  .scroll-cue::after{content:"";display:block;width:1px;height:34px;margin:10px auto 0;background:linear-gradient(var(--gold),transparent)}
+
+  .overview{background:var(--forest);padding:clamp(55px,8vw,96px) clamp(22px,6vw,76px)}
+  .overview-inner{max-width:1180px;margin:auto}
+  .eyebrow{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-light);margin-bottom:18px}
+  .overview h2{max-width:880px;font-family:var(--serif);font-size:clamp(30px,4vw,52px);font-weight:500;line-height:1.08}
+  .overview p{max-width:720px;margin-top:20px;color:var(--cream-dim);font-size:clamp(15px,1.5vw,18px)}
+  .hero-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:44px;background:var(--line);border:1px solid var(--line)}
+  .hero-fact{background:var(--forest);padding:26px 22px}
+  .hero-fact strong{display:block;font-family:var(--serif);font-size:clamp(30px,3.5vw,46px);font-weight:500;line-height:1;color:var(--gold-light)}
+  .hero-fact span{display:block;margin-top:9px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-dim)}
+  .chapter{scroll-margin-top:55px}
+  .chapter-image{position:relative;height:clamp(490px,78svh,860px);display:flex;align-items:flex-end;overflow:hidden;cursor:zoom-in}
+  .gallery-slides,.gallery-slide{position:absolute;inset:0}
+  /* display:none (not visibility) stops the inactive gallery photographs
+     downloading on page load; they load when the lightbox opens. */
+  .gallery-slide{display:none;opacity:0;visibility:hidden;transition:opacity .65s ease,visibility .65s ease}
+  .gallery-slide.active{display:block;opacity:1;visibility:visible}
+  .gallery-slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.045);transition:transform 1.5s cubic-bezier(.2,.75,.2,1)}
+  #access .gallery-slide img{object-position:46% center;transform:none}
+  #water .gallery-slide img{object-fit:cover;object-position:center 62%;transform:none}
+  .chapter.visible .gallery-slide img{transform:scale(1)}
+  #wildlife .gallery-slide img,#wildlife.chapter.visible .gallery-slide img{object-position:77% 20%;transform:none}
+  #hospitality .gallery-slide img,#hospitality.chapter.visible .gallery-slide img{object-position:center;transform:none}
+  #hospitality .gallery-slide picture{display:block;width:100%;height:100%}
+  .chapter-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,7,.08) 40%,rgba(8,9,7,.7) 100%)}
+  #water .chapter-image::after{background:none}
+  #hospitality .chapter-image::after{background:linear-gradient(180deg,rgba(8,9,7,.06) 40%,rgba(8,9,7,.62) 100%)}
+  #land .chapter-image::after{background:linear-gradient(180deg,transparent 68%,rgba(8,9,7,.35) 100%)}
+  #land .image-title p{letter-spacing:0}
+  #operations .chapter-image::after{background:none}
+  #operations .image-title{isolation:isolate}
+  #operations .image-title::before{content:"";position:absolute;z-index:-1;inset:8px 8% 8px 0;background:linear-gradient(90deg,rgba(8,9,7,.35),rgba(8,9,7,.12) 68%,transparent);filter:blur(8px);pointer-events:none}
+  .image-title{position:relative;z-index:2;padding:clamp(28px,5vw,64px) clamp(22px,6vw,76px);max-width:1060px;opacity:1;visibility:visible;transition:opacity .35s ease,visibility .35s ease}
+  .image-title.gallery-title-hidden{opacity:0;visibility:hidden}
+  .image-title h2{font-family:var(--serif);font-size:clamp(42px,7vw,82px);font-weight:500;line-height:.92;letter-spacing:-.015em;text-shadow:0 2px 20px rgba(0,0,0,.25)}
+  .image-title p{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.3vw,28px);line-height:1.25;text-shadow:0 2px 16px rgba(0,0,0,.3)}
+  .image-title p,.land-map figcaption,.access-map figcaption,.detail-figure figcaption{letter-spacing:0}
+  #water .image-title{isolation:isolate}
+  #water .image-title::before{content:none}
+  #water .image-title h2{text-shadow:none}
+  #water .image-title p{font-weight:500;color:var(--cream);text-shadow:none}
+  #access .image-title{isolation:isolate}
+  #access .image-title::before{content:"";position:absolute;z-index:-1;inset:8px 28% 8px 0;background:linear-gradient(90deg,rgba(8,9,7,.32),rgba(8,9,7,.14) 65%,transparent);filter:blur(8px);pointer-events:none}
+  #access .image-title p{font-weight:500;color:var(--cream);text-shadow:0 2px 3px rgba(0,0,0,.9),0 0 15px rgba(0,0,0,.78)}
+
+  .gallery-toolbar{background:var(--forest);padding:12px clamp(22px,6vw,76px);border-bottom:1px solid var(--line)}
+  .chapter:nth-of-type(even) .gallery-toolbar{background:var(--forest-2)}
+  .gallery-toolbar-inner{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .gallery-caption{color:var(--cream-dim);font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+  .gallery-caption.stock{color:var(--gold-light)}
+  .gallery-actions{display:flex;align-items:center;gap:18px;flex:0 0 auto}
+  .gallery-open{border:0;border-bottom:1px solid var(--gold);padding:4px 0;background:transparent;color:var(--gold-light);cursor:pointer;font-size:9px;letter-spacing:.14em;text-transform:uppercase;transition:.2s}
+  .gallery-open:hover,.gallery-open:focus-visible{color:var(--cream);border-color:var(--cream);outline:none}
+  .gallery-nav{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .gallery-count{min-width:52px;text-align:center;color:var(--cream-dim);font-size:9px;letter-spacing:.14em}
+  .gallery-nav button{width:34px;height:30px;border:1px solid var(--line);background:transparent;color:var(--cream);cursor:pointer;line-height:1;transition:.2s}
+  .gallery-nav button:hover,.gallery-nav button:focus-visible{background:var(--gold);color:var(--ink);border-color:var(--gold);outline:none}
+
+  .chapter-summary{background:var(--forest);padding:clamp(40px,6vw,72px) clamp(22px,6vw,76px)}
+  .chapter:nth-of-type(even) .chapter-summary{background:var(--forest)}
+  .summary-inner{max-width:1180px;margin:auto}
+  .summary-grid{max-width:760px}
+  .summary-copy p{color:var(--cream-dim);font-size:clamp(15px,1.35vw,17px);max-width:650px}
+  #recreation .summary-copy p+p{margin-top:18px}
+  #water .water-statement,#wildlife .wildlife-statement,#recreation .recreation-statement{margin:0 0 18px;font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);line-height:1.25;color:var(--cream)}
+  #water .water-rights{font-family:var(--sans);font-size:clamp(15px,1.35vw,17px);font-weight:400;line-height:1.6;color:var(--cream-dim)}
+  .signature-fact{margin-top:24px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(18px,2vw,22px);font-weight:500;line-height:1.35;color:var(--cream)}
+  .signature-fact.split span{display:block}
+  .signature-fact.split span+span{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--gold-light)}
+  .operations-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:650px;margin-top:24px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .operations-fact{display:flex;align-items:center;min-height:88px;padding:16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(16px,1.8vw,20px);line-height:1.25;color:var(--cream)}
+  .operations-fact .stat-number{font-size:22px}
+  .final-gallery{scroll-margin-top:55px;background:var(--forest);padding:clamp(58px,8vw,104px) 0 0}
+  .final-gallery-head{max-width:1180px;margin:0 auto clamp(30px,4vw,48px);padding:0 clamp(22px,6vw,76px)}
+  .final-gallery-head h2{max-width:820px;font-family:var(--serif);font-size:clamp(40px,6vw,72px);font-weight:500;line-height:.96;letter-spacing:-.015em}
+  .final-gallery-head p{max-width:640px;margin-top:18px;color:var(--cream-dim);font-size:clamp(15px,1.4vw,18px)}
+  .final-gallery-grid{display:block}
+  .final-gallery-mosaic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,clamp(240px,25vw,390px));gap:2px;max-width:1540px;margin:auto;background:var(--ink)}
+  .gallery-mosaic-tile{position:relative;overflow:hidden;border:0;background:#0d120f;color:var(--cream);cursor:zoom-in;text-align:left;isolation:isolate}
+  .gallery-mosaic-tile:nth-child(1){grid-column:1/3;grid-row:1}
+  .gallery-mosaic-tile:nth-child(2){grid-column:3;grid-row:1}
+  .gallery-mosaic-tile:nth-child(3){grid-column:4;grid-row:1}
+  .gallery-mosaic-tile:nth-child(4){grid-column:1;grid-row:2}
+  .gallery-mosaic-tile:nth-child(5){grid-column:2;grid-row:2}
+  .gallery-mosaic-tile:nth-child(6){grid-column:3/5;grid-row:2}
+  .gallery-mosaic-tile::after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,transparent 46%,rgba(6,8,6,.78) 100%);transition:background .3s ease}
+  .gallery-mosaic-tile img{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.01);transition:transform .75s cubic-bezier(.2,.75,.2,1)}
+  .gallery-mosaic-tile:nth-child(4) img{object-position:74% center}
+  .gallery-mosaic-tile:hover img,.gallery-mosaic-tile:focus-visible img{transform:scale(1.06)}
+  .gallery-mosaic-tile:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+  .gallery-mosaic-label{position:absolute;z-index:2;inset:auto 20px 18px;display:flex;align-items:end;justify-content:space-between;gap:16px;font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+  .gallery-mosaic-label::after{content:"\2197";color:var(--gold-light);font-size:15px}
+  .gallery-source{display:none!important}
+  .final-gallery-panel{display:flex;align-items:center;justify-content:space-between;gap:28px;max-width:1540px;margin:auto;padding:30px clamp(22px,6vw,76px) clamp(38px,5vw,62px)}
+  .final-gallery-note{color:var(--cream-dim);font-size:9px;letter-spacing:.18em;text-transform:uppercase}
+  .final-gallery-open{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-width:245px;margin:0;padding:14px 18px;border:1px solid var(--gold);background:transparent;color:var(--cream);cursor:pointer;font-size:10px;letter-spacing:.2em;text-transform:uppercase;transition:.25s}
+  .final-gallery-open:hover,.final-gallery-open:focus-visible{background:var(--gold);color:var(--ink);outline:none}
+  .final-gallery-open span:last-child{font-size:17px;line-height:1}
+  .land-map{margin:0;background:var(--paper);color:var(--paper-ink);padding:clamp(48px,6vw,84px) clamp(18px,2.5vw,36px)}
+  .land-map h3{max-width:1540px;margin:0 auto 20px;font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:500;line-height:1.1;text-align:center;color:var(--paper-ink)}
+  .land-map img{display:block;width:100%;max-width:1540px;height:auto;margin:auto;border:1px solid #d0c6b5}
+  .land-map figcaption{max-width:1540px;margin:auto;padding-top:12px;font-family:var(--serif);font-size:clamp(16px,1.8vw,20px);font-style:italic;font-weight:500;color:var(--paper-sub)}
+  .explore-map{scroll-margin-top:55px;background:var(--ink);padding:clamp(58px,8vw,104px) clamp(18px,2.5vw,36px)}
+  .explore-map-head{max-width:1180px;margin:0 auto clamp(28px,4vw,48px)}
+  .explore-map h2{max-width:760px;font-family:var(--serif);font-size:clamp(38px,6vw,72px);font-weight:500;line-height:.98;letter-spacing:-.015em}
+  .explore-map-copy{max-width:650px;margin-top:18px;color:var(--cream-dim);font-size:clamp(15px,1.4vw,18px)}
+  .explore-map-status{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:24px;color:var(--gold-light);font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+  .map-open-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;margin-top:26px;min-width:245px;padding:14px 18px;border:1px solid var(--gold);color:var(--cream);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;transition:.25s}
+  .map-open-button::after{content:"\2197";font-size:15px}
+  .map-open-button:hover,.map-open-button:focus-visible{background:var(--gold);color:var(--ink);outline:none}
+  .explore-map-frame{max-width:1540px;height:min(760px,78svh);min-height:560px;margin:auto;border:1px solid var(--line);background:#0d120f;overflow:hidden}
+  .explore-map-frame iframe{display:block;width:100%;height:100%;border:0}
+  .access-map{margin:0;background:var(--paper);color:var(--paper-ink);padding:0 clamp(18px,2.5vw,36px) clamp(48px,6vw,84px);border-top:1px solid var(--line)}
+  .access-map-frame{max-width:1540px;margin:auto;overflow:hidden}
+  .access-map-frame img{display:block;width:100%;max-width:none;height:auto;margin:0;border:0}
+  .access-map figcaption{max-width:1540px;margin:auto;padding-top:12px;font-family:var(--serif);font-size:clamp(16px,1.8vw,20px);font-style:italic;font-weight:500;color:var(--paper-sub)}
+  .arrival-block{max-width:1540px;margin:clamp(30px,4vw,48px) auto 0;padding-top:clamp(26px,3vw,38px);border-top:1px solid #d0c6b5}
+  .arrival-heading{margin:0 0 18px;font-family:var(--serif);font-size:clamp(28px,3vw,38px);font-weight:500;line-height:1.1;color:var(--paper-ink)}
+  .arrival-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d0c6b5}
+  .arrival-item{padding:clamp(22px,2.5vw,34px)}
+  .arrival-item+.arrival-item{border-left:1px solid #d0c6b5}
+  .arrival-item span{display:block;font-size:16px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--paper-ink)}
+  .arrival-item p{margin-top:12px;font-size:16px;font-weight:400;line-height:1.55;color:var(--paper-sub)}
+  .detail-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;margin-top:30px;min-width:245px;padding:14px 18px;border:1px solid var(--gold);background:transparent;color:var(--cream);cursor:pointer;font-size:10px;letter-spacing:.2em;text-transform:uppercase;transition:.25s}
+  .detail-button:hover{background:var(--gold);color:var(--ink)}
+  .detail-button .arrow{font-size:17px;line-height:1;transition:transform .35s}
+  .detail-button[aria-expanded="true"] .arrow{transform:rotate(45deg)}
+
+  .drawer{display:grid;grid-template-rows:0fr;background:var(--paper);color:var(--paper-ink);transition:grid-template-rows .55s cubic-bezier(.4,0,.2,1)}
+  .drawer.open{grid-template-rows:1fr}
+  .drawer-wrap{overflow:hidden}
+  .detail-panel{max-width:1180px;margin:auto;padding:clamp(48px,7vw,88px) clamp(22px,6vw,76px)}
+  .detail-panel h3{font-family:var(--serif);font-size:clamp(31px,4vw,48px);font-weight:500;line-height:1.05;margin-bottom:14px}
+  .detail-panel .lede{max-width:720px;color:var(--paper-sub);font-size:16px;font-weight:400;margin-bottom:35px}
+  .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 70px}
+  .detail-group h4{margin-bottom:10px;color:var(--paper-ink);font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+  .detail-row{display:flex;justify-content:space-between;gap:22px;padding:10px 0;border-bottom:1px solid #d0c6b5;font-size:14px;font-weight:400}
+  .detail-row b{font-family:var(--serif);font-size:17px;font-weight:500;text-align:right}
+  .detail-row .detail-subnote{display:block;margin-top:4px;color:var(--paper-sub);font-size:12px;font-weight:400;line-height:1.4}
+  .detail-figure{margin-bottom:35px}
+  .detail-figure img{height:clamp(260px,47vw,510px);object-fit:cover}
+  .detail-figure.location-map img{height:auto;object-fit:contain}
+  .detail-figure figcaption{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--paper-sub);padding-top:10px}
+  .detail-note{margin-top:28px;font-size:12px;font-style:italic;font-weight:400;color:var(--paper-sub)}
+
+  body.lightbox-open{overflow:hidden}
+  .photo-lightbox{position:fixed;inset:0;z-index:500;display:none;flex-direction:column;background:#0c0d0b;color:var(--cream)}
+  .photo-lightbox.open{display:flex}
+  .lightbox-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(18px,4vw,48px);border-bottom:1px solid var(--line)}
+  .lightbox-heading{font-family:var(--serif);font-size:20px;font-weight:500}
+  .lightbox-close{border:1px solid var(--line);width:44px;height:44px;background:transparent;color:var(--cream);cursor:pointer;font-size:22px;line-height:1;transition:.2s}
+  .lightbox-close:hover,.lightbox-close:focus-visible{background:var(--gold);color:var(--ink);border-color:var(--gold);outline:none}
+  .lightbox-stage{position:relative;display:flex;align-items:center;justify-content:center;flex:1;min-height:0;padding:22px clamp(52px,7vw,92px)}
+  .lightbox-stage img{width:auto;max-width:100%;height:auto;max-height:calc(100svh - 178px);object-fit:contain}
+  .lightbox-control{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:52px;border:1px solid var(--line);background:rgba(12,13,11,.7);color:var(--cream);cursor:pointer;font-size:21px;transition:.2s}
+  .lightbox-control:hover,.lightbox-control:focus-visible{background:var(--gold);color:var(--ink);border-color:var(--gold);outline:none}
+  .lightbox-prev{left:12px}
+  .lightbox-next{right:12px}
+  .lightbox-meta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(18px,4vw,48px);border-top:1px solid var(--line)}
+  .lightbox-caption{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+  .lightbox-caption.stock{color:var(--gold-light)}
+  .lightbox-count{font-size:10px;letter-spacing:.14em;color:var(--cream-dim);white-space:nowrap}
+
+  .closing{position:relative;min-height:86svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:100px 22px}
+  .closing .bg{position:absolute;inset:0;background:url('assets/limestone-canyon.jpg') center/cover no-repeat}
+  .closing::after{content:"";position:absolute;inset:0;background:rgba(12,13,10,.74)}
+  .closing-inner{position:relative;z-index:2;max-width:780px}
+  .closing .eyebrow{transform:translateY(-16px)}
+  .closing h2{font-family:var(--serif);font-size:clamp(40px,6vw,70px);font-weight:500;line-height:1;margin-bottom:20px}
+  .closing p{max-width:620px;margin:0 auto;color:var(--cream-dim)}
+  .closing-details-button{margin-top:34px}
+  .closing .drawer{max-width:560px;margin:18px auto 0;background:transparent;color:var(--cream)}
+  .closing .detail-panel{padding:24px 0 6px}
+  .closing .detail-row{border-color:rgba(192,162,103,.24);color:var(--cream-dim);font-size:15px;text-align:left}
+  .closing .detail-row b{color:var(--cream);font-size:20px}
+  .broker-card{margin:46px auto 0;padding-top:34px;border-top:1px solid rgba(192,162,103,.3)}
+  .broker-mark{font-family:var(--serif);font-size:clamp(22px,3vw,30px);letter-spacing:.08em;color:var(--gold-light)}
+  .broker-name{margin-top:24px;font-family:var(--serif);font-size:clamp(28px,4vw,38px);line-height:1}
+  .broker-title{margin-top:8px;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-dim)}
+  .broker-links{display:flex;justify-content:center;gap:10px 20px;flex-wrap:wrap;margin-top:24px;font-size:13px;letter-spacing:.06em}
+  .broker-links a{border-bottom:1px solid transparent;transition:.2s}
+  .broker-links a:hover{color:var(--gold-light);border-color:var(--gold)}
+  .broker-address{margin-top:12px;font-size:11px;line-height:1.7;color:var(--cream-dim)}
+  footer{position:relative;z-index:2;max-width:900px;margin:60px auto 0;padding-top:22px;border-top:1px solid rgba(192,162,103,.2);font-size:10px;letter-spacing:.09em;line-height:1.7;color:rgba(201,193,181,.58);text-transform:uppercase}
+
+  @media(max-width:850px){
+    .hero-facts{grid-template-columns:repeat(2,1fr)}
+    .final-gallery-mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,clamp(230px,42vw,340px))}
+    .gallery-mosaic-tile:nth-child(n){grid-column:auto;grid-row:auto}
+    .detail-grid{grid-template-columns:1fr}
   }
-
-  /* HEADER NAV */
-  header { display:flex; align-items:center; justify-content:space-between;
-    padding:18px 32px; border-bottom:1px solid var(--hair); flex-wrap:wrap; gap:12px; }
-  .nav-left { display:flex; align-items:center; gap:52px; flex-wrap:wrap; }
-  .logo { font-family:var(--serif); font-size:16px; font-weight:600; color:var(--pine);
-    display:inline-flex; align-items:center; gap:8px; }
-  .logo-mark { flex-shrink:0; }
-  .nav-links { display:flex; gap:20px; }
-  .nav-links button,.nav-links a { background:none; border:none; cursor:pointer; font-family:var(--sans);
-    font-size:var(--type-nav); color:var(--ink-soft); padding:4px 2px; transition:color .15s;
-    text-decoration:none; white-space:nowrap; }
-  .nav-links button:hover,.nav-links a:hover { color:var(--ink); }
-  .freetag { font-family:var(--mono); font-size:var(--type-label); letter-spacing:.12em; text-transform:uppercase;
-    color:var(--pine); background:var(--pine-tint); padding:6px 12px; border-radius:6px; }
-
-  /* Notes dropdown — mobile only, hidden on desktop */
-  .notes-menu { display:none; position:relative; }
-  .notes-btn { background:none; border:none; cursor:pointer; font-family:var(--sans);
-    font-size:var(--type-nav); font-weight:600; color:var(--ink-soft); padding:4px 2px; }
-  .notes-drop { display:none; position:absolute; right:0; top:100%; margin-top:8px;
-    background:var(--paper); border:1px solid var(--paper-line); border-radius:10px;
-    box-shadow:0 6px 20px rgba(30,32,27,.12); padding:6px; min-width:150px; z-index:50; }
-  .notes-drop.on { display:block; }
-  .notes-drop button,.notes-drop a { display:block; width:100%; text-align:left; background:none; border:none;
-    cursor:pointer; font-family:var(--sans); font-size:var(--type-nav); color:var(--ink-soft);
-    padding:9px 12px; border-radius:7px; text-decoration:none; }
-  .notes-drop button:hover,.notes-drop a:hover { background:var(--pine-tint); color:var(--ink); }
-
-  .wrap { max-width:640px; margin:0 auto; padding:clamp(36px,5.5vh,72px) 32px 48px; flex:1;
-    display:flex; flex-direction:column; width:100%; }
-
-  h1 { font-size:clamp(34px,5vw,44px); font-weight:400; line-height:1.12; letter-spacing:-.015em; margin-bottom:18px; }
-  .promptbox { background:var(--paper-warm); border:1px solid var(--paper-line);
-    border-radius:14px; overflow:hidden; }
-  .pb-head { display:flex; justify-content:space-between; align-items:center;
-    padding:14px 18px; border-bottom:1px solid var(--paper-line); }
-  .prompt-action { display:flex; justify-content:flex-start; padding:0 18px 20px; }
-  .pb-label { font-family:var(--mono); font-size:var(--type-label); letter-spacing:.16em;
-    text-transform:uppercase; color:var(--pine); font-weight:700; }
-  .copy { display:inline-flex; align-items:center; gap:9px; background:var(--pine); color:#fff;
-    padding:13px 26px; border-radius:30px; font-family:var(--sans); font-weight:600;
-    font-size:var(--type-button); border:none; cursor:pointer; transition:background .15s; }
-  .copy:hover { background:var(--pine-soft); }
-  .pb-body { position:relative; overflow:hidden; }
-  .pb-code { font-family:var(--mono); font-size:13px; line-height:1.7; color:var(--ink-soft);
-    white-space:pre-wrap; padding:20px 18px; transition:opacity .3s ease; }
-  .fade { display:none; position:absolute; left:0; right:0; bottom:0; height:70px;
-    background:linear-gradient(transparent, var(--paper-warm)); pointer-events:none; transition:opacity .3s ease; }
-  .pb-body.copied .pb-code, .pb-body.copied .fade { opacity:0; pointer-events:none; }
-
-  /* paste options — fill the box, centered, appear on copy */
-  .aftercopy { position:absolute; inset:0; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; text-align:center; padding:20px;
-    opacity:0; visibility:hidden; pointer-events:none; transition:opacity .35s ease, visibility .35s ease; }
-  .pb-body.copied .aftercopy { opacity:1; visibility:visible; pointer-events:auto; }
-  .ac-line { font-family:var(--sans); font-size:17px; color:var(--ink-soft); margin-bottom:16px; }
-  .ac-links { font-family:var(--sans); font-size:16.5px; }
-  .ac-links a { color:var(--pine); text-decoration:underline; text-underline-offset:2px; font-weight:600; }
-  .ac-links a:hover { color:var(--pine-soft); }
-  .ac-links .dot { color:var(--ink-faint); margin:0 8px; }
-  .bd-lead { font-family:var(--sans); font-size:var(--type-body); color:var(--ink-soft); margin-bottom:10px; line-height:1.5; }
-  .bd-input { width:100%; font-family:var(--mono); font-size:12.5px; line-height:1.5; color:var(--ink);
-    background:var(--paper); border:1px solid var(--paper-line); border-radius:9px; padding:12px; resize:vertical; }
-  .bd-input:focus-visible { outline:2px solid var(--pine); outline-offset:2px; border-color:var(--pine); }
-  .bd-go { margin-top:12px; }
-  .bd-msg { font-family:var(--sans); font-size:var(--type-small); margin-top:10px; min-height:1em; color:var(--ink-faint); }
-  .bd-msg:empty { display:none; }
-  .bd-msg.err { color:var(--ink); border-left:3px solid var(--clay); padding-left:8px; }
-  .bd-msg.ok { color:var(--pine); font-weight:600; }
-  .resource-links { display:grid; grid-template-columns:minmax(190px,.8fr) minmax(0,1.2fr); align-items:center;
-    gap:22px; margin-top:28px; padding:22px 24px; border:1px solid #d7e4d3; border-radius:14px;
-    background:var(--pine-tint); }
-  .resource-intro { display:flex; flex-direction:column; gap:6px; }
-  .resource-kicker { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700; letter-spacing:.15em;
-    text-transform:uppercase; color:var(--pine); }
-  .resource-label { font-family:var(--serif); font-size:var(--type-card-large); line-height:1.2; color:var(--ink); }
-  .resource-row { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
-  .resource-link { display:flex; align-items:center; justify-content:space-between; gap:10px;
-    min-height:44px; padding:11px 13px; border:1px solid #c9d9c5; border-radius:9px; background:var(--paper);
-    font-family:var(--sans); font-size:13px; font-weight:700; color:var(--ink-soft); text-decoration:none;
-    transition:border-color .15s, color .15s, background .15s; }
-  .resource-link span { color:var(--pine); font-size:15px; line-height:1; }
-  .resource-link:hover { color:var(--pine); border-color:var(--pine); background:#fff; }
-  .resource-links + .foot { margin-top:38px; padding-top:24px; }
-
-  .coach-callout { margin-top:0; padding:clamp(32px,4vw,60px); border:1px solid #d7e4d3;
-    border-radius:20px; background:var(--pine-tint); }
-  #coaches { scroll-margin-top:24px; }
-  .coach-kicker { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--pine); margin-bottom:28px; }
-  .coach-callout h2 { font-size:clamp(34px,3.3vw,54px); line-height:1.08; letter-spacing:-.018em;
-    margin-bottom:20px; }
-  .coach-callout p { font-family:var(--sans); font-size:clamp(16px,1.35vw,20px); line-height:1.55; color:var(--ink-soft); }
-  .coach-callout .coach-question { margin:0 0 12px; font-family:var(--serif); font-size:clamp(25px,2.25vw,38px);
-    line-height:1.28; letter-spacing:-.01em; color:var(--ink); }
-  .coach-intro { max-width:78ch; }
-  .coach-points { margin-top:34px; border:1px solid #c9d9c5; border-radius:14px; overflow:hidden;
-    background:rgba(253,251,246,.78); }
-  .coach-point { display:grid; grid-template-columns:minmax(180px,230px) minmax(0,1fr); gap:28px;
-    padding:23px 30px; align-items:start; }
-  .coach-point + .coach-point { border-top:1px solid #d7e4d3; }
-  .coach-point-label { font-family:var(--mono); font-size:var(--type-label-small); font-weight:700;
-    letter-spacing:.15em; line-height:1.5; text-transform:uppercase; color:var(--pine); }
-  .coach-point p { font-size:clamp(15px,1.2vw,18px); line-height:1.52; }
-  .coach-followup { margin-top:30px; padding-top:0; border-top:0; }
-  .coach-callout .coach-followup-question { margin:0 0 10px; font-family:var(--serif);
-    font-size:clamp(25px,2.25vw,38px); line-height:1.28; letter-spacing:-.01em; color:var(--ink); }
-  .coach-followup h3 { margin:0 0 20px; font-family:var(--serif); font-size:clamp(34px,3.3vw,54px);
-    line-height:1.08; letter-spacing:-.018em; color:var(--ink); }
-  .coach-record { margin-top:34px; padding-top:28px; border-top:1px solid #d7e4d3; }
-  .foot { font-family:var(--sans); font-size:13px; color:var(--ink-faint);
-    margin-top:48px; padding-top:32px; border-top:1px solid var(--hair);
-    display:flex; align-items:center; justify-content:center; text-align:center; gap:16px; flex-wrap:wrap; }
-  .foot-msg { font-family:var(--sans); font-size:var(--type-small); color:var(--ink-mut); }
-  .foot-sub { font-family:var(--sans); font-size:11.5px; color:var(--ink-faint); width:100%; text-align:center; }
-  .foot-link { font-family:var(--sans); font-size:var(--type-small); font-weight:700; color:var(--ink-soft);
-    background:none; border:none; padding:0; cursor:pointer; text-decoration:none;
-    transition:color .15s; }
-  .foot-link:hover { color:var(--ink); }
-  /* MODAL */
-  .modal-bg { position:fixed; inset:0; background:rgba(30,32,27,.55); display:none;
-    align-items:center; justify-content:center; padding:24px; z-index:100; }
-  .modal-bg.on { display:flex; }
-  .modal { background:var(--paper); border-radius:16px; max-width:600px; width:100%;
-    max-height:82vh; overflow-y:auto; padding:36px 40px; position:relative; }
-  .modal h2 { font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase;
-    color:var(--pine); margin-bottom:22px; }
-  .modal p { font-family:var(--sans); font-size:var(--type-body); color:var(--ink-soft); line-height:1.6; margin-bottom:16px; }
-  .modal .mnote { display:block; font-size:var(--type-small); color:var(--ink-mut); line-height:1.55; margin-top:4px; }
-  .modal p b { color:var(--ink); font-weight:600; }
-  .modal a { color:var(--pine); text-decoration:underline; }
-  .modal-close { position:absolute; top:20px; right:22px; background:none; border:none; cursor:pointer;
-    font-size:22px; color:var(--ink-mut); line-height:1; }
-  .modal-close:hover { color:var(--ink); }
-
-  @media (max-width:600px){
-    header { padding:14px 20px; flex-wrap:nowrap; }
-    .nav-links { display:none; }
-    .notes-menu { display:block; }
-    .nav-left { gap:0; flex:0 0 auto; }
-    .freetag { flex:1 1 auto; text-align:center; margin:0 10px; }
-    .wrap { padding:40px 22px 32px; }
-    h1 { font-size:32px; }
-    .foot-msg { font-size:12.5px; }
-    .foot { padding-top:24px; margin-top:36px; }
-    .pb-head { flex-direction:column; align-items:stretch; gap:12px; }
-    .pb-label { font-size:11px; text-align:center; }
-    .copy { width:100%; justify-content:center; padding:14px 26px; font-size:15px; }
-    .modal { padding:28px 24px; }
-    .coach-callout { padding:26px 20px; border-radius:15px; }
-    .coach-kicker { margin-bottom:20px; }
-    .coach-callout h2,.coach-followup h3 { font-size:31px; }
-    .coach-callout .coach-question,.coach-callout .coach-followup-question { font-size:23px; }
-    .coach-points { margin-top:26px; }
-    .coach-point { grid-template-columns:1fr; gap:7px; padding:19px 18px; }
-    .coach-followup { margin-top:24px; padding-top:0; }
-    .coach-record { margin-top:26px; padding-top:23px; }
+  @media(max-width:700px), (max-height:560px) and (max-width:950px) and (orientation:landscape){
+    .topbar{padding:14px 16px}
+    .topbar.scrolled{padding:9px 16px}
+    .brand img{height:28px}
+    .brand span{display:none}
+    .map-quick{display:none}
+    .nav-toggle{min-height:38px;padding:0 13px}
+    .hero{min-height:560px}
+    .hero .subtitle{font-size:22px}
+    .scroll-cue{font-size:10px}
+    .image-title h2{line-height:.98}
+    .image-title p{margin-top:18px;font-size:20px}
+    #access .image-title::before{background:linear-gradient(90deg,rgba(8,9,7,.44),rgba(8,9,7,.22) 65%,transparent)}
+    #land .signature-fact{padding-top:0;padding-bottom:0;border-top:0;border-bottom:0;font-size:20px}
+    #water .water-rights{padding-bottom:0;border-bottom:0;font-size:16px;color:var(--gold-light)}
+    #operations .operations-facts{border:0}
+    #operations .operations-fact{border:0;font-size:18px}
+    #operations .operations-fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .overview{padding-bottom:40px}
+    .overview h2{line-height:1.13}
+    .hero-facts{margin-top:28px;background:transparent;border:0}
+    .hero-fact{padding:21px 0}
+    .hero-fact:nth-child(odd){padding-right:10px}
+    .hero-fact:nth-child(even){padding-left:10px}
+    .hero-fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .hero-fact span{font-size:10px}
+    .overview p,.summary-copy p{font-size:16px}
+    .chapter-image{height:68svh;min-height:460px}
+    #water .chapter-image{height:auto;min-height:0;max-height:none;aspect-ratio:3279/3800}
+    #water .gallery-slide img{object-position:center bottom}
+    #water .chapter-image::after{background:linear-gradient(180deg,transparent 58%,rgba(8,9,7,.18) 73%,rgba(8,9,7,.34) 82%,rgba(8,9,7,.34) 94%,transparent 100%)}
+    #wildlife .chapter-image{height:500px;min-height:500px}
+    #wildlife .gallery-slide img,#wildlife.chapter.visible .gallery-slide img{object-position:77% center}
+    #hospitality .chapter-image{height:118vw;min-height:400px;max-height:560px}
+    #hospitality .gallery-slide img,#hospitality.chapter.visible .gallery-slide img{object-position:71% center;transform:none}
+    #hospitality .chapter-image::after{background:linear-gradient(180deg,transparent 60%,rgba(8,9,7,.38) 100%)}
+    #operations .gallery-slide img,#operations.chapter.visible .gallery-slide img{object-position:85% center;transform:none}
+    #operations .chapter-image::after{background:linear-gradient(180deg,transparent 68%,rgba(8,9,7,.35) 100%)}
+    #operations .image-title::before{content:none}
+    .gallery-toolbar{padding-top:10px;padding-bottom:10px}
+    .gallery-toolbar-inner{flex-wrap:wrap}
+    .gallery-caption{width:100%;max-width:none;font-size:10px;line-height:1.4}
+    .gallery-actions{width:100%;justify-content:space-between}
+    .land-map{padding:42px 0}
+    .land-map h3,.land-map figcaption{padding-left:22px;padding-right:22px}
+    .explore-map{padding-left:0;padding-right:0}
+    .explore-map-head{padding-left:22px;padding-right:22px}
+    .explore-map-frame{height:74svh;min-height:520px;border-left:0;border-right:0}
+    .land-map figcaption,.access-map figcaption,.detail-figure figcaption{font-size:18px}
+    .access-map{padding:0 0 42px}
+    .access-map-frame{width:100vw;max-width:none}
+    .access-map-frame img{width:101.5%;margin-left:-1.5%}
+    .access-map figcaption{padding-left:22px;padding-right:22px}
+    .access-map .arrival-block{margin:24px 22px 0}
+    .arrival-heading{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase}
+    .arrival-grid{grid-template-columns:1fr;border:0}
+    .arrival-item{display:grid;grid-template-columns:minmax(105px,36%) minmax(0,1fr);align-items:start;gap:18px;padding:22px 0}
+    .arrival-item:last-child{padding-bottom:0}
+    .arrival-item+.arrival-item{border-left:0;border-top:1px solid #d0c6b5}
+    .arrival-item span{font-family:var(--serif);font-size:22px;font-weight:500;line-height:1.08}
+    .arrival-item p{margin-top:0;font-size:16px}
+    .detail-panel .lede{font-size:17px}
+    .detail-group h4{font-size:12px}
+    .detail-group.compact h4{margin-bottom:4px}
+    .detail-row{font-size:15px}
+    .detail-row b{font-size:18px}
+    .detail-row .detail-subnote,.detail-note{font-size:13px}
+    .closing .detail-row{font-size:16px}
+    .closing .detail-row b{font-size:20px}
+    .broker-title{font-size:10px}
+    .broker-links{font-size:14px}
+    .broker-address{font-size:12px}
+    footer{font-size:11px;color:rgba(201,193,181,.68)}
+    #detail-hospitality .detail-panel{padding-top:0;padding-left:22px;padding-right:22px}
+    #detail-hospitality .detail-panel>h3{display:none}
+    #detail-hospitality .hospitality-detail-photo{width:calc(100% + 44px);margin-left:-22px;margin-right:-22px}
+    #detail-hospitality .hospitality-detail-photo img{height:auto;object-fit:contain}
+    #detail-hospitality .hospitality-detail-photo figcaption{padding-left:22px;padding-right:22px}
+    #detail-hospitality .detail-grid{gap:26px}
+    #detail-hospitality .detail-group h4{font-size:10px}
+    #detail-hospitality .detail-row{display:flex;align-items:flex-start;font-size:16px}
+    #detail-hospitality .detail-row b{margin-top:0;font-family:var(--sans);font-size:16px;font-weight:400;text-align:right}
+    #detail-water .detail-panel{padding-top:0;padding-left:22px;padding-right:22px}
+    #detail-water .detail-panel>h3{display:none}
+    #detail-water .detail-figure{width:calc(100% + 44px);margin-left:-22px;margin-right:-22px}
+    #detail-water .detail-figure img{height:56.25vw;max-height:none;object-fit:cover}
+    #detail-water .detail-figure figcaption{padding:18px 22px 0}
+    #detail-water .detail-grid{gap:26px}
+    #detail-water .detail-group h4{font-size:10px}
+    #detail-water .detail-row{display:flex;align-items:flex-start;font-size:16px}
+    #detail-water .detail-row b{margin-top:0;font-family:var(--sans);font-size:16px;font-weight:400;text-align:right}
+    #detail-water .detail-group.compact .detail-row{display:block}
+    #detail-water .detail-group.compact .detail-row b{text-align:left}
+    #detail-operations .detail-grid{gap:26px}
+    #detail-operations .detail-group h4{font-size:10px}
+    #detail-operations .detail-row{display:flex;align-items:flex-start;font-size:16px}
+    #detail-operations .detail-row b{margin-top:0;font-family:var(--sans);font-size:16px;font-weight:400;text-align:right}
+    .lightbox-top{padding-top:11px;padding-bottom:11px}
+    .lightbox-stage{flex:0 1 auto;width:100%;margin-top:auto;padding:14px 0 0}
+    .lightbox-stage img{max-height:calc(100svh - 150px)}
+    .lightbox-control{width:44px;height:48px}
+    .lightbox-prev{left:6px}
+    .lightbox-next{right:6px}
+    .lightbox-meta{width:100%;margin-bottom:auto;padding-top:12px;padding-bottom:12px}
+    .summary-grid{gap:30px}
+    .detail-button{width:100%}
+    .final-gallery-head{padding-left:22px;padding-right:22px}
+    .final-gallery-mosaic{grid-auto-flow:column;grid-template-columns:none;grid-template-rows:repeat(2,minmax(220px,55vw));grid-auto-columns:82vw;gap:2px;max-width:none;overflow-x:auto;padding:0 22px;scroll-snap-type:x mandatory;scroll-padding-left:22px;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:var(--gold) var(--forest)}
+    .gallery-mosaic-tile{scroll-snap-align:start}
+    .final-gallery-panel{align-items:stretch;flex-direction:column;padding-left:22px;padding-right:22px}
+    .final-gallery-open{width:100%}
+    .detail-row{display:block}
+    .detail-row b{display:block;text-align:left;margin-top:3px}
   }
-
-  /* PRODUCT-FIRST HOMEPAGE */
-  header { padding:20px clamp(24px,4vw,56px); }
-  .logo { font-size:18px; }
-  .logo-mark { width:22px; height:22px; }
-  .wrap { max-width:1760px; padding:clamp(52px,7vh,88px) clamp(24px,5vw,72px) 48px; }
-  .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(620px,1fr);
-    gap:clamp(42px,4vw,68px); align-items:center; }
-  .hero-copy { align-self:center; padding-bottom:12px; }
-  .hero h1 { font-size:var(--type-display); line-height:1.07; margin-bottom:24px;
-    max-width:max-content; white-space:normal; }
-  .hero-title-line { display:block; white-space:nowrap; }
-  .hero-deck { font-size:var(--type-lead); line-height:1.62; color:var(--ink-soft);
-    max-width:39ch; margin-bottom:14px; }
-  .hero-deck:last-of-type { margin-bottom:30px; }
-  .hero-actions { display:flex; flex-direction:column; align-items:flex-start; }
-  .hero-cta { text-decoration:none; }
-
-  .product-demo { min-width:0; }
-  .mobile-demo-tabs { display:none; }
-  .demo-stage { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; align-items:stretch;
-    padding-bottom:28px; }
-  .demo-card { position:relative; background:linear-gradient(145deg,#fdfbf7,#f7f1e6);
-    border:1px solid #ddd1bd; border-radius:17px; box-shadow:0 18px 40px rgba(54,44,28,.11),0 2px 5px rgba(54,44,28,.06);
-    overflow:hidden; min-width:0; min-height:410px; height:100%; }
-  .demo-card + .demo-card { margin-left:0; }
-  .demo-card.work { z-index:3; transform:translateY(28px); }
-  .demo-card.checkin { z-index:2; transform:translate(-18px,14px); }
-  .demo-card.result { z-index:1; transform:translateX(-36px);
-    background:linear-gradient(145deg,#fdfbf7,#eff5ec); border-color:#c8d8c4; }
-  .demo-brand { display:flex; align-items:center; gap:9px; padding:14px 18px; border-bottom:1px solid #e7ddcc;
-    font-family:var(--mono); color:var(--pine); font-size:10px; font-weight:700;
-    letter-spacing:.15em; text-transform:uppercase; }
-  .demo-brand b { display:grid; place-items:center; width:24px; height:24px; border:1.5px solid var(--pine);
-    border-radius:7px; font-family:var(--sans); font-size:12px; letter-spacing:0; }
-  .demo-body { padding:22px 18px; }
-  .demo-meta { display:flex; justify-content:space-between; gap:8px; font-family:var(--mono);
-    font-size:10.5px; color:var(--ink-mut); margin-bottom:9px; }
-  .demo-meta.work-meta { white-space:nowrap; }
-  .demo-meta .late { color:var(--clay); }
-  .demo-title { font-size:clamp(20px,1.65vw,25px); line-height:1.13; margin-bottom:20px; }
-  .demo-lane { margin:0 -18px 18px; padding:10px 18px; border-top:1px solid #dce7d8;
-    border-bottom:1px solid #dce7d8; background:#f0f5ed; font-family:var(--sans); font-size:10px;
-    line-height:1.45; color:var(--ink-soft); }
-  .demo-lane b { font-family:var(--mono); font-size:8px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--pine); margin-right:7px; }
-  .demo-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
-  .demo-list li { display:flex; gap:10px; align-items:flex-start; font-family:var(--sans); font-size:12.5px;
-    line-height:1.35; color:var(--ink-soft); }
-  .demo-check { width:15px; height:15px; border:1.5px solid #aaa18f; border-radius:4px; flex:0 0 auto;
-    margin-top:1px; position:relative; background:#fffdfa; }
-  .demo-check.done { background:var(--pine); border-color:var(--pine); }
-  .demo-check.done::after { content:""; position:absolute; left:3px; top:1px; width:5px; height:8px;
-    border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
-  .demo-footer { position:absolute; left:0; right:0; bottom:0; display:flex; align-items:center;
-    justify-content:space-between; padding:14px 18px; border-top:1px solid #e7ddcc; background:rgba(253,251,247,.82); }
-  .demo-timer { font-family:var(--mono); font-size:12px; font-weight:700; color:var(--clay); }
-  .demo-end { font-family:var(--sans); font-size:10px; color:var(--ink-soft); border:1px solid #d9cfbd;
-    border-radius:7px; padding:7px 10px; background:#fffdfa; }
-  .demo-question { font-size:22px; line-height:1.2; margin:4px 0 20px; }
-  .demo-answers { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:26px; }
-  .demo-answer { font-family:var(--sans); font-size:11px; text-align:center; padding:10px 5px;
-    border:1px solid #d9cfbd; border-radius:8px; background:#fffdfa; color:var(--ink-soft); }
-  .demo-answer.selected { background:var(--pine); border-color:var(--pine); color:#fff; }
-  .demo-reminder { padding:17px 15px 16px; border:1px solid #e0d6c5; border-radius:11px; background:#faf6ee; }
-  .demo-reminder b { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--clay); margin-bottom:10px; }
-  .demo-reminder p { font-style:italic; font-size:14px; line-height:1.48; color:var(--ink-soft); }
-  .result .demo-body { min-height:342px; display:flex; flex-direction:column; justify-content:center;
-    text-align:center; padding:18px 16px 20px; }
-  .demo-kicker { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:.13em;
-    text-transform:uppercase; color:var(--pine); margin:3px 0 7px; }
-  .result h2 { font-size:18px; margin-bottom:11px; }
-  .demo-lessons { border:1px solid #e0d6c5; border-radius:9px; overflow:hidden; text-align:left; }
-  .demo-lesson { display:grid; grid-template-columns:60px 1fr; gap:7px; padding:8px 9px;
-    border-bottom:1px solid #e8dfd0; font-family:var(--sans); font-size:9.5px; line-height:1.35; color:var(--ink-soft); }
-  .demo-lesson:last-child { border-bottom:0; }
-  .demo-lesson b { font-family:var(--mono); font-size:7.5px; letter-spacing:.1em; text-transform:uppercase;
-    color:var(--pine); padding-top:1px; }
-  .demo-lesson.pulled b { color:var(--clay); }
-  .demo-lesson.pattern b { color:var(--ink-soft); }
-  .demo-lesson.stopped b { color:var(--ink-mut); }
-  .after-block { max-width:1180px; width:100%; margin:clamp(76px,10vh,118px) auto 0; }
-  .after-head { text-align:center; max-width:1100px; margin:0 auto 28px; }
-  .after-kicker { font-family:var(--mono); font-size:var(--type-label); font-weight:700; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--pine); margin-bottom:11px; }
-  .after-head h2 { font-size:var(--type-section); font-weight:400; line-height:1.14;
-    letter-spacing:-.012em; margin-bottom:0; text-wrap:balance; }
-  .after-options { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-  .after-option { border:1px solid var(--paper-line); border-radius:14px; padding:20px 18px 22px;
-    background:var(--paper-warm); min-height:172px; }
-  .after-option .option-tag { display:inline-flex; align-items:center; min-height:25px; border:1.5px solid var(--pine);
-    border-radius:7px; padding:4px 8px; font-family:var(--mono); font-size:var(--type-label-tiny); font-weight:700;
-    letter-spacing:.1em; text-transform:uppercase; color:var(--pine); margin-bottom:18px; }
-  .after-option h3 { font-size:var(--type-card); line-height:1.2; margin-bottom:9px; }
-  .after-option p { font-family:var(--sans); font-size:var(--type-small); line-height:1.55; color:var(--ink-soft); }
-  .flow { max-width:760px; width:100%; margin:clamp(38px,5vh,58px) auto 0; scroll-margin-top:24px; }
-  .flow-intro { margin-bottom:24px; text-align:center; }
-  .flow-intro .pb-label { display:inline-flex; align-items:center; gap:10px; }
-  .flow-intro h2 { font-size:var(--type-section); font-weight:400; line-height:1.14;
-    letter-spacing:-.012em; margin:7px 0 7px; }
-  .flow-intro p { font-family:var(--sans); font-size:var(--type-nav); line-height:1.55; color:var(--ink-mut); }
-  .flow-intro-link { appearance:none; border:0; background:none; padding:0; cursor:pointer;
-    font:inherit; color:var(--pine); text-decoration:underline; text-underline-offset:3px; }
-  .flow-intro-link:hover { color:var(--pine-soft); }
-  .postscript { max-width:760px; width:100%; margin:clamp(56px,8vh,88px) auto 0; }
-  @media (min-width:701px){
-    .coach-callout { width:min(1600px,calc(100vw - 48px)); margin-left:50%; transform:translateX(-50%); }
-  }
-  @media (max-width:1180px){
-    .hero { grid-template-columns:1fr; }
-    .hero-copy { max-width:760px; width:100%; margin:0 auto; text-align:center; }
-    .hero h1 { max-width:none; margin-left:auto; margin-right:auto; }
-    .hero-deck { max-width:46ch; margin-left:auto; margin-right:auto; }
-    .hero-actions { align-items:center; }
-    .product-demo { max-width:840px; width:100%; margin:0 auto; }
-  }
-  @media (max-width:980px){
-    .nav-links { display:none; }
-    .notes-menu { display:block; }
-    .nav-left { gap:0; flex:0 0 auto; }
-  }
-  @media (max-width:700px){
-    .wrap { padding:38px 20px 32px; }
-    .hero { gap:34px; }
-    .hero-copy { margin:0; text-align:left; }
-    .hero h1 { font-size:clamp(32px,10.5vw,44px); line-height:1.08; max-width:none; margin-bottom:20px; }
-    .hero-deck { font-size:16px; line-height:1.55; margin-left:0; margin-right:0; margin-bottom:24px; }
-    .hero-actions { align-items:flex-start; }
-    .mobile-demo-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:12px;
-      padding:4px; border:1px solid var(--paper-line); border-radius:11px; background:var(--paper-warm); }
-    .mobile-demo-tab { appearance:none; border:0; border-radius:8px; background:transparent; color:var(--ink-mut);
-      padding:10px 4px; font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:.1em;
-      text-transform:uppercase; cursor:pointer; }
-    .mobile-demo-tab[aria-selected="true"] { background:var(--paper); color:var(--pine);
-      box-shadow:0 1px 5px rgba(54,44,28,.1); }
-    .demo-stage { display:block; padding-bottom:0; }
-    .demo-card,.demo-card.work,.demo-card.checkin,.demo-card.result { display:none; width:100%; min-height:0;
-      transform:none; }
-    .demo-card.is-active { display:block; }
-    .demo-card + .demo-card { margin-left:0; }
-    .demo-card.work.is-active,.demo-card.checkin.is-active,.demo-card.result.is-active { min-height:410px; }
-    .demo-card.work.is-active { display:flex; flex-direction:column; }
-    .demo-card.work.is-active .demo-body { flex:1 0 auto; }
-    .demo-card.work.is-active .demo-footer { position:static; margin-top:auto; }
-    .demo-title { font-size:24px; }
-    .demo-list li { font-size:13px; }
-    .flow { margin-top:36px; }
-    .flow-intro { text-align:left; }
-    .after-block { margin-top:58px; }
-    .postscript { margin-top:44px; }
-    .after-head { text-align:left; }
-    .after-options { grid-template-columns:1fr; gap:10px; }
-    .after-option { min-height:0; padding:18px; }
-    .after-option .option-tag { margin-bottom:13px; }
-    .resource-links { grid-template-columns:1fr; gap:16px; padding:20px; }
-    .resource-row { grid-template-columns:1fr; }
-  }
-  @media (max-width:600px){
-    .freetag { display:none; }
-    header { justify-content:space-between; }
-  }
-
-  /* EXECUTION-FIRST HOMEPAGE */
-  .wrap { max-width:880px; padding:0 32px 40px; }
-  .hero { display:block; padding:clamp(38px,5vw,56px) 0 28px; text-align:center; }
-  .hero-copy { max-width:none; padding:0; }
-  .hero h1 { max-width:720px; margin:0 auto; font-size:clamp(44px,6vw,64px);
-    line-height:1.02; letter-spacing:-.045em; }
-  .hero-title-line { display:block; white-space:nowrap; }
-  .hero-deck { max-width:650px; margin:0 auto; font-size:21px; line-height:1.55; }
-
-  .execution-flow { max-width:none; margin:0; }
-  .execution-step { display:grid; grid-template-columns:minmax(150px,.42fr) 1fr;
-    gap:clamp(28px,6vw,72px); padding:42px 0; }
-  .execution-number { font-family:var(--mono); font-size:var(--type-label); font-weight:700;
-    letter-spacing:.17em; color:var(--pine); }
-  .execution-step h2 { margin:7px 0 0; font-size:31px; font-weight:400; line-height:1.12;
-    letter-spacing:-.025em; }
-  .execution-lead { margin:0 0 20px; font-family:var(--sans); font-size:17px;
-    line-height:1.58; color:var(--ink-soft); }
-  .execution-examples { margin:14px 0 0; padding:14px 0; border-top:1px solid var(--paper-line);
-    font-family:var(--sans); line-height:1.45; }
-  .execution-example-title { margin:0; color:var(--ink); font-size:14px; font-weight:700; }
-  .execution-example-note { margin:3px 0 9px; color:var(--ink-faint); font-size:12px; }
-  .execution-example-links { display:grid; grid-template-columns:1fr; gap:0;
-    border:1px solid var(--paper-line); background:#fff; }
-  .execution-example-links a { display:flex; align-items:center; justify-content:space-between;
-    gap:12px; padding:9px 11px; color:var(--ink-soft); font-size:13px; font-weight:600;
-    line-height:1.35; text-decoration:none; }
-  .execution-example-links a + a { border-top:1px solid var(--paper-line); }
-  .execution-example-links a:hover { color:var(--ink); background:var(--pine-tint); }
-  .execution-example-links a span { flex:0 0 auto; color:var(--pine); font-weight:700; }
-  .execution-prompt { margin:0 0 20px; background:var(--paper-warm); border-left:3px solid var(--pine); }
-  .execution-prompt .pb-code { padding:18px 20px; font-size:13px; line-height:1.7; }
-  .execution-prompt .aftercopy { background:var(--paper-warm); }
-  .execution-step .bd-go { margin-top:13px; }
-  .execution-step .copy { width:100%; justify-content:center; }
-  .execution-step:last-child { padding-bottom:20px; }
-
-  .simplified-after { --coach-pad-x:25px; --coach-pad-y:23px;
-    max-width:none; margin:28px 0 0; padding:var(--coach-pad-y) var(--coach-pad-x) 0;
-    overflow:hidden; border:2px solid var(--ink); border-radius:0; background:#fff; }
-
-  .postscript { max-width:none; margin:0; }
-  .coach-simple { display:grid; grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:42px; }
-  #coaches { scroll-margin-top:24px; }
-  .coach-simple .coach-kicker { grid-column:1 / -1;
-    margin:calc(0px - var(--coach-pad-y)) calc(0px - var(--coach-pad-x)) var(--coach-pad-y);
-    padding:13px var(--coach-pad-x); background:var(--ink); color:var(--paper);
-    font-family:var(--sans); font-size:17px; font-weight:700;
-    line-height:1.25; letter-spacing:0; text-transform:none; }
-  .coach-simple h2 { grid-column:1; margin:0; font-size:24px; font-weight:700; line-height:1.14;
-    letter-spacing:-.025em; }
-  .coach-use-list { grid-column:2; grid-row:2; margin:0; }
-  .coach-use-row { display:grid; grid-template-columns:126px 1fr; gap:18px; padding:0 0 14px; }
-  .coach-use-row + .coach-use-row { padding-top:14px; border-top:1px solid var(--paper-line); }
-  .coach-use-row h3 { margin:0; font-family:var(--mono); font-size:var(--type-label); font-weight:700;
-    letter-spacing:.14em; line-height:1.5; text-transform:uppercase; color:var(--pine); }
-  .coach-use-row p { margin:0; font-family:var(--sans); font-size:13.5px; line-height:1.5; color:var(--ink-soft); }
-  .coach-great-for { grid-column:1 / -1; display:grid;
-    grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:42px;
-    align-items:start; margin-top:4px; padding:16px 0; border-top:1px solid var(--paper-line); }
-  .coach-great-for h3 { margin:0; font-family:var(--mono); font-size:var(--type-label);
-    font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--pine); }
-  .coach-great-for ul { display:flex; flex-wrap:wrap; gap:8px 24px; margin:0; padding:0; list-style:none; }
-  .coach-great-for li { display:flex; align-items:baseline; gap:7px; font-family:var(--sans);
-    font-size:13.5px; font-weight:700; line-height:1.35; color:var(--ink-soft); }
-  .coach-great-for li span { display:inline; flex:0 0 auto; width:auto; height:auto;
-    background:none; color:var(--pine); font-size:14px; line-height:1; }
-  .coach-privacy-bar { grid-column:1 / -1; display:grid;
-    grid-template-columns:minmax(180px,.42fr) 1fr; column-gap:42px;
-    align-items:start; margin:0 calc(0px - var(--coach-pad-x));
-    padding:16px var(--coach-pad-x); border-top:1px solid var(--paper-line); background:var(--pine-tint); }
-  .coach-privacy-bar h3 { margin:0; font-family:var(--mono); font-size:var(--type-label);
-    font-weight:700; letter-spacing:.14em; line-height:1.5; text-transform:uppercase;
-    color:var(--pine); }
-  .coach-privacy-bar p { margin:0; font-family:var(--sans); font-size:13.5px;
-    line-height:1.5; color:var(--ink-soft); }
-  .coach-privacy-bar button { appearance:none; margin-left:0; padding:0; border:0;
-    background:none; color:var(--pine); font:inherit; font-weight:700; cursor:pointer;
-    text-decoration:none; }
-
-  @media (max-width:700px){
-    .wrap { padding:0 20px 32px; }
-    .hero { padding:36px 0 26px; text-align:left; }
-    .hero h1 { margin-left:0; margin-right:0; font-size:clamp(36px,11vw,48px); }
-    .hero-deck { margin-left:0; margin-right:0; font-size:19px; }
-    .execution-step { grid-template-columns:1fr; gap:18px; }
-    .execution-step { padding:36px 0; }
-    .execution-step h2 { font-size:29px; }
-    .execution-step:last-child { padding-bottom:0; }
-    .simplified-after { --coach-pad-x:17px; --coach-pad-y:20px; margin-top:25px; }
-    .coach-simple { grid-template-columns:1fr; }
-    .coach-simple h2 { grid-column:1; margin-bottom:17px; font-size:22px; }
-    .coach-use-list { grid-column:1; grid-row:auto; }
-    .coach-use-row { grid-template-columns:1fr; gap:5px; padding:0 0 13px; }
-    .coach-use-row + .coach-use-row { padding-top:13px; }
-    .coach-great-for { grid-template-columns:1fr; gap:9px; padding:15px 0; }
-    .coach-great-for ul { display:grid; gap:7px; }
-    .coach-privacy-bar { grid-template-columns:1fr; gap:5px; padding:15px var(--coach-pad-x); }
-  }
-  @media (prefers-reduced-motion:reduce){
-    html { scroll-behavior:auto; }
-    *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important;
-      transition-duration:.01ms !important; }
+  @media (max-height:560px) and (max-width:950px) and (orientation:landscape){
+    .hero{height:100svh;min-height:360px}
+    .chapter-image,#water .chapter-image,#wildlife .chapter-image,#hospitality .chapter-image{height:100svh;min-height:360px;max-height:none}
   }
 
-  /* DESIGN 03 — EVIDENCE LEDGER
-     Rule-based, high-legibility, and deliberately unembellished. */
-  body { font-family:var(--sans); background:var(--paper); line-height:1.45; }
-  .wrap { max-width:960px; padding:0 28px 30px; }
-  .hero { display:block; padding:34px 0 18px; text-align:left; }
-  .hero h1 { max-width:none; margin:0; font-size:clamp(40px,5vw,52px); font-weight:720;
-    line-height:1; letter-spacing:-.045em; }
-  .execution-flow { margin:0; border-bottom:2px solid var(--ink); }
-  .execution-step { grid-template-columns:240px minmax(0,1fr); gap:30px; padding:23px 0;
-    border-top:2px solid var(--ink); }
-  .execution-number { display:block; margin-bottom:9px; color:var(--pine); font-size:10px; letter-spacing:.2em; }
-  .execution-step h2 { margin:0; font-size:24px; font-weight:700; line-height:1.16; letter-spacing:-.02em; }
-  .execution-lead { margin-bottom:14px; font-size:14.5px; line-height:1.5; }
-  .execution-prompt { margin-bottom:13px; background:#fff; border:1px solid var(--paper-line);
-    border-left:1px solid var(--paper-line); border-radius:0; }
-  .execution-prompt .pb-code { padding:14px 15px; font-size:12px; line-height:1.55; }
-  .execution-prompt .aftercopy { background:#fff; }
-  .execution-input { display:block; --builder-min-height:154px; height:var(--builder-min-height);
-    min-height:var(--builder-min-height); max-width:100%; padding:13px 14px;
-    overflow-x:hidden; overflow-y:hidden; white-space:pre-wrap; overflow-wrap:anywhere;
-    border:1px solid var(--paper-line); border-radius:0; background:#fff; }
-  .copy { min-height:42px; padding:11px 19px; border-radius:0; background:var(--pine); font-size:13.5px; }
-  .download-result { padding:16px 0 0; border-top:2px solid var(--ink); background:#fff; }
-  .download-result-title { margin:0; font-size:17px; font-weight:750; line-height:1.3; color:var(--pine); }
-  .download-file-note { margin:8px 0 0; font-size:13px; line-height:1.5; color:var(--ink-soft);
-    overflow-wrap:anywhere; }
-  .download-result-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
-  .reminder-toggle,.build-another { min-height:42px; margin:0; padding:10px 14px;
-    border:1px solid var(--pine); font-family:var(--sans); font-size:12.5px; font-weight:700;
-    line-height:1.35; text-align:center; text-decoration:none; cursor:pointer; }
-  .build-another { background:var(--pine); color:#fff; }
-  .reminder-toggle { background:#fff; color:var(--pine); }
-  .build-another:hover { filter:brightness(.92); }
-  .reminder-toggle:hover { background:var(--pine-tint); }
-  .reminder-setup { margin-top:13px; padding:14px; border-left:3px solid var(--pine);
-    background:var(--pine-tint); }
-  .reminder-question { margin:0 0 10px; font-size:13.5px; font-weight:700; color:var(--ink); }
-  .reminder-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }
-  .reminder-choice,.reminder-add { min-height:40px; padding:9px 10px; border:1px solid var(--pine);
-    background:#fff; color:var(--pine); font-family:var(--sans); font-size:12.5px; font-weight:700;
-    line-height:1.3; cursor:pointer; }
-  .reminder-choice:hover,.reminder-add:hover { background:var(--pine); color:#fff; }
-  .reminder-calendar-choices { margin-top:12px; padding-top:12px; border-top:1px solid #c8d7cd; }
-  .reminder-provider-choices { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
-  .reminder-custom { margin-top:10px; padding-top:10px; border-top:1px solid #c8d7cd; }
-  .reminder-custom-controls { display:grid; grid-template-columns:1fr 1fr auto; gap:7px; align-items:end; }
-  .reminder-custom label { display:grid; gap:4px; color:var(--ink-soft); font-size:11px; font-weight:700; }
-  .reminder-custom select,.reminder-custom input { min-height:40px; box-sizing:border-box;
-    padding:8px 9px; border:1px solid var(--paper-line); border-radius:0; background:#fff;
-    color:var(--ink); font:13px var(--sans); }
-  .reminder-status { margin:10px 0 0; font-size:11.5px; line-height:1.45;
-    color:var(--ink-faint); }
-  .reminder-status { color:var(--pine); font-weight:700; }
-  .modal { border:2px solid var(--ink); border-radius:0; }
+  /* Carry the approved open-divider and full-bleed detail treatments across devices. */
+  .hero-facts{gap:0;background:transparent;border:0}
+  .hero-fact{border:0}
+  #land .signature-fact{padding-top:0;padding-bottom:0;border-top:0;border-bottom:0}
+  #water .water-rights{padding-bottom:0;border-bottom:0;color:var(--gold-light)}
+  #operations .operations-facts{border:0}
+  #operations .operations-fact{border:0}
+  #operations .operations-fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  #detail-water .detail-panel,#detail-hospitality .detail-panel{padding-top:0}
+  #detail-water .detail-panel>h3,#detail-hospitality .detail-panel>h3{display:none}
+  #detail-water .detail-figure,#detail-hospitality .hospitality-detail-photo{width:100vw;max-width:none;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+  #detail-water .detail-figure figcaption,#detail-hospitality .hospitality-detail-photo figcaption{max-width:1180px;margin-left:auto;margin-right:auto;padding:18px clamp(22px,6vw,76px) 0}
+  @media(min-width:851px){
+    .hero-fact+.hero-fact{border-left:1px solid var(--line)}
+  }
+  @media(min-width:701px) and (max-width:850px){
+    .hero-fact:nth-child(odd){border-right:1px solid var(--line)}
+    .hero-fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.gallery-slide img,.gallery-mosaic-tile img{transform:none!important}}
 
-  /* SOLO-FIRST STRUCTURE */
-  .evidence-loop { margin-top:34px; border:2px solid var(--ink); background:#fff; }
-  .evidence-loop-head { padding:22px 24px; border-bottom:1px solid var(--paper-line); }
-  .section-kicker { display:block; margin-bottom:8px; font-family:var(--mono);
-    font-size:var(--type-label); font-weight:700; letter-spacing:.17em;
-    text-transform:uppercase; color:var(--pine); }
-  .evidence-loop h2,.coach-bridge h2 { margin:0; font-size:26px; font-weight:750;
-    line-height:1.15; letter-spacing:-.025em; }
-  .evidence-loop-head p { max-width:730px; margin:10px 0 0; color:var(--ink-soft);
-    font-size:15px; line-height:1.55; }
-  .evidence-steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
-  .evidence-step { min-width:0; padding:20px 18px 22px; }
-  .evidence-step + .evidence-step { border-left:1px solid var(--paper-line); }
-  .evidence-step-number { display:block; margin-bottom:12px; font-family:var(--mono);
-    font-size:var(--type-label-small); font-weight:700; letter-spacing:.16em; color:var(--pine); }
-  .evidence-step h3 { margin:0 0 7px; font-size:16px; line-height:1.25; }
-  .evidence-step strong { display:block; margin-bottom:5px; color:var(--ink-soft);
-    font-size:13px; line-height:1.4; }
-  .evidence-step p { margin:0; color:var(--ink-faint); font-size:12px; line-height:1.45; }
-  .coach-bridge { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:28px;
-    align-items:center; margin-top:28px; padding:24px; border:2px solid var(--ink);
-    background:var(--pine-tint); }
-  .coach-bridge p { max-width:650px; margin:9px 0 0; color:var(--ink-soft);
-    font-size:14px; line-height:1.5; }
-  .coach-bridge-link { display:inline-flex; align-items:center; justify-content:center;
-    min-height:44px; padding:11px 18px; border:1px solid var(--pine); background:var(--pine);
-    color:#fff; font-size:13px; font-weight:700; text-decoration:none; white-space:nowrap; }
-  .coach-bridge-link:hover { filter:brightness(.92); }
-  @media (max-width:700px){
-    .wrap { padding:0 17px 26px; }
-    .hero { padding:29px 0 16px; }
-    .hero h1 { max-width:100%; font-size:clamp(32px,9.5vw,44px); line-height:1.02; }
-    .hero-title-line { white-space:normal; }
-    .execution-step { grid-template-columns:1fr; gap:12px; padding:21px 0; }
-    .execution-step h2 { font-size:22px; }
-    .execution-input { --builder-min-height:112px; }
-    .download-result-actions,.reminder-choices,.reminder-custom-controls,.reminder-provider-choices { grid-template-columns:1fr; }
-    .evidence-loop { margin-top:28px; }
-    .evidence-loop-head { padding:19px 17px; }
-    .evidence-loop h2,.coach-bridge h2 { font-size:22px; }
-    .evidence-steps { grid-template-columns:1fr; }
-    .evidence-step { padding:17px; }
-    .evidence-step + .evidence-step { border-left:0; border-top:1px solid var(--paper-line); }
-    .coach-bridge { grid-template-columns:1fr; gap:18px; padding:20px 17px; }
-    .coach-bridge-link { width:100%; white-space:normal; text-align:center; }
+  /* ---- Private preview gate ---- */
+  .gate{position:fixed;inset:0;z-index:1000;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .6s ease,visibility .6s ease}
+  .gate.hidden{opacity:0;visibility:hidden}
+  .gate-logo{width:clamp(64px,8.5vw,96px);height:auto;margin-bottom:34px;opacity:.95}
+  .gate .gate-mark{font-family:var(--serif);font-size:clamp(30px,5vw,54px);font-weight:500;color:var(--cream);line-height:1}
+  .gate .gate-mark span{display:block;margin-top:0;font-family:var(--sans);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-light)}
+  .gate form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:38px}
+  /* 16px is deliberate: anything smaller makes iOS Safari zoom the page on tap
+     and it never zooms back out. Do not reduce. */
+  .gate input{background:transparent;border:1px solid var(--line);color:var(--cream);padding:14px 18px;font-family:var(--sans);font-size:16px;letter-spacing:.14em;min-width:230px;text-align:center}
+  .gate input::placeholder{color:var(--cream-dim);letter-spacing:.2em;text-transform:uppercase;font-size:13px}
+  .gate input:focus{outline:none;border-color:var(--gold)}
+  .gate button{background:var(--gold);color:var(--ink);border:1px solid var(--gold);padding:14px 28px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:.25s}
+  .gate button:hover,.gate button:focus-visible{background:var(--gold-light);border-color:var(--gold-light);outline:none}
+  .gate .gate-err{margin-top:18px;min-height:16px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#cf9a86;opacity:0;transition:opacity .2s}
+  .gate .gate-err.show{opacity:1}
+  .gate.shake form{animation:gateShake .4s}
+  @keyframes gateShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+  body.gated{overflow:hidden}
+  /* belt and braces: no input anywhere may drop below 16px on a touch device */
+  @media(pointer:coarse){input,textarea,select{font-size:16px}}
+
+  /* Widow control. Stops a paragraph ending on a one-word stub line by pulling an
+     extra word down. Chrome/Edge and Safari 26+ honour it; Firefox and iOS 18 and
+     earlier ignore it and render exactly as before, so there is no broken state.
+     Changes line breaks only — no font, size, colour, spacing or copy is affected. */
+  p,h2,h3,h4,figcaption,.signature-fact,.operations-fact,.water-statement,.lede{text-wrap:pretty}
+
+  /* Mobile tracking. Phone columns are narrow enough that a paragraph regularly ends
+     on a one-word stub. Tightening body copy 2.5% on phones only reflows those lines
+     and clears them. Measured, not guessed: -0.010em fixes 402pt but not 390pt and
+     makes a different paragraph worse; -0.025em fixes both. No font, size or copy
+     change, and nothing above 480px is touched. */
+  @media(max-width:480px){
+    p,h2,h3,h4,figcaption,.signature-fact,.operations-fact,.water-statement,.lede{letter-spacing:-.025em}
   }
 </style>
-<!-- Google Analytics receives page data and fixed-name product events. No Focus File content is sent. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LXHDBXCQ8E"></script>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VHNF70ML0C"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-LXHDBXCQ8E', {
-    allow_google_signals: false,
-    allow_ad_personalization_signals: false
-  });
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments)}
+  gtag('js',new Date());
+  gtag('config','G-VHNF70ML0C');
 </script>
 </head>
 <body>
 
-  <header>
-    <div class="nav-left">
-      <span class="logo"><img class="logo-mark" src="focus-file-logo.svg" width="22" height="22" alt="">Focus File</span>
-      <nav class="nav-links">
-        <button data-modal="design">Why a file?</button>
-        <a href="coaches.html" data-section-link="coaches">For coaches &amp; therapists</a>
-        <button data-modal="privacy">Privacy</button>
-        <button data-modal="feedback">Feedback</button>
-      </nav>
-    </div>
-    <span class="freetag">Free — no account</span>
-    <div class="notes-menu">
-      <button class="notes-btn" id="notesBtn" aria-expanded="false" aria-haspopup="true" aria-controls="notesDrop">Notes ▾</button>
-      <div class="notes-drop" id="notesDrop" role="menu">
-        <button role="menuitem" data-modal="design">Why a file?</button>
-        <a role="menuitem" href="coaches.html" data-section-link="coaches">For coaches &amp; therapists</a>
-        <button role="menuitem" data-modal="privacy">Privacy</button>
-        <button role="menuitem" data-modal="feedback">Feedback</button>
-      </div>
-    </div>
-  </header>
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Private preview access">
+  <img class="gate-logo" src="assets/sr-monogram.png" alt="" width="541" height="674" />
+  <div class="gate-mark"><span>Private Preview</span></div>
+  <form id="gate-form" autocomplete="off">
+    <input id="gate-input" type="password" placeholder="Password" aria-label="Password" autofocus>
+    <button type="submit">Enter</button>
+  </form>
+  <div class="gate-err" id="gate-err" role="alert">That password isn’t right.</div>
+</div>
+<script>
+(function(){
+  var gate=document.getElementById('gate'),form=document.getElementById('gate-form'),
+      input=document.getElementById('gate-input'),err=document.getElementById('gate-err'),
+      PASS='SR1',ok=false;                       /* <-- change the password here */
+  try{ok=sessionStorage.getItem('srr_access')==='1'}catch(e){}
+  if(ok){gate.classList.add('hidden');return;}
+  document.body.classList.add('gated');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(input.value.trim().toUpperCase()===PASS){
+      try{sessionStorage.setItem('srr_access','1')}catch(e){}
+      gate.classList.add('hidden');document.body.classList.remove('gated');
+      window.scrollTo(0,0);            /* iOS scrolls the page when the field is focused;
+                                          put it back to the top before revealing the hero */
+      window.dispatchEvent(new Event('srr:unlocked'));
+    }else{
+      err.classList.add('show');gate.classList.add('shake');
+      setTimeout(function(){gate.classList.remove('shake')},400);input.select();
+    }
+  });
+})();
+</script>
 
-  <main class="wrap">
-    <section class="hero" aria-labelledby="heroTitle">
-      <div class="hero-copy">
-        <h1 id="heroTitle"><span class="hero-title-line">Keep one clear objective</span><span class="hero-title-line">in front of you.</span></h1>
-      </div>
-    </section>
 
-    <section class="flow execution-flow" id="setup" aria-label="Create your Focus File">
-      <div class="execution-step">
-        <div>
-          <span class="execution-number">01</span>
-          <h2>A short AI interview helps you choose it</h2>
-        </div>
-        <div>
-          <p class="execution-lead">Copy the prompt into any AI chat.</p>
-          <div class="pb-body execution-prompt">
-            <div class="pb-code" id="pbCode">1. Is this offline work, or does it need the internet?
-2. What are you working on, and what's your window?
-3. What exactly will be finished when the block ends?
-4. Anything that tends to pull you off task?
-5. Why does finishing this matter to you today?</div>
-            <div class="aftercopy" id="afterCopy">
-              <p class="ac-line">Paste the prompt into a chat, answer the questions, then paste the Focus File plan below.</p>
-              <p class="ac-links">
-                <a href="https://chatgpt.com" data-ai="chatgpt" target="_blank" rel="noopener">ChatGPT ↗</a>
-                <span class="dot">·</span>
-                <a href="https://claude.ai/new" data-ai="claude" target="_blank" rel="noopener">Claude ↗</a>
-                <span class="dot">·</span>
-                <a href="https://gemini.google.com" data-ai="gemini" target="_blank" rel="noopener">Gemini ↗</a>
-              </p>
-            </div>
-          </div>
-          <button class="copy" id="copyAgainBtn">Copy prompt</button>
-        </div>
-      </div>
+<div class="progress" id="progress"></div>
+<div class="topbar" id="topbar">
+  <a class="brand" href="#top" aria-label="Smith River Ranch · Connery &amp; Co."><img src="assets/sr-monogram.png?v=cream" alt="SR" decoding="async" width="541" height="674"><span>Connery &amp; Co.</span></a>
+  <div class="topbar-actions">
+    <a class="map-quick" href="#map">Explore Map</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span>Menu</span><span class="nav-toggle-lines" aria-hidden="true"></span></button>
+  </div>
+</div>
 
-      <div class="execution-step">
-        <div>
-          <span class="execution-number">02</span>
-          <h2>Your Focus File helps you begin and follow through</h2>
-        </div>
-        <div>
-          <div id="builderForm">
-            <p class="execution-lead">Paste the result below to download a simple offline file.</p>
-            <textarea class="bd-input execution-input" id="cfgInput" rows="4" spellcheck="false" placeholder="Paste result here"></textarea>
-            <button class="copy bd-go" id="buildBtn">Download my Focus File</button>
-            <p class="bd-msg" id="bdMsg" role="status" aria-live="polite"></p>
-            <div class="execution-examples" aria-label="Live Focus File examples">
-              <p class="execution-example-title">Try a live Focus File</p>
-              <p class="execution-example-note">Fully interactive examples open in a new tab.</p>
-              <div class="execution-example-links">
-                <a href="sample-writing.html" target="_blank" rel="noopener">Draft 1,500 words <span aria-hidden="true">↗</span></a>
-                <a href="sample-jobsearch.html" target="_blank" rel="noopener">Submit 3 applications <span aria-hidden="true">↗</span></a>
-                <a href="sample-study.html" target="_blank" rel="noopener">Recall 12 cranial nerves <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-          </div>
-          <div class="download-result" id="downloadResult" hidden>
-            <p class="download-result-title">&#10003; Focus File saved</p>
-            <p class="download-file-note"><strong id="downloadFileName">Your Focus File</strong></p>
-            <div class="download-result-actions">
-              <button class="build-another" id="buildAnother" type="button">Make another Focus File</button>
-              <button class="reminder-toggle" id="reminderToggle" type="button" aria-expanded="false" aria-controls="reminderSetup">Set a recurring reminder</button>
-            </div>
-            <div class="reminder-setup" id="reminderSetup" hidden>
-              <p class="reminder-question">When would you like to be reminded to make tomorrow&rsquo;s Focus File?</p>
-              <div class="reminder-choices">
-                <button class="reminder-choice" type="button" data-reminder-repeat="weekdays" data-reminder-time="19:00">Weeknights at 7 PM</button>
-                <button class="reminder-choice" type="button" data-reminder-repeat="daily" data-reminder-time="19:00">Every night at 7 PM</button>
-                <button class="reminder-choice" id="reminderCustomToggle" type="button" aria-expanded="false" aria-controls="reminderCustom">Choose days &amp; time</button>
-              </div>
-              <div class="reminder-custom" id="reminderCustom" hidden>
-                <div class="reminder-custom-controls">
-                  <label>Days
-                    <select id="reminderRepeat">
-                      <option value="weekdays">Weeknights</option>
-                      <option value="daily">Every night</option>
-                    </select>
-                  </label>
-                  <label>Time
-                    <input id="reminderTime" type="time" value="19:00" required>
-                  </label>
-                  <button class="reminder-add" id="reminderCustomAdd" type="button">Continue</button>
-                </div>
-              </div>
-              <div class="reminder-calendar-choices" id="reminderCalendarChoices" hidden>
-                <p class="reminder-question">Add it to:</p>
-                <div class="reminder-provider-choices">
-                  <button class="reminder-choice" id="reminderGoogle" type="button">Google Calendar</button>
-                  <button class="reminder-choice" id="reminderOtherCalendar" type="button">Apple, Outlook, or other</button>
-                </div>
-              </div>
-              <p class="reminder-status" id="reminderStatus" role="status" aria-live="polite"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="site-nav-backdrop" id="site-nav-backdrop"></div>
+<nav class="site-nav" id="site-nav" aria-label="Property sections" aria-hidden="true">
+  <div class="site-nav-head">
+    <span class="site-nav-title">Explore Smith River Ranch</span>
+    <button class="site-nav-close" id="site-nav-close" type="button" aria-label="Close menu">×</button>
+  </div>
+  <div class="site-nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#land">The Land</a>
+    <a href="#map">Interactive Map</a>
+    <a href="#access">Location &amp; Access</a>
+    <a href="#water">Water Resources</a>
+    <a href="#wildlife">Elk &amp; Wildlife</a>
+    <a href="#recreation">Recreation</a>
+    <a href="#hospitality">Lodge &amp; Guest Experience</a>
+    <a href="#operations">Turnkey Operations</a>
+    <a href="#gallery">Property Gallery</a>
+    <a href="#inquire">Private Inquiry</a>
+  </div>
+  <div class="site-nav-contact">Offered privately by Connery &amp; Co.<br>Bryce Connery · 406.599.9158</div>
+</nav>
 
-    <section class="evidence-loop" aria-labelledby="evidenceLoopTitle">
-      <div class="evidence-loop-head">
-        <span class="section-kicker">The evidence loop</span>
-        <h2 id="evidenceLoopTitle">What happened shapes the next Focus File</h2>
-        <p>Each file captures how the work went. The next interview uses that result to help you adjust.</p>
-      </div>
-      <div class="evidence-steps">
-        <div class="evidence-step">
-          <span class="evidence-step-number">Pulled online</span>
-          <h3>Strengthen the boundary</h3>
-          <p>Keep the internet out of the next work period.</p>
-        </div>
-        <div class="evidence-step">
-          <span class="evidence-step-number">Kids interrupted</span>
-          <h3>Protect the time</h3>
-          <p>Make the next commitment and its boundary clearer.</p>
-        </div>
-        <div class="evidence-step">
-          <span class="evidence-step-number">Organized instead of wrote</span>
-          <h3>Make the reminder direct</h3>
-          <p>&ldquo;New words only.&rdquo;</p>
-        </div>
-      </div>
-    </section>
+<header class="hero" id="top">
+  <div class="image"></div>
+  <div class="hero-copy">
+    <h1>Smith River Ranch</h1>
+    <p class="subtitle">A masterpiece of the American West</p>
+  </div>
+  <div class="scroll-cue">Discover</div>
+</header>
 
-    <section class="coach-bridge" aria-labelledby="coachBridgeTitle">
-      <div>
-        <span class="section-kicker">Coaches and therapists</span>
-        <h2 id="coachBridgeTitle">Using Focus File with clients?</h2>
-        <p>Help clients carry one concrete commitment between sessions and return with a private record of what actually happened.</p>
-      </div>
-      <a class="coach-bridge-link" href="coaches.html">For coaches and therapists &rarr;</a>
-    </section>
-
-    <section class="postscript" aria-label="Additional Focus File information">
-      <div class="foot">
-        <span class="foot-msg">Helped you? <button class="foot-link" id="shareBtn">Share it.</button> Could be better? <a class="foot-link" href="mailto:hello@focusfile.org">Send feedback.</a></span>
-        <span class="foot-sub">Free to use and adapt &middot; MIT licensed</span>
-      </div>
-    </section>
-  </main>
-
-  <!-- MODALS -->
-  <div class="modal-bg" id="modalBg">
-    <div class="modal" id="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-      <div id="modalContent"></div>
+<section class="overview" id="overview">
+  <div class="overview-inner">
+    <div class="eyebrow">White Sulphur Springs · Montana</div>
+    <h2>A complete private landscape, ready for the family who wants the West without compromise.</h2>
+    <p>A legacy Montana holding where exceptional water, abundant wildlife and turnkey ranch infrastructure come together at extraordinary scale.</p>
+    <div class="hero-facts">
+      <div class="hero-fact"><strong>21,497±</strong><span>Deeded Acres</span></div>
+      <div class="hero-fact"><strong>15+ mi</strong><span>Of River &amp; Streams</span></div>
+      <div class="hero-fact"><strong>500+</strong><span>Resident Elk</span></div>
+          <div class="hero-fact"><strong>100,000+</strong><span>Sq Ft of Turnkey Improvements</span></div>
     </div>
   </div>
+</section>
 
-  <script type="text/plain" id="fullPrompt"># Focus File — the setup prompt
+<main>
+  <section class="chapter" id="land" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Rolling hills"><img src="assets/land-high-res-exact-crop.jpg" alt="Rolling hills at Smith River Ranch" loading="lazy" decoding="async" width="3800" height="1951"></div>
+      </div>
+      <div class="image-title">
+        <h2>The Land</h2>
+        <p>A private world measured in horizons</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p>The ranch rises from the irrigated valley through river canyons and across mountain meadows to timbered high country, all held within a single ownership.</p>
+            <div class="signature-fact split"><span>21,497± contiguous deeded acres</span><span>No state, BLM, or leased lands</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="land-map">
+      <h3>Spanning Over Ten Miles</h3>
+      <img loading="lazy" src="assets/boundary-map-cropped.jpg" alt="Aerial boundary map of Smith River Ranch" decoding="async" width="2405" height="1854">
+      <figcaption>The Smith River and its tributaries thread through one contiguous private ownership.</figcaption>
+    </figure>
+  </section>
 
-**AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
+  <section class="explore-map" id="map" aria-labelledby="explore-map-title">
+    <div class="explore-map-head">
+      <div class="eyebrow">Explore the Ranch</div>
+      <h2 id="explore-map-title">A private landscape, seen in its full scale.</h2>
+      <p class="explore-map-copy">Explore the provisional cadastral outline of the 21,497± acre offering, assembled from 43 record-matched parcels totaling 21,472.5 mapped acres. All three confirmed residences fall within the candidate boundary; verified waterways, roads, trails and remaining improvements will join the map as their source data is confirmed.</p>
+      <div class="explore-map-status" aria-label="Current map contents">
+        <span>3 confirmed structures</span>
+        <span>Satellite imagery</span>
+        <span>43-parcel ranch candidate</span>
+        <span>21,472.5 mapped acres</span>
+        <span>Water layers forthcoming</span>
+      </div>
+      <a class="map-open-button" href="map.html" target="_blank" rel="noopener">Open Full-Screen Map</a>
+    </div>
+    <div class="explore-map-frame">
+      <iframe data-private-src="map.html" title="Interactive map of Smith River Ranch" loading="lazy"></iframe>
+    </div>
+  </section>
 
-Paste this whole message into any AI assistant (ChatGPT, Claude, Gemini). Answer five setup questions. At the end it gives you a short Focus File plan — paste that into the builder at www.focusfile.org and your Focus File downloads instantly.
+  <section class="chapter" id="access" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Downtown Bozeman"><img src="assets/bozeman-main-street.jpg" alt="Colorful storefronts and pedestrians in downtown Bozeman, Montana" loading="lazy" decoding="async" width="2000" height="1333"></div>
+      </div>
+      <div class="image-title">
+        <h2>Location &amp; Access</h2>
+        <p>For all its wild beauty and privacy, the ranch is remarkably easy to reach</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p>Smith River Ranch lies north of White Sulphur Springs, with Bozeman serving as both the primary gateway to the ranch and a destination in its own right.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="access-map">
+      <div class="access-map-frame"><img loading="lazy" src="assets/location-map-final-v2.jpg" alt="Map locating Smith River Ranch relative to Bozeman and White Sulphur Springs" decoding="async" width="2330" height="3000"></div>
+      <figcaption>Smith River Ranch · Bozeman and White Sulphur Springs</figcaption>
+      <div class="arrival-block">
+        <h3 class="arrival-heading">Arrival</h3>
+        <div class="arrival-grid">
+          <div class="arrival-item"><span>Helicopter</span><p>25± minutes from Bozeman Yellowstone International Airport to the ranch helipad</p></div>
+          <div class="arrival-item"><span>Private Aircraft</span><p>White Sulphur Springs Airport · 6,100 ft paved runway · 30± minutes to the ranch</p></div>
+          <div class="arrival-item"><span>By Road</span><p>Just under two hours from Bozeman</p></div>
+        </div>
+      </div>
+    </figure>
+  </section>
 
----
+  <section class="chapter" id="water" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Sheep Creek"><img src="assets/sheep-creek-high-res.jpg" alt="Sheep Creek winding through Smith River Ranch" loading="lazy" decoding="async" width="3279" height="3800"></div>
+      </div>
+      <div class="image-title">
+        <h2>Water Resources</h2>
+        <p>Nearly seven miles of Sheep Creek flow through the ranch</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p class="water-statement">Wild and dramatic, the Smith River is Montana’s only permit-protected river.</p>
+            <p>The Smith flows through the ranch for six miles, creating a rare float and fishing experience entirely within the property.</p>
+            <div class="signature-fact water-rights">Extensive water rights convey with the ranch.</div>
+          </div>
+        </div>
+        <button class="detail-button" aria-expanded="false" data-target="detail-water"><span>Water in detail</span><span class="arrow">+</span></button>
+      </div>
+    </div>
+    <div class="drawer" id="detail-water"><div class="drawer-wrap"><div class="detail-panel">
+      <h3>Beauty at Every Bend</h3>
+      <figure class="detail-figure"><img loading="lazy" src="assets/smith-river-limestone.jpg" alt="The Smith River winding past limestone walls and open meadows" decoding="async" width="2560" height="1706"><figcaption>With every shift of light, the canyon feels as though it is being discovered for the first time</figcaption></figure>
+      <div class="detail-grid">
+        <div class="detail-group"><h4>Live Water</h4>
+          <div class="detail-row"><span>Smith River</span><b>6± mi · both banks for 5± mi</b></div>
+          <div class="detail-row"><span>Sheep Creek</span><b>6.75± mi</b></div>
+          <div class="detail-row"><span>Eagle Creek</span><b>2± mi</b></div>
+          <div class="detail-row"><span>Spring Creek</span><b>0.5± mi</b></div>
+        </div>
+        <div class="detail-group compact"><h4>Additional Water</h4>
+          <div class="detail-row"><b>Cottonwood &amp; Horse Creeks; fishing ponds</b></div>
+        </div>
+        <div class="detail-group compact"><h4>Water Rights</h4>
+          <div class="detail-row"><b>93 appurtenant · 14 irrigation</b></div>
+        </div>
+        <div class="detail-group compact"><h4>Irrigated Lands</h4>
+          <div class="detail-row"><b>600+ acres</b></div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
 
-INSTRUCTIONS FOR THE AI:
+  <section class="chapter" id="wildlife" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Trophy bull elk"><img src="assets/elk-bull-portrait.jpg" alt="A trophy bull elk at Smith River Ranch" loading="lazy" decoding="async" width="2400" height="1744"></div>
+      </div>
+      <div class="image-title">
+        <h2>Elk &amp; Wildlife</h2>
+        <p>A landscape large enough to hold the rhythms of the wild</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p class="wildlife-statement">At times, more than 500 elk range across the ranch’s river bottom, timber and high country.</p>
+            <p>Abundant springs and tributary streams flow through the ranch and into the Smith River, sustaining a private oasis where wildlife thrives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-Run a short setup, then output a Focus File plan. Ask ONE question at a time, wait for the answer, keep it warm and fast. Preserve the person’s wording and never invent jobs, milestones, story beats, or reasons. When prior results or guidance are supplied, carry them forward as optional context the person may keep, change, or ignore. After the last question, output the plan. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+  <section class="chapter" id="recreation" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Horses grazing in mountain country"><img src="assets/recreation-horses-field.jpg" alt="Horses grazing in a mountain meadow" loading="lazy" decoding="async" width="3000" height="2003"></div>
+      </div>
+      <div class="image-title">
+        <h2>Equestrian &amp; Recreation</h2>
+        <p>A private outdoor world for every generation</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p class="recreation-statement">Ride from the barn, hike or bike mapped trails, shoot trap, skeet or long range, fly-fish or head into the backcountry.</p>
+            <p>Built amenities and more than 80 miles of roads make it possible to explore the far reaches of the ranch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-NUMBERED CHOICES — PERMANENT RULE:
-- Whenever a question or follow-up has a short finite set of known answers—including lists of 2–8 choices—show the choices as a compact numbered list. End with a direct instruction such as `Reply 1 or 2.` or `Reply with a number, or type your own answer.` Never print a finite list without telling the person exactly how little they need to type.
-- Use judgment about `Something else`; do not add it automatically to every choice set. Include a custom-answer option only when the listed choices might genuinely miss a valid answer. The internet-off barrier list below specifically requires it.
-- Do not imitate buttons with Markdown links or checkboxes. Accept the number, label, or the person’s own words.
-- When prior results or guidance contain a usable answer for the current question, show `1. Same as last time — [specific prior answer]` first and `2. Change it` second, followed by `Reply 1 or 2.` If they choose the prior answer, preserve it exactly and advance immediately. Do not re-ask follow-ups that answer already covers.
-- A numbered reply counts as the answer. Move straight to the next required question unless that choice genuinely needs a follow-up.
-- Use choices only for real, known options. Keep task wording, finish lines, jobs, traps, and reasons open-ended unless the person is choosing whether to carry a prior answer forward.
+  <section class="chapter" id="hospitality" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Lodge compound"><picture><source media="(max-width:700px), (max-height:560px) and (max-width:950px) and (orientation:landscape)" srcset="assets/lodge-river-high-res.jpg"><img src="assets/lodge-river-high-res.jpg" alt="The lodge compound at Smith River Ranch" loading="lazy" decoding="async" width="3800" height="2848"></picture></div>
+      </div>
+      <div class="image-title">
+        <h2>Lodge &amp; Guest Experience</h2>
+        <p>Room for family, friends and the traditions that bring them back</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p>The owner’s residence, lodge and six guest cabins are sited along the Smith.</p>
+          </div>
+        </div>
+        <button class="detail-button" aria-expanded="false" data-target="detail-hospitality"><span>Improvements in detail</span><span class="arrow">+</span></button>
+      </div>
+    </div>
+    <div class="drawer" id="detail-hospitality"><div class="drawer-wrap"><div class="detail-panel">
+      <h3>A Private Retreat</h3>
+      <figure class="detail-figure hospitality-detail-photo"><img loading="lazy" src="assets/lodge-setting-high-res.jpg" alt="The Smith River Ranch lodge overlooking the river" decoding="async" width="3800" height="2533"><figcaption>The lodge overlooking the Smith River.</figcaption></figure>
+      <div class="detail-grid">
+        <div class="detail-group"><h4>Lodge &amp; Owner’s Residence</h4>
+          <div class="detail-row"><span>Lodge</span><b>12,124 sq ft</b></div>
+          <div class="detail-row"><span>Pool House<small class="detail-subnote">Pool, gym and conference room</small></span><b>4,512 sq ft</b></div>
+          <div class="detail-row"><span>Owner’s Residence</span><b>8,273 sq ft</b></div>
+        </div>
+        <div class="detail-group"><h4>Guest Cabins</h4>
+          <div class="detail-row"><span>Ponderosa</span><b>4,113 sq ft</b></div>
+          <div class="detail-row"><span>Cottonwood</span><b>3,012 sq ft</b></div>
+          <div class="detail-row"><span>Chinook</span><b>2,867 sq ft</b></div>
+          <div class="detail-row"><span>Tenderfoot</span><b>1,476 sq ft</b></div>
+          <div class="detail-row"><span>Rimrock</span><b>1,300 sq ft</b></div>
+          <div class="detail-row"><span>Aspen</span><b>1,092 sq ft</b></div>
+        </div>
+        <div class="detail-group"><h4>Backcountry Cabin</h4>
+          <div class="detail-row"><span>Remote, off-grid retreat</span><b>1,200± sq ft</b></div>
+        </div>
+        <div class="detail-group"><h4>Four Flex Residences</h4>
+          <div class="detail-row"><span>Combined area</span><b>13,100± sq ft</b></div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
 
-Q1 — MODE. Ask exactly: "Is this offline work, or does it need the internet?"
-- Present exactly `1. Offline work` and `2. Needs the internet`, followed by `Reply 1 or 2.`
-- If it can be done offline, set mode to `sealed`. THEN ask one quick follow-up: "How will you turn the internet off?" Offer these numbered choices: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else — type your own`. End with `Reply 1–6, or type your own answer.` Record the answer in `sealedPlan` (short, e.g. "phone in the other room"). If they skip it, set `sealedPlan` to "".
-- If the work genuinely needs live sites or apps, set mode to `lane` and recommend **Freedom.to as the strongest default blocker**. Explain briefly: "Set up one Freedom session for this exact task: keep only the sites and apps the work requires, and block everything else for the full window." Ask which sites and apps must remain available and record them in `laneSites`. If they already use another blocker that genuinely works, accept it. Leave `sealedPlan` as "".
-NEVER show the words "sealed" or "lane" to the person; they are internal values only. Speak plainly and keep the advice short.
+  <section class="chapter" id="operations" data-chapter>
+    <div class="chapter-image" style="cursor:default">
+      <div class="gallery-slides">
+        <div class="gallery-slide active" data-placeholder="false" data-caption="Operations compound"><img src="assets/operations-valley-high-res.jpg" alt="The Smith River Ranch operations compound within the ranch landscape" loading="lazy" decoding="async" width="3800" height="2533"></div>
+      </div>
+      <div class="image-title">
+        <h2>Turnkey Operations</h2>
+        <p>A complete ranch, ready to enjoy from day one</p>
+      </div>
+    </div>
+    <div class="chapter-summary">
+      <div class="summary-inner">
+        <div class="summary-grid">
+          <div class="summary-copy">
+            <p>Separately sited staff residences, operational buildings and agricultural facilities reflect a level of support and sophistication rarely found on a private ranch.</p>
+            <div class="operations-facts" aria-label="Selected operations infrastructure">
+              <div class="operations-fact">Staff Residences</div>
+              <div class="operations-fact">Staff Lodge &amp; Amenities</div>
+              <div class="operations-fact"><span><span class="stat-number">10,000±</span> Sq Ft Operations Building</span></div>
+              <div class="operations-fact">Agricultural Facilities</div>
+            </div>
+          </div>
+        </div>
+        <button class="detail-button" aria-expanded="false" data-target="detail-operations"><span>Operations in detail</span><span class="arrow">+</span></button>
+      </div>
+    </div>
+    <div class="drawer" id="detail-operations"><div class="drawer-wrap"><div class="detail-panel">
+      <div class="detail-grid">
+        <div class="detail-group"><h4>Staff &amp; Operations Compound</h4>
+          <div class="detail-row"><span>Management Residences</span><b>Two</b></div>
+          <div class="detail-row"><span>Additional Staff Residences</span><b>Six</b></div>
+          <div class="detail-row"><span>Shared Staff Residences</span><b>Two</b></div>
+          <div class="detail-row"><span>Staff Lodge, Dining &amp; Recreation</span></div>
+          <div class="detail-row"><span>Pool &amp; Fitness Facility</span></div>
+          <div class="detail-row"><span>Operations Building</span><b>9,576 sq ft</b></div>
+        </div>
+        <div class="detail-group"><h4>Agricultural Compound</h4>
+          <div class="detail-row"><span>Ag Manager’s Residence</span><b>5,500 sq ft</b></div>
+          <div class="detail-row"><span>Foreman’s Residence</span><b>2,800 sq ft</b></div>
+          <div class="detail-row"><span>Agricultural Operations Building</span><b>6,010 sq ft</b></div>
+          <div class="detail-row"><span>Livestock Barn</span><b>5,112 sq ft</b></div>
+          <div class="detail-row"><span>Equipment Barn</span><b>2,100 sq ft</b></div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
 
-Q2 — WORK + TIME. Ask exactly: "What are you working on, and what's your window?" Require a real start time and clock range such as "9:00 – 10:00"; the start time drives the Begin button and the log. Record the block length in minutes. If useful, model a complete answer such as "new chapter, 9–12, 2,000 words."
+  <section class="final-gallery" id="gallery" aria-label="Smith River Ranch photography gallery">
+    <div class="final-gallery-head">
+      <div class="eyebrow">Property Photography</div>
+      <h2>A ranch too expansive for a single frame.</h2>
+      <p>Six glimpses into the land, water, wildlife and hospitality of Smith River Ranch. Open any image to enter the full collection.</p>
+    </div>
+    <div class="final-gallery-grid">
+      <div class="final-gallery-mosaic" data-final-gallery>
+        <button class="gallery-mosaic-tile" type="button" data-gallery-index="0" aria-label="Open gallery at the Smith River at golden hour">
+          <img src="assets/gallery-final-sr1.jpg" alt="The Smith River winding through a forested canyon at golden hour" loading="lazy" decoding="async" width="2560" height="1706"><span class="gallery-mosaic-label">The Smith River</span>
+        </button>
+        <button class="gallery-mosaic-tile" type="button" data-gallery-index="7" aria-label="Open gallery at the guest cabins">
+          <img src="assets/gallery-final-sr6.jpg" alt="Guest cabins beside a landscaped stream and mature trees" loading="lazy" decoding="async" width="2560" height="1920"><span class="gallery-mosaic-label">Hospitality</span>
+        </button>
+        <button class="gallery-mosaic-tile" type="button" data-gallery-index="13" aria-label="Open gallery at Sheep Creek">
+          <img src="assets/gallery-final-sr10.jpg" alt="Clear water flowing through the ranch backcountry" loading="lazy" decoding="async" width="2560" height="1708"><span class="gallery-mosaic-label">Live Water</span>
+        </button>
+        <button class="gallery-mosaic-tile" type="button" data-gallery-index="10" aria-label="Open gallery at the elk meadow">
+          <img src="assets/gallery-elk-mountain-meadow.jpg" alt="A herd of elk grazing in a mountain meadow" loading="lazy" decoding="async" width="2560" height="1725"><span class="gallery-mosaic-label">Wildlife</span>
+        </button>
+        <button class="gallery-mosaic-tile" type="button" data-gallery-index="2" aria-label="Open gallery at the Smith River valley">
+          <img src="assets/gallery-final-sr2.jpg" alt="Limestone cliffs above the lodge and Smith River valley" loading="lazy" decoding="async" width="2560" height="1706"><span class="gallery-mosaic-label">The Landscape</span>
+        </button>
+        <button class="gallery-mosaic-tile" type="button" data-gallery-index="12" aria-label="Open gallery at a maintained ranch trail">
+          <img src="assets/gallery-maintained-trail.jpg" alt="A maintained trail winding through timber at Smith River Ranch" loading="lazy" decoding="async" width="2560" height="1708"><span class="gallery-mosaic-label">Trails &amp; Recreation</span>
+        </button>
+        <div class="gallery-slides gallery-source" aria-hidden="true">
+          <figure class="gallery-slide active" data-placeholder="false" data-caption="The Smith River at golden hour"><img src="assets/gallery-final-sr1.jpg" alt="An aerial view of the Smith River winding through a forested canyon at golden hour" loading="lazy" decoding="async" width="2560" height="1706"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="The Smith River"><img src="assets/gallery-final-sr1-5.jpg" alt="The Smith River flowing beneath timbered hillsides in warm evening light" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="The lodge and Smith River valley"><img src="assets/gallery-final-sr2.jpg" alt="A broad view across limestone cliffs to the lodge and the Smith River valley" loading="lazy" decoding="async" width="2560" height="1706"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Pool overlooking the Smith River valley"><img src="assets/gallery-final-sr3.jpg" alt="The pool terrace overlooking the Smith River valley" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="The lodge above the Smith River"><img src="assets/lodge-compound-clean.jpg" alt="The lodge above the Smith River within the broader ranch landscape" loading="lazy" decoding="async" width="2560" height="1919"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Limestone walls along the Smith River"><img src="assets/gallery-final-sr4.jpg" alt="The Smith River curving beneath timbered limestone walls" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="River meadows beneath the limestone cliffs"><img src="assets/gallery-final-sr5.jpg" alt="Open river meadows beneath forested limestone cliffs at Smith River Ranch" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Guest cabins and landscaped stream"><img src="assets/gallery-final-sr6.jpg" alt="Guest cabins beside a landscaped stream and mature trees" loading="lazy" decoding="async" width="2560" height="1920"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="The Smith River Valley from the guest cabins"><img src="assets/gallery-final-sr7.jpg" alt="The Smith River valley viewed from the guest cabins" loading="lazy" decoding="async" width="2560" height="1920"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Lodge, residences and river valley"><img src="assets/gallery-final-sr8.jpg" alt="An aerial view of the lodge, residences, pond and Smith River valley" loading="lazy" decoding="async" width="2560" height="1706"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Elk grazing in a mountain meadow"><img src="assets/gallery-elk-mountain-meadow.jpg" alt="A herd of elk grazing in a mountain meadow at Smith River Ranch" loading="lazy" decoding="async" width="2560" height="1725"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Sheep Creek Canyon"><img src="assets/gallery-final-sr9.jpg" alt="A mountain stream flowing through dense forest within Smith River Ranch" loading="lazy" decoding="async" width="1708" height="2560"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Miles of mapped and maintained trails extend through the ranch"><img src="assets/gallery-maintained-trail.jpg" alt="A maintained trail winding through timber at Smith River Ranch" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="Sheep Creek, some of the best fly fishing in Montana"><img src="assets/gallery-final-sr10.jpg" alt="Clear water flowing through the ranch backcountry beneath a bright summer sky" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="The Smith River in evening light"><img src="assets/gallery-final-sr12.jpg" alt="The Smith River curving through a meadow in evening light" loading="lazy" decoding="async" width="2560" height="1708"></figure>
+          <figure class="gallery-slide" data-placeholder="false" data-caption="The scale of the Smith River canyon"><img src="assets/gallery-final-sr13.jpg" alt="An aerial view across limestone cliffs and the Smith River canyon" loading="lazy" decoding="async" width="2560" height="1706"></figure>
+        </div>
+      </div>
+      <div class="final-gallery-panel">
+        <span class="final-gallery-note">16 property photographs</span>
+        <button class="final-gallery-open" type="button" data-final-gallery-open><span>View Full Gallery</span><span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+  </section>
+</main>
 
-Q3 — SHAPE THE GOAL. Ask exactly: "What exactly will be finished when the block ends?" The header (`task`) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Never say "header" or "outcome" to the person — restate the finish line plainly (e.g. "So: 2,000 new words on the page."). Then pick jobsShape:
-- "none": atomic, with nothing useful to track or break down (meditate, send one email). Header stands alone.
-- "milestones": one large, measurable output (1,500 words -> 500/1,000/1,500).
-- "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
-For a quantified output large enough to track—such as 1,500 words, 12 items, or 20 pages—offer a short cumulative milestone list and ask the person to confirm or edit it. Do not omit milestones for a quantified output unless the person explicitly declines a breakdown. Example: 1,500 words → 500 words / 1,000 words / 1,500 words. These are progress markers, not invented work steps.
-Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
+<div class="photo-lightbox" id="photo-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-heading" hidden>
+  <div class="lightbox-top">
+    <h2 class="lightbox-heading" id="lightbox-heading">Property Photography</h2>
+    <button class="lightbox-close" type="button" aria-label="Close full-screen gallery">×</button>
+  </div>
+  <div class="lightbox-stage">
+    <button class="lightbox-control lightbox-prev" type="button" aria-label="Previous full-screen photograph">←</button>
+    <img class="lightbox-image" alt="" decoding="async" fetchpriority="high">
+    <button class="lightbox-control lightbox-next" type="button" aria-label="Next full-screen photograph">→</button>
+  </div>
+  <div class="lightbox-meta">
+    <span class="lightbox-caption" aria-live="polite"></span>
+    <span class="lightbox-count"></span>
+  </div>
+</div>
 
-Q4 — THE TRAP. Ask exactly: "Anything that tends to pull you off task — a habit, a distraction, or a temptation? I'll remind you of it."
-If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
-KEEP is earned carry-forward information, never an interview question. For a first Focus File, omit `KEEP:` entirely. For a continuation, include `KEEP:` only when the previous Focus File’s most recent exit log contains a concrete answer to “What helped you focus?” Preserve that proven help in the person’s own words. If the exit log is blank, vague, says nothing helped, or contains no proven help, omit `KEEP:` again. Never print a blank `KEEP:`, never invent one, and never ask a sixth question to fill it.
+<section class="closing" id="inquire">
+  <div class="bg"></div>
+  <div class="closing-inner">
+    <div class="eyebrow">Offered Privately by Connery &amp; Co.</div>
+    <h2>Step into a fully operating legacy</h2>
+    <p>Smith River Ranch can be conveyed substantially furnished and equipped, including the cattle herd, allowing the next owner to begin enjoying the ranch immediately.</p>
+    <button class="detail-button closing-details-button" aria-expanded="false" data-target="closing-offering-details"><span>Offering Details</span><span class="arrow">+</span></button>
+    <div class="drawer" id="closing-offering-details"><div class="drawer-wrap"><div class="detail-panel">
+      <div class="detail-row"><span>Offering price</span><b>$265,000,000</b></div>
+      <div class="detail-row"><span>Water rights</span><b>Convey at closing</b></div>
+      <div class="detail-row"><span>Mineral rights</span><b>Convey at closing</b></div>
+    </div></div></div>
+    <div class="broker-card">
+      <div class="broker-mark">Connery &amp; Co.</div>
+      <div class="broker-name">Bryce Connery</div>
+      <div class="broker-title">Broker</div>
+      <div class="broker-links">
+        <a href="tel:+14065999158">406.599.9158</a>
+        <a href="mailto:bryce@connery.co">bryce@connery.co</a>
+        <a href="https://connery.co" target="_blank" rel="noopener">connery.co</a>
+      </div>
+      <div class="broker-address">233 E Main St · Bozeman, Montana</div>
+    </div>
+    <footer>Confidential. Prepared for prospective buyer review. Not for distribution. Information is deemed reliable but is not guaranteed. Acreages, distances, building areas, maps and boundary depictions are approximate and should be independently verified. This offering is subject to prior sale, change, withdrawal, and seller approval.</footer>
+  </div>
+</section>
 
-Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.' I'll show this back to you if you drift."
-Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
+<script>
+  var progress=document.getElementById('progress');
+  var topbar=document.getElementById('topbar');
+  function onScroll(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    progress.style.width=(h>0?(window.scrollY/h)*100:0)+'%';
+    topbar.classList.toggle('scrolled',window.scrollY>60);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
 
-THEN, in this order:
-1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
+  function activatePrivateMedia(){
+    document.querySelectorAll('[data-private-src]').forEach(function(frame){
+      if(!frame.getAttribute('src')) frame.setAttribute('src',frame.getAttribute('data-private-src'));
+    });
+  }
+  if(!document.body.classList.contains('gated')) activatePrivateMedia();
+  window.addEventListener('srr:unlocked',activatePrivateMedia,{once:true});
 
-```text
-FOCUS FILE
+  var navToggle=document.getElementById('nav-toggle');
+  var siteNav=document.getElementById('site-nav');
+  var navClose=document.getElementById('site-nav-close');
+  var navBackdrop=document.getElementById('site-nav-backdrop');
+  var navLastFocus=null;
 
-TASK: 2,000 new words on Moose
-TIME: 9:00 AM–12:00 PM
-INTERNET: OFF — phone in another room; router unplugged
-AVOID: Stopping when the draft gets uncertain.
-WHY: I want proof I can write through uncertainty.
+  function setNavigation(open){
+    navLastFocus=open?document.activeElement:navLastFocus;
+    siteNav.classList.toggle('open',open);
+    navBackdrop.classList.toggle('open',open);
+    siteNav.setAttribute('aria-hidden',String(!open));
+    navToggle.setAttribute('aria-expanded',String(open));
+    document.body.classList.toggle('nav-open',open);
+    if(open) navClose.focus();
+    else if(navLastFocus&&navLastFocus.focus) navLastFocus.focus();
+  }
 
-MILESTONES:
-- 500 words
-- 1,000 words
-- 1,500 words
-- 2,000 words
+  navToggle.addEventListener('click',function(){setNavigation(true)});
+  navClose.addEventListener('click',function(){setNavigation(false)});
+  navBackdrop.addEventListener('click',function(){setNavigation(false)});
+  siteNav.querySelectorAll('a[href^="#"]').forEach(function(link){
+    link.addEventListener('click',function(){setNavigation(false)});
+  });
+  document.addEventListener('keydown',function(event){
+    if(event.key==='Escape'&&siteNav.classList.contains('open')) setNavigation(false);
+  });
 
-END FOCUS FILE
-```
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}
+    });
+  },{threshold:.12});
+  document.querySelectorAll('[data-chapter]').forEach(function(chapter){observer.observe(chapter)});
 
-Fill the block from the confirmed interview answers, following these branches:
-- Offline work: `INTERNET: OFF — [confirmed barrier]`
-- Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
-- Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
-- Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
-- Atomic work: omit both `MILESTONES` and `JOBS`.
-- KEEP carry-forward: omit `KEEP:` for a first Focus File. For a continuation, include it only when the previous file’s most recent exit log records concrete, proven help. Never output a blank or invented `KEEP:`.
-- Always include `AVOID:`; its value may be blank.
-- `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
-- Do not show internal field names, configuration values, or JSON.
+  var lightbox=document.getElementById('photo-lightbox');
+  var lightboxImage=lightbox.querySelector('.lightbox-image');
+  var lightboxCaption=lightbox.querySelector('.lightbox-caption');
+  var lightboxCount=lightbox.querySelector('.lightbox-count');
+  var lightboxHeading=lightbox.querySelector('.lightbox-heading');
+  var lightboxClose=lightbox.querySelector('.lightbox-close');
+  var lightboxSlides=[];
+  var lightboxCurrent=0;
+  var lightboxLastFocus=null;
+  var lightboxTouchStart=null;
 
-2. After the code block, write exactly this one line: **Copy the answer above, open https://www.focusfile.org/, and paste it into the box under step 02.**
+  function showLightboxSlide(next){
+    lightboxCurrent=(next+lightboxSlides.length)%lightboxSlides.length;
+    var slide=lightboxSlides[lightboxCurrent];
+    var image=slide.querySelector('img');
+    var stock=slide.getAttribute('data-placeholder')==='true';
+    lightboxImage.src=image.getAttribute('src');
+    lightboxImage.alt=image.getAttribute('alt');
+    lightboxCaption.textContent=(stock?'Stock placeholder · ':'')+slide.getAttribute('data-caption');
+    lightboxCaption.classList.toggle('stock',stock);
+    lightboxCount.textContent=String(lightboxCurrent+1).padStart(2,'0')+' / '+String(lightboxSlides.length).padStart(2,'0');
+  }
 
-Do not add anything else. Then stop.
+  function openLightbox(slides,index,title,trigger){
+    lightboxSlides=slides;
+    lightboxLastFocus=trigger;
+    lightboxHeading.textContent=title;
+    lightbox.hidden=false;
+    lightbox.classList.add('open');
+    document.body.classList.add('lightbox-open');
+    showLightboxSlide(index);
+    lightboxClose.focus();
+  }
 
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.hidden=true;
+    document.body.classList.remove('lightbox-open');
+    if(lightboxLastFocus){lightboxLastFocus.focus()}
+  }
+
+  lightboxClose.addEventListener('click',closeLightbox);
+  lightbox.querySelector('.lightbox-prev').addEventListener('click',function(){showLightboxSlide(lightboxCurrent-1)});
+  lightbox.querySelector('.lightbox-next').addEventListener('click',function(){showLightboxSlide(lightboxCurrent+1)});
+  lightbox.querySelector('.lightbox-stage').addEventListener('touchstart',function(event){lightboxTouchStart=event.changedTouches[0].clientX},{passive:true});
+  lightbox.querySelector('.lightbox-stage').addEventListener('touchend',function(event){
+    if(lightboxTouchStart===null){return}
+    var distance=event.changedTouches[0].clientX-lightboxTouchStart;
+    if(Math.abs(distance)>45){showLightboxSlide(lightboxCurrent+(distance<0?1:-1))}
+    lightboxTouchStart=null;
+  },{passive:true});
+  document.addEventListener('keydown',function(event){
+    if(!lightbox.classList.contains('open')){return}
+    if(event.key==='Escape'){closeLightbox()}
+    if(event.key==='ArrowLeft'){showLightboxSlide(lightboxCurrent-1)}
+    if(event.key==='ArrowRight'){showLightboxSlide(lightboxCurrent+1)}
+  });
+
+  document.querySelectorAll('[data-gallery]').forEach(function(gallery){
+    var slides=Array.prototype.slice.call(gallery.querySelectorAll('.gallery-slide'));
+    var inlineSlides=slides.filter(function(slide){return slide.getAttribute('data-inline')!=='false'});
+    var toolbar=gallery.nextElementSibling;
+    var caption=toolbar.querySelector('.gallery-caption');
+    var count=toolbar.querySelector('.gallery-count');
+    var openButton=toolbar.querySelector('.gallery-open');
+    var title=gallery.querySelector('.image-title');
+    var galleryName=title.querySelector('h2').textContent;
+    var current=0;
+    var touchStart=null;
+    var suppressOpen=false;
+
+    openButton.textContent='View all '+slides.length+' photographs';
+    openButton.setAttribute('aria-label','View all '+slides.length+' photographs in '+galleryName);
+
+    function showSlide(next){
+      current=(next+inlineSlides.length)%inlineSlides.length;
+      var activeSlide=inlineSlides[current];
+      slides.forEach(function(slide){
+        var active=slide===activeSlide;
+        slide.classList.toggle('active',active);
+        slide.setAttribute('aria-hidden',active?'false':'true');
+      });
+      var stock=activeSlide.getAttribute('data-placeholder')==='true';
+      caption.textContent=(stock?'Stock placeholder · ':'')+activeSlide.getAttribute('data-caption');
+      caption.classList.toggle('stock',stock);
+      count.textContent=String(current+1).padStart(2,'0')+' / '+String(inlineSlides.length).padStart(2,'0');
+      title.classList.toggle('gallery-title-hidden',current!==0);
+    }
+
+    function openCurrent(trigger){
+      var allIndex=slides.indexOf(inlineSlides[current]);
+      openLightbox(slides,allIndex,galleryName,trigger);
+    }
+
+    toolbar.querySelector('.gallery-prev').addEventListener('click',function(){showSlide(current-1)});
+    toolbar.querySelector('.gallery-next').addEventListener('click',function(){showSlide(current+1)});
+    openButton.addEventListener('click',function(){openCurrent(openButton)});
+    gallery.addEventListener('click',function(){
+      if(!suppressOpen){openCurrent(gallery)}
+    });
+    gallery.addEventListener('keydown',function(event){
+      if(event.key==='ArrowLeft'){event.preventDefault();showSlide(current-1)}
+      if(event.key==='ArrowRight'){event.preventDefault();showSlide(current+1)}
+      if(event.key==='Enter'||event.key===' '){event.preventDefault();openCurrent(gallery)}
+    });
+    gallery.addEventListener('touchstart',function(event){touchStart=event.changedTouches[0].clientX},{passive:true});
+    gallery.addEventListener('touchend',function(event){
+      if(touchStart===null){return}
+      var distance=event.changedTouches[0].clientX-touchStart;
+      if(Math.abs(distance)>45){
+        suppressOpen=true;
+        showSlide(current+(distance<0?1:-1));
+        setTimeout(function(){suppressOpen=false},300);
+      }
+      touchStart=null;
+    },{passive:true});
+    showSlide(0);
+  });
+
+  document.querySelectorAll('[data-final-gallery]').forEach(function(gallery){
+    var slides=Array.prototype.slice.call(gallery.querySelectorAll('.gallery-slide'));
+    var openButton=gallery.parentElement.querySelector('[data-final-gallery-open]');
+    function openFinalGallery(trigger,index){openLightbox(slides,index||0,'Property Photography',trigger)}
+    gallery.addEventListener('click',function(event){
+      var tile=event.target.closest('[data-gallery-index]');
+      if(!tile){return}
+      openFinalGallery(tile,Number(tile.getAttribute('data-gallery-index')));
+    });
+    openButton.addEventListener('click',function(){openFinalGallery(openButton,0)});
+  });
+
+  document.querySelectorAll('.detail-button').forEach(function(button){
+    var original=button.querySelector('span').textContent;
+    button.addEventListener('click',function(){
+      var drawer=document.getElementById(button.getAttribute('data-target'));
+      var open=drawer.classList.toggle('open');
+      button.setAttribute('aria-expanded',open?'true':'false');
+      button.querySelector('span').textContent=open?'Close details':original;
+      if(open){setTimeout(function(){drawer.scrollIntoView({behavior:'smooth',block:'start'})},260)}
+    });
+  });
 </script>
-  <script type="text/plain" id="m-design"><h2>Why a Focus File?</h2>
-<p>Focus File was built to finish a long writing project. It worked. So here it is&mdash;in case you have something to finish too.</p>
-<p><b>AI doesn&rsquo;t think for you.</b> It asks the questions and insists on specifics. You provide the answers. The short interview narrows the work to one concrete objective and makes &ldquo;done&rdquo; binary. &ldquo;Submit the application&rdquo; replaces &ldquo;work on the job search.&rdquo; You did it or you didn&rsquo;t.</p>
-<p><b>The motivation comes from making the choice yourself.</b> Creating a Focus File becomes a ritual of slowing down, choosing what you will do and when, and committing to it. For self-directed workers, writers, and people working with therapists or ADHD coaches, it adds structure without feeling like policing. It keeps your own reasons and anticipated distractions in front of you, so the accountability comes from your own words rather than a generic timer notification. That helps create the motivation to begin and a reason to return when attention drifts.</p>
-<p><b>It turns the decision into action.</b> You have already chosen what to do and when to do it. This keeps you from disappearing into second guessing (&ldquo;Is this really the right task?&rdquo;) or distraction (&ldquo;Maybe I need something else to help me before I start.&rdquo;). Open the file and begin.</p>
-<p><b>It checks in while you work.</b> A quiet timer and occasional check-ins keep the task visible. If you drift, the file brings back your own words: what you said might pull you off task or why finishing matters today. The motivation and accountability come from the commitment you made.</p>
-<p><b>It works offline.</b> Your Focus File is a downloaded HTML file that opens in your browser without an internet connection. Most focused work needs less internet than we think. Once downloaded, the file and its data stay on your device unless you choose to share them.</p>
-<p><b>It carries lessons into the next file.</b> At the end of each block, the log captures what pulled you off task, what worked well enough to repeat, and where you will start next session. Those lessons can guide your next five-question interview. You can also review the record yourself or share it with a coach or therapist.</p>
-<p><b>It builds three muscles over time:</b> choosing one clear task, starting without renegotiating, and recognizing the patterns that help or derail you. There&rsquo;s no magic here. It&rsquo;s just enough structure to choose honestly, begin, and learn from what happened.</p></script>
-<script type="text/plain" id="m-privacy"><h2>Privacy</h2>
-<p><b>Your Focus File stays with you.</b> Files, settings, and logs remain on the device where you use them unless you choose to share them. We have no accounts, no storage, and no way to read what is written.</p>
-<p><b>The public website collects limited usage information.</b> Google Analytics counts page visits and fixed actions, such as copying the prompt or creating a file, along with standard referral and device information. It never receives your task, interview answers, Focus File plan, downloaded file, check-ins, or log. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google&rsquo;s privacy policy</a>.</p>
-<p><b>When you use an AI chat.</b> The AI provider sees only what you choose to paste or type, under that provider&rsquo;s privacy policy. Nothing is sent automatically. The first interview needs no personal details. If you use a previous result to make your next Focus File, that information is shared only when you paste the copied prompt.</p>
-<p><b>For clinicians.</b> Focus File never receives or stores client information. If a client shares a result with you, handle it according to your organization&rsquo;s usual privacy practices.</p>
-<p>Focus File is a work-support tool, not medical or psychological advice.</p>
+
+<script>
+/* ── Smith River Ranch — engagement tracking ───────────────────────────
+   Adds listeners only; nothing above is modified. Every call is guarded,
+   so if GA4 is blocked (ad blockers, Safari ITP) the page is unaffected. */
+(function(){
+  var send = function(name, params){
+    try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch(e){}
+  };
+  var once = {};
+  var fireOnce = function(key, name, params){ if(once[key]) return; once[key]=1; send(name, params); };
+
+  /* 1 & 8 — did they get past the password, or fail it */
+  var gate = document.getElementById('gate');
+  if (gate) {
+    if (gate.classList.contains('hidden')) {
+      send('returning_session');                       /* already unlocked this session */
+    } else {
+      new MutationObserver(function(muts, obs){
+        if (gate.classList.contains('hidden')) { send('gate_unlocked'); obs.disconnect(); }
+      }).observe(gate, {attributes:true, attributeFilter:['class']});
+    }
+    var err = document.getElementById('gate-err');
+    if (err) new MutationObserver(function(){
+      if (err.classList.contains('show')) send('gate_failed');
+    }).observe(err, {attributes:true, attributeFilter:['class']});
+  }
+
+  /* 2 & 6 — which detail drawers, with the price called out separately */
+  document.querySelectorAll('.detail-button').forEach(function(btn){
+    /* the label is captured now, before any click: his own handler swaps the
+       span to "Close details" as soon as a drawer opens */
+    var label = ((btn.querySelector('span') || {}).textContent || '').trim();
+    btn.addEventListener('click', function(){
+      /* his handler is registered first and has already flipped aria-expanded
+         by the time this runs, so "true" here means it JUST opened */
+      if (btn.getAttribute('aria-expanded') !== 'true') return;   /* opening only, not closing */
+      var target = btn.getAttribute('data-target') || 'unknown';
+      send('detail_open', {drawer: target, label: label || target});
+      if (target.indexOf('offering') > -1) send('offering_details_open');
+    });
+  });
+
+  /* 3 — gallery opened, and how deep they went */
+  var seen = {}, count = 0;
+  document.querySelectorAll('[data-final-gallery],[data-final-gallery-open]').forEach(function(el){
+    el.addEventListener('click', function(){ fireOnce('gopen','gallery_open'); });
+  });
+  var lb = document.querySelector('.lightbox-image');
+  if (lb) new MutationObserver(function(){
+    var src = lb.getAttribute('src'); if(!src) return;
+    var name = src.split('/').pop();
+    if (seen[name]) return;
+    seen[name] = 1; count++;
+    if (count === 3 || count === 8 || count === 16) send('gallery_depth', {photos_viewed: count});
+  }).observe(lb, {attributes:true, attributeFilter:['src']});
+
+  /* 4 — contact intent */
+  document.querySelectorAll('a[href^="tel:"],a[href^="mailto:"],a[href^="http"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href');
+      var kind = h.indexOf('tel:')===0 ? 'phone' : h.indexOf('mailto:')===0 ? 'email' : 'website';
+      send('contact_click', {method: kind});
+    });
+  });
+
+  document.querySelectorAll('a[href="#map"],a[href^="map.html"]').forEach(function(a){
+    a.addEventListener('click', function(){ send('map_open', {source: a.className || 'navigation'}); });
+  });
+
+  /* 5 — which chapters they actually reached */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var id = e.target.id || 'section';
+        fireOnce('sec_'+id, 'section_reached', {section: id});
+        io.unobserve(e.target);
+      });
+    }, {threshold: 0.35});
+    document.querySelectorAll('section[id]').forEach(function(sec){ io.observe(sec); });
+  }
+
+  /* 7 — real scroll depth (GA4's built-in only fires at 90%) */
+  var marks = [25,50,75,100], ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h <= 0) return;
+      var pct = Math.round(window.scrollY / h * 100);
+      marks.forEach(function(m){ if (pct >= m) fireOnce('sd'+m, 'scroll_depth', {percent: m}); });
+    });
+  }, {passive:true});
+})();
 </script>
-  <script type="text/plain" id="m-feedback"><h2>Feedback</h2>
-<p>Tell us what's working, what's not, or any new ideas.</p>
-<p>Send us an email: <a href="mailto:hello@focusfile.org">hello@focusfile.org</a></p>
-</script>
-
-  <script>
-    function validateFocusPlan(cfg){
-      if(!cfg || typeof cfg !== 'object' || Array.isArray(cfg)) return false;
-      if(cfg.templateVersion !== '2026-07-20') return false;
-      if(typeof cfg.task !== 'string' || !cfg.task.trim()) return false;
-      if(typeof cfg.scope !== 'string' || !cfg.scope.trim()) return false;
-      if(['sealed','lane'].indexOf(cfg.mode) === -1) return false;
-      if(!Array.isArray(cfg.laneSites) || !cfg.laneSites.every(function(site){ return typeof site === 'string' && site.trim(); })) return false;
-      if(typeof cfg.sealedPlan !== 'string') return false;
-      if(cfg.mode === 'lane' && !cfg.laneSites.length) return false;
-      if(typeof cfg.keepLabel !== 'string' || typeof cfg.keep !== 'string') return false;
-      if(typeof cfg.whyLabel !== 'string' || typeof cfg.why !== 'string') return false;
-      if(typeof cfg.finishFeel !== 'string' || !cfg.finishFeel.trim()) return false;
-      if(['none','milestones','checklist'].indexOf(cfg.jobsShape) === -1 || !Array.isArray(cfg.jobs)) return false;
-      if(!cfg.jobs.every(function(job){ return typeof job === 'string' && job.trim(); })) return false;
-      if(cfg.jobsShape === 'none' && cfg.jobs.length) return false;
-      if(cfg.jobsShape !== 'none' && !cfg.jobs.length) return false;
-      if(!Number.isFinite(Number(cfg.blockMinutes)) || Number(cfg.blockMinutes) <= 0) return false;
-      if(!Number.isFinite(Number(cfg.knockMinMin)) || Number(cfg.knockMinMin) <= 0) return false;
-      if(!Number.isFinite(Number(cfg.knockMaxMin)) || Number(cfg.knockMaxMin) < Number(cfg.knockMinMin)) return false;
-      if(typeof cfg.doneWhenShort !== 'string' || !cfg.doneWhenShort.trim()) return false;
-      return true;
-    }
-
-    function parseClockRange(value){
-      var text=String(value||'').trim();
-      var match=text.match(/^(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?\s*[-\u2013\u2014]\s*(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?$/i);
-      if(!match) return null;
-      var startHour=Number(match[1]), startMinute=Number(match[2]||0);
-      var endHour=Number(match[4]), endMinute=Number(match[5]||0);
-      var startMeridiem=(match[3]||'').replace(/\./g,'').toUpperCase();
-      var endMeridiem=(match[6]||'').replace(/\./g,'').toUpperCase();
-      if(startMinute>59 || endMinute>59) return null;
-      if((startMeridiem && !endMeridiem) || (!startMeridiem && endMeridiem)) return null;
-      function clockMinutes(hour,minute,meridiem){
-        if(meridiem){
-          if(hour<1 || hour>12) return null;
-          hour=hour%12+(meridiem==='PM'?12:0);
-        } else if(hour<0 || hour>23){ return null; }
-        return hour*60+minute;
-      }
-      var start=clockMinutes(startHour,startMinute,startMeridiem);
-      var end=clockMinutes(endHour,endMinute,endMeridiem);
-      if(start===null || end===null || start===end) return null;
-      if(end<start) end+=24*60;
-      var minutes=end-start;
-      if(minutes<=0 || minutes>24*60) return null;
-      return {scope:text,minutes:minutes};
-    }
-
-    function parseLabeledFocusFile(raw){
-      var lines=String(raw||'').replace(/\r\n?/g,'\n').split('\n');
-      var start=-1, end=-1;
-      for(var i=0;i<lines.length;i++){
-        if(start<0 && /^\s*FOCUS\s+FILE\s*$/i.test(lines[i])){ start=i; continue; }
-        if(start>=0 && /^\s*END\s+FOCUS\s+FILE\s*$/i.test(lines[i])){ end=i; break; }
-      }
-      if(start<0) return {matched:false};
-      if(end<0) return {matched:true,ok:false,code:'incomplete'};
-
-      var fields={};
-      var lists={milestones:[],jobs:[]};
-      var section='';
-      var seenSections={};
-      for(var lineIndex=start+1;lineIndex<end;lineIndex++){
-        var line=lines[lineIndex];
-        if(!line.trim()) continue;
-        var label=line.match(/^\s*(TASK|TIME|INTERNET|KEEP|AVOID|WHY|MILESTONES|JOBS)\s*:\s*(.*?)\s*$/i);
-        if(label){
-          var key=label[1].toLowerCase();
-          var value=label[2].trim();
-          if(key==='milestones' || key==='jobs'){
-            if(value || seenSections[key]) return {matched:true,ok:false,code:'sections'};
-            seenSections[key]=true;
-            section=key;
-          } else {
-            if(Object.prototype.hasOwnProperty.call(fields,key)) return {matched:true,ok:false,code:'duplicate'};
-            fields[key]=value;
-            section='';
-          }
-          continue;
-        }
-        if(section){
-          var bullet=line.match(/^\s*[-\u2013\u2014\u2022]\s+(.+?)\s*$/);
-          if(!bullet) return {matched:true,ok:false,code:'sections'};
-          lists[section].push(bullet[1].trim());
-          continue;
-        }
-        return {matched:true,ok:false,code:'format'};
-      }
-
-      var required=['task','time','internet','why'];
-      var missing=required.filter(function(key){ return !fields[key] || !fields[key].trim(); });
-      if(missing.length) return {matched:true,ok:false,code:'missing',missing:missing.map(function(key){ return key.toUpperCase(); })};
-      if(seenSections.milestones && seenSections.jobs) return {matched:true,ok:false,code:'sections'};
-      if(seenSections.milestones && !lists.milestones.length) return {matched:true,ok:false,code:'sections'};
-      if(seenSections.jobs && !lists.jobs.length) return {matched:true,ok:false,code:'sections'};
-
-      var time=parseClockRange(fields.time);
-      if(!time) return {matched:true,ok:false,code:'time'};
-      var internet=fields.internet.match(/^\s*(OFF|ONLY)\b\s*(?:[-\u2013\u2014]\s*)?(.*?)\s*$/i);
-      if(!internet || !internet[2].trim()) return {matched:true,ok:false,code:'internet'};
-      var internetMode=internet[1].toUpperCase();
-      var internetDetail=internet[2].trim();
-      var laneSites=internetMode==='ONLY'
-        ? internetDetail.split(',').map(function(item){ return item.trim(); }).filter(Boolean)
-        : [];
-      if(internetMode==='ONLY' && !laneSites.length) return {matched:true,ok:false,code:'internet'};
-
-      var jobsShape='none', jobs=[];
-      if(seenSections.milestones){ jobsShape='milestones'; jobs=lists.milestones; }
-      if(seenSections.jobs){ jobsShape='checklist'; jobs=lists.jobs; }
-      var cfg={
-        templateVersion:'2026-07-20',
-        task:fields.task.trim(),
-        scope:time.scope,
-        mode:internetMode==='OFF'?'sealed':'lane',
-        sealedPlan:internetMode==='OFF'?internetDetail:'',
-        laneSites:laneSites,
-        keepLabel:'Keep',
-        keep:(fields.keep||'').trim(),
-        whyLabel:'Avoid',
-        why:(fields.avoid||'').trim(),
-        finishFeel:fields.why.trim(),
-        jobsShape:jobsShape,
-        jobs:jobs,
-        blockMinutes:time.minutes,
-        knockMinMin:28,
-        knockMaxMin:33,
-        doneWhenShort:fields.task.trim()
-      };
-      return {matched:true,ok:true,cfg:cfg,format:'labeled'};
-    }
-
-    function parseBuilderInput(raw){
-      var labeled=parseLabeledFocusFile(raw);
-      if(labeled.matched) return labeled;
-      var cleaned=String(raw||'').trim().replace(/^```(?:json)?\s*/i,'').replace(/```\s*$/,'').trim();
-      var first=cleaned.indexOf('{'), last=cleaned.lastIndexOf('}');
-      var jsonText=(first!==-1 && last>first)?cleaned.slice(first,last+1):cleaned;
-      try {
-        var cfg=JSON.parse(jsonText);
-        if(validateFocusPlan(cfg)) return {matched:true,ok:true,cfg:cfg,format:'json'};
-        return {matched:true,ok:false,code:'legacy-shape'};
-      } catch(error){
-        return {matched:false,ok:false,code:'format'};
-      }
-    }
-
-    function builderPlanError(result){
-      var base='That doesn\u2019t look right\u2014copy the complete FOCUS FILE block, from FOCUS FILE through END FOCUS FILE.';
-      if(result && result.code==='missing') return base+' Missing required: '+result.missing.join(', ')+'.';
-      if(result && result.code==='time') return base+' TIME must be a clock range such as 9:00 AM\u201312:00 PM.';
-      if(result && result.code==='internet') return base+' INTERNET must be OFF \u2014 barrier or ONLY \u2014 comma-separated sites and apps.';
-      if(result && result.code==='sections') return base+' Include either MILESTONES or JOBS, with at least one item, but not both.';
-      return base;
-    }
-
-    window.FocusFileBuilder=Object.freeze({
-      parseClockRange:parseClockRange,
-      parseLabeledFocusFile:parseLabeledFocusFile,
-      parseBuilderInput:parseBuilderInput,
-      validateFocusPlan:validateFocusPlan,
-      errorMessage:builderPlanError
-    });
-
-    function resizeBuilderTextarea(input){
-      if(!input) return;
-      var styles=window.getComputedStyle(input);
-      var minimum=parseFloat(styles.getPropertyValue('--builder-min-height'))||112;
-      var questionBox=document.querySelector('.execution-prompt');
-      var questionText=document.getElementById('pbCode');
-      if(questionBox&&questionText){
-        var questionStyles=window.getComputedStyle(questionBox);
-        minimum=questionText.getBoundingClientRect().height+
-          (parseFloat(questionStyles.borderTopWidth)||0)+
-          (parseFloat(questionStyles.borderBottomWidth)||0);
-        input.style.setProperty('--builder-min-height',Math.ceil(minimum)+'px');
-      }
-      var borders=(parseFloat(styles.borderTopWidth)||0)+(parseFloat(styles.borderBottomWidth)||0);
-      input.style.height='auto';
-      input.style.height=Math.ceil(Math.max(minimum,input.scrollHeight+borders))+'px';
-    }
-
-    (function(){
-      var b=document.getElementById('buildBtn'); if(!b) return;
-      var form=document.getElementById('builderForm');
-      var result=document.getElementById('downloadResult');
-      var input=document.getElementById('cfgInput');
-      var msg=document.getElementById('bdMsg');
-      var fileName=document.getElementById('downloadFileName');
-      var reminderToggle=document.getElementById('reminderToggle');
-      var reminderSetup=document.getElementById('reminderSetup');
-      var customToggle=document.getElementById('reminderCustomToggle');
-      var customPanel=document.getElementById('reminderCustom');
-      var calendarChoices=document.getElementById('reminderCalendarChoices');
-      var googleCalendar=document.getElementById('reminderGoogle');
-      var otherCalendar=document.getElementById('reminderOtherCalendar');
-      var reminderStatus=document.getElementById('reminderStatus');
-      var selectedReminder=null;
-
-      function resizeInput(){ resizeBuilderTextarea(input); }
-      input.addEventListener('input',resizeInput);
-      window.addEventListener('resize',resizeInput);
-      resizeInput();
-
-      function pad(value){ return String(value).padStart(2,'0'); }
-      function localStamp(date){
-        return date.getFullYear()+pad(date.getMonth()+1)+pad(date.getDate())+'T'+pad(date.getHours())+pad(date.getMinutes())+'00';
-      }
-      function utcStamp(date){ return date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z'); }
-      function focusFileName(scope,nowValue){
-        var now=nowValue?new Date(nowValue):new Date();
-        var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var datePart=months[now.getMonth()]+' '+now.getDate();
-        var match=String(scope||'').match(/(\d{1,2})(?::(\d{2}))?\s*(a\.?m\.?|p\.?m\.?)/i);
-        if(!match) return 'Focus File \u2014 '+datePart+'.html';
-        var hour=String(Number(match[1]));
-        var minutes=match[2] && match[2]!=='00'?'.'+match[2]:'';
-        var meridian=match[3].charAt(0).toUpperCase()+'M';
-        return 'Focus File \u2014 '+datePart+', '+hour+minutes+' '+meridian+'.html';
-      }
-      function escapeCalendarText(value){
-        return String(value).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
-      }
-      function foldCalendarLine(line){
-        var parts=[];
-        while(line.length>72){ parts.push(line.slice(0,72)); line=line.slice(72); }
-        parts.push(line);
-        return parts.join('\r\n ');
-      }
-      function nextReminderDate(repeat,time,nowValue){
-        var pieces=String(time||'19:00').split(':');
-        var hour=Number(pieces[0]), minute=Number(pieces[1]);
-        var now=nowValue?new Date(nowValue):new Date();
-        var start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),hour,minute,0,0);
-        if(start<=now) start.setDate(start.getDate()+1);
-        if(repeat==='weekdays'){
-          while(start.getDay()===0 || start.getDay()===6) start.setDate(start.getDate()+1);
-        }
-        return start;
-      }
-      function buildReminderCalendar(repeat,time,now,uid){
-        var match=String(time||'').match(/^(\d{2}):(\d{2})$/);
-        if(!match || Number(match[1])>23 || Number(match[2])>59) return '';
-        var start=nextReminderDate(repeat,time,now);
-        var lines=[
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Focus File//Evening Reminder//EN',
-          'CALSCALE:GREGORIAN',
-          'METHOD:PUBLISH',
-          'BEGIN:VEVENT',
-          'UID:'+uid,
-          'DTSTAMP:'+utcStamp(now),
-          'DTSTART:'+localStamp(start),
-          'DURATION:PT5M',
-          repeat==='weekdays'?'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR':'RRULE:FREQ=DAILY',
-          'SUMMARY:'+escapeCalendarText("Make tomorrow's Focus File"),
-          'DESCRIPTION:'+escapeCalendarText("Five questions, then you're done.\nhttps://www.focusfile.org/#setup"),
-          'URL:https://www.focusfile.org/#setup',
-          'TRANSP:TRANSPARENT',
-          'BEGIN:VALARM',
-          'TRIGGER:PT0M',
-          'ACTION:DISPLAY',
-          'DESCRIPTION:'+escapeCalendarText("Make tomorrow's Focus File"),
-          'END:VALARM',
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ];
-        return lines.map(foldCalendarLine).join('\r\n')+'\r\n';
-      }
-      function googleReminderUrl(repeat,time,nowValue){
-        var start=nextReminderDate(repeat,time,nowValue);
-        var end=new Date(start.getTime()+5*60*1000);
-        var recurrence=repeat==='weekdays'?'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR':'RRULE:FREQ=DAILY';
-        var params=new URLSearchParams({
-          action:'TEMPLATE',
-          text:"Make tomorrow's Focus File",
-          details:"Five questions, then you're done.\nhttps://www.focusfile.org/#setup",
-          dates:utcStamp(start)+'/'+utcStamp(end),
-          recur:recurrence
-        });
-        return 'https://calendar.google.com/calendar/r/eventedit?'+params.toString();
-      }
-      function chooseReminder(repeat,time,source){
-        if(!/^\d{2}:\d{2}$/.test(String(time||''))){
-          reminderStatus.textContent='Choose a reminder time first.';
-          return;
-        }
-        selectedReminder={repeat:repeat,time:time,source:source};
-        calendarChoices.hidden=false;
-        reminderStatus.textContent='';
-        calendarChoices.querySelector('button').focus();
-        track('select_calendar_reminder_'+source);
-      }
-      function downloadReminder(repeat,time,source){
-        var now=new Date();
-        var uid=((window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)))+'@focusfile.org';
-        var calendar=buildReminderCalendar(repeat,time,now,uid);
-        if(!calendar){
-          reminderStatus.textContent='Choose a reminder time first.';
-          return;
-        }
-        var calendarUrl=URL.createObjectURL(new Blob([calendar],{type:'text/calendar;charset=utf-8'}));
-        var link=document.createElement('a');
-        link.href=calendarUrl;
-        link.download='focus-file-evening-reminder.ics';
-        document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        setTimeout(function(){ URL.revokeObjectURL(calendarUrl); },1000);
-        track('download_other_calendar_reminder_'+source);
-        reminderStatus.textContent='Calendar file saved. Open it to add the reminder.';
-      }
-
-      b.addEventListener('click', function(){
-        var raw=(input.value||'').trim();
-        msg.className='bd-msg';
-        if(!raw){ track('builder_error_empty'); msg.className='bd-msg err'; msg.textContent='Paste the Focus File plan first.'; return; }
-        track('funnel_plan_submit');
-        if(/# Focus File\s*[\u2014-]\s*the setup prompt|AI assistants: if this arrived|INSTRUCTIONS FOR THE AI:|Run a short setup, then output a Focus File plan|\bQ1\s*[\u2014-]\s*MODE/i.test(raw)){
-          track('builder_error_prompt');
-          msg.className='bd-msg err';
-          msg.textContent="That's the interview prompt, not the completed Focus File plan. Paste it into a new AI chat (ChatGPT, Claude, or Gemini), answer the questions, then paste the plan it gives you here.";
-          return;
-        }
-        var parsed=parseBuilderInput(raw);
-        if(!parsed.ok){
-          track(parsed.code==='legacy-shape'?'builder_error_shape':'builder_error_json');
-          msg.className='bd-msg err';
-          msg.textContent=builderPlanError(parsed);
-          return;
-        }
-        var cfg=parsed.cfg;
-        cfg.fileId=(window.crypto && crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
-        cfg.learningHistory=[];
-        msg.textContent='Building\u2026';
-        fetch('focus-file.html').then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(tpl){
-          var safeCfg=JSON.stringify(cfg,null,2).replace(/</g,'\\u003c');
-          var island='<script id="focus-config" type="application/json">\n'+safeCfg+'\n<\/script>';
-          var out=tpl.replace(/<script id="focus-config" type="application\/json">[\s\S]*?<\/script>/, function(){ return island; });
-          if(out===tpl){ track('builder_error_template'); msg.className='bd-msg err'; msg.textContent='Could not build the file. Please email hello@focusfile.org.'; return; }
-          var fname=focusFileName(cfg.scope,new Date());
-          var url=URL.createObjectURL(new Blob([out],{type:'text/html'}));
-          var a=document.createElement('a'); a.href=url; a.download=fname;
-          document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          setTimeout(function(){ URL.revokeObjectURL(url); },1000);
-          track('funnel_file_created');
-          trackCreationMilestone();
-          fileName.textContent=fname;
-          msg.textContent='';
-          form.hidden=true;
-          result.hidden=false;
-          result.setAttribute('tabindex','-1');
-          result.focus();
-        }).catch(function(){ track('builder_error_load'); msg.className='bd-msg err'; msg.textContent='Could not load the template. Check your connection and try again.'; });
-      });
-
-      reminderToggle.addEventListener('click', function(){
-        var willOpen=reminderSetup.hidden;
-        reminderSetup.hidden=!willOpen;
-        reminderToggle.setAttribute('aria-expanded',String(willOpen));
-        if(willOpen){ track('open_calendar_reminder'); reminderSetup.querySelector('button').focus(); }
-      });
-      document.querySelectorAll('[data-reminder-repeat]').forEach(function(choice){
-        choice.addEventListener('click', function(){
-          chooseReminder(choice.dataset.reminderRepeat,choice.dataset.reminderTime,choice.dataset.reminderRepeat);
-        });
-      });
-      customToggle.addEventListener('click', function(){
-        var willOpen=customPanel.hidden;
-        customPanel.hidden=!willOpen;
-        customToggle.setAttribute('aria-expanded',String(willOpen));
-        if(willOpen){ track('open_calendar_reminder_custom'); document.getElementById('reminderTime').focus(); }
-      });
-      document.getElementById('reminderCustomAdd').addEventListener('click', function(){
-        chooseReminder(document.getElementById('reminderRepeat').value,document.getElementById('reminderTime').value,'custom');
-      });
-      googleCalendar.addEventListener('click', function(){
-        if(!selectedReminder) return;
-        track('open_google_calendar_reminder_'+selectedReminder.source);
-        window.open(googleReminderUrl(selectedReminder.repeat,selectedReminder.time,new Date()),'_blank','noopener');
-        reminderStatus.textContent='Google Calendar opened. Review the reminder, then save it.';
-      });
-      otherCalendar.addEventListener('click', function(){
-        if(!selectedReminder) return;
-        downloadReminder(selectedReminder.repeat,selectedReminder.time,selectedReminder.source);
-      });
-      document.getElementById('buildAnother').addEventListener('click', function(){
-        result.hidden=true;
-        form.hidden=false;
-        input.value='';
-        resizeInput();
-        reminderSetup.hidden=true;
-        reminderToggle.setAttribute('aria-expanded','false');
-        customPanel.hidden=true;
-        customToggle.setAttribute('aria-expanded','false');
-        calendarChoices.hidden=true;
-        selectedReminder=null;
-        reminderStatus.textContent='';
-        input.focus();
-      });
-    })();
-
-    function copyPrompt(btn){
-      track('funnel_copy_interview');
-      /* The embedded copy escapes the closing script tag so it can live inside a
-         text/plain container. Undo that on the way out, or every generated file
-         carries an unclosed tag and dies silently. */
-      var text = document.getElementById('fullPrompt').textContent.replace(/<\\\/script>/g, '<\/script>');
-      function showCopied(){
-        document.querySelector('.pb-body').classList.add('copied');
-        var o = btn.innerHTML; btn.innerHTML = '✓&nbsp;&nbsp;Copied'; setTimeout(function(){ btn.innerHTML = o; }, 1800);
-      }
-      function showManual(){
-        var o = btn.innerHTML; btn.textContent = 'Copy manually';
-        window.prompt('Copy the interview prompt:', text);
-        setTimeout(function(){ btn.innerHTML = o; }, 1800);
-      }
-      function fallback(){
-        var ok=false, ta;
-        try {
-          ta=document.createElement('textarea'); ta.value=text;
-          ta.style.position='fixed'; ta.style.opacity='0';
-          document.body.appendChild(ta); ta.focus(); ta.select();
-          ok=document.execCommand('copy');
-        } catch(e) {}
-        if(ta && ta.parentNode) ta.parentNode.removeChild(ta);
-        if(ok) showCopied(); else showManual();
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(showCopied, fallback);
-      } else { fallback(); }
-    }
-    document.getElementById('copyAgainBtn').addEventListener('click', function(){ copyPrompt(this); });
-
-    // Fixed names only: never include task text, interview answers, plan contents, or filenames.
-    function track(name){
-      try {
-        if(typeof window.gtag === 'function'){
-          window.gtag('event', name);
-        }
-      } catch(e) {}
-    }
-
-    // Content-free browser state: records only whether this browser has reached
-    // its first and second successful creation. No plan or task data is stored.
-    function trackCreationMilestone(){
-      try {
-        var key='focusfile_creation_stage';
-        var stage=window.localStorage.getItem(key);
-        if(!stage){
-          track('funnel_first_file_created');
-          window.localStorage.setItem(key,'first');
-        } else if(stage==='first'){
-          track('funnel_repeat_file_created');
-          window.localStorage.setItem(key,'repeat');
-        }
-      } catch(e) {}
-    }
-
-    // the three AI links (revealed after copy)
-    document.querySelectorAll('.ac-links a').forEach(function(a){
-      a.addEventListener('click', function(){
-        track('funnel_open_ai_' + a.dataset.ai);
-      });
-    });
-    // Keep sample previews in the current tab on small screens. Some mobile
-    // browsers treat a new-tab navigation to a standalone HTML file as a download.
-    var sampleLinks=document.querySelectorAll('a[href^="sample-"]');
-    if(window.matchMedia && window.matchMedia('(max-width: 700px)').matches){
-      sampleLinks.forEach(function(a){ a.removeAttribute('target'); });
-    }
-    sampleLinks.forEach(function(a){
-      a.addEventListener('click', function(){
-        var sample=(a.getAttribute('href').match(/sample-([a-z]+)\.html/) || [,'unknown'])[1];
-        track('download_sample_' + sample);
-      });
-    });
-    // feedback mailto
-    document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
-      a.addEventListener('click', function(){ track('send_feedback'); });
-    });
-
-    // share the site
-    document.getElementById('shareBtn').addEventListener('click', function(){
-      track('share_site');
-      var btn = this;
-      var publicUrl = 'https://www.focusfile.org/';
-      var shareData = {
-        title: 'Focus File',
-        text: 'Focus File turns one concrete block of work into a focused session and a private record of what helped, what got in the way, and where you stopped.',
-        url: publicUrl
-      };
-      function manualShare(){
-        var o=btn.textContent; btn.textContent='copy manually';
-        window.prompt('Copy this link:', publicUrl);
-        setTimeout(function(){ btn.textContent=o; },1800);
-      }
-      if (navigator.share) {
-        navigator.share(shareData).catch(function(){});
-      } else if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(publicUrl).then(function(){
-          var o = btn.textContent; btn.textContent = 'link copied ✓';
-          setTimeout(function(){ btn.textContent = o; }, 1800);
-        }, manualShare);
-      } else manualShare();
-    });
-
-    // modals
-    var bg = document.getElementById('modalBg'), content = document.getElementById('modalContent');
-    var modalBox = document.getElementById('modalBox'), modalClose = document.getElementById('modalClose');
-    var notesDrop = document.getElementById('notesDrop');
-    var lastFocused = null;
-    document.querySelectorAll('[data-modal]').forEach(function(b){
-      b.addEventListener('click', function(){
-        track('open_note_' + b.dataset.modal);
-        content.innerHTML = document.getElementById('m-' + b.dataset.modal).textContent;
-        var modalTitle = content.querySelector('h2');
-        if(modalTitle) modalTitle.id = 'modalTitle';
-        // if the trigger is inside the (now-closing) Notes dropdown, return focus to the Notes button
-        lastFocused = notesDrop.contains(b) ? document.getElementById('notesBtn') : b;
-        bg.classList.add('on');
-        notesDrop.classList.remove('on');    // close dropdown if open
-        document.getElementById('notesBtn').setAttribute('aria-expanded', 'false');
-        modalClose.focus();                  // move focus into the dialog
-      });
-    });
-    if (window.location.hash === '#privacy') {
-      var privacyTrigger = document.querySelector('[data-modal="privacy"]');
-      if (privacyTrigger) privacyTrigger.click();
-    }
-    function closeModal(){
-      if (!bg.classList.contains('on')) return;
-      bg.classList.remove('on');
-      if (lastFocused && lastFocused.focus) lastFocused.focus();  // restore focus
-      lastFocused = null;
-    }
-    modalClose.addEventListener('click', closeModal);
-    bg.addEventListener('click', function(e){ if(e.target===bg) closeModal(); });
-    document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape') {
-        if (bg.classList.contains('on')) closeModal();
-        else if (notesDrop.classList.contains('on')) {
-          notesDrop.classList.remove('on');
-          notesBtn.setAttribute('aria-expanded', 'false');
-          notesBtn.focus();
-        }
-        return;
-      }
-      // trap Tab within the open modal
-      if (e.key === 'Tab' && bg.classList.contains('on')) {
-        var focusable = modalBox.querySelectorAll('button, a[href], input, textarea, [tabindex]:not([tabindex="-1"])');
-        if (!focusable.length) return;
-        var first = focusable[0], last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      }
-    });
-
-    // Notes dropdown toggle (mobile)
-    var notesBtn = document.getElementById('notesBtn');
-    notesBtn.addEventListener('click', function(e){
-      e.stopPropagation();
-      var open = notesDrop.classList.toggle('on');
-      notesBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    notesBtn.addEventListener('keydown', function(e){
-      if(e.key==='ArrowDown'){
-        e.preventDefault();
-        notesDrop.classList.add('on');
-        notesBtn.setAttribute('aria-expanded','true');
-        var first=notesDrop.querySelector('button'); if(first) first.focus();
-      }
-    });
-    Array.prototype.slice.call(notesDrop.querySelectorAll('[role="menuitem"]')).forEach(function(item, index, items){
-      item.addEventListener('keydown', function(e){
-        var next=index;
-        if(e.key==='ArrowDown') next=(index+1)%items.length;
-        else if(e.key==='ArrowUp') next=(index-1+items.length)%items.length;
-        else if(e.key==='Home') next=0;
-        else if(e.key==='End') next=items.length-1;
-        else if(e.key==='Escape'){
-          e.preventDefault(); notesDrop.classList.remove('on'); notesBtn.setAttribute('aria-expanded','false'); notesBtn.focus(); return;
-        } else return;
-        e.preventDefault(); items[next].focus();
-      });
-    });
-    document.querySelectorAll('[data-section-link="coaches"]').forEach(function(link){
-      link.addEventListener('click', function(){
-        track('open_coaches_section');
-        notesDrop.classList.remove('on');
-        notesBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
-    document.addEventListener('click', function(e){
-      if(!notesDrop.contains(e.target) && e.target!==notesBtn) {
-        notesDrop.classList.remove('on');
-        notesBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
-  </script>
-</body></html>
+</body>
+</html>
