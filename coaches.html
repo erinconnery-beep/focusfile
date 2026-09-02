@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus File for coaches and therapists</title>
+  <meta name="description" content="A private, between-session accountability tool clients can use without an account.">
+  <link rel="icon" type="image/svg+xml" href="focus-file-logo.svg">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --paper:#fbfbfa; --paper-line:#aeb6b1; --hair:#d5d9d6;
+      --ink:#17201c; --ink-soft:#3f4b45; --ink-faint:#6c7772;
+      --pine:#2f6a44; --pine-soft:#275739; --pine-tint:#edf3ef;
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      --mono:"SF Mono",ui-monospace,Menlo,monospace;
+    }
+    html { scroll-behavior:smooth; }
+    body { min-height:100vh; background:var(--paper); color:var(--ink);
+      font-family:var(--sans); line-height:1.45; }
+    a:focus-visible { outline:2px solid var(--pine); outline-offset:3px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:20px;
+      padding:18px 32px; border-bottom:1px solid var(--hair); }
+    .logo { display:inline-flex; align-items:center; gap:8px; color:var(--pine);
+      font-size:16px; font-weight:700; text-decoration:none; }
+    .logo img { flex:0 0 auto; }
+    nav { display:flex; align-items:center; gap:20px; }
+    nav a { padding:4px 2px; color:var(--ink-soft); font-size:14px; text-decoration:none; }
+    nav a:hover,nav a[aria-current="page"] { color:var(--ink); }
+    nav a[aria-current="page"] { font-weight:700; }
+    .freetag { padding:6px 12px; background:var(--pine-tint); color:var(--pine);
+      font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+    main { width:100%; max-width:960px; margin:0 auto; padding:0 28px 38px; }
+    .hero { padding:48px 0 42px; border-bottom:2px solid var(--ink); }
+    .kicker { display:block; margin-bottom:12px; color:var(--pine); font-family:var(--mono);
+      font-size:11px; font-weight:700; letter-spacing:.17em; text-transform:uppercase; }
+    h1 { max-width:780px; font-size:clamp(42px,6vw,66px); font-weight:750; line-height:1;
+      letter-spacing:-.045em; }
+    .hero p { max-width:720px; margin-top:19px; color:var(--ink-soft);
+      font-size:clamp(17px,2vw,21px); line-height:1.5; }
+    .primary-link { display:inline-flex; align-items:center; justify-content:center; min-height:46px;
+      margin-top:24px; padding:12px 20px; background:var(--pine); color:#fff;
+      font-size:14px; font-weight:700; text-decoration:none; }
+    .primary-link:hover { background:var(--pine-soft); }
+    .section { padding:36px 0; border-bottom:2px solid var(--ink); }
+    .section h2 { max-width:720px; margin-bottom:23px; font-size:clamp(27px,4vw,38px);
+      line-height:1.1; letter-spacing:-.03em; }
+    .workflow { border:2px solid var(--ink); background:#fff; }
+    .workflow-step { display:grid; grid-template-columns:180px minmax(0,1fr); gap:28px;
+      padding:22px 24px; }
+    .workflow-step + .workflow-step { border-top:1px solid var(--paper-line); }
+    .workflow-step h3 { color:var(--pine); font-family:var(--mono); font-size:11px;
+      letter-spacing:.15em; line-height:1.5; text-transform:uppercase; }
+    .workflow-step strong { display:block; margin-bottom:5px; font-size:17px; }
+    .workflow-step p { color:var(--ink-soft); font-size:14px; line-height:1.55; }
+    .use-cases { display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+      border:2px solid var(--ink); background:#fff; }
+    .use-case { padding:20px 18px; }
+    .use-case + .use-case { border-left:1px solid var(--paper-line); }
+    .use-case span { display:block; margin-bottom:10px; color:var(--pine); font-family:var(--mono);
+      font-size:10px; font-weight:700; letter-spacing:.16em; }
+    .use-case strong { display:block; font-size:15px; line-height:1.35; }
+    .record-grid { display:grid; grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);
+      gap:34px; align-items:start; }
+    .record-copy p { color:var(--ink-soft); font-size:15px; line-height:1.6; }
+    .record-card { border:2px solid var(--ink); background:#fff; }
+    .record-title { padding:17px 19px; border-bottom:1px solid var(--paper-line);
+      font-size:17px; font-weight:750; }
+    .record-lines { padding:17px 19px 19px; }
+    .record-lines p { display:grid; grid-template-columns:145px minmax(0,1fr); gap:12px;
+      color:var(--ink-soft); font-size:13.5px; line-height:1.5; }
+    .record-lines p + p { margin-top:8px; }
+    .record-lines b { color:var(--ink); }
+    .privacy { display:grid; grid-template-columns:210px minmax(0,1fr); gap:30px;
+      padding:25px; border:2px solid var(--ink); background:var(--pine-tint); }
+    .privacy h2 { margin:0; color:var(--pine); font-family:var(--mono); font-size:11px;
+      letter-spacing:.17em; line-height:1.5; text-transform:uppercase; }
+    .privacy strong { display:block; margin-bottom:7px; font-size:18px; }
+    .privacy p { color:var(--ink-soft); font-size:14px; line-height:1.55; }
+    .privacy a { display:inline-block; margin-top:8px; color:var(--pine); font-size:13px;
+      font-weight:700; text-decoration:none; }
+    footer { display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap;
+      max-width:960px; margin:0 auto; padding:22px 28px 34px; color:var(--ink-faint);
+      font-size:12px; }
+    footer a { color:var(--pine); font-weight:700; text-decoration:none; }
+    @media (max-width:700px) {
+      header { padding:16px 17px; }
+      nav { gap:13px; }
+      nav a:first-child { display:none; }
+      .freetag { display:none; }
+      main { padding:0 17px 28px; }
+      .hero { padding:35px 0 30px; }
+      h1 { font-size:clamp(37px,11vw,51px); }
+      .section { padding:29px 0; }
+      .workflow-step,.record-grid,.privacy { grid-template-columns:1fr; }
+      .workflow-step { gap:7px; padding:18px 17px; }
+      .record-grid { gap:20px; }
+      .use-cases { grid-template-columns:1fr 1fr; }
+      .use-case + .use-case { border-left:0; }
+      .use-case:nth-child(even) { border-left:1px solid var(--paper-line); }
+      .use-case:nth-child(n+3) { border-top:1px solid var(--paper-line); }
+      .record-lines p { grid-template-columns:1fr; gap:2px; }
+      .privacy { gap:10px; padding:20px 17px; }
+      footer { padding:20px 17px 30px; }
+    }
+  </style>
+  <!-- Google Analytics receives page data only. No Focus File content is sent. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXHDBXCQ8E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LXHDBXCQ8E', { allow_google_signals:false, allow_ad_personalization_signals:false });
+  </script>
+</head>
+<body>
+  <header>
+    <a class="logo" href="index.html"><img src="focus-file-logo.svg" width="22" height="22" alt="">Focus File</a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="coaches.html" aria-current="page">For coaches &amp; therapists</a>
+    </nav>
+    <span class="freetag">Free — no account</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="kicker">For coaches and therapists</span>
+      <h1>Help clients carry one commitment between sessions.</h1>
+      <p>Clients use a private Focus File between sessions, then choose whether to bring back a record of what helped, what pulled them off task, and where they will begin next.</p>
+      <a class="primary-link" href="index.html#setup">Try Focus File yourself</a>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <span class="kicker">How it works</span>
+      <h2>A private tool from one session to the next</h2>
+      <div class="workflow">
+        <div class="workflow-step">
+          <h3>01 &middot; In session</h3>
+          <div><strong>Build together</strong><p>Name one objective, the pattern that gets in the way, and the boundary that can interrupt it.</p></div>
+        </div>
+        <div class="workflow-step">
+          <h3>02 &middot; Between sessions</h3>
+          <div><strong>Use the file</strong><p>The client keeps the commitment visible, works through it, and records what actually happened.</p></div>
+        </div>
+        <div class="workflow-step">
+          <h3>03 &middot; Next session</h3>
+          <div><strong>Review the evidence</strong><p>Discuss what worked, what pulled focus, and the best starting point for the next attempt.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="kicker">Where it helps</span>
+      <h2>Structure for the work between sessions</h2>
+      <div class="use-cases">
+        <div class="use-case"><span>01</span><strong>Task initiation</strong></div>
+        <div class="use-case"><span>02</span><strong>Externalizing intentions</strong></div>
+        <div class="use-case"><span>03</span><strong>Recording obstacles</strong></div>
+        <div class="use-case"><span>04</span><strong>Between-session follow-through</strong></div>
+      </div>
+    </section>
+
+    <section class="section record-grid">
+      <div class="record-copy">
+        <span class="kicker">The result</span>
+        <h2>A useful record of what actually happened</h2>
+        <p>The file records time and progress, then asks three short reflection questions. The client can keep the result private, download it, or share it with you.</p>
+      </div>
+      <div class="record-card" aria-label="Example Focus File result">
+        <div class="record-title">Aug 25 &middot; Submit three applications</div>
+        <div class="record-lines">
+          <p><b>Time</b><span>74 minutes spent vs 90 minutes expected</span></p>
+          <p><b>Progress</b><span>3 of 3 applications submitted</span></p>
+          <p><b>Pulled off</b><span>Rewriting the same cover-letter paragraph</span></p>
+          <p><b>Worked well</b><span>Starting with the easiest application</span></p>
+          <p><b>Next starting point</b><span>Open the saved listing for Pine &amp; Co.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="privacy">
+        <h2>Privacy by default</h2>
+        <div>
+          <strong>No accounts. No server storage. No way for Focus File to read what is written.</strong>
+          <p>Each file and its log stay on the client&rsquo;s device unless they choose to share them.</p>
+          <a href="index.html#privacy">Read privacy details &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Free to use and adapt &middot; MIT licensed</span>
+    <span><a href="index.html">Make a Focus File</a> &middot; <a href="mailto:hello@focusfile.org">Send feedback</a></span>
+  </footer>
+</body>
+</html>

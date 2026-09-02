@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Smith River Ranch — Interactive Property Map</title>
+  <meta name="description" content="Interactive property map for Smith River Ranch in Meagher County, Montana.">
+  <script>
+    (function(){
+      if(window.top!==window.self)return;
+      var allowed=false;
+      try{allowed=sessionStorage.getItem('srr_access')==='1'}catch(e){}
+      if(!allowed)location.replace('index.html#map');
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/leaflet/leaflet.css">
+  <style>
+    @font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+    @font-face{font-family:'Inter';src:url('assets/fonts/inter-300.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+    @font-face{font-family:'Inter';src:url('assets/fonts/inter-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+    :root {
+      --ink: #11100d;
+      --ink-soft: #18231d;
+      --sand: #d9d0c1;
+      --sand-dim: #c9c1b5;
+      --cream: #f3eee5;
+      --copper: #c87850;
+      --gold: #c0a267;
+      --gold-light: #dbc38f;
+      --water: #43a6c6;
+      --line: rgba(192, 162, 103, 0.34);
+      --sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: var(--sans);
+    }
+
+    body { display: grid; grid-template-rows: 74px minmax(0, 1fr) 78px; }
+
+    .topbar {
+      position: relative;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 32px;
+      background: rgba(17, 16, 13, 0.97);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
+
+    .monogram {
+      display: block;
+      width: auto;
+      height: 42px;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .brand-copy { min-width: 0; }
+    .brand-name {
+      margin: 0;
+      color: var(--cream);
+      font-family: var(--serif);
+      font-size: clamp(18px, 2vw, 27px);
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .brand-place {
+      margin: 7px 0 0;
+      color: var(--sand-dim);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .actions { display: flex; align-items: center; gap: 10px; }
+
+    .map-button {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 17px;
+      border: 1px solid rgba(219, 195, 143, 0.42);
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--sand);
+      cursor: pointer;
+      font: 500 9px/1 var(--sans);
+      text-decoration: none;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .map-button:hover,
+    .map-button:focus-visible {
+      border-color: var(--sand);
+      background: rgba(216, 193, 156, 0.08);
+      outline: none;
+    }
+
+    .map-shell { position: relative; min-height: 0; }
+    #map { width: 100%; height: 100%; background:#252820 url('assets/boundary-map-cropped.jpg') center/cover no-repeat; }
+
+    .coordinate-chip {
+      position: absolute;
+      z-index: 450;
+      top: 18px;
+      right: 18px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: rgba(23, 22, 18, 0.88);
+      color: var(--sand-dim);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .map-status {
+      position: absolute;
+      z-index: 460;
+      left: 50%;
+      bottom: 18px;
+      display: none;
+      transform: translateX(-50%);
+      max-width: calc(100% - 36px);
+      padding: 10px 14px;
+      border: 1px solid rgba(200, 120, 80, 0.55);
+      background: rgba(23, 22, 18, 0.94);
+      color: var(--cream);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .legend {
+      position: relative;
+      z-index: 500;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 26px;
+      padding: 0 32px;
+      background: var(--ink);
+      border-top: 1px solid var(--line);
+    }
+
+    .legend-heading {
+      display: grid;
+      gap: 4px;
+      padding-right: 26px;
+      border-right: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    .legend-title {
+      color: var(--sand);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .legend-subtitle {
+      color: #897d6c;
+      font-size: 7px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .legend-items {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      min-width: 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--ink);
+    }
+
+    .legend-item { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; }
+    .legend-line {display:block;width:27px;height:0;flex:0 0 auto;border-top:3px solid var(--water)}
+    .legend-boundary {display:block;width:28px;height:13px;flex:0 0 auto;border:2px solid var(--gold);background:rgba(192,162,103,.2)}
+    .legend-section {display:block;width:28px;height:13px;flex:0 0 auto;border:1px dashed var(--gold-light);background:rgba(219,195,143,.04)}
+    .legend-house-group {display:flex;align-items:center;width:38px;flex:0 0 auto}
+    .legend-house-group .legend-dot{width:12px;height:12px;margin-right:-1px;border-width:2px;box-shadow:none}
+    .legend-house-group .legend-dot:nth-child(1){background:var(--copper)}
+    .legend-house-group .legend-dot:nth-child(2){background:var(--gold-light)}
+    .legend-house-group .legend-dot:nth-child(3){background:var(--sand)}
+
+    .legend-dot,
+    .structure-dot {
+      position: relative;
+      display: block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--sand);
+      box-shadow: 0 0 0 3px var(--sand);
+    }
+
+    .legend-label {
+      color: var(--cream);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .legend-note {
+      color: #766b5a;
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .pending{opacity:.58}
+
+    .leaflet-control-zoom {
+      border: 1px solid rgba(216, 193, 156, 0.35) !important;
+      border-radius: 0 !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26) !important;
+    }
+
+    .leaflet-control-zoom a {
+      width: 42px !important;
+      height: 42px !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgba(216, 193, 156, 0.2) !important;
+      border-radius: 0 !important;
+      background: rgba(17, 16, 13, 0.94) !important;
+      color: var(--sand) !important;
+      font: 300 25px/42px var(--sans) !important;
+    }
+
+    .leaflet-control-zoom a:last-child { border-bottom: 0 !important; }
+
+    .leaflet-control-attribution {
+      background: rgba(23, 22, 18, 0.78) !important;
+      color: #8f806b !important;
+      font-size: 9px !important;
+    }
+
+    .leaflet-control-attribution a { color: var(--sand) !important; }
+
+    .ranch-house-icon,
+    .caretaker-house-icon,
+    .guest-house-icon { background: transparent; border: 0; }
+
+    .ranch-house-icon .structure-dot {
+      width: 22px;
+      height: 22px;
+      background: var(--copper);
+      box-shadow: 0 0 0 3px var(--copper), 0 5px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .caretaker-house-icon .structure-dot {
+      width: 22px;
+      height: 22px;
+      background: var(--gold-light);
+      box-shadow: 0 0 0 3px var(--gold-light), 0 5px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .guest-house-icon .structure-dot {
+      width: 22px;
+      height: 22px;
+      background: var(--sand);
+      box-shadow: 0 0 0 3px var(--sand), 0 5px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .structure-label {
+      border: 1px solid rgba(216, 193, 156, 0.38) !important;
+      border-radius: 0 !important;
+      background: rgba(23, 22, 18, 0.9) !important;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32) !important;
+      color: var(--sand) !important;
+      font: 650 11px/1 var(--sans) !important;
+      letter-spacing: 0.2em !important;
+      padding: 10px 13px !important;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .structure-label::before { display: none !important; }
+    .zoomed-out .structure-label { display: none !important; }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      border-radius: 0 !important;
+      background: rgba(23, 22, 18, 0.97) !important;
+      color: var(--cream) !important;
+    }
+
+    .leaflet-popup-content { margin: 17px 19px !important; }
+    .popup-eyebrow { color: var(--copper); font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+    .popup-title { margin: 7px 0 8px; color: var(--cream); font-family: var(--serif); font-size: 22px; font-weight: 400; }
+    .popup-coords { color: var(--sand-dim); font-size: 10px; font-variant-numeric: tabular-nums; }
+    .popup-note { max-width: 220px; margin-top: 12px; color: #a99d89; font-size: 11px; line-height: 1.55; }
+    .popup-link{display:inline-block;margin-top:13px;border-bottom:1px solid var(--gold);color:var(--gold-light);font-size:9px;font-weight:500;letter-spacing:.14em;text-decoration:none;text-transform:uppercase}
+    .water-label{border:0!important;background:rgba(17,16,13,.82)!important;box-shadow:none!important;color:#a9d9e7!important;font:500 10px/1 var(--sans)!important;letter-spacing:.12em!important;padding:6px 8px!important;text-transform:uppercase}
+    .water-label::before{display:none!important}
+
+    .map-tools {
+      position: absolute;
+      z-index: 480;
+      top: 18px;
+      left: 72px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .map-tool { position: relative; }
+
+    .tool-button {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 13px;
+      min-height: 40px;
+      padding: 0 13px;
+      border: 1px solid rgba(216, 193, 156, 0.42);
+      background: rgba(17, 16, 13, 0.93);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+      color: var(--sand);
+      cursor: pointer;
+      font: 600 9px/1 var(--sans);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .tool-button:hover,
+    .tool-button:focus-visible,
+    .tool-button[aria-expanded="true"] {
+      border-color: var(--gold-light);
+      color: var(--cream);
+      outline: none;
+    }
+
+    .tool-glyph { color: var(--gold-light); font-size: 14px; font-weight: 300; line-height: 1; }
+    .tool-button[aria-expanded="true"] .tool-glyph { transform: rotate(45deg); }
+
+    .tool-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      display: none;
+      width: 264px;
+      padding: 17px;
+      border: 1px solid rgba(216, 193, 156, 0.38);
+      background: rgba(17, 16, 13, 0.96);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+    }
+
+    .map-tool.open .tool-panel { display: block; }
+    .map-tool:last-child .tool-panel { width: 292px; }
+
+    .tool-heading {
+      display: block;
+      margin: 0 0 11px;
+      color: #8f816d;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .view-list { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+
+    .view-choice {
+      appearance: none;
+      min-height: 42px;
+      padding: 9px;
+      border: 1px solid rgba(216, 193, 156, 0.24);
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--sand);
+      cursor: pointer;
+      font: 500 9px/1.3 var(--sans);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .view-choice:hover,
+    .view-choice:focus-visible { border-color: var(--gold); background: rgba(192, 162, 103, 0.1); color: var(--cream); outline: none; }
+
+    .control-group + .control-group { margin-top: 16px; padding-top: 15px; border-top: 1px solid rgba(216, 193, 156, 0.18); }
+    .control-list { display: grid; gap: 4px; }
+
+    .control-choice {
+      display: grid;
+      grid-template-columns: 15px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 31px;
+      color: var(--sand);
+      cursor: pointer;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .control-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .control-mark { width: 13px; height: 13px; border: 1px solid #776b5a; background: rgba(255, 255, 255, 0.02); }
+    .control-choice input:checked + .control-mark { border-color: var(--gold-light); background: var(--gold); box-shadow: inset 0 0 0 3px var(--ink); }
+    .control-choice input[type="radio"] + .control-mark { border-radius: 50%; }
+    .control-choice input:focus-visible + .control-mark { outline: 2px solid var(--cream); outline-offset: 2px; }
+    .control-meta { color: #746958; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .tool-note {
+      margin: 15px 0 0;
+      padding-top: 13px;
+      border-top: 1px solid rgba(216, 193, 156, 0.18);
+      color: #8f816d;
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 720px) {
+      body { grid-template-rows: 64px minmax(0, 1fr) 64px; }
+      .topbar { padding: 0 15px; }
+      .monogram { height: 36px; }
+      .brand { gap: 11px; }
+      .brand-name { font-size: 16px; letter-spacing: 0.13em; }
+      .brand-place { margin-top: 5px; font-size: 7px; letter-spacing: 0.18em; }
+      .map-button { min-height: 38px; padding: 0 12px; font-size: 9px; letter-spacing: 0.14em; }
+      .coordinate-chip { top: 12px; right: 12px; font-size: 8px; }
+      .map-tools { top: 12px; left: 64px; gap: 6px; }
+      .tool-button { min-height: 38px; padding: 0 11px; font-size: 8px; letter-spacing: 0.14em; }
+      .tool-panel { width: min(264px, calc(100vw - 80px)); }
+      .map-tool:last-child .tool-panel { width: min(292px, calc(100vw - 80px)); left: auto; right: 0; }
+      .legend { grid-template-columns:auto minmax(0,1fr); gap:16px; padding:0 16px; }
+      .legend-heading{padding-right:16px}
+      .legend-items{gap:22px}
+      .legend-title { font-size: 8px; }
+      .legend-label { font-size: 9px; }
+      .legend-subtitle,.legend-note { display: none; }
+      .leaflet-control-zoom a { width: 44px !important; height: 44px !important; line-height: 44px !important; }
+      .structure-label { font-size: 10px !important; padding: 9px 11px !important; }
+    }
+
+    @media (max-width: 430px) {
+      .brand-place, .coordinate-chip { display: none; }
+      .brand-name { font-size: 14px; }
+      .tool-button { gap: 8px; }
+      .tool-panel { padding: 14px; }
+      .legend { grid-template-columns:minmax(0,1fr); }
+      .legend-heading { display: none; }
+      .actions .map-button:first-child{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" aria-label="Smith River Ranch">
+      <img class="monogram" src="assets/sr-monogram.png" alt="" width="541" height="674">
+      <div class="brand-copy">
+        <h1 class="brand-name">Smith River Ranch</h1>
+        <p class="brand-place">Meagher County · Montana</p>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="map-button" href="index.html#map" target="_top">Back to Story</a>
+      <button class="map-button" id="recenter" type="button">Recenter</button>
+    </div>
+  </header>
+
+  <main class="map-shell">
+    <div id="map" aria-label="Interactive map showing the provisional Smith River Ranch boundary, public hydrography and confirmed structures"></div>
+    <div class="map-tools" aria-label="Map controls">
+      <div class="map-tool" data-map-menu>
+        <button class="tool-button" type="button" aria-expanded="false" aria-controls="map-views"><span>Explore</span><span class="tool-glyph" aria-hidden="true">+</span></button>
+        <div class="tool-panel" id="map-views">
+          <span class="tool-heading">Guided Views</span>
+          <div class="view-list">
+            <button class="view-choice" type="button" data-map-view="ranch">Full Ranch</button>
+            <button class="view-choice" type="button" data-map-view="residences">Residences</button>
+            <button class="view-choice" type="button" data-map-view="water">Live Water</button>
+            <button class="view-choice" type="button" data-map-view="section16">Section 16</button>
+          </div>
+        </div>
+      </div>
+      <div class="map-tool" data-map-menu>
+        <button class="tool-button" type="button" aria-expanded="false" aria-controls="map-layers"><span>Layers</span><span class="tool-glyph" aria-hidden="true">+</span></button>
+        <div class="tool-panel" id="map-layers">
+          <div class="control-group">
+            <span class="tool-heading">Base Map</span>
+            <div class="control-list">
+              <label class="control-choice"><input type="radio" name="basemap" value="satellite" checked><span class="control-mark" aria-hidden="true"></span><span>Satellite</span></label>
+              <label class="control-choice"><input type="radio" name="basemap" value="topographic"><span class="control-mark" aria-hidden="true"></span><span>Topographic</span></label>
+            </div>
+          </div>
+          <div class="control-group">
+            <span class="tool-heading">Map Layers</span>
+            <div class="control-list">
+              <label class="control-choice"><input type="checkbox" data-map-layer="boundary" checked><span class="control-mark" aria-hidden="true"></span><span>Ranch Boundary</span><span class="control-meta">Approx.</span></label>
+              <label class="control-choice"><input type="checkbox" data-map-layer="structures" checked><span class="control-mark" aria-hidden="true"></span><span>Confirmed Houses</span><span class="control-meta">3</span></label>
+              <label class="control-choice"><input type="checkbox" data-map-layer="water" checked><span class="control-mark" aria-hidden="true"></span><span>Public Hydrography</span><span class="control-meta">USGS</span></label>
+              <label class="control-choice"><input type="checkbox" data-map-layer="section16" checked><span class="control-mark" aria-hidden="true"></span><span>Section 16</span><span class="control-meta">637.9 ac</span></label>
+              <label class="control-choice"><input type="checkbox" data-map-layer="parcels"><span class="control-mark" aria-hidden="true"></span><span>Individual Parcels</span><span class="control-meta">43</span></label>
+              <label class="control-choice"><input type="checkbox" data-map-layer="publicLands"><span class="control-mark" aria-hidden="true"></span><span>Nearby Public Lands</span><span class="control-meta">Context</span></label>
+            </div>
+          </div>
+          <p class="tool-note">Public reference layers are for orientation. Boundary, ownership and access remain subject to seller, title and survey verification.</p>
+        </div>
+      </div>
+    </div>
+    <div class="coordinate-chip">21,472.5 mapped acres · 43 parcels</div>
+    <div class="map-status" id="map-status" role="status">Map imagery is temporarily unavailable. Ranch overlays remain available.</div>
+  </main>
+
+  <footer class="legend" aria-label="Map legend">
+    <div class="legend-heading">
+      <span class="legend-title">Map Key</span>
+      <span class="legend-subtitle">Tap a feature for details</span>
+    </div>
+    <div class="legend-items">
+      <div class="legend-item">
+        <span class="legend-house-group" aria-hidden="true"><span class="legend-dot"></span><span class="legend-dot"></span><span class="legend-dot"></span></span>
+        <span class="legend-label">Confirmed Houses</span>
+      </div>
+      <div class="legend-item" title="Record-matched Montana cadastral candidate; not a certified survey">
+        <span class="legend-boundary" aria-hidden="true"></span>
+        <span class="legend-label">Ranch Boundary</span>
+      </div>
+      <div class="legend-item" title="Verified Montana cadastral parcel">
+        <span class="legend-section" aria-hidden="true"></span>
+        <span class="legend-label">Section 16</span>
+      </div>
+      <div class="legend-item" title="USGS and Montana State Library public reference hydrography">
+        <span class="legend-line" aria-hidden="true"></span>
+        <span class="legend-label">Waterways</span>
+      </div>
+    </div>
+    <span class="legend-note">Reference data · boundary approximate</span>
+  </footer>
+
+  <script src="leaflet.js"></script>
+  <script>
+    const HOUSE = [46.8866667, -111.22825];
+    const CARETAKER_HOUSE = [46.88689034246014, -111.2273058624077];
+    const GUEST_HOUSE = [46.942291, -111.294063];
+    const START_ZOOM = 16;
+    const WATER_FACTS = {
+      'Smith River': '6± miles through the ranch · both banks for 5± miles',
+      'Eagle Creek': '2± miles through the ranch',
+      'Spring Creek': '0.5± miles through the ranch'
+    };
+
+    const map = L.map('map', {
+      center: HOUSE,
+      zoom: START_ZOOM,
+      zoomControl: false,
+      maxZoom: 19,
+      minZoom: 5
+    });
+
+    map.createPane('publicLandPane');
+    map.getPane('publicLandPane').style.zIndex = 380;
+    map.createPane('boundaryPane');
+    map.getPane('boundaryPane').style.zIndex = 410;
+    map.createPane('parcelPane');
+    map.getPane('parcelPane').style.zIndex = 415;
+    map.createPane('waterPane');
+    map.getPane('waterPane').style.zIndex = 420;
+
+    L.control.zoom({ position: 'topleft' }).addTo(map);
+    L.control.scale({ position: 'bottomleft', imperial: true, metric: false, maxWidth: 130 }).addTo(map);
+
+    const imagery = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 19,
+        attribution: 'Imagery © Esri, Maxar, Earthstar Geographics'
+      }
+    );
+
+    const referenceLabels = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19, opacity: 0.72 }
+    );
+
+    const satelliteBase = L.layerGroup([imagery, referenceLabels]).addTo(map);
+    const topographicBase = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 18,
+        attribution: 'Topographic map © Esri and data contributors'
+      }
+    );
+
+    let tileFailures = 0;
+    imagery.on('tileerror', () => {
+      tileFailures += 1;
+      if (tileFailures > 3) document.getElementById('map-status').style.display = 'block';
+    });
+
+    imagery.on('load', () => {
+      tileFailures = 0;
+      document.getElementById('map-status').style.display = 'none';
+    });
+
+    const houseIcon = L.divIcon({
+      className: 'ranch-house-icon',
+      html: '<span class="structure-dot" aria-hidden="true"></span>',
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+
+    const caretakerHouseIcon = L.divIcon({
+      className: 'caretaker-house-icon',
+      html: '<span class="structure-dot" aria-hidden="true"></span>',
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+
+    const guestHouseIcon = L.divIcon({
+      className: 'guest-house-icon',
+      html: '<span class="structure-dot" aria-hidden="true"></span>',
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+
+    const houseMarker = L.marker(HOUSE, {
+      icon: houseIcon,
+      title: 'Ranch House',
+      keyboard: true,
+      zIndexOffset: 1000
+    });
+
+    const compactMap = window.matchMedia('(max-width: 640px)').matches;
+
+    houseMarker.bindTooltip('Ranch House', {
+      permanent: !compactMap,
+      direction: 'left',
+      offset: [-17, 0],
+      className: 'structure-label'
+    });
+
+    houseMarker.bindPopup(
+      '<div class="popup-eyebrow">Primary Structure</div>' +
+      '<div class="popup-title">Ranch House</div>' +
+      '<div class="popup-coords">46.886667, −111.228250</div>' +
+      '<div class="popup-note">Confirmed house location within the provisional 21,497± acre ranch boundary.</div>' +
+      '<a class="popup-link" href="index.html#hospitality" target="_top">Lodge &amp; guest experience</a>'
+    );
+
+    const caretakerHouseMarker = L.marker(CARETAKER_HOUSE, {
+      icon: caretakerHouseIcon,
+      title: 'Caretaker’s House',
+      keyboard: true,
+      zIndexOffset: 990
+    });
+
+    caretakerHouseMarker.bindTooltip('Caretaker’s House', {
+      permanent: !compactMap,
+      direction: 'right',
+      offset: [17, 0],
+      className: 'structure-label'
+    });
+
+    caretakerHouseMarker.bindPopup(
+      '<div class="popup-eyebrow">Confirmed Structure</div>' +
+      '<div class="popup-title">Caretaker’s House</div>' +
+      '<div class="popup-coords">46.886890, −111.227306</div>' +
+      '<div class="popup-note">Confirmed caretaker’s house location within the provisional ranch boundary.</div>' +
+      '<a class="popup-link" href="index.html#operations" target="_top">Turnkey operations</a>'
+    );
+
+    const guestHouseMarker = L.marker(GUEST_HOUSE, {
+      icon: guestHouseIcon,
+      title: 'Guest House',
+      keyboard: true,
+      zIndexOffset: 980
+    });
+
+    guestHouseMarker.bindTooltip('Guest House', {
+      permanent: !compactMap,
+      direction: 'right',
+      offset: [17, 0],
+      className: 'structure-label'
+    });
+
+    guestHouseMarker.bindPopup(
+      '<div class="popup-eyebrow">Confirmed Structure</div>' +
+      '<div class="popup-title">Guest House</div>' +
+      '<div class="popup-coords">46.942291, −111.294063</div>' +
+      '<div class="popup-note">Confirmed guest house location within the provisional ranch boundary.</div>' +
+      '<a class="popup-link" href="index.html#hospitality" target="_top">Lodge &amp; guest experience</a>'
+    );
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (character) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      })[character]);
+    }
+
+    function titleCase(value) {
+      return String(value || '').toLowerCase().replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+    }
+
+    const boundaryLayer = L.geoJSON(null, {
+      pane: 'boundaryPane',
+      filter: (feature) => {
+        const type = feature.geometry ? feature.geometry.type : '';
+        return type === 'Polygon' || type === 'MultiPolygon';
+      },
+      style: {
+        color: '#d1ad6e',
+        weight: 3.2,
+        opacity: 1,
+        fillColor: '#d1ad6e',
+        fillOpacity: 0.13
+      },
+      onEachFeature: (feature, layer) => {
+        const properties = feature.properties || {};
+        const area = Number(properties.gis_record_acres || 21472.54).toLocaleString(undefined, { maximumFractionDigits: 1 });
+        const parcels = Number(properties.included_parcel_count || 43).toLocaleString();
+        layer.bindPopup(
+          '<div class="popup-eyebrow">Provisional Ranch Boundary</div>' +
+          '<div class="popup-title">Smith River Ranch</div>' +
+          '<div class="popup-coords">' + area + ' mapped acres · ' + parcels + ' cadastral parcels</div>' +
+          '<div class="popup-note">Record-matched Montana cadastral candidate for the 21,497± acre offering. Approximate marketing representation; subject to survey, title and seller verification.</div>'
+        );
+      }
+    }).addTo(map);
+
+    const parcelsLayer = L.geoJSON(null, {
+      pane: 'parcelPane',
+      style: {
+        color: '#ead5aa',
+        weight: 1.1,
+        opacity: 0.82,
+        fillColor: '#d1ad6e',
+        fillOpacity: 0.025
+      },
+      onEachFeature: (feature, layer) => {
+        const properties = feature.properties || {};
+        const area = Number(properties.gis_area_acres || properties.tax_record_acres || 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
+        const legal = escapeHtml(properties.legal_description || 'Legal description unavailable');
+        const owner = escapeHtml(titleCase(properties.owner || 'Public cadastral record'));
+        layer.bindPopup(
+          '<div class="popup-eyebrow">Candidate Ranch Parcel</div>' +
+          '<div class="popup-title">' + area + ' mapped acres</div>' +
+          '<div class="popup-coords">' + legal + '</div>' +
+          '<div class="popup-note">Cadastral owner record: ' + owner + '. Included in the 43-parcel record match; seller and title verification remain pending.</div>'
+        );
+      }
+    });
+
+    const section16Layer = L.geoJSON(null, {
+      pane: 'boundaryPane',
+      style: {
+        color: '#ead5aa',
+        weight: 1.5,
+        opacity: 0.92,
+        dashArray: '6 6',
+        fillColor: '#d1ad6e',
+        fillOpacity: 0.025
+      },
+      onEachFeature: (feature, layer) => {
+        const properties = feature.properties || {};
+        const name = escapeHtml(properties.name || 'Section 16 Parcel');
+        const area = Number(properties.gis_area_acres || 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
+        const legal = escapeHtml(properties.legal_description || 'S16, T13 N, R04 E, ALL');
+        layer.bindPopup(
+          '<div class="popup-eyebrow">Verified Cadastral Parcel</div>' +
+          '<div class="popup-title">' + name + '</div>' +
+          '<div class="popup-coords">' + area + ' mapped acres · ' + legal + '</div>' +
+          '<div class="popup-note">Montana cadastral/tax-map representation. This is one ranch parcel, not the complete ranch boundary, and is not a certified survey.</div>'
+        );
+      }
+    }).addTo(map);
+
+    const waterLayer = L.geoJSON(null, {
+      pane: 'waterPane',
+      style: (feature) => {
+        const geometry = feature.geometry ? feature.geometry.type : '';
+        const isArea = geometry === 'Polygon' || geometry === 'MultiPolygon';
+        const properties = feature.properties || {};
+        const kind = properties.kind ? String(properties.kind).toLowerCase() : '';
+        const flow = properties.flow ? String(properties.flow).toLowerCase() : '';
+        const named = Boolean(properties.name);
+        return {
+          color: '#43a6c6',
+          weight: kind === 'river' ? 4.4 : named ? 2.6 : 1.35,
+          opacity: named ? 0.95 : 0.54,
+          dashArray: flow === 'intermittent' || flow === 'ephemeral' ? '5 5' : null,
+          fillColor: '#43a6c6',
+          fillOpacity: isArea ? 0.32 : 0
+        };
+      },
+      pointToLayer: (feature, latlng) => L.circleMarker(latlng, {
+        pane: 'waterPane',
+        radius: 6,
+        color: '#a9d9e7',
+        weight: 2,
+        fillColor: '#43a6c6',
+        fillOpacity: 0.8
+      }),
+      onEachFeature: (feature, layer) => {
+        const properties = feature.properties || {};
+        const name = properties.name ? escapeHtml(properties.name) : '';
+        const kind = escapeHtml(titleCase(properties.kind || 'Water Feature'));
+        const flow = properties.flow ? escapeHtml(titleCase(properties.flow)) : '';
+        const fact = properties.name && WATER_FACTS[properties.name] ? escapeHtml(WATER_FACTS[properties.name]) : flow;
+        if (name) layer.bindTooltip(name, { sticky: true, className: 'water-label' });
+        layer.bindPopup(
+          '<div class="popup-eyebrow">Public Reference Hydrography</div>' +
+          '<div class="popup-title">' + (name || 'Unnamed ' + kind) + '</div>' +
+          (fact ? '<div class="popup-coords">' + fact + '</div>' : '') +
+          '<div class="popup-note">USGS and Montana State Library reference geometry clipped to the provisional ranch boundary. This is not a survey or water-right determination.</div>' +
+          '<a class="popup-link" href="index.html#water" target="_top">Water resources</a>'
+        );
+      }
+    }).addTo(map);
+
+    const confirmedStructures = L.featureGroup([
+      houseMarker,
+      caretakerHouseMarker,
+      guestHouseMarker
+    ]).addTo(map);
+
+    const publicLandsLayer = L.geoJSON(null, {
+      pane: 'publicLandPane',
+      style: (feature) => {
+        const owner = String(feature.properties && feature.properties.owner || '');
+        let color = '#68836a';
+        if (owner.includes('Bureau of Land Management')) color = '#8c748c';
+        else if (owner.includes('State Trust')) color = '#66869a';
+        else if (owner.includes('Fish, Wildlife')) color = '#507d70';
+        return { color, weight: 1.5, opacity: 0.88, fillColor: color, fillOpacity: 0.2 };
+      },
+      onEachFeature: (feature, layer) => {
+        const properties = feature.properties || {};
+        const owner = escapeHtml(properties.owner || 'Public Land');
+        const acreage = Number(properties.acreage || 0).toLocaleString(undefined, { maximumFractionDigits: 0 });
+        layer.bindPopup(
+          '<div class="popup-eyebrow">Public-Land Context</div>' +
+          '<div class="popup-title">' + owner + '</div>' +
+          '<div class="popup-coords">' + acreage + ' mapped acres in source holding</div>' +
+          '<div class="popup-note">Public ownership does not imply access through the ranch. Verify current boundaries and access regulations before use.</div>'
+        );
+      }
+    });
+
+    const mapLayers = {
+      boundary: boundaryLayer,
+      structures: confirmedStructures,
+      water: waterLayer,
+      section16: section16Layer,
+      parcels: parcelsLayer,
+      publicLands: publicLandsLayer
+    };
+
+    function fitLayer(layer, animated, maxZoom) {
+      if (!layer || !layer.getBounds || !layer.getBounds().isValid()) return;
+      const options = { padding: [58, 58], maxZoom: maxZoom || 13 };
+      if (animated) map.flyToBounds(layer.getBounds(), options);
+      else map.fitBounds(layer.getBounds(), options);
+    }
+
+    function ensureLayer(name) {
+      const layer = mapLayers[name];
+      if (layer && !map.hasLayer(layer)) map.addLayer(layer);
+      const toggle = document.querySelector('[data-map-layer="' + name + '"]');
+      if (toggle) toggle.checked = true;
+    }
+
+    function focusView(name, animated) {
+      if (name === 'residences') {
+        ensureLayer('structures');
+        fitLayer(confirmedStructures, animated, 14);
+      } else if (name === 'water') {
+        ensureLayer('water');
+        fitLayer(waterLayer, animated, 13);
+      } else if (name === 'section16') {
+        ensureLayer('section16');
+        fitLayer(section16Layer, animated, 15);
+      } else {
+        ensureLayer('boundary');
+        fitLayer(boundaryLayer, animated, 13);
+      }
+    }
+
+    function loadGeoJson(url, layer) {
+      return fetch(url)
+        .then((response) => {
+          if (!response.ok) throw new Error('Map data unavailable');
+          return response.json();
+        })
+        .then((data) => {
+          if (data && Array.isArray(data.features) && data.features.length) layer.addData(data);
+          return layer;
+        })
+        .catch(() => layer);
+    }
+
+    Promise.all([
+      loadGeoJson('data/section16-boundary.geojson', section16Layer),
+      loadGeoJson('data/ranch-boundary.geojson', boundaryLayer),
+      loadGeoJson('data/waterways.geojson', waterLayer),
+      loadGeoJson('data/parcels.geojson', parcelsLayer),
+      loadGeoJson('data/public-lands.geojson', publicLandsLayer)
+    ]).then(() => {
+      if (boundaryLayer.getLayers().length) focusView('ranch', false);
+      else fitLayer(confirmedStructures, false, 14);
+    });
+
+    function updateDetailLevel() {
+      map.getContainer().classList.toggle('zoomed-out', map.getZoom() < 14);
+    }
+
+    map.on('zoomend', updateDetailLevel);
+    fitLayer(confirmedStructures, false, 14);
+    updateDetailLevel();
+
+    document.getElementById('recenter').addEventListener('click', () => {
+      focusView('ranch', true);
+    });
+
+    document.querySelectorAll('[data-map-view]').forEach((button) => {
+      button.addEventListener('click', () => {
+        focusView(button.dataset.mapView, true);
+        closeMenus();
+      });
+    });
+
+    document.querySelectorAll('[data-map-layer]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const layer = mapLayers[input.dataset.mapLayer];
+        if (!layer) return;
+        if (input.checked) map.addLayer(layer);
+        else map.removeLayer(layer);
+      });
+    });
+
+    document.querySelectorAll('input[name="basemap"]').forEach((input) => {
+      input.addEventListener('change', () => {
+        if (!input.checked) return;
+        if (input.value === 'topographic') {
+          map.removeLayer(satelliteBase);
+          topographicBase.addTo(map);
+        } else {
+          map.removeLayer(topographicBase);
+          satelliteBase.addTo(map);
+        }
+      });
+    });
+
+    const menus = [...document.querySelectorAll('[data-map-menu]')];
+
+    function closeMenus(except) {
+      menus.forEach((menu) => {
+        if (menu === except) return;
+        menu.classList.remove('open');
+        menu.querySelector('.tool-button').setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    menus.forEach((menu) => {
+      const button = menu.querySelector('.tool-button');
+      button.addEventListener('click', () => {
+        const willOpen = !menu.classList.contains('open');
+        closeMenus(menu);
+        menu.classList.toggle('open', willOpen);
+        button.setAttribute('aria-expanded', String(willOpen));
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('[data-map-menu]')) closeMenus();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenus();
+    });
+
+    map.on('click', () => closeMenus());
+  </script>
+</body>
+</html>

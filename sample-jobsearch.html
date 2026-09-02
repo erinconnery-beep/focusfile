@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus File</title>
+  <script>
+/* CRASH GUARD — must remain the FIRST script in the file. Catches runtime
+   errors, syntax errors, and truncated files, and verifies boot completed. */
+window.__bootFail = function (msg) {
+  window.__bootFailed = true;   /* keep the FIRST, most specific message */
+  var el = document.getElementById("bootError");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "bootError";
+    el.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:9999;background:#b5642f;color:#fff;font:600 13px/1.45 -apple-system,system-ui,sans-serif;padding:12px 16px;text-align:center;";
+    (document.body || document.documentElement).appendChild(el);
+  }
+  el.textContent = "This focus file didn't load correctly — " + msg + ". Nothing is lost: re-run the setup prompt to regenerate it.";
+};
+window.addEventListener("error", function (e) { window.__bootFail(e.message || "script error"); });
+window.addEventListener("DOMContentLoaded", function () {
+  if (!window.__focusFileBooted && !window.__bootFailed) window.__bootFail("the main script never finished");
+});
+  </script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiPjxwYXRoIGQ9Ik02IDcgYTQgNCAwIDAgMSA0IC00IGgxMSBsNyA3IHYxNSBhNCA0IDAgMCAxIC00IDQgaC0xNCBhNCA0IDAgMCAxIC00IC00IHoiCiAgICAgICAgZmlsbD0iI2ZkZmJmNiIgc3Ryb2tlPSIjMmY2YTQ0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNMjEgMyB2NSBhMiAyIDAgMCAwIDIgMiBoNSIKICAgICAgICBmaWxsPSJub25lIiBzdHJva2U9IiMyZjZhNDQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTguNSIgcj0iNSIgZmlsbD0iIzJmNmE0NCIvPjwvc3ZnPg==">
+<style>
+  :root {
+    --paper:      #fbfbfa;
+    --paper-warm: #ffffff;
+    --paper-line: #aeb6b1;
+    --hair:       #d5d9d6;
+    --ink:        #17201c;
+    --ink-body:   #26312c;
+    --ink-soft:   #3f4b45;
+    --ink-mut:    #5b6761;
+    --ink-faint:  #6c7772;
+    --ink-ghost:  #77817c;
+    --pine:       #2f6a44;
+    --pine-soft:  #275739;
+    --pine-tint:  #edf3ef;
+    --pine-chip:  #cbdacf;
+    --pine-chip-ink: #214b31;
+    --clay:       #8f4339;
+    --clay-tint:  #f7efed;
+    --serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--pine);
+    outline-offset: 3px;
+  }
+
+  html, body {
+    background: #ece5d6;
+    font-family: var(--serif);
+    color: var(--ink-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 18px 80px;
+  }
+
+  .sans { font-family: var(--sans); }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 540px;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Clay is the warning/timer role; a brief wash marks an active check-in. */
+  .flash {
+    position: absolute;
+    inset: 0;
+    background: var(--clay);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+    border-radius: 16px;
+  }
+  .flash.on {
+    animation: knock-flash 0.9s ease-out;
+  }
+  @keyframes knock-flash {
+    0%   { opacity: 0; }
+    12%  { opacity: 0.28; }
+    30%  { opacity: 0.05; }
+    45%  { opacity: 0.28; }
+    100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .flash.on { animation: none; opacity: 0; }
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mut);
+  }
+
+  /* ---------- Header ---------- */
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    padding: 15px 28px 13px;
+    border-bottom: 1px solid var(--hair);
+    background: var(--paper);
+  }
+  .mast-name {
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--pine);
+  }
+  .header {
+    background: var(--paper-warm);
+    padding: 26px 28px 22px;
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 7px;
+  }
+  #headerTop { display: none; }
+  .prestart { margin-top: 10px; text-align: left; }
+  .ps-window { font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mut); }
+  .ps-meta { font-family: -apple-system, system-ui, sans-serif; font-size: 12.5px; color: var(--ink-faint);
+    margin-top: 7px; font-variant-numeric: tabular-nums; }
+  .clockline {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+    text-align: left;
+    margin: 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .time-sep { color: var(--ink-faint); }
+  .scope {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mut);
+    text-align: left;
+    padding: 0;
+    white-space: nowrap;
+  }
+  .task-title {
+    font-size: 33px;
+    line-height: 1.04;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+
+  /* elapsed timer (hidden until begin) */
+  .timer-wrap { display: none; }
+  .timer-wrap.on { display: block; }
+  .elapsed {
+    font-family: -apple-system, system-ui, sans-serif;
+    text-align: left;
+  }
+  .elapsed .big {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--pine);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .elapsed .unit {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-mut);
+  }
+  .time-progress {
+    display: none;
+    height: 6px;
+    margin-top: 15px;
+    background: var(--paper-line);
+    overflow: hidden;
+  }
+  .time-progress.on { display: block; }
+  .time-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--pine);
+    transition: width .25s linear;
+  }
+  /* ---------- Lane strip ---------- */
+  .lane {
+    display: none;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--hair);
+    background: var(--pine-tint);
+  }
+  .lane.on { display: block; }
+  .lane-inner {
+    font-family: -apple-system, system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+  }
+  .lane-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pine-soft);
+  }
+  .lane-chip {
+    background: var(--pine-chip);
+    color: var(--pine-chip-ink);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 11px;
+    border-radius: 20px;
+  }
+  .lane-rest {
+    color: var(--ink-faint);
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  /* ---------- Sealed strip (internet-off reminder) ---------- */
+  .sealed-strip {
+    display: none;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--hair);
+    background: var(--pine-tint);
+  }
+  .sealed-strip.on { display: block; }
+  .sealed-inner {
+    font-family: -apple-system, system-ui, sans-serif;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .sealed-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pine-soft);
+    white-space: nowrap;
+  }
+  .sealed-plan {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Keep: a success cue carried from the previous block ---------- */
+  .keep {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--pine-chip);
+    background: var(--pine-tint);
+  }
+  .keep-label {
+    color: var(--pine);
+    margin-bottom: 7px;
+  }
+  .keep p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ---------- Why ---------- */
+  .why {
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .why-label {
+    color: var(--clay);
+    margin-bottom: 8px;
+  }
+  .why p {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .why-matters {
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .why-matters-label { color: var(--pine); }
+  .cue-card { transition: background-color .16s, box-shadow .16s; }
+  .cue-card.cue-active {
+    background: var(--pine-tint);
+    box-shadow: inset 5px 0 0 var(--pine);
+  }
+  .why.cue-active {
+    background: var(--clay-tint);
+    box-shadow: inset 5px 0 0 var(--clay);
+  }
+
+  /* ---------- Jobs ---------- */
+  .jobs {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .jobs.hidden { display: none; }
+  .jobs-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .jobs-eyebrow { margin-bottom: 0; }
+  .counter {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--pine);
+    transition: color 0.2s;
+  }
+  .counter.complete { color: var(--pine); }
+  .job-list { display: flex; flex-direction: column; gap: 15px; }
+  .job {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  .job-check {
+    position: absolute;
+    left: 0; top: 1px;
+    opacity: 0;
+    width: 22px; height: 22px;
+    margin: 0;
+    cursor: pointer;
+  }
+  .job .box {
+    width: 22px; height: 22px;
+    border: 1.5px solid var(--ink-mut);
+    border-radius: 5px;
+    background: var(--paper-warm);
+    flex-shrink: 0;
+    margin-top: 1px;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .job-check:focus-visible + .box {
+    outline: 2px solid var(--pine);
+    outline-offset: 2px;
+  }
+  .job-check:focus-visible { outline: none; }
+  .job.done .box {
+    background: var(--pine);
+    border-color: var(--pine);
+  }
+  .job.done .box::after {
+    content: "";
+    position: absolute;
+    left: 6px; top: 3px;
+    width: 6px; height: 11px;
+    border: solid var(--paper);
+    border-width: 0 2px 2px 0;
+    transform: rotate(42deg);
+  }
+  .job .label {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 15.5px;
+    color: var(--ink-body);
+    line-height: 1.4;
+    transition: color 0.15s;
+  }
+  .job.done .label {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+    text-decoration-color: var(--paper-line);
+  }
+
+  /* ---------- Action zone (begin -> knock) ---------- */
+  .action {
+    padding: 26px 28px;
+    text-align: center;
+    background: var(--paper-warm);
+  }
+
+  .btn-begin {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--pine);
+    color: var(--paper);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 16px 16px 16px 30px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.15s;
+  }
+  .btn-begin:hover { background: var(--pine-soft); }
+  .btn-begin:active { transform: scale(0.97); }
+  .btn-begin .arr {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--pine);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+  }
+
+  /* check-in: always present once begun; buttons never disappear */
+  .checkin { display: none; }
+  .checkin.on { display: block; }
+  .checkin.scheduled-asking {
+    position: fixed;
+    z-index: 60;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: min(760px, calc(100vw - 28px));
+    max-height: calc(100dvh - 24px - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    transform: translateX(-50%);
+    padding: 14px 16px 15px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    box-shadow: 0 10px 28px rgba(24, 34, 29, 0.18);
+  }
+  .checkin.scheduled-asking .checkin-head { margin-bottom: 11px; }
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .checkin-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-bottom: 16px;
+  }
+  .checkin-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ink-ghost);
+    transition: background 0.3s;
+  }
+  .checkin-label {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-mut);
+    transition: color 0.3s;
+  }
+  /* nudge state — the timer is actively asking */
+  .checkin.asking .checkin-dot {
+    background: var(--clay);
+    animation: pulse-ask 1.6s ease-in-out infinite;
+  }
+  .checkin.asking .checkin-label { color: var(--clay); }
+  @keyframes pulse-ask {
+    0%, 100% { opacity: 0.4; transform: scale(0.8); }
+    50%      { opacity: 1;   transform: scale(1.15); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .checkin.asking .checkin-dot { animation: none; opacity: 1; }
+  }
+  @media (max-width: 375px) {
+    .checkin.scheduled-asking {
+      bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+      padding: 12px 10px 13px;
+    }
+    .checkin.scheduled-asking .knock-answers { gap: 6px; }
+    .checkin.scheduled-asking .knock-answers button { padding-left: 5px; padding-right: 5px; }
+  }
+
+  .knock-answers {
+    display: flex;
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .knock-answers button {
+    flex: 1;
+    padding: 13px 8px;
+    border-radius: 8px;
+    background: transparent;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .k-yes  { border: 1.5px solid var(--pine); color: var(--pine-soft); }
+  .k-yes:hover  { background: var(--pine); color: var(--paper); }
+  .k-sort { border: 1.5px solid var(--ink-ghost); color: var(--ink-mut); }
+  .k-sort:hover { background: var(--ink-mut); color: var(--paper); }
+  .k-no   { border: 1.5px solid var(--clay); color: var(--clay); }
+  .k-no:hover   { background: var(--clay); color: var(--paper); }
+
+  /* Session timing and finish controls. */
+  .session-row {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+  .next-knock {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--ink-mut);
+    letter-spacing: 0.02em;
+    padding: 8px 4px;
+  }
+  .next-knock:empty { display: none; }
+  .session-link {
+    display: inline-block;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12px;
+    color: var(--ink-mut);
+    background: none;
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    transition: color 0.15s;
+    padding: 10px 8px;   /* larger tap target — comfortable to press */
+  }
+  .session-link:hover { color: var(--ink-soft); }
+
+  /* ---------- Block-end ---------- */
+  .blockend {
+    display: none;
+    padding: 30px 28px;
+    text-align: center;
+    background: var(--paper-warm);
+  }
+  .blockend.on { display: block; }
+  .be-eyebrow { color: var(--ink-soft); margin-bottom: 14px; }
+  .be-line {
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    max-width: 26ch;
+    margin: 0 auto 8px;
+  }
+  .be-where {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .be-choices {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-finish {
+    background: var(--pine);
+    color: var(--paper);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 17px 40px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(47,106,68,.28);
+  }
+  .btn-finish:hover { background: var(--pine-soft); }
+  .btn-more {
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 24px;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 40px;
+    cursor: pointer;
+  }
+  .btn-more:hover { border-color: var(--ink-ghost); }
+  .be-note {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    margin-top: 20px;
+    line-height: 1.5;
+    max-width: 34ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---------- Exit ---------- */
+  .exit { display: none; padding: 30px 28px; }
+  .exit.on { display: block; }
+  .exit-eyebrow { color: var(--pine-soft); margin-bottom: 20px; }
+  .exit-q {
+    display: block;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 9px;
+  }
+  .exit-input {
+    width: 100%;
+    border: 1px solid var(--paper-line);
+    border-radius: 9px;
+    padding: 13px 15px;
+    background: var(--paper);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--ink-body);
+    resize: none;
+    margin-bottom: 18px;
+  }
+  .exit-input::placeholder { color: var(--ink-ghost); font-style: italic; }
+  .exit-foot {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hair);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn-done {
+    background: var(--pine);
+    color: var(--paper);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-done:hover { background: var(--pine-soft); }
+
+  .end-link { color: var(--ink-soft); text-decoration-color: var(--clay); }
+  .end-link:hover { color: var(--ink); }
+
+  /* completed screen */
+  .alldone { display: none; padding: 30px 28px 28px; text-align: center; }
+  .alldone.on { display: block; }
+  .alldone .mark { color: var(--pine); font-size: 22px; }
+  .alldone .msg {
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .result-question {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 42ch;
+    margin: 0 auto 15px;
+  }
+  .result-question.warn {
+    border-left: 3px solid var(--clay);
+    padding-left: 10px;
+    text-align: left;
+  }
+  .result-actions { display:grid; gap:9px; margin:0; }
+  .result-actions-heading {
+    margin: 0;
+    color: var(--ink);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.025em;
+  }
+  .result-actions-heading span { color:var(--pine); }
+  .btn-buildnext, .btn-newfile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    margin: 0;
+    background: var(--paper);
+    color: var(--pine);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+    line-height: 1.25;
+    padding: 10px 12px;
+    border: 1.5px solid var(--pine);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-buildnext:hover, .btn-newfile:hover { background: var(--pine-tint); }
+  .result-history-actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 8px 14px 9px;
+    border-top: 1px solid var(--paper-line);
+  }
+  .result-history-action {
+    min-height: 38px;
+    padding: 6px 2px;
+    border: 0;
+    background: transparent;
+    color: var(--pine);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .result-history-action:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .result-privacy-note {
+    margin: -2px 14px 12px;
+    color: var(--ink-mut);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    text-align: center;
+  }
+  .next-links { display:none; margin-top:14px; }
+  .next-links.on { display:block; }
+  .nl-lead { font-family:-apple-system,system-ui,sans-serif; font-size:13px; color:var(--ink-mut); margin-bottom:6px; }
+  .nl-row { font-family:-apple-system,system-ui,sans-serif; font-size:15px; font-weight:600; }
+  .nl-row a { color:var(--pine); text-decoration:underline; text-underline-offset:2px; }
+  .nl-sep { color:var(--paper-line); margin:0 8px; }
+  .btn-log {
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .btn-log:hover { border-color: var(--ink-ghost); }
+  .fresh-status {
+    width: 100%;
+    min-height: 16px;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--pine);
+    text-align: center;
+  }
+  .log-view {
+    display: none;
+    margin-top: 22px;
+    text-align: left;
+    max-height: 340px;
+    overflow-y: auto;
+    border-top: 1px solid var(--hair);
+    padding-top: 18px;
+  }
+  .log-view.on { display: block; }
+  .log-entry {
+    border: 1px solid var(--paper-line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    background: var(--paper);
+  }
+  .log-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-mut);
+    margin: 0 0 12px;
+  }
+  .log-entry .le-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pine);
+    margin-bottom: 8px;
+  }
+  .log-entry .le-task {
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .log-entry .le-row {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 3px;
+  }
+  .log-entry .le-row b {
+    color: var(--ink-mut);
+    font-weight: 600;
+  }
+  .log-empty {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-mut);
+    text-align: center;
+    padding: 12px;
+  }
+  /* EVIDENCE LEDGER — selected site system
+     Compact, rule-based, and limited to charcoal, white, logo green, and semantic warning red. */
+  html,body { background:#eef0ee; font-family:var(--sans); line-height:1.45; }
+  body { padding:26px 14px 50px; }
+  .card { max-width:760px; border:2px solid var(--ink); border-radius:0; background:var(--paper); }
+  .flash { border-radius:0; }
+  .masthead { padding:11px 28px 10px; border-bottom:2px solid var(--ink); }
+  .mast-name { font-family:var(--sans); font-size:15px; font-weight:750; letter-spacing:-.01em; }
+  .header { padding:25px 28px 22px; background:var(--paper); border-bottom:1px solid var(--paper-line); }
+  .header-top { margin:12px 0 0; }
+  .prestart { display:grid; gap:5px; }
+  .ps-window { color:var(--ink-soft); }
+  .ps-meta { display:flex; align-items:center; flex-wrap:wrap; gap:0; margin-top:0; }
+  .task-title { font-family:var(--sans); font-size:clamp(32px,5.2vw,43px); font-weight:740; line-height:1.02; letter-spacing:-.04em; }
+  .task-title,.end-summary-task,.job .label { overflow-wrap:anywhere; }
+  .elapsed { display:flex; align-items:baseline; column-gap:4px; text-align:left; }
+  .elapsed .big { font-size:13px; font-weight:750; color:var(--ink-soft); letter-spacing:0; }
+  .elapsed .unit { font-size:13px; font-weight:500; color:var(--ink-mut); }
+  .time-progress { height:7px; margin-top:18px; }
+  .scope { color:var(--ink-soft); }
+  .clockline { color:var(--ink-mut); }
+  .lane,.sealed-strip,.keep { padding:16px 28px; border-bottom-color:var(--paper-line); }
+  .focus-rule-row { display:grid; grid-template-columns:132px minmax(0,1fr); gap:14px; align-items:baseline; }
+  .focus-rule-label { margin:0; white-space:nowrap; }
+  .focus-rule-value { min-width:0; margin:0; font-family:var(--sans); font-size:14.5px; font-style:normal; font-weight:400; line-height:1.45; color:var(--ink-soft); overflow-wrap:anywhere; }
+  .lane-value { display:flex; align-items:baseline; flex-wrap:wrap; gap:5px; }
+  .lane-chip { max-width:100%; padding:0; border:0; border-radius:0; background:transparent; color:var(--ink-soft); font-size:14.5px; font-weight:400; overflow-wrap:anywhere; }
+  .lane-rest { color:var(--ink-mut); font-size:12.5px; font-style:normal; }
+  .keep p,.why p,.why-matters p { margin:0; font-family:var(--sans); font-size:15px; font-style:normal; line-height:1.48; }
+  .cue-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-bottom:1px solid var(--paper-line); }
+  .cue-grid.single { grid-template-columns:1fr; }
+  .cue-card { min-width:0; padding:20px 28px 21px; border:0; }
+  .cue-card + .cue-card { border-left:1px solid var(--paper-line); }
+  .cue-grid.single .cue-card + .cue-card { border-left:0; }
+  .cue-grid .focus-rule-row { display:block; }
+  .cue-grid .focus-rule-label { display:block; margin-bottom:9px; }
+  .jobs { padding:20px 28px; border-bottom-color:var(--paper-line); }
+  .jobs-head { margin-bottom:13px; }
+  .job-list { gap:12px; }
+  .job .box { width:20px; height:20px; border-radius:0; background:#fff; }
+  .job-check { width:20px; height:20px; }
+  .job.done .box::after { left:5px; top:2px; }
+  .job .label { font-size:14.5px; line-height:1.38; }
+  .action { padding:24px 28px 23px; background:#fff; }
+  .btn-begin { gap:10px; padding:12px 17px; border-radius:0; font-size:14px; font-weight:700; }
+  .btn-begin .arr { width:auto; height:auto; border-radius:0; background:transparent; color:#fff; }
+  .checkin.asking { padding:14px; border:2px solid var(--ink); background:var(--pine-tint); }
+  .checkin.asking .checkin-dot { background:var(--pine); }
+  .checkin.asking .checkin-label { color:var(--ink); font-size:15px; font-weight:750; }
+  .checkin.scheduled-asking { background:var(--pine-tint); box-shadow:none; }
+  .checkin {
+    transition:background-color .18s ease, box-shadow .18s ease;
+  }
+  .checkin.yes-feedback {
+    background:var(--pine-tint);
+    box-shadow:0 0 0 14px var(--pine-tint);
+  }
+  .checkin.yes-feedback .checkin-dot { background:var(--pine); }
+  .checkin.yes-feedback .checkin-label { color:var(--pine); }
+  .checkin.yes-feedback .k-yes {
+    border-color:var(--pine);
+    background:var(--pine);
+    color:#fff;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .checkin { transition:none; }
+  }
+  .checkin-head { margin-bottom:13px; }
+  .knock-answers { gap:8px; }
+  .knock-answers button { min-height:44px; padding:11px 7px; border-radius:0; }
+  .session-row { margin-top:8px; }
+  .session-link { min-height:44px; }
+  .blockend { padding:23px 22px; background:#fff; }
+  .be-line { font-family:var(--sans); font-size:20px; font-weight:680; }
+  .be-where { margin-bottom:18px; }
+  .btn-finish { padding:13px 22px; border-radius:0; box-shadow:none; font-size:15px; }
+  .btn-more { padding:12px 18px; border-radius:0; font-size:14px; }
+  .be-note { margin-top:15px; }
+  .end-summary { display:none; padding:19px 22px 17px; border-bottom:1px solid var(--paper-line); background:var(--paper); }
+  .end-summary.on { display:block; }
+  .end-summary-heading { margin:0 0 11px; font-family:var(--sans); font-size:24px; font-weight:740; line-height:1.08; letter-spacing:-.03em; color:var(--ink); }
+  .end-summary-task { margin:0 0 7px; font-family:var(--sans); font-size:15px; font-weight:720; line-height:1.35; letter-spacing:-.01em; color:var(--ink); }
+  .end-summary-facts { display:grid; gap:2px; }
+  .end-summary-fact { margin:0; font-family:var(--sans); font-size:13px; line-height:1.45; color:var(--ink-soft); }
+  .end-summary-fact strong { color:var(--ink); font-weight:700; }
+  .exit { padding:18px 22px 22px; }
+  .exit-q { margin-bottom:7px; }
+  .exit-input { min-height:42px; padding:9px 12px; border-radius:0; margin-bottom:10px; background:#fff; }
+  .exit-foot { margin-top:4px; padding-top:12px; }
+  .btn-done { padding:10px 17px; border-radius:0; }
+  .alldone { padding:23px 22px 22px; text-align:left; }
+  .alldone .msg { justify-content:flex-start; font-family:var(--sans); font-size:23px; font-weight:720; margin-bottom:14px; }
+  .result-record { margin-bottom:16px; border:2px solid var(--ink); background:#fff; }
+  .result-record-heading { margin:0; padding:13px 14px; border-bottom:1px solid var(--paper-line); font-family:var(--sans); font-size:16px; font-weight:720; line-height:1.35; letter-spacing:-.01em; color:var(--ink); overflow-wrap:anywhere; }
+  .result-record-list { margin:0; padding:9px 14px 11px; }
+  .result-record-row { display:grid; grid-template-columns:122px minmax(0,1fr); gap:10px; padding:3px 0; font-family:var(--sans); font-size:13px; line-height:1.45; color:var(--ink-soft); }
+  .result-record-row dt { font-weight:700; color:var(--ink); }
+  .result-record-row dd { min-width:0; margin:0; overflow-wrap:anywhere; }
+  .result-actions { max-width:none; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .result-actions-heading { grid-column:1 / -1; font-family:var(--sans); font-size:22px; letter-spacing:-.025em; text-transform:none; color:var(--ink); }
+  .btn-newfile,.btn-buildnext { min-height:46px; border-radius:0; font-size:12px; overflow-wrap:anywhere; }
+  .btn-buildnext,.btn-newfile { border-color:var(--pine); background:#fff; color:var(--pine); font-weight:700; }
+  .btn-buildnext:hover,.btn-newfile:hover { background:var(--pine-tint); color:var(--pine); }
+  .next-links { text-align:center; }
+  .btn-log { min-height:44px; padding:8px 12px; border-width:1px; border-radius:0; color:var(--ink-mut); font-size:11.5px; }
+  .result-record .log-view { margin:0; padding:14px; border-top:1px solid var(--paper-line); }
+  .log-tools { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid var(--hair); }
+  .log-tools .fresh-status { width:auto; min-height:0; text-align:left; }
+  .log-entry { border-radius:0; padding:12px 13px; margin-bottom:9px; background:#fff; }
+  @media (max-width:480px) {
+    body { padding:0; background:var(--paper); }
+    .card { border-left:0; border-right:0; border-top:0; max-width:none; }
+    .masthead { padding:9px 18px 8px; }
+    .header { padding:20px 18px 18px; }
+    .end-summary,.exit,.alldone { padding-left:18px; padding-right:18px; }
+    .lane,.sealed-strip,.keep,.jobs,.action,.blockend { padding-left:18px; padding-right:18px; }
+    .cue-grid { grid-template-columns:1fr; }
+    .cue-card { padding:16px 18px 17px; }
+    .cue-card + .cue-card { border-left:0; border-top:1px solid var(--paper-line); }
+    .task-title { font-size:31px; }
+    .header-top { gap:6px; }
+    .focus-rule-row { grid-template-columns:112px minmax(0,1fr); gap:10px; }
+    .result-history-actions { justify-content:space-between; gap:12px; }
+    .result-record-row { grid-template-columns:100px minmax(0,1fr); gap:8px; }
+    .log-tools { align-items:flex-start; flex-direction:column; }
+  }
+  @media (max-width:350px) {
+    .task-title { font-size:28px; }
+    .header-top { gap:5px; }
+    .time-sep { display:none; }
+    .session-row { align-items:flex-start; flex-direction:column; gap:0; }
+  }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="flash" id="flash"></div>
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <span class="mast-name">Focus File</span>
+    </div>
+
+    <div class="work-stage" id="workStage">
+    <!-- HEADER -->
+    <div class="header">
+      <h1 class="task-title" id="taskTitle">1,500 new words on the story</h1>
+      <div class="prestart" id="preStart">
+        <div class="ps-window" id="psWindow"></div>
+        <div class="ps-meta" id="psMeta"></div>
+      </div>
+      <div class="header-top" id="headerTop">
+        <div class="timer-wrap" id="timerWrap">
+          <div class="elapsed">
+            <span class="big" id="elapsedNum">0</span><span class="unit" id="elapsedUnit"> min elapsed</span>
+          </div>
+        </div>
+        <span class="time-sep" aria-hidden="true">·</span>
+        <div class="scope" id="scope">9:00 – 12:00</div>
+        <span class="time-sep" aria-hidden="true">·</span>
+        <div class="clockline" id="clockLine"></div>
+      </div>
+      <div class="time-progress" id="timeProgress" role="progressbar" aria-label="Time used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="time-progress-fill" id="timeProgressFill"></span>
+      </div>
+    </div>
+
+    <!-- LANE (lane mode only) -->
+    <div class="lane" id="lane">
+      <div class="lane-inner focus-rule-row">
+        <span class="lane-label focus-rule-label">Internet only</span>
+        <div class="lane-value focus-rule-value"><span id="laneChips"></span><span class="lane-rest">— blocker on</span></div>
+      </div>
+    </div>
+
+    <!-- SEALED reminder: how they're keeping the internet off -->
+    <div class="sealed-strip" id="sealedStrip">
+      <div class="sealed-inner focus-rule-row">
+        <span class="sealed-label focus-rule-label">Internet off</span>
+        <span class="sealed-plan focus-rule-value" id="sealedPlan"></span>
+      </div>
+    </div>
+
+    <!-- KEEP (a success cue learned from the previous block) -->
+    <div class="keep" id="keep">
+      <div class="focus-rule-row">
+        <div class="eyebrow keep-label focus-rule-label" id="keepLabel">Keep</div>
+        <p class="focus-rule-value" id="keepText"></p>
+      </div>
+    </div>
+
+    <!-- The two interview cues stay visible once, then the relevant one is highlighted after a check-in. -->
+    <div class="cue-grid" id="cueGrid">
+      <div class="why cue-card" id="why">
+        <div class="focus-rule-row">
+          <div class="eyebrow why-label focus-rule-label" id="whyLabel">Avoid</div>
+          <p class="focus-rule-value" id="whyText">Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.</p>
+        </div>
+      </div>
+      <div class="why-matters cue-card" id="whyMatters">
+        <div class="focus-rule-row">
+          <div class="eyebrow why-matters-label focus-rule-label">Why it matters</div>
+          <p class="focus-rule-value" id="whyMattersText"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOBS (hidden / milestones / checklist) with counter -->
+    <div class="jobs hidden" id="jobsSection">
+      <div class="jobs-head">
+        <span class="eyebrow jobs-eyebrow" id="jobsEyebrow">The jobs</span>
+        <span class="counter" id="counter">00 / 00 COMPLETE</span>
+      </div>
+      <div class="job-list" id="jobList"></div>
+    </div>
+
+    <!-- ACTION ZONE: begin -> always-visible check-in -->
+    <div class="action" id="action">
+      <!-- pre-start -->
+      <button class="btn-begin" id="beginBtn">Begin session <span class="arr">→</span></button>
+
+      <!-- check-in: always present once begun; three buttons never disappear -->
+      <div class="checkin" id="checkin">
+        <span class="sr-only" id="checkinAnnouncement" role="status" aria-live="polite" aria-atomic="true"></span>
+        <div class="checkin-head" id="checkinHead">
+          <span class="checkin-dot" id="checkinDot"></span>
+          <span class="checkin-label" id="checkinLabel">On task?</span>
+        </div>
+        <div class="knock-answers">
+          <button class="k-yes"  data-a="yes">Yes</button>
+          <button class="k-sort" data-a="sort-of">Sort of</button>
+          <button class="k-no"   data-a="no">No</button>
+        </div>
+      </div>
+
+      <div class="session-row">
+        <span class="next-knock" id="nextKnock"></span>
+        <button type="button" class="session-link end-link" id="endLink" style="display:none;">Finish session</button>
+      </div>
+    </div>
+
+    <!-- BLOCK-END -->
+    <div class="blockend" id="blockend">
+      <div class="eyebrow be-eyebrow" id="beEyebrow">Your block's up · 12:00</div>
+      <div class="be-line" id="beLine" role="heading" aria-level="2" tabindex="-1">You said done was 1,500 new words.</div>
+      <p class="be-where">Where are you?</p>
+      <div class="be-choices">
+        <button class="btn-finish" id="finishBtn">Finish here</button>
+        <button class="btn-more" id="moreBtn">One more block →</button>
+      </div>
+      <p class="be-note">One more block adds ~30 min. If you scheduled a blocker, extend it too.</p>
+    </div>
+    </div>
+
+    <!-- CONDENSED END-OF-BLOCK CONTEXT -->
+    <section class="end-summary" id="endSummary" aria-labelledby="endSummaryHeading">
+      <h1 class="end-summary-heading" id="endSummaryHeading" tabindex="-1">Block ended</h1>
+      <p class="end-summary-task" id="endSummaryTask"></p>
+      <div class="end-summary-facts">
+        <p class="end-summary-fact" id="endSummaryTime"></p>
+        <p class="end-summary-fact" id="endSummaryProgress"></p>
+        <p class="end-summary-fact" id="endSummaryCheckins"></p>
+      </div>
+    </section>
+
+    <!-- EXIT -->
+    <div class="exit" id="exit" role="region" aria-labelledby="endSummaryHeading">
+
+      <label class="exit-q" for="inTheWayInput">What, if anything, pulled you off task?</label>
+      <textarea class="exit-input" id="inTheWayInput" rows="1"></textarea>
+
+      <label class="exit-q" for="helpedInput">What, if anything, worked well enough to repeat?</label>
+      <textarea class="exit-input" id="helpedInput" rows="1"></textarea>
+
+      <label class="exit-q" for="nextInput">Where will you start next session?</label>
+      <textarea class="exit-input" id="nextInput" rows="1"></textarea>
+
+      <div class="exit-foot">
+        <button class="btn-done" id="doneBtn">Save result</button>
+      </div>
+    </div>
+
+    <!-- ALL DONE + LOG -->
+    <div class="alldone" id="allDone">
+      <div class="msg" id="resultHeading" role="heading" aria-level="2" tabindex="-1"><span class="mark">✓</span> Block recorded.</div>
+
+      <section class="result-record" id="resultRecord" aria-labelledby="resultRecordHeading">
+        <h3 class="result-record-heading" id="resultRecordHeading"></h3>
+        <dl class="result-record-list" id="resultRecordList"></dl>
+        <div class="result-history-actions">
+          <button class="result-history-action" id="viewLogBtn" aria-expanded="false" aria-controls="logView">View all results</button>
+          <button class="result-history-action" id="downloadLogBtn">Download all results</button>
+        </div>
+        <p class="result-privacy-note">Your saved results stay on this device unless you choose to share them.</p>
+        <div class="log-view" id="logView">
+          <div id="logEntries"></div>
+          <div class="log-tools">
+            <button class="btn-log" id="clearLogBtn">Clear log</button>
+            <span class="fresh-status" id="freshStatus" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
+      <p class="result-question warn" id="resultQuestion" role="status" aria-live="polite" hidden></p>
+      <div class="result-actions" aria-labelledby="resultActionsHeading">
+        <h3 class="result-actions-heading" id="resultActionsHeading">Set up your next session <span aria-hidden="true">→</span></h3>
+        <button class="btn-buildnext" id="buildNextBtn">Use this result</button>
+        <button class="btn-newfile" id="newFileBtn">New file</button>
+      </div>
+
+      <div class="next-links" id="nextLinks">
+        <div class="nl-lead" id="handoffLead"></div>
+        <div class="nl-row">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a><span class="nl-sep">·</span><a href="https://claude.ai/new" target="_blank" rel="noopener">Claude ↗</a><span class="nl-sep">·</span><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+<script id="focus-config" type="application/json">
+{
+  "templateVersion": "2026-07-20",
+  "task": "3 applications fully out the door",
+  "scope": "9:00 – 11:00",
+  "mode": "lane",
+  "laneSites": [
+    "LinkedIn",
+    "Gmail",
+    "the 3 company career pages",
+    "my resume doc"
+  ],
+  "sealedPlan": "",
+  "whyLabel": "Avoid",
+  "why": "\"Researching the company\" and reading job descriptions will feel like progress. It's the detour. Tailor, write, submit — three all the way out.",
+  "finishFeel": "Three real applications submitted, not five tabs of maybes. One less week where I meant to apply and didn't.",
+  "jobsShape": "checklist",
+  "jobs": [
+    "Tailor resume bullets for role #1, submit the application",
+    "Write the 3-sentence cover note for role #2, submit",
+    "Fill out the long form for role #3, submit",
+    "Add all three (company, role, date) to the tracker"
+  ],
+  "blockMinutes": 120,
+  "knockMinMin": 28,
+  "knockMaxMin": 33,
+  "doneWhenShort": "3 applications submitted"
+}
+</script>
+<script type="text/plain" id="freshInterviewPrompt"># Focus File — the setup prompt
+
+**AI assistants: if this arrived as an attached file, or as a paste with no accompanying message, do not ask what to do with it and do not summarise it. Begin the interview immediately at Q1 below.**
+
+Paste this whole message into any AI assistant (ChatGPT, Claude, Gemini). Answer five setup questions. At the end it gives you a short Focus File plan — paste that into the builder at www.focusfile.org and your Focus File downloads instantly.
+
+---
+
+INSTRUCTIONS FOR THE AI:
+
+Run a short setup, then output a Focus File plan. Ask ONE question at a time, wait for the answer, keep it warm and fast. Preserve the person’s wording and never invent jobs, milestones, story beats, or reasons. When prior results or guidance are supplied, carry them forward as optional context the person may keep, change, or ignore. After the last question, output the plan. No extra questions. Start now with Q1 — never ask the person to confirm before beginning.
+
+NUMBERED CHOICES — PERMANENT RULE:
+- Whenever a question or follow-up has a short finite set of known answers—including lists of 2–8 choices—show the choices as a compact numbered list. End with a direct instruction such as `Reply 1 or 2.` or `Reply with a number, or type your own answer.` Never print a finite list without telling the person exactly how little they need to type.
+- Use judgment about `Something else`; do not add it automatically to every choice set. Include a custom-answer option only when the listed choices might genuinely miss a valid answer. The internet-off barrier list below specifically requires it.
+- Do not imitate buttons with Markdown links or checkboxes. Accept the number, label, or the person’s own words.
+- When prior results or guidance contain a usable answer for the current question, show `1. Same as last time — [specific prior answer]` first and `2. Change it` second, followed by `Reply 1 or 2.` If they choose the prior answer, preserve it exactly and advance immediately. Do not re-ask follow-ups that answer already covers.
+- A numbered reply counts as the answer. Move straight to the next required question unless that choice genuinely needs a follow-up.
+- Use choices only for real, known options. Keep task wording, finish lines, jobs, traps, and reasons open-ended unless the person is choosing whether to carry a prior answer forward.
+
+Q1 — MODE. Ask exactly: "Is this offline work, or does it need the internet?"
+- Present exactly `1. Offline work` and `2. Needs the internet`, followed by `Reply 1 or 2.`
+- If it can be done offline, set mode to `sealed`. THEN ask one quick follow-up: "How will you turn the internet off?" Offer these numbered choices: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else — type your own`. End with `Reply 1–6, or type your own answer.` Record the answer in `sealedPlan` (short, e.g. "phone in the other room"). If they skip it, set `sealedPlan` to "".
+- If the work genuinely needs live sites or apps, set mode to `lane` and recommend **Freedom.to as the strongest default blocker**. Explain briefly: "Set up one Freedom session for this exact task: keep only the sites and apps the work requires, and block everything else for the full window." Ask which sites and apps must remain available and record them in `laneSites`. If they already use another blocker that genuinely works, accept it. Leave `sealedPlan` as "".
+NEVER show the words "sealed" or "lane" to the person; they are internal values only. Speak plainly and keep the advice short.
+
+Q2 — WORK + TIME. Ask exactly: "What are you working on, and what's your window?" Require a real start time and clock range such as "9:00 – 10:00"; the start time drives the Begin button and the log. Record the block length in minutes. If useful, model a complete answer such as "new chapter, 9–12, 2,000 words."
+
+Q3 — SHAPE THE GOAL. Ask exactly: "What exactly will be finished when the block ends?" The header (`task`) is the OUTCOME — the one true thing that exists when done. Jobs, if any, are the STEPS. The header must never just restate the checklist (if you can predict the list from the header, raise it: "Send 3 applications" -> "3 applications out the door"). Never say "header" or "outcome" to the person — restate the finish line plainly (e.g. "So: 2,000 new words on the page."). Then pick jobsShape:
+- "none": atomic, with nothing useful to track or break down (meditate, send one email). Header stands alone.
+- "milestones": one large, measurable output (1,500 words -> 500/1,000/1,500).
+- "checklist": 3-5 genuinely DIFFERENT actions. Test: different actions, or one action sliced into stages? Sliced ("open doc -> write scene -> keep going" = all writing) is NOT a checklist. Never invent steps. Propose the list, let them edit.
+For a quantified output large enough to track—such as 1,500 words, 12 items, or 20 pages—offer a short cumulative milestone list and ask the person to confirm or edit it. Do not omit milestones for a quantified output unless the person explicitly declines a breakdown. Example: 1,500 words → 500 words / 1,000 words / 1,500 words. These are progress markers, not invented work steps.
+Then check jobs fill the block: if the list is way short (3 applications ~40 min, not 3 hrs), grow the list or shrink the block out loud. No dead time.
+
+Q4 — THE TRAP. Ask exactly: "Anything that tends to pull you off task — a habit, a distraction, or a temptation? I'll remind you of it."
+If they name something, set `why` to it phrased as the trap to avoid (the thing that feels like progress but isn't), and `whyLabel` to "Avoid" (or "Remember" for a rallying cry). IF THEY SKIP, set `why` to "" (empty string) — the file automatically hides the reminder. Do not invent a trap.
+KEEP is earned carry-forward information, never an interview question. For a first Focus File, omit `KEEP:` entirely. For a continuation, include `KEEP:` only when the previous Focus File’s most recent exit log contains a concrete answer to “What helped you focus?” Preserve that proven help in the person’s own words. If the exit log is blank, vague, says nothing helped, or contains no proven help, omit `KEEP:` again. Never print a blank `KEEP:`, never invent one, and never ask a sixth question to fill it.
+
+Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Keep it simple and true — e.g. 'the draft finally moves,' 'so I stop dreading it,' 'I can actually rest tonight,' 'I promised myself I would.' I'll show this back to you if you drift."
+Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
+
+THEN, in this order:
+1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
+
+```text
+FOCUS FILE
+
+TASK: 2,000 new words on Moose
+TIME: 9:00 AM–12:00 PM
+INTERNET: OFF — phone in another room; router unplugged
+AVOID: Stopping when the draft gets uncertain.
+WHY: I want proof I can write through uncertainty.
+
+MILESTONES:
+- 500 words
+- 1,000 words
+- 1,500 words
+- 2,000 words
+
+END FOCUS FILE
+```
+
+Fill the block from the confirmed interview answers, following these branches:
+- Offline work: `INTERNET: OFF — [confirmed barrier]`
+- Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
+- Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
+- Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
+- Atomic work: omit both `MILESTONES` and `JOBS`.
+- KEEP carry-forward: omit `KEEP:` for a first Focus File. For a continuation, include it only when the previous file’s most recent exit log records concrete, proven help. Never output a blank or invented `KEEP:`.
+- Always include `AVOID:`; its value may be blank.
+- `TASK`, `TIME`, `INTERNET`, and `WHY` must contain confirmed values.
+- Do not show internal field names, configuration values, or JSON.
+
+2. After the code block, write exactly this one line: **Copy the answer above, open https://www.focusfile.org/, and paste it into the box under step 02.**
+
+Do not add anything else. Then stop.
+
+</script>
+<script>
+/* ===================== STATE — every declaration lives here, before any code runs.
+   A TDZ ReferenceError (reading a `let` declared further down) used to kill the whole
+   script silently. Nothing executes until init() at the very bottom. ===================== */
+let cfg = null;
+let hasTrap = false;
+
+const TESTS = {
+  writing: {
+    task: "1,500 new words on the story",
+    scope: "9:00 – 12:00", mode: "sealed", laneSites: [],
+    sealedPlan: "phone in the other room",
+    whyLabel: "Avoid",
+    why: "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
+    finishFeel: "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
+    jobsShape: "none", jobs: [],
+    blockMinutes: 180, knockMinMin: 28, knockMaxMin: 33,
+    doneWhenShort: "1,500 new words"
+  },
+  notrap: {
+    task: "1,500 new words on the story",
+    scope: "9:00 – 12:00", mode: "sealed", laneSites: [],
+    whyLabel: "Avoid",
+    why: "",
+    finishFeel: "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
+    jobsShape: "none", jobs: [],
+    blockMinutes: 180, knockMinMin: 28, knockMaxMin: 33,
+    doneWhenShort: "1,500 new words"
+  },
+  writingMilestones: {
+    task: "1,500 new words on the story",
+    scope: "9:00 – 12:00", mode: "sealed", laneSites: [],
+    whyLabel: "Avoid",
+    why: "Re-reading and tweaking notes will feel like work. It's the detour. New words only — forward.",
+    finishFeel: "1,500 words that didn't exist this morning. The story's further than it was — tomorrow you shape them instead of dreading the blank page.",
+    jobsShape: "milestones", jobs: ["500 words", "1,000 words", "1,500 words — done"],
+    blockMinutes: 180, knockMinMin: 28, knockMaxMin: 33,
+    doneWhenShort: "1,500 new words"
+  },
+  jobsearch: {
+    task: "3 applications out the door",
+    scope: "9:00 – 9:45", mode: "lane",
+    laneSites: ["LinkedIn", "Gmail", "the 3 company sites"],
+    whyLabel: "Avoid",
+    why: "\"Researching\" a company will feel like progress. It's the detour. Submit, don't browse.",
+    finishFeel: "Three applications actually out the door. Not tabs open, not maybes — sent. The week has a real result in it.",
+    jobsShape: "checklist",
+    jobs: [
+      "Tailor the resume bullets for Stripe, submit",
+      "Write the 3-sentence cover note for Notion, submit",
+      "Fill out the Linear application form, submit",
+      "Add all three to the tracking sheet"
+    ],
+    blockMinutes: 45, knockMinMin: 28, knockMaxMin: 33,
+    doneWhenShort: "3 applications sent"
+  },
+  study: {
+    task: "Cranial nerves, cold from memory",
+    scope: "9:00 – 10:30", mode: "sealed", laneSites: [],
+    whyLabel: "Avoid",
+    why: "Re-reading the deck will feel like studying. It's the detour. Recall with it closed, or you don't know it.",
+    finishFeel: "All twelve, in order, from memory — the thing I've been avoiding is just done.",
+    jobsShape: "checklist",
+    jobs: [
+      "First pass through the whole deck, no stopping",
+      "Second pass — mark every card I miss",
+      "Drill only the missed cards until clean",
+      "Write all twelve from memory, deck closed"
+    ],
+    blockMinutes: 90, knockMinMin: 28, knockMaxMin: 33,
+    doneWhenShort: "all twelve from memory"
+  },
+  research: {
+    task: "A working outline of the proposal",
+    scope: "9:00 – 11:00", mode: "lane",
+    laneSites: ["Google Docs", "the funder's site"],
+    whyLabel: "Avoid",
+    why: "Re-reading the guidelines will feel like progress. It's the detour. The skeleton goes down today.",
+    finishFeel: "A real skeleton on the page. Next session I fill it in instead of staring at a blank doc.",
+    jobsShape: "checklist",
+    jobs: [
+      "Write the one-paragraph summary of the ask",
+      "List the 4 section headings from the template",
+      "Draft 3 bullets under each heading",
+      "Note every open question at the bottom"
+    ],
+    blockMinutes: 120, knockMinMin: 28, knockMaxMin: 33,
+    doneWhenShort: "the outline skeleton"
+  }
+};
+
+const params = new URLSearchParams(location.search); /*DEV*/
+const testKey = params.get("test"); /*DEV*/
+const $ = id => document.getElementById(id);
+
+const LOG_KEY_BASE = "focusfile_log";          // raw event stream (CSV-ish)
+const ENTRIES_KEY_BASE = "focusfile_entries"; // structured per-session entries (JSON)
+const HISTORY_RESET_KEY_BASE = "focusfile_history_reset";
+const UI_STATE_KEY_BASE = "focusfile_ui_state";
+let LOG_KEY = LOG_KEY_BASE;
+let ENTRIES_KEY = ENTRIES_KEY_BASE;
+let HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE;
+let UI_STATE_KEY = UI_STATE_KEY_BASE;
+let startTime = null;
+let elapsedTimer = null;
+let knockTimer = null;
+let blockEndTimer = null;
+let extended = 0;
+let knockCount = 0;
+let onTaskCount = 0;
+let sortOfCount = 0;
+let noCount = 0;
+let volatileEntries = [];
+let storageDurable = true;
+let historyResetAt = 0;
+let exitEndedEarly = null;
+let sessionEndTime = null;
+let sessionRunning = false;
+let blockEndsAt = null;
+let knockScheduleId = 0;
+let scheduledCheckinActive = false;
+let checkinFeedbackTimer = null;
+
+let nextKnockAt = null;
+
+/* ---- Optional: load a named test config from the URL (?test=writing|jobsearch|study|research) ---- */
+function decodeUrlConfig() {
+  try {
+    const hash = location.hash || "";
+    const m = hash.match(/[#&]cfg=([^&]+)/);
+    if (!m) return null;
+    // base64url -> JSON
+    let b64 = m[1].replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    const json = decodeURIComponent(escape(atob(b64)));
+    const obj = JSON.parse(json);
+    return obj;
+  } catch (e) {
+    return null;
+  }
+}
+
+/* ===================== RENDER ===================== */
+/* trap (why) is optional — if empty, hide the Watch-for line and the knock's quoted reason */
+/* lane */
+// sealed mode: show how they're keeping the internet off (if they gave a plan)
+/* jobs — three shapes, with a live counter */
+function updateCounter() {
+  const total = document.querySelectorAll(".job").length;
+  const done = document.querySelectorAll(".job.done").length;
+  const c = $("counter");
+  c.textContent = done + " / " + total + " COMPLETE";
+  c.classList.toggle("complete", done === total && total > 0);
+}
+/* ===================== SESSION LOGIC ===================== */
+function logRow(event, detail) {
+  const now = new Date();
+  const elapsedMin = startTime ? Math.round((Date.now() - startTime) / 60000) : 0;
+  const row = [
+    now.toISOString(),
+    JSON.stringify(cfg.task),
+    elapsedMin,
+    event,
+    detail != null ? JSON.stringify(detail) : ""
+  ].join(",");
+  const header = "timestamp,task,elapsed_min,event,detail\n";
+  try {
+    const prior = localStorage.getItem(LOG_KEY) || header;
+    localStorage.setItem(LOG_KEY, prior + row + "\n");
+  } catch (e) {
+    storageDurable = false;
+    /* The structured result still remains available in this open file. */
+  }
+}
+
+function randKnockDelay() {
+  const a = cfg.knockMinMin, b = cfg.knockMaxMin;
+  return (a + Math.random() * (b - a)) * 60 * 1000;
+}
+
+function cancelKnockSchedule() {
+  clearTimeout(knockTimer);
+  knockTimer = null;
+  nextKnockAt = null;
+  knockScheduleId += 1;
+}
+
+function scheduleAsk() {
+  clearTimeout(knockTimer);
+  const delay = randKnockDelay();
+  const scheduleId = ++knockScheduleId;
+  nextKnockAt = Date.now() + delay;
+  knockTimer = setTimeout(() => activateScheduledCheckin(scheduleId), delay);
+  return scheduleId;
+}
+
+function sessionCanPrompt() {
+  return !!(sessionRunning && startTime && !sessionEndTime &&
+    !$('blockend').classList.contains('on') &&
+    !$('exit').classList.contains('on') &&
+    !$('allDone').classList.contains('on'));
+}
+
+function activateScheduledCheckin(scheduleId) {
+  if (scheduleId !== knockScheduleId || scheduledCheckinActive || !sessionCanPrompt()) return false;
+  clearTimeout(knockTimer);
+  knockTimer = null;
+  nextKnockAt = null;
+  scheduledCheckinActive = true;
+  startAsking();
+  return true;
+}
+
+function maybeShowOverdueCheckin() {
+  if (!sessionCanPrompt()) return false;
+  const now = Date.now();
+  if (blockEndsAt && now >= blockEndsAt) {
+    showBlockEnd();
+    return false;
+  }
+  if (scheduledCheckinActive) return false;
+  if (!nextKnockAt || now < nextKnockAt || $('checkin').classList.contains('asking')) return false;
+  return activateScheduledCheckin(knockScheduleId);
+}
+
+function updateNextKnock() {
+  const el = $("nextKnock");
+  if (!nextKnockAt || $("checkin").classList.contains("asking")) {
+    el.textContent = "";   // hide during the nudge itself
+    return;
+  }
+  const remMin = Math.max(0, Math.round((nextKnockAt - Date.now()) / 60000));
+  el.textContent = remMin <= 1 ? "Check-in any moment" : "Next check-in ~" + remMin + " min";
+}
+
+function updateElapsed() {
+  if (!startTime) return;
+  const mins = (Date.now() - startTime) / 60000;
+  const elapsed = Math.max(0, Math.floor(mins));
+  const expected = Math.max(1, Number(cfg.blockMinutes) + (Math.max(0, Number(extended) || 0) * 30));
+  const percent = Math.min(100, (mins / expected) * 100);
+  $("elapsedNum").textContent = elapsed;
+  $("elapsedUnit").textContent = " of " + expected + " minutes";
+  $("timeProgressFill").style.width = percent + "%";
+  $("timeProgress").setAttribute("aria-valuenow", String(Math.round(percent)));
+  $("timeProgress").setAttribute("aria-valuetext", elapsed + " of " + expected + " minutes");
+  updateNextKnock();
+}
+
+/* ---- Begin ---- */
+/* ---- The nudge: timer makes the check-in actively ASK ---- */
+function knockBeep() {
+  // Web Audio — a soft two-note chime, generated offline, no file needed
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    const now = ctx.currentTime;
+    const notes = [660, 880]; // two gentle tones
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      const t = now + i * 0.16;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.34);
+    });
+    setTimeout(() => ctx.close(), 900);
+  } catch (e) { /* audio blocked or unavailable — flash still fires */ }
+}
+
+function knockFlash() {
+  const f = $("flash");
+  f.classList.remove("on");   // restart if mid-animation
+  void f.offsetWidth;         // force reflow
+  f.classList.add("on");
+}
+
+let titleTimer = null;
+function clearCueHighlight() {
+  $("why").classList.remove("cue-active");
+  $("whyMatters").classList.remove("cue-active");
+}
+
+/* A check-in never repeats the interview answer. It simply points back to the
+   one permanent cue that is useful right now. */
+function highlightCheckinCue(ans) {
+  clearCueHighlight();
+  if (ans === "yes") return;
+  const target = ans === "sort-of" && hasTrap ? $("why") : $("whyMatters");
+  target.classList.add("cue-active");
+  const label = target === $("why") ? "Avoid" : "Why it matters";
+  $("checkinAnnouncement").textContent = "Review " + label + ".";
+}
+function clearCheckinFeedback() {
+  clearTimeout(checkinFeedbackTimer);
+  checkinFeedbackTimer = null;
+  $("checkin").classList.remove("yes-feedback");
+  if (!$("checkin").classList.contains("asking")) $("checkinLabel").textContent = "On task?";
+  if ($("checkinAnnouncement").textContent === "Keep it up.") $("checkinAnnouncement").textContent = "";
+}
+function showYesFeedback() {
+  clearCheckinFeedback();
+  $("checkin").classList.add("yes-feedback");
+  $("checkinLabel").textContent = "\u2713 Keep it up.";
+  $("checkinAnnouncement").textContent = "Keep it up.";
+  checkinFeedbackTimer = setTimeout(() => {
+    clearCheckinFeedback();
+  }, 1400);
+}
+function handleCheckinAnswer(ans) {
+  if (!sessionCanPrompt()) return false;
+  clearCheckinFeedback();
+  const wasAsking = $("checkin").classList.contains("asking");
+  knockCount++;
+  if (ans === "yes") onTaskCount++;
+  else if (ans === "sort-of") sortOfCount++;
+  else if (ans === "no") noCount++;
+  logRow(wasAsking ? "knock" : "self-check", ans);
+  stopAsking();
+  highlightCheckinCue(ans);
+  scheduleAsk();
+  if (ans === "yes") showYesFeedback();
+  return wasAsking ? "scheduled" : "self-check";
+}
+const BASE_TITLE = document.title;
+function startTitleBlink() {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  clearInterval(titleTimer);
+  let on = false;
+  titleTimer = setInterval(function () {
+    on = !on;
+    document.title = on ? "\u25CF Still on task?" : BASE_TITLE;
+  }, 900);
+}
+function stopTitleBlink() {
+  clearInterval(titleTimer);
+  titleTimer = null;
+  document.title = BASE_TITLE;
+}
+function setScheduledAskingLayout(active) {
+  const checkin = $("checkin");
+  const action = $("action");
+  if (active) {
+    action.style.minHeight = Math.ceil(action.getBoundingClientRect().height) + "px";
+    checkin.classList.add("scheduled-asking");
+  } else {
+    checkin.classList.remove("scheduled-asking");
+    action.style.minHeight = "";
+  }
+}
+function announceScheduledCheckin() {
+  const live = $("checkinAnnouncement");
+  live.textContent = "";
+  requestAnimationFrame(() => {
+    if (scheduledCheckinActive) live.textContent = "Are you on task?";
+  });
+}
+function startAsking() {
+  clearCheckinFeedback();
+  $("checkinLabel").textContent = "Are you on task?";
+  clearCueHighlight();
+  $("checkin").classList.add("asking");   // dot pulses clay, reason shows
+  setScheduledAskingLayout(true);
+  announceScheduledCheckin();
+  knockBeep();
+  knockFlash();
+  startTitleBlink();
+}
+function stopAsking() {
+  clearCheckinFeedback();
+  scheduledCheckinActive = false;
+  setScheduledAskingLayout(false);
+  $("checkin").classList.remove("asking");
+  $("checkinLabel").textContent = "On task?";
+  $("checkinAnnouncement").textContent = "";
+  stopTitleBlink();
+}
+
+/* ---- Answering (buttons are always live, clickable anytime) ---- */
+/* ---- Block-end ---- */
+function showBlockEnd() {
+  if (!sessionRunning) return;
+  sessionRunning = false;
+  blockEndsAt = null;
+  cancelKnockSchedule();
+  clearTimeout(blockEndTimer);
+  blockEndTimer = null;
+  stopAsking();
+  clearCueHighlight();
+  $("action").style.display = "none";
+  const label = extended > 0 ? "Extra block's up" : "Your block's up";
+  $("beEyebrow").textContent = label + " · " + cfg.scope.split("–").pop().trim();
+  $("blockend").classList.add("on");
+  logRow("block-end-reached");
+  requestAnimationFrame(() => $("beLine").focus());
+}
+function startExtraBlock() {
+  extended++;
+  sessionRunning = true;
+  sessionEndTime = null;
+  blockEndsAt = Date.now() + 30 * 60 * 1000;
+  logRow("one-more-block", extended);
+  $("blockend").classList.remove("on");
+  $("action").style.display = "block";
+  scheduleAsk();
+  blockEndTimer = setTimeout(showBlockEnd, Math.max(0, blockEndsAt - Date.now()));
+  requestAnimationFrame(() => document.querySelector(".knock-answers button").focus());
+}
+/* ---- End session (leave early) ---- */
+/* ---- Planned-time helpers ---- */
+function parsePlanned(scope) {
+  // scope like "9:00 – 12:00" -> {start:"9:00", finish:"12:00"}
+  const m = scope.split(/[–-]/).map(s => s.trim());
+  return { start: m[0] || "", finish: m[1] || "" };
+}
+function fmtClock(d) {
+  return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+}
+/* Header time line. States the facts, compares nothing: the log does the comparing. */
+let preTimer = null;
+function blockDurationLabel(min) {
+  const total = Math.max(1, Math.round(Number(min) || 0));
+  if (total % 60 === 0) {
+    const hours = total / 60;
+    return hours + "-hour block";
+  }
+  return total + "-minute block";
+}
+function renderPreStart() {
+  $("psWindow").textContent = "Planned · " + (cfg.scope || "Time not recorded");
+  $("psMeta").textContent = "Now " + nowHHMM();
+}
+function renderClockLine() {
+  const el = $("clockLine");
+  if (!el || !startTime) return;
+  el.textContent = "Started " + fmtClock(new Date(startTime));
+}
+function nowHHMM() {
+  return new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+}
+
+/* ---- Exit ---- */
+function renderEndSummary() {
+  const jobs = Array.from(document.querySelectorAll(".job"));
+  const endedAt = sessionEndTime || Date.now();
+  const actualMinutes = startTime ? Math.max(0, Math.round((endedAt - startTime) / 60000)) : 0;
+  const expectedMinutes = Math.max(0, Number(cfg.blockMinutes) || 0) + (Math.max(0, Number(extended) || 0) * 30);
+  $("endSummaryTask").textContent = cfg.task;
+  $("endSummaryTime").innerHTML = "<strong>Time:</strong> " + actualMinutes + " " + plural(actualMinutes, "minute") + " spent vs " + expectedMinutes + " " + plural(expectedMinutes, "minute") + " expected.";
+  const progress = progressSummary();
+  $("endSummaryProgress").hidden = !progress;
+  $("endSummaryProgress").innerHTML = progress ? "<strong>Progress:</strong> " + progress + "." : "";
+  $("endSummaryCheckins").innerHTML = "<strong>Check-ins:</strong> " + knockCount + " · " + onTaskCount + " on task, " + sortOfCount + " sort of, " + noCount + " off.";
+}
+
+function numberMeasure(text) {
+  const match = String(text || "").match(/(\d[\d,]*(?:\.\d+)?)\s+([A-Za-z][A-Za-z-]*)/);
+  if (!match) return null;
+  return {
+    value: Number(match[1].replace(/,/g, "")),
+    unit: match[2].toLowerCase()
+  };
+}
+
+function formatQuantity(value) {
+  return Number(value).toLocaleString("en-US", {maximumFractionDigits:2});
+}
+
+function plural(value, singular) {
+  return Number(value) === 1 ? singular : singular + "s";
+}
+
+function progressSummary() {
+  const jobs = Array.from(document.querySelectorAll(".job"));
+  const completed = jobs.filter(job => job.classList.contains("done"));
+  if (!jobs.length) return "";
+  if (cfg.jobsShape === "milestones") {
+    const last = completed.length ? completed[completed.length - 1].querySelector(".label") : null;
+    if (!last) return "No steps completed";
+    const current = numberMeasure(last.textContent);
+    const target = numberMeasure(cfg.doneWhenShort || cfg.task);
+    if (current && target && current.unit === target.unit && current.value <= target.value) {
+      return formatQuantity(current.value) + " of " + formatQuantity(target.value) + " " + target.unit;
+    }
+    return last.textContent.replace(/\s*[—-]\s*done\s*$/i, "");
+  }
+  return completed.length + " of " + jobs.length + " steps completed";
+}
+
+function automaticProgressText() {
+  return progressSummary();
+}
+
+function exitStateData() {
+  return {
+    version: 1,
+    phase: "exit",
+    endedEarly: !!exitEndedEarly,
+    startTime: startTime,
+    sessionEndTime: sessionEndTime,
+    extended: extended,
+    knockCount: knockCount,
+    onTaskCount: onTaskCount,
+    sortOfCount: sortOfCount,
+    noCount: noCount,
+    jobsChecked: Array.from(document.querySelectorAll(".job-check")).map(input => input.checked),
+    completionStatus: document.querySelectorAll(".job").length
+      ? inferCompletionStatus(automaticProgressText(), document.querySelectorAll(".job.done").length, document.querySelectorAll(".job").length)
+      : "",
+    helpedStatus: learningSignalStatus($("helpedInput").value),
+    fields: {
+      helpedInput: $("helpedInput").value,
+      inTheWayInput: $("inTheWayInput").value,
+      nextInput: $("nextInput").value
+    }
+  };
+}
+
+function persistExitState() {
+  if (exitEndedEarly === null) return;
+  try { localStorage.setItem(UI_STATE_KEY, JSON.stringify(exitStateData())); }
+  catch (e) { storageDurable = false; }
+}
+
+function clearExitState() {
+  exitEndedEarly = null;
+  sessionEndTime = null;
+  try { localStorage.removeItem(UI_STATE_KEY); }
+  catch (e) { storageDurable = false; }
+}
+
+function restoreExitState() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(UI_STATE_KEY) || "null"); }
+  catch (e) { storageDurable = false; return false; }
+  if (!saved || saved.phase !== "exit" || saved.version !== 1) return false;
+
+  startTime = Number(saved.startTime) || null;
+  sessionEndTime = Number(saved.sessionEndTime) || null;
+  extended = Number(saved.extended) || 0;
+  knockCount = Number(saved.knockCount) || 0;
+  onTaskCount = Number(saved.onTaskCount) || 0;
+  sortOfCount = Number(saved.sortOfCount) || 0;
+  noCount = Number(saved.noCount) || 0;
+  const checked = Array.isArray(saved.jobsChecked) ? saved.jobsChecked : [];
+  document.querySelectorAll(".job-check").forEach((input, index) => {
+    input.checked = !!checked[index];
+    input.closest(".job").classList.toggle("done", input.checked);
+  });
+  updateCounter();
+  showExit(!!saved.endedEarly, true);
+  const fields = saved.fields && typeof saved.fields === "object" ? saved.fields : {};
+  ["helpedInput", "inTheWayInput", "nextInput"].forEach(id => {
+    if (Object.prototype.hasOwnProperty.call(fields, id)) $(id).value = String(fields[id] || "");
+  });
+  return true;
+}
+
+function showExit(endedEarly, restoring) {
+  sessionRunning = false;
+  blockEndsAt = null;
+  clearInterval(preTimer);
+  clearInterval(elapsedTimer);
+  cancelKnockSchedule();
+  clearTimeout(blockEndTimer);
+  blockEndTimer = null;
+  stopAsking();
+  clearCueHighlight();
+  exitEndedEarly = !!endedEarly;
+  if (!restoring || !sessionEndTime) sessionEndTime = Date.now();
+  renderEndSummary();
+  $("workStage").hidden = true;
+  $("endSummary").classList.add("on");
+  $("exit").classList.add("on");
+  if (!restoring) persistExitState();
+  requestAnimationFrame(() => $("endSummaryHeading").focus());
+}
+
+/* ---- Log: view + copy ---- */
+function getEntries() {
+  let local = volatileEntries.slice();
+  try { local = mergeEntries(local, JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]")); }
+  catch (e) { storageDurable = false; }
+  const embedded = cfg && Array.isArray(cfg.learningHistory) ? cfg.learningHistory : [];
+  /* Backward compatibility: recover a log saved by older Focus Files that used
+     one generic key. New files use a per-file key so unrelated files cannot mix. */
+  if (!local.length && !embedded.length) {
+    try { local = JSON.parse(localStorage.getItem(ENTRIES_KEY_BASE) || "[]"); }
+    catch (e) { storageDurable = false; }
+  }
+  const merged = mergeEntries(embedded, local);
+  if (!historyResetAt) return merged;
+  return merged.filter(e => {
+    const when = Date.parse(e.date);
+    return Number.isFinite(when) && when > historyResetAt;
+  });
+}
+function saveEntries(entries) {
+  volatileEntries = mergeEntries([], entries);
+  try {
+    localStorage.setItem(ENTRIES_KEY, JSON.stringify(volatileEntries));
+    storageDurable = true;
+  } catch (e) {
+    storageDurable = false;
+  }
+  return storageDurable;
+}
+function normalizeCompletionStatus(value) {
+  const status = String(value || "").trim().toLowerCase();
+  return ["finished", "partly-finished", "didnt-begin"].indexOf(status) > -1 ? status : "";
+}
+function progressText(entry) {
+  const text = String(entry.progress || entry.finishedAsPlanned || entry.output || "").trim();
+  if (!text || /^(no steps tracked|time recorded automatically; no milestone checklist\.?$)/i.test(text)) return "";
+  const oldMilestone = text.match(/^\d+\s+of\s+\d+\s+[—-]\s+through\s+(.+)$/i);
+  if (!oldMilestone) return text;
+  const currentLabel = oldMilestone[1].replace(/\s*[—-]\s*done\s*$/i, "");
+  const current = numberMeasure(currentLabel);
+  const target = numberMeasure(entry.task);
+  if (current && target && current.unit === target.unit && current.value <= target.value) {
+    return formatQuantity(current.value) + " of " + formatQuantity(target.value) + " " + target.unit;
+  }
+  return currentLabel;
+}
+function isConcreteHelp(value) {
+  const text = signalKey(value);
+  if (!text) return false;
+  return !/^(nothing|none|nothing helped|nothing helped me|no|nope|na|n\/a|nothing in particular|not sure)$/.test(text);
+}
+function learningSignalStatus(value) {
+  const text = String(value || "").trim();
+  if (!text) return "";
+  return isConcreteHelp(text) ? "concrete" : "none";
+}
+function inferCompletionStatus(progress, jobsDone, jobsTotal) {
+  const text = signalKey(progress);
+  const done = Math.max(0, Number(jobsDone) || 0);
+  const total = Math.max(0, Number(jobsTotal) || 0);
+  if (total) {
+    if (done >= total) return "finished";
+    if (done > 0) return "partly-finished";
+  }
+  if (/^(nothing|none|nothing completed|didnt begin|didn t begin|did not begin|not started|didnt start|didn t start|did not start)$/.test(text)) {
+    return "didnt-begin";
+  }
+  if (/\b(done|finished|complete|completed)\b/.test(text)) return "finished";
+  const finishLine = signalKey((cfg && (cfg.doneWhenShort || cfg.task)) || "");
+  if (finishLine && text && (text === finishLine || text.indexOf(finishLine) > -1)) return "finished";
+  return text ? "partly-finished" : "";
+}
+function extensionMinutesFor(entry) {
+  const explicit = Number(entry.extensionMinutes);
+  if (Number.isFinite(explicit) && explicit >= 0) return explicit;
+  return Math.max(0, Number(entry.extended) || 0) * 30;
+}
+function adjustedPlannedMinutesFor(entry) {
+  const explicit = Number(entry.adjustedPlannedMinutes);
+  if (Number.isFinite(explicit) && explicit > 0) return explicit;
+  return Math.max(0, Number(entry.plannedMinutes) || 0) + extensionMinutesFor(entry);
+}
+function cleanEntry(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  const e = {};
+  ["date","task","mode","plannedStart","plannedFinish","actualStart","actualFinish","finishedAsPlanned",
+   "output","progress","completionStatus","helpedStatus","helped","inTheWay","nextStart","jobsShape","sealedPlan"].forEach(k => e[k] = String(raw[k] || ""));
+  ["plannedMinutes","extensionMinutes","adjustedPlannedMinutes","actualMinutes","extended","jobsDone","jobsTotal","checkins","onTask","sortOf","off"].forEach(k => {
+    const n = Number(raw[k]); e[k] = Number.isFinite(n) && n > 0 ? n : 0;
+  });
+  e.completionStatus = normalizeCompletionStatus(e.completionStatus);
+  e.progress = progressText(e);
+  const helpWasExplicitlyNone = e.helpedStatus === "none" || (!!e.helped.trim() && !isConcreteHelp(e.helped));
+  e.helped = helpWasExplicitlyNone || !isConcreteHelp(e.helped) ? "" : e.helped.trim();
+  e.helpedStatus = e.helped ? "concrete" : (helpWasExplicitlyNone ? "none" : "");
+  const rawExtension = Number(raw.extensionMinutes);
+  e.extensionMinutes = raw.extensionMinutes !== undefined && Number.isFinite(rawExtension) && rawExtension >= 0
+    ? rawExtension
+    : Math.max(0, e.extended) * 30;
+  const rawAdjusted = Number(raw.adjustedPlannedMinutes);
+  e.adjustedPlannedMinutes = raw.adjustedPlannedMinutes !== undefined && Number.isFinite(rawAdjusted) && rawAdjusted > 0
+    ? rawAdjusted
+    : e.plannedMinutes + e.extensionMinutes;
+  e.laneSites = Array.isArray(raw.laneSites) ? raw.laneSites.map(String).slice(0, 20) : [];
+  return e.task ? e : null;
+}
+function entryIdentity(e) {
+  return [e.date, e.task, e.actualFinish, progressText(e)].join("|");
+}
+function mergeEntries(first, second) {
+  const out = [], seen = new Set();
+  (Array.isArray(first) ? first : []).concat(Array.isArray(second) ? second : []).forEach(raw => {
+    const e = cleanEntry(raw);
+    if (!e) return;
+    const key = entryIdentity(e);
+    if (seen.has(key)) return;
+    seen.add(key); out.push(e);
+  });
+  out.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  return out.slice(-100);
+}
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString([], {month:"short", day:"numeric"}) + " · " +
+         d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+}
+function minuteAmount(value) {
+  const n = Math.max(0, Number(value) || 0);
+  return n + " " + (n === 1 ? "minute" : "minutes");
+}
+function timeReportText(entry) {
+  const original = Math.max(0, Number(entry.plannedMinutes) || 0);
+  const extension = extensionMinutesFor(entry);
+  const expected = adjustedPlannedMinutesFor(entry);
+  const actual = Math.max(0, Number(entry.actualMinutes) || 0);
+  const detail = extension ? " (" + minuteAmount(original) + " planned + " + minuteAmount(extension) + " extension)" : "";
+  return minuteAmount(actual) + " spent vs " + minuteAmount(expected) + " expected" + detail + ".";
+}
+function timeCountText(entry) {
+  const original = Math.max(0, Number(entry.plannedMinutes) || 0);
+  const extension = extensionMinutesFor(entry);
+  const expected = adjustedPlannedMinutesFor(entry);
+  const actual = Math.max(0, Number(entry.actualMinutes) || 0);
+  const detail = extension ? " (" + original + "-minute plan + " + extension + "-minute extension)" : "";
+  return actual + " of " + expected + " minutes" + detail + ".";
+}
+function windowText(start, finish) {
+  const a = String(start || "").trim();
+  const b = String(finish || "").trim();
+  return a && b ? a + "–" + b : (a || b);
+}
+function conditionText(entry) {
+  if (entry.mode === "sealed") {
+    return "Internet off" + (entry.sealedPlan ? " · " + entry.sealedPlan : "");
+  }
+  if (entry.mode === "lane") {
+    return "Internet only" + (entry.laneSites && entry.laneSites.length ? " · " + entry.laneSites.join(", ") : "");
+  }
+  return "";
+}
+function checkinText(entry) {
+  return entry.checkins + " · " + entry.onTask + " on task, " + entry.sortOf + " sort of, " + entry.off + " off";
+}
+function addResultRecordRow(label, value) {
+  const text = String(value || "").trim();
+  if (!text) return;
+  const row = document.createElement("div");
+  row.className = "result-record-row";
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const detail = document.createElement("dd");
+  detail.textContent = text;
+  row.appendChild(term);
+  row.appendChild(detail);
+  $("resultRecordList").appendChild(row);
+}
+function renderCurrentResult(entry) {
+  $("resultRecordHeading").textContent = shortReportDate(entry.date, false) + " · " + entry.task;
+  $("resultRecordList").replaceChildren();
+  addResultRecordRow("Condition:", conditionText(entry));
+  addResultRecordRow("Time:", timeReportText(entry));
+  if (entry.jobsTotal > 0) addResultRecordRow("Progress:", progressText(entry));
+  addResultRecordRow("Check-ins:", checkinText(entry));
+  addResultRecordRow("Pulled off:", entry.inTheWay);
+  addResultRecordRow("Worked well:", entry.helped);
+  addResultRecordRow("Next starting point:", entry.nextStart);
+}
+function entryToText(e) {
+  const lines = [];
+  lines.push(fmtDate(e.date) + " — " + e.task);
+  if (conditionText(e)) lines.push("Condition: " + conditionText(e));
+  lines.push("Time: " + timeCountText(e));
+  if (windowText(e.plannedStart, e.plannedFinish)) lines.push("Planned: " + windowText(e.plannedStart, e.plannedFinish));
+  if (windowText(e.actualStart, e.actualFinish)) lines.push("Actual: " + windowText(e.actualStart, e.actualFinish));
+  if (e.jobsTotal > 0 && progressText(e)) lines.push("Progress: " + progressText(e));
+  lines.push("Check-ins: " + checkinText(e));
+  if (e.inTheWay) lines.push("Pulled off: " + e.inTheWay);
+  if (e.helped) lines.push("Worked well: " + e.helped);
+  if (e.nextStart) lines.push("Next starting point: " + e.nextStart);
+  return lines.join("\n");
+}
+function signalKey(value) {
+  return String(value || "").trim().toLowerCase().replace(/[\u2018\u2019'\u201c\u201d".,!?;:()[\]{}]/g, "").replace(/\s+/g, " ");
+}
+function collectSignals(entries, field) {
+  const grouped = new Map();
+  entries.forEach((e, index) => {
+    const text = String(e[field] || "").trim();
+    if ((field === "helped" || field === "inTheWay") && !isConcreteHelp(text)) return;
+    const key = signalKey(text);
+    if (!key) return;
+    const current = grouped.get(key) || { text, count: 0, last: -1 };
+    current.text = text;
+    current.count += 1;
+    current.last = index;
+    grouped.set(key, current);
+  });
+  return Array.from(grouped.values()).sort((a, b) => b.count - a.count || b.last - a.last).slice(0, 3);
+}
+function summarizeLearning(rawEntries) {
+  const entries = mergeEntries([], rawEntries);
+  const timed = entries.filter(e => Number(e.plannedMinutes) > 0 && Number(e.actualMinutes) >= 0);
+  const expectedTotal = timed.reduce((sum, e) => sum + adjustedPlannedMinutesFor(e), 0);
+  const actualTotal = timed.reduce((sum, e) => sum + Number(e.actualMinutes), 0);
+  let time = "No time comparison recorded yet.";
+  if (timed.length) {
+    if (timed.length === 1) {
+      time = timeReportText(timed[0]);
+    } else {
+      const actualAverage = Math.round(actualTotal / timed.length);
+      const expectedAverage = Math.round(expectedTotal / timed.length);
+      time = "Average per block: " + minuteAmount(actualAverage) + " spent vs " + minuteAmount(expectedAverage) + " expected.";
+    }
+  }
+  const helps = collectSignals(entries, "helped");
+  const pulls = collectSignals(entries, "inTheWay");
+  return {
+    blocks: entries.length,
+    helps,
+    pulls,
+    time
+  };
+}
+function filterReportEntries(rawEntries, scope, since, nowMs) {
+  const entries = mergeEntries([], rawEntries);
+  const now = Number(nowMs) || Date.now();
+  let cutoff = 0;
+  if (scope === "period" && Number(since) > 0) cutoff = Number(since);
+  else if (scope === "1") {
+    const today = new Date(now);
+    today.setHours(0, 0, 0, 0);
+    cutoff = today.getTime();
+  }
+  else if (scope === "7" || scope === "14") cutoff = now - Number(scope) * 24 * 60 * 60 * 1000;
+  if (!cutoff) return entries;
+  return entries.filter(e => {
+    const when = Date.parse(e.date);
+    return Number.isFinite(when) && when >= cutoff && when <= now;
+  });
+}
+function shortReportDate(value, withTime) {
+  const d = value instanceof Date ? value : new Date(value);
+  if (!Number.isFinite(d.getTime())) return "";
+  const options = {month:"short", day:"numeric"};
+  if (withTime) { options.hour = "numeric"; options.minute = "2-digit"; }
+  return d.toLocaleDateString([], options);
+}
+function renderLog() {
+  const entries = getEntries();
+  const v = $("logEntries");
+  if (!entries.length) { v.innerHTML = '<div class="log-empty">No entries yet.</div>'; return; }
+  v.innerHTML = "";
+  const title = document.createElement("div");
+  title.className = "log-title";
+  title.textContent = "All results";
+  v.appendChild(title);
+  entries.slice().reverse().forEach(e => {
+    const div = document.createElement("div");
+    div.className = "log-entry";
+    let html = '<div class="le-date">' + fmtDate(e.date) + '</div>';
+    html += '<div class="le-task">' + escapeHtml(e.task) + '</div>';
+    if (conditionText(e)) html += '<div class="le-row"><b>Condition:</b> ' + escapeHtml(conditionText(e)) + '</div>';
+    html += '<div class="le-row"><b>Time:</b> ' + escapeHtml(timeCountText(e)) + '</div>';
+    if (windowText(e.plannedStart, e.plannedFinish)) html += '<div class="le-row"><b>Planned:</b> ' + escapeHtml(windowText(e.plannedStart, e.plannedFinish)) + '</div>';
+    if (windowText(e.actualStart, e.actualFinish)) html += '<div class="le-row"><b>Actual:</b> ' + escapeHtml(windowText(e.actualStart, e.actualFinish)) + '</div>';
+    if (e.jobsTotal > 0 && progressText(e)) html += '<div class="le-row"><b>Progress:</b> ' + escapeHtml(progressText(e)) + '</div>';
+    html += '<div class="le-row"><b>Check-ins:</b> ' + escapeHtml(checkinText(e)) + '</div>';
+    if (e.inTheWay) html += '<div class="le-row"><b>Pulled off:</b> ' + escapeHtml(e.inTheWay) + '</div>';
+    if (e.helped) html += '<div class="le-row"><b>Worked well:</b> ' + escapeHtml(e.helped) + '</div>';
+    if (e.nextStart) html += '<div class="le-row"><b>Next starting point:</b> ' + escapeHtml(e.nextStart) + '</div>';
+    div.innerHTML = html;
+    v.appendChild(div);
+  });
+}
+function clearSavedLog() {
+  historyResetAt = Date.now();
+  volatileEntries = [];
+  let deletedDurably = true;
+  try {
+    localStorage.setItem(HISTORY_RESET_KEY, String(historyResetAt));
+    localStorage.removeItem(ENTRIES_KEY);
+    localStorage.removeItem(LOG_KEY);
+  } catch (e) {
+    deletedDurably = false;
+    storageDurable = false;
+  }
+  renderLog();
+  return deletedDurably;
+}
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+let copyRequestId = 0;
+let copiedResultButton = null;
+let copiedResultTimer = null;
+function resetCopiedResultButton() {
+  clearTimeout(copiedResultTimer);
+  copiedResultTimer = null;
+  if (copiedResultButton) copiedResultButton.textContent = copiedResultButton.dataset.copyLabel;
+  copiedResultButton = null;
+}
+function copyText(txt, btn, after) {
+  const requestId = ++copyRequestId;
+  if (!btn.dataset.copyLabel) btn.dataset.copyLabel = btn.textContent;
+  resetCopiedResultButton();
+  const done = () => {
+    if (requestId !== copyRequestId) return;
+    copiedResultButton = btn;
+    btn.textContent = "Copied ✓";
+    copiedResultTimer = setTimeout(resetCopiedResultButton, 1600);
+    if (after) after();
+  };
+  const manual = () => { window.prompt("Copy this text:", txt); if (after) after(); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done, () => fallbackCopy(txt, done, manual));
+  } else { fallbackCopy(txt, done, manual); }
+}
+function fallbackCopy(txt, done, failed) {
+  const ta = document.createElement("textarea");
+  let copied = false;
+  ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { copied = document.execCommand("copy"); } catch (e) {}
+  ta.remove();
+  if (copied) done(); else failed();
+}
+function showHandoff(message) {
+  $("handoffLead").textContent = message;
+  $("nextLinks").classList.add("on");
+}
+/* ---- Optional: one-copy interview that returns a builder-ready plan ---- */
+const BUILD_NEXT_PROMPT = [
+"=== INTERVIEW INSTRUCTIONS ===",
+"Conduct a fresh five-question interview for my next Focus File. Ask ONE question at a time. Be warm and CURT: a line or two, never a long paragraph. Use CURRENT SETUP and SELECTED LEARNING only as optional guidance, never as a verdict. I may keep, change, or ignore anything from an earlier block. Do not generate, modify, or return an HTML file. Do not output JSON.",
+"",
+"NUMBERED CHOICES \u2014 PERMANENT RULE. Whenever a question or follow-up has a short finite set of known answers, including lists of 2\u20138 choices, show them as a compact numbered list. End with a direct instruction such as `Reply 1 or 2.` or `Reply with a number, or type your own answer.` Never print a finite list without telling me exactly how little I need to type. Do not imitate buttons with Markdown links or checkboxes. Accept the number, label, or my own words. A numbered reply counts as the answer; advance immediately unless it genuinely requires a follow-up.",
+"Use judgment about `Something else`; do not add it automatically to every choice set. Include a custom-answer option only when the listed choices might genuinely miss a valid answer. The internet-off barrier list below specifically requires it.",
+"When CURRENT SETUP contains a usable answer for the current question, show `1. Same as last time \u2014 [specific prior answer]` first and `2. Change it` second, followed by `Reply 1 or 2.` If I keep it, preserve the prior answer exactly, skip follow-ups it already covers, and move on. Use choices only for real known options; never invent task details, jobs, traps, or reasons.",
+"",
+"Q1 \u2014 MODE. First offer the most recent mode together with its barrier or required sites as `1. Same as last time \u2014 [specific prior answer]` and `2. Change it`, followed by `Reply 1 or 2.` If I change it, present exactly `1. Offline work` and `2. Needs the internet`, followed by `Reply 1 or 2.` For offline work, ask how I will turn the internet off and offer numbered choices, putting the most relevant earlier choice first: phone in another room, a lockbox, airplane mode, unplug the router, Freedom session, or `Something else \u2014 type your own`. End with `Reply 1\u20136, or type your own answer.` For internet work, recommend Freedom.to as the strongest default blocker and explain briefly: set up one Freedom session for this exact task, keep only the sites and apps the work requires, and block everything else for the full window. Then ask which sites and apps must remain available. If I already use another blocker that genuinely works, accept it.",
+"Q2 \u2014 WORK + TIME. Use the recent setup to offer `1. Same task and window`, `2. Same task, new window`, and `3. New task`, followed by `Reply 1, 2, or 3.` If I keep both, advance immediately. If only the window changes, ask only for the new start time and block length. Otherwise ask what I am working on, my start time, and the block length. Do not skip the start time.",
+"Q3 \u2014 SHAPE THE GOAL. If the task is continuing, offer the prior finish line and steps first as `1. Same as last time \u2014 [specific prior finish line]` and `2. Change it`, followed by `Reply 1 or 2.` The header (task) is the outcome; jobs are the steps. jobsShape: none / milestones / checklist. Never restate the checklist in the header, never invent steps. For a quantified output large enough to track\u2014such as 1,500 words, 12 items, or 20 pages\u2014offer a short cumulative milestone list and ask me to confirm or edit it. Do not omit milestones unless I explicitly decline a breakdown. Example: 1,500 words \u2192 500 words / 1,000 words / 1,500 words. These are progress markers, not invented work steps. Never say \"header\" or \"outcome\" to the person; restate the finish line plainly.",
+"Q4 \u2014 THE TRAP. Ask what may pull me off task and keep it in my own words; it may be blank. KEEP is not part of Q4 or any other interview question.",
+"Q5 \u2014 THE REASON. Offer the most recent reason first as `1. Same as last time \u2014 [specific prior reason]` and `2. Change it`, followed by `Reply 1 or 2.` If I change it, ask why finishing matters today.",
+"",
+"After Q5, follow REQUIRED OUTPUT FORMAT. Return the plan, add the exact builder instruction, and stop."
+].join("\n");
+
+function learningSignalText(signals) {
+  return signals && signals.length
+    ? signals.map(s => s.text + (s.count > 1 ? " ×" + s.count : "")).join("; ")
+    : "Nothing recorded in the selected results.";
+}
+
+function selectedContinuationEntries(entries, scope, nowMs) {
+  const allEntries = mergeEntries([], Array.isArray(entries) ? entries : []);
+  if (scope === "today") return filterReportEntries(allEntries, "1", 0, Number(nowMs) || Date.now());
+  if (scope === "7") return filterReportEntries(allEntries, "7", 0, Number(nowMs) || Date.now());
+  if (scope === "all") return allEntries;
+  return allEntries.slice(-1);
+}
+function continuationScopeLabel(scope) {
+  if (scope === "today") return "Today";
+  if (scope === "7") return "Last 7 days";
+  if (scope === "all") return "All saved results";
+  return "This block only";
+}
+function buildNextPayload(entries, nowMs, scope) {
+  const allEntries = mergeEntries([], Array.isArray(entries) ? entries : []);
+  const selectedScope = ["block", "today", "7", "all"].indexOf(scope) > -1 ? scope : "block";
+  const selectedEntries = selectedContinuationEntries(allEntries, selectedScope, nowMs);
+  const summary = summarizeLearning(selectedEntries);
+  const latestIncluded = selectedEntries[selectedEntries.length - 1] || {};
+  const latestResume = allEntries.slice().reverse().find(entry => String(entry.nextStart || "").trim());
+  const resumePoint = latestResume ? latestResume.nextStart.trim() : "Nothing useful recorded yet.";
+  const sites = (cfg.laneSites || []).join(", ");
+  const ctx = [BUILD_NEXT_PROMPT, ""];
+
+  ctx.push("=== CURRENT SETUP ===");
+  ctx.push("This is optional context. Let me keep, change, or ignore any part of it.");
+  ctx.push("- Work mode and boundary: " + (cfg.mode === "sealed"
+    ? "Offline work — internet off via " + (cfg.sealedPlan || "a barrier not yet specified")
+    : "Needs the internet — keep only " + (sites || "the required sites and apps, not yet specified")));
+  ctx.push("- Current task: " + cfg.task);
+  ctx.push("- Current time window: " + (cfg.scope || "not specified") + " (" + cfg.blockMinutes + " minutes)");
+  ctx.push("- Current finish line: " + (cfg.doneWhenShort || cfg.task));
+  if (cfg.jobsShape === "milestones" && cfg.jobs.length) ctx.push("- Current milestones: " + cfg.jobs.join(" | "));
+  else if (cfg.jobsShape === "checklist" && cfg.jobs.length) ctx.push("- Current jobs: " + cfg.jobs.join(" | "));
+  else ctx.push("- Current steps: Atomic task; no milestones or jobs.");
+  ctx.push("- Named distraction or trap: " + (cfg.why || "Nothing named."));
+  ctx.push("- Reason it matters: " + (cfg.finishFeel || "Not specified."));
+  ctx.push("- Most recent useful resume point: " + resumePoint);
+  ctx.push("=== END CURRENT SETUP ===");
+  ctx.push("");
+  ctx.push("=== SELECTED LEARNING SUMMARY — " + continuationScopeLabel(selectedScope).toUpperCase() + " ===");
+  ctx.push("Results included: " + selectedEntries.length);
+  ctx.push("What helps (context only; never use this aggregate to create KEEP): " + learningSignalText(summary.helps));
+  ctx.push("What pulls you off: " + learningSignalText(summary.pulls));
+  ctx.push("Timing: " + summary.time);
+  ctx.push("=== END SELECTED LEARNING SUMMARY ===");
+  ctx.push("");
+  ctx.push("=== SELECTED RESULTS — " + continuationScopeLabel(selectedScope).toUpperCase() + " ===");
+  if (selectedEntries.length) {
+    selectedEntries.forEach((entry, index) => {
+      ctx.push("RESULT " + (index + 1) + " OF " + selectedEntries.length);
+      ctx.push(entryToText(entry));
+      if (index < selectedEntries.length - 1) ctx.push("");
+    });
+  } else ctx.push("No result is available in this range.");
+  ctx.push("=== END SELECTED RESULTS ===");
+  ctx.push("");
+  ctx.push("=== EARNED KEEP RULE ===");
+  if (isConcreteHelp(latestIncluded.helped)) {
+    ctx.push("The most recent included result earned this exact KEEP: " + latestIncluded.helped.trim());
+    ctx.push("Carry it forward exactly unless I explicitly reject it during the five answers. Do not rewrite it and do not ask a sixth question about it.");
+  } else {
+    ctx.push("No concrete help was recorded in the most recent included result. Omit KEEP entirely.");
+  }
+  ctx.push("Never create KEEP from aggregate history, general learning, a blank answer, ‘nothing,’ ‘none,’ ‘nothing helped,’ or advice you invent.");
+  ctx.push("=== END EARNED KEEP RULE ===");
+  ctx.push("");
+  ctx.push("=== REQUIRED OUTPUT FORMAT ===");
+  ctx.push("After Q5, return exactly one plain-text code block containing the plan. It must use this fixed labeled format:");
+  ctx.push("```text");
+  ctx.push("FOCUS FILE");
+  ctx.push("");
+  ctx.push("TASK: [confirmed task]");
+  ctx.push("TIME: [confirmed start and end time]");
+  ctx.push("INTERNET: OFF — [confirmed barrier]");
+  ctx.push("AVOID: [confirmed trap, or blank]");
+  ctx.push("WHY: [confirmed reason]");
+  ctx.push("");
+  ctx.push("MILESTONES:");
+  ctx.push("- [confirmed item]");
+  ctx.push("- [confirmed item]");
+  ctx.push("");
+  ctx.push("END FOCUS FILE");
+  ctx.push("```");
+  ctx.push("");
+  ctx.push("Use `INTERNET: ONLY — [comma-separated required sites/apps]` for internet-required work. Use `JOBS:` instead of `MILESTONES:` for genuinely different actions. Omit both sections for atomic work. Add `KEEP: [exact earned help]` after INTERNET only when the earned rule above permits it. TASK, TIME, INTERNET, and WHY are required. AVOID may be blank. Do not output JSON or HTML.");
+  ctx.push("");
+  ctx.push("After the code block, write exactly this one line: Copy the answer above, open https://www.focusfile.org/, and paste it into the box under step 02.");
+  ctx.push("Do not add anything else.");
+  ctx.push("=== END REQUIRED OUTPUT FORMAT ===");
+  return ctx.join("\n");
+}
+
+function downloadText(txt, filename, mime) {
+  const url = URL.createObjectURL(new Blob([txt], {type: mime || "text/markdown"}));
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+/* ---- Boot steps ---- */
+function normalizeConfig(raw) {
+  const c = Object.assign({
+    scope: "", laneSites: [], sealedPlan: "", keepLabel: "Keep", keep: "", whyLabel: "Avoid", why: "",
+    finishFeel: "", jobsShape: "none", jobs: [], knockMinMin: 28, knockMaxMin: 33,
+    fileId: "", learningHistory: [], reportScope: "1", reportSince: 0
+  }, raw || {});
+  c.task = String(c.task || "").trim();
+  c.scope = String(c.scope || "").trim();
+  c.blockMinutes = Number(c.blockMinutes);          // NOT defaulted — required; selfTest enforces
+  c.knockMinMin = Number(c.knockMinMin) || 28;
+  c.knockMaxMin = Math.max(Number(c.knockMaxMin) || 33, c.knockMinMin);
+  c.jobs = Array.isArray(c.jobs) ? c.jobs.map(String) : [];
+  c.laneSites = Array.isArray(c.laneSites) ? c.laneSites.map(String) : [];
+  c.keep = String(c.keep || "");
+  c.keepLabel = "Keep";
+  c.why = String(c.why || "");
+  c.sealedPlan = String(c.sealedPlan || "");
+  c.finishFeel = String(c.finishFeel || "");
+  c.doneWhenShort = String(c.doneWhenShort || c.task);
+  c.whyLabel = c.whyLabel === "Remember" ? "Remember" : "Avoid";
+  c.fileId = String(c.fileId || "");
+  c.learningHistory = Array.isArray(c.learningHistory) ? c.learningHistory : [];
+  c.reportScope = ["1","7","14","all","period"].indexOf(String(c.reportScope)) > -1 ? String(c.reportScope) : "1";
+  c.reportSince = Number(c.reportSince) || 0;
+  if (c.reportScope === "period" && !c.reportSince) c.reportScope = "1";
+  return c;
+}
+
+function shortHash(input) {
+  let h = 2166136261;
+  const s = String(input || "");
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(36);
+}
+
+function activateStorageKeys() {
+  const pathname = (typeof location !== "undefined" && location.pathname) ? location.pathname : "";
+  const identity = cfg.fileId || [cfg.task, cfg.scope, pathname].join("|");
+  const suffix = shortHash(identity);
+  LOG_KEY = LOG_KEY_BASE + "_" + suffix;
+  ENTRIES_KEY = ENTRIES_KEY_BASE + "_" + suffix;
+  HISTORY_RESET_KEY = HISTORY_RESET_KEY_BASE + "_" + suffix;
+  UI_STATE_KEY = UI_STATE_KEY_BASE + "_" + suffix;
+  historyResetAt = 0;
+  try {
+    const storedReset = Number(localStorage.getItem(HISTORY_RESET_KEY));
+    if (storedReset > 0) historyResetAt = storedReset;
+  } catch (e) { storageDurable = false; }
+}
+
+function loadConfig() {
+  let fileCfg;
+  try {
+    fileCfg = JSON.parse(document.getElementById("focus-config").textContent);
+  } catch (e) {
+    window.__bootFail("the focus-config block has a JSON error (" + e.message + ")");
+    throw e;
+  }
+  if (typeof TESTS !== "undefined" && testKey && TESTS[testKey]) fileCfg = TESTS[testKey]; /*DEV*/
+  cfg = normalizeConfig(Object.assign({}, fileCfg, decodeUrlConfig() || {}));
+  activateStorageKeys();
+}
+
+function applyConfig() {
+  /* trap (why) is optional — if empty, hide the Watch-for line and the knock's quoted reason */
+  hasTrap = cfg.why && cfg.why.trim().length > 0;
+  /* =====================================================================
+     CONFIG — the night-before interview fills this in.
+     jobsShape: "none" | "milestones" | "checklist"
+     mode:      "sealed" | "lane"
+     ===================================================================== */
+  /* ---- Config source, in priority order:
+     1. #cfg=<base64 JSON> in the URL  (how the interview delivers a session)
+     2. ?test=<name>                    (built-in test modes)
+     3. the focus-config JSON island    (default)                              ---- */
+  $("taskTitle").textContent = cfg.task;
+  $("scope").textContent     = "Planned · " + cfg.scope;
+  const beginArrow = document.createElement("span");
+  beginArrow.className = "arr";
+  beginArrow.textContent = "\u2192";
+  $("beginBtn").replaceChildren(
+    document.createTextNode("Begin now · " + blockDurationLabel(cfg.blockMinutes) + " "),
+    beginArrow
+  );
+  renderPreStart();
+  preTimer = setInterval(renderPreStart, 1000);
+  setInterval(renderClockLine, 20000);
+  $("whyMattersText").textContent = cfg.finishFeel;
+  $("beLine").textContent    = "You said done was " + cfg.doneWhenShort + ".";
+
+  if (cfg.keep && cfg.keep.trim()) {
+    $("keepLabel").textContent = cfg.keepLabel || "Keep";
+    $("keepText").textContent = cfg.keep;
+  } else {
+    $("keep").style.display = "none";
+  }
+
+  if (hasTrap) {
+    $("whyLabel").textContent = cfg.whyLabel || "Avoid";
+    $("whyText").textContent  = cfg.why;
+  } else {
+    $("why").style.display = "none";
+    $("cueGrid").classList.add("single");
+  }
+
+  if (cfg.mode === "lane" && cfg.laneSites.length) {
+    $("lane").classList.add("on");
+    const chipWrap = $("laneChips");
+    cfg.laneSites.forEach((s, i) => {
+      if (i) chipWrap.appendChild(document.createTextNode(", "));
+      const chip = document.createElement("span");
+      chip.className = "lane-chip";
+      chip.textContent = s;
+      chipWrap.appendChild(chip);
+    });
+  }
+
+  if (cfg.mode === "sealed" && cfg.sealedPlan) {
+    $("sealedPlan").textContent = cfg.sealedPlan;
+    $("sealedStrip").classList.add("on");
+  }
+
+  if (cfg.jobsShape !== "none" && cfg.jobs.length) {
+    $("jobsSection").classList.remove("hidden");
+    $("jobsEyebrow").textContent = "Steps";
+    const list = $("jobList");
+    cfg.jobs.forEach((label, i) => {
+      const row = document.createElement("label");
+      row.className = "job";
+      row.setAttribute("for", "job-" + i);
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.className = "job-check";
+      cb.id = "job-" + i;
+      const box = document.createElement("span");
+      box.className = "box";
+      box.setAttribute("aria-hidden", "true");
+      const text = document.createElement("span");
+      text.className = "label";
+      text.textContent = label;
+      row.appendChild(cb);
+      row.appendChild(box);
+      row.appendChild(text);
+      cb.addEventListener("change", () => {
+        row.classList.toggle("done", cb.checked);
+        updateCounter();
+      });
+      list.appendChild(row);
+    });
+    updateCounter();
+  }
+
+  /* The downloaded file remains fully local and makes no network requests. */
+}
+
+function wireEvents() {
+  $("beginBtn").addEventListener("click", () => {
+    stopAsking();
+    startTime = Date.now();
+    sessionEndTime = null;
+    sessionRunning = true;
+    blockEndsAt = startTime + cfg.blockMinutes * 60 * 1000;
+    clearInterval(preTimer);
+    $("checkin").style.marginTop = "";
+    $("preStart").style.display = "none";
+    $("headerTop").style.display = "flex";
+    $("beginBtn").style.display = "none";
+    $("endLink").style.display = "";      // End session becomes available once begun
+    $("checkin").classList.add("on");     // check-in is now always visible
+    $("timerWrap").classList.add("on");
+    $("timeProgress").classList.add("on");
+    logRow("begin");
+    renderClockLine();
+    updateElapsed();
+    elapsedTimer = setInterval(updateElapsed, 1000);
+    scheduleAsk();
+    // block-end fires at the named block length
+    blockEndTimer = setTimeout(showBlockEnd, Math.max(0, blockEndsAt - Date.now()));
+    const firstJob = document.querySelector(".job-check");
+    const firstCheckin = document.querySelector(".knock-answers button");
+    requestAnimationFrame(() => (firstJob || firstCheckin).focus());
+  });
+
+  document.querySelectorAll(".knock-answers button").forEach(b => {
+    b.addEventListener("click", () => handleCheckinAnswer(b.dataset.a));
+  });
+
+  $("moreBtn").addEventListener("click", startExtraBlock);
+  $("finishBtn").addEventListener("click", () => {
+    $("blockend").classList.remove("on");
+    showExit(false);   // finished normally
+  });
+
+  $("endLink").addEventListener("click", () => {
+    logRow("end-session-early");
+    $("blockend").classList.remove("on");
+    $("action").style.display = "none";
+    showExit(true);    // ended early
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) maybeShowOverdueCheckin();
+  });
+  window.addEventListener("focus", maybeShowOverdueCheckin);
+
+  ["helpedInput", "inTheWayInput", "nextInput"].forEach(id => {
+    $(id).addEventListener("input", () => {
+      persistExitState();
+    });
+  });
+
+  $("doneBtn").addEventListener("click", () => {
+    const jobsTotal = document.querySelectorAll(".job").length;
+    const jobsDone = document.querySelectorAll(".job.done").length;
+    const progress = automaticProgressText();
+    const completionStatus = jobsTotal ? inferCompletionStatus(progress, jobsDone, jobsTotal) : "";
+    const helpedStatus = learningSignalStatus($("helpedInput").value);
+
+    const planned = parsePlanned(cfg.scope);
+    const endedAt = sessionEndTime || Date.now();
+    const actualMin = startTime ? Math.round((endedAt - startTime) / 60000) : 0;
+    const extensionMinutes = extended * 30;
+    const concreteHelp = isConcreteHelp($("helpedInput").value)
+      ? $("helpedInput").value.trim()
+      : "";
+    const concretePull = isConcreteHelp($("inTheWayInput").value)
+      ? $("inTheWayInput").value.trim()
+      : "";
+
+    const entry = {
+      date: new Date().toISOString(),
+      task: cfg.task,
+      mode: cfg.mode,
+      jobsShape: cfg.jobsShape,
+      sealedPlan: cfg.sealedPlan,
+      laneSites: cfg.laneSites,
+      plannedStart: planned.start,
+      plannedFinish: planned.finish,
+      actualStart: startTime ? new Date(startTime).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}) : "",
+      actualFinish: new Date(endedAt).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}),
+      actualMinutes: actualMin,
+      plannedMinutes: cfg.blockMinutes,
+      extended: extended,
+      extensionMinutes: extensionMinutes,
+      adjustedPlannedMinutes: cfg.blockMinutes + extensionMinutes,
+      jobsDone: jobsDone,
+      jobsTotal: jobsTotal,
+      checkins: knockCount,
+      onTask: onTaskCount,
+      sortOf: sortOfCount,
+      off: noCount,
+      completionStatus: completionStatus,
+      progress: progress,
+      helpedStatus: helpedStatus,
+      helped: concreteHelp,
+      inTheWay: concretePull,
+      nextStart: $("nextInput").value.trim()
+    };
+
+    // append to structured entries
+    let entries = getEntries();
+    entries.push(entry);
+    const savedDurably = saveEntries(entries);
+    logRow("exit", { status: entry.completionStatus, progress: entry.progress, helped: entry.helped, inTheWay: entry.inTheWay, next: entry.nextStart });
+    clearExitState();
+
+    $("exit").classList.remove("on");
+    $("endSummary").classList.remove("on");
+    renderCurrentResult(entry);
+    $("resultQuestion").hidden = savedDurably;
+    $("resultQuestion").textContent = savedDurably
+      ? ""
+      : "Browser storage is unavailable. This result lasts only while this tab stays open—download the log before closing.";
+    $("allDone").classList.add("on");
+    requestAnimationFrame(() => $("resultHeading").focus());
+  });
+
+  $("viewLogBtn").addEventListener("click", () => {
+    const v = $("logView");
+    v.classList.toggle("on");
+    const open = v.classList.contains("on");
+    $("viewLogBtn").setAttribute("aria-expanded", String(open));
+    if (open) { renderLog(); $("viewLogBtn").textContent = "Hide all results"; }
+    else $("viewLogBtn").textContent = "View all results";
+  });
+  $("clearLogBtn").addEventListener("click", () => {
+    if (!getEntries().length) {
+      $("freshStatus").textContent = "The log is already empty.";
+      return;
+    }
+    const ok = window.confirm("Clear all saved results from this browser? This cannot be undone.");
+    if (!ok) return;
+    const deletedDurably = clearSavedLog();
+    $("freshStatus").textContent = deletedDurably
+      ? "Log cleared."
+      : "Log cleared only in this open tab. Browser storage is unavailable.";
+  });
+  $("downloadLogBtn").addEventListener("click", (e) => {
+    const entries = getEntries();
+    if (!entries.length) return;
+    const all = entries.map(entryToText).join("\n\n———\n\n");
+    downloadText(all, "focus-file-results.txt");
+    const b = e.target, o = b.textContent;
+    b.textContent = "Saved ✓"; setTimeout(() => b.textContent = o, 1600);
+  });
+
+  $("buildNextBtn").addEventListener("click", (e) => {
+    const entries = getEntries();
+    if (!entries.length) return;
+    copyText(buildNextPayload(entries, Date.now(), "block"), e.target,
+             () => { showHandoff("Copied. Paste the prompt into a new AI chat. The next interview asks the same five questions, using what pulled you off, what worked, and where to start as context."); });
+  });
+  $("newFileBtn").addEventListener("click", (e) => {
+    const prompt = $("freshInterviewPrompt").textContent.trim();
+    copyText(prompt, e.target,
+             () => { showHandoff("Copied. This starts a new five-question interview without using the previous result. Open a new AI chat and paste the prompt."); });
+  });
+
+}
+
+/* ===== SELF-TEST — the setup instructions refer to this block; never modify it =====
+   Runs last inside init(); any failure throws to the crash guard and becomes a banner. */
+function selfTest() {
+  const must = (ok, what) => { if (!ok) throw new Error("self-test failed: " + what); };
+  must(typeof cfg.task === "string" && cfg.task.trim().length > 0, "task is empty");
+  must(Number(cfg.blockMinutes) > 0, "blockMinutes is not a positive number");
+  must(["sealed", "lane"].indexOf(cfg.mode) > -1, "mode must be sealed or lane");
+  must(["none", "milestones", "checklist"].indexOf(cfg.jobsShape) > -1, "unknown jobsShape");
+  must(Array.isArray(cfg.jobs), "jobs must be an array");
+  must(Array.isArray(cfg.learningHistory), "learningHistory must be an array");
+  must(["1","7","14","all","period"].indexOf(cfg.reportScope) > -1, "reportScope is invalid");
+  must(cfg.jobsShape === "none" || document.querySelectorAll(".job").length === cfg.jobs.length, "jobs did not render");
+  must(cfg.knockMinMin > 0 && cfg.knockMaxMin >= cfg.knockMinMin, "check-in window invalid");
+  must(!!document.getElementById("beginBtn"), "begin button missing");
+  must(!!document.getElementById("resultRecord"), "current-result record missing");
+  must(!!document.getElementById("newFileBtn"), "new-file action missing");
+  must(!!document.getElementById("buildNextBtn"), "continuation action missing");
+  must(!!document.getElementById("viewLogBtn") && !!document.getElementById("downloadLogBtn"), "history actions missing");
+  must(!!document.getElementById("clearLogBtn"), "clear-log control missing");
+  must(!document.getElementById("nextHistoryScope"), "next-interview scope control should not duplicate the saved log");
+  must(!!document.getElementById("checkinAnnouncement"), "check-in live region missing");
+  must(typeof showYesFeedback === "function" && typeof clearCheckinFeedback === "function", "yes check-in feedback missing");
+  must(!document.getElementById("previewLink"), "obsolete check-in preview should not be present");
+  must(!!document.getElementById("whyMattersText"), "why-it-matters cue is missing");
+  must(!!document.getElementById("timeProgressFill"), "time progress bar is missing");
+  must(!!document.getElementById("workStage"), "work stage missing");
+  must(!!document.getElementById("endSummary"), "end summary missing");
+  must(document.querySelectorAll(".exit-input").length === 3, "quick checkout must contain three optional fields");
+  must(!document.querySelector('input[name="completionStatus"]'), "quick checkout must not show completion choices");
+}
+
+/* ===================== BOOT — the only top-level call in this file ===================== */
+function init() {
+  loadConfig();
+  applyConfig();
+  wireEvents();
+  restoreExitState();
+  selfTest();
+  window.__focusFileBooted = true;
+}
+init();
+</script>
+</body>
+</html>
