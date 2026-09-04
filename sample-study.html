@@ -1240,7 +1240,7 @@ Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Ke
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
 
 THEN, in this order:
-1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
+1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times. If a recurring weekday schedule was confirmed, append it after a comma, for example `TIME: 10:30 AM–11:40 AM, Monday–Friday`. Each file runs one timed session; the weekday text is a schedule note.
 
 ```text
 FOCUS FILE
@@ -1263,6 +1263,7 @@ END FOCUS FILE
 Fill the block from the confirmed interview answers, following these branches:
 - Offline work: `INTERNET: OFF — [confirmed barrier]`
 - Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
+- If they explicitly choose internet on without specifying restrictions, use `INTERNET: ON`. Do not invent allowed sites, apps, or a blocker.
 - Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
 - Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
 - Atomic work: omit both `MILESTONES` and `JOBS`.
@@ -1673,7 +1674,7 @@ function showBlockEnd() {
   clearCueHighlight();
   $("action").style.display = "none";
   const label = extended > 0 ? "Extra block's up" : "Your block's up";
-  $("beEyebrow").textContent = label + " · " + cfg.scope.split("–").pop().trim();
+  $("beEyebrow").textContent = label + " · " + parsePlanned(cfg.scope).finish;
   $("blockend").classList.add("on");
   logRow("block-end-reached");
   requestAnimationFrame(() => $("beLine").focus());
@@ -1694,7 +1695,7 @@ function startExtraBlock() {
 /* ---- Planned-time helpers ---- */
 function parsePlanned(scope) {
   // scope like "9:00 – 12:00" -> {start:"9:00", finish:"12:00"}
-  const m = scope.split(/[–-]/).map(s => s.trim());
+  const m = String(scope || "").split(",")[0].split(/[–—-]/).map(s => s.trim());
   return { start: m[0] || "", finish: m[1] || "" };
 }
 function fmtClock(d) {
@@ -2012,6 +2013,7 @@ function windowText(start, finish) {
   return a && b ? a + "–" + b : (a || b);
 }
 function conditionText(entry) {
+  if (entry.mode === "open") return "Internet on";
   if (entry.mode === "sealed") {
     return "Internet off" + (entry.sealedPlan ? " · " + entry.sealedPlan : "");
   }
@@ -2262,6 +2264,7 @@ function buildNextPayload(entries, nowMs, scope) {
   ctx.push("This is optional context. Let me keep, change, or ignore any part of it.");
   ctx.push("- Work mode and boundary: " + (cfg.mode === "sealed"
     ? "Offline work — internet off via " + (cfg.sealedPlan || "a barrier not yet specified")
+    : cfg.mode === "open" ? "Internet on — no site or app restrictions specified"
     : "Needs the internet — keep only " + (sites || "the required sites and apps, not yet specified")));
   ctx.push("- Current task: " + cfg.task);
   ctx.push("- Current time window: " + (cfg.scope || "not specified") + " (" + cfg.blockMinutes + " minutes)");
@@ -2407,7 +2410,7 @@ function applyConfig() {
   /* =====================================================================
      CONFIG — the night-before interview fills this in.
      jobsShape: "none" | "milestones" | "checklist"
-     mode:      "sealed" | "lane"
+     mode:      "sealed" | "lane" | "open"
      ===================================================================== */
   /* ---- Config source, in priority order:
      1. #cfg=<base64 JSON> in the URL  (how the interview delivers a session)
@@ -2453,6 +2456,12 @@ function applyConfig() {
       chip.textContent = s;
       chipWrap.appendChild(chip);
     });
+  }
+
+  if (cfg.mode === "open") {
+    $("lane").classList.add("on");
+    $("lane").querySelector(".lane-label").textContent = "Internet on";
+    $("lane").querySelector(".lane-rest").textContent = "";
   }
 
   if (cfg.mode === "sealed" && cfg.sealedPlan) {
@@ -2664,7 +2673,7 @@ function selfTest() {
   const must = (ok, what) => { if (!ok) throw new Error("self-test failed: " + what); };
   must(typeof cfg.task === "string" && cfg.task.trim().length > 0, "task is empty");
   must(Number(cfg.blockMinutes) > 0, "blockMinutes is not a positive number");
-  must(["sealed", "lane"].indexOf(cfg.mode) > -1, "mode must be sealed or lane");
+  must(["sealed", "lane", "open"].indexOf(cfg.mode) > -1, "mode must be sealed, lane, or open");
   must(["none", "milestones", "checklist"].indexOf(cfg.jobsShape) > -1, "unknown jobsShape");
   must(Array.isArray(cfg.jobs), "jobs must be an array");
   must(Array.isArray(cfg.learningHistory), "learningHistory must be an array");

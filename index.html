@@ -802,7 +802,7 @@ Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Ke
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
 
 THEN, in this order:
-1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
+1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times. If a recurring weekday schedule was confirmed, append it after a comma, for example `TIME: 10:30 AM–11:40 AM, Monday–Friday`. Each file runs one timed session; the weekday text is a schedule note.
 
 ```text
 FOCUS FILE
@@ -825,6 +825,7 @@ END FOCUS FILE
 Fill the block from the confirmed interview answers, following these branches:
 - Offline work: `INTERNET: OFF — [confirmed barrier]`
 - Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
+- If they explicitly choose internet on without specifying restrictions, use `INTERNET: ON`. Do not invent allowed sites, apps, or a blocker.
 - Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
 - Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
 - Atomic work: omit both `MILESTONES` and `JOBS`.
@@ -865,7 +866,7 @@ Do not add anything else. Then stop.
       if(cfg.templateVersion !== '2026-07-20') return false;
       if(typeof cfg.task !== 'string' || !cfg.task.trim()) return false;
       if(typeof cfg.scope !== 'string' || !cfg.scope.trim()) return false;
-      if(['sealed','lane'].indexOf(cfg.mode) === -1) return false;
+      if(['sealed','lane','open'].indexOf(cfg.mode) === -1) return false;
       if(!Array.isArray(cfg.laneSites) || !cfg.laneSites.every(function(site){ return typeof site === 'string' && site.trim(); })) return false;
       if(typeof cfg.sealedPlan !== 'string') return false;
       if(cfg.mode === 'lane' && !cfg.laneSites.length) return false;
@@ -885,7 +886,15 @@ Do not add anything else. Then stop.
 
     function parseClockRange(value){
       var text=String(value||'').trim();
-      var match=text.match(/^(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?\s*[-\u2013\u2014]\s*(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?$/i);
+      // A weekday suffix is display context; the timer uses only the clock range.
+      var parts=text.split(',');
+      var clockText=parts.shift().trim();
+      if(parts.length){
+        var day='(?:Mon(?:day)?|Tue(?:sday)?|Wed(?:nesday)?|Thu(?:rsday)?|Fri(?:day)?|Sat(?:urday)?|Sun(?:day)?)';
+        var schedule=new RegExp('^(?:daily|weekdays|weekends|'+day+'(?:\\s*(?:[-\\u2013\\u2014]|to|,|and|&)\\s*'+day+')*)$','i');
+        if(!schedule.test(parts.join(',').trim())) return null;
+      }
+      var match=clockText.match(/^(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?\s*[-\u2013\u2014]\s*(\d{1,2})(?::(\d{2}))?\s*(A\.?M\.?|P\.?M\.?)?$/i);
       if(!match) return null;
       var startHour=Number(match[1]), startMinute=Number(match[2]||0);
       var endHour=Number(match[4]), endMinute=Number(match[5]||0);
@@ -959,10 +968,11 @@ Do not add anything else. Then stop.
 
       var time=parseClockRange(fields.time);
       if(!time) return {matched:true,ok:false,code:'time'};
-      var internet=fields.internet.match(/^\s*(OFF|ONLY)\b\s*(?:[-\u2013\u2014]\s*)?(.*?)\s*$/i);
-      if(!internet || !internet[2].trim()) return {matched:true,ok:false,code:'internet'};
+      var internet=fields.internet.match(/^\s*(OFF|ONLY|ON)\b\s*(?:[-\u2013\u2014]\s*)?(.*?)\s*$/i);
+      if(!internet) return {matched:true,ok:false,code:'internet'};
       var internetMode=internet[1].toUpperCase();
       var internetDetail=internet[2].trim();
+      if((internetMode==='ON' && internetDetail) || (internetMode!=='ON' && !internetDetail)) return {matched:true,ok:false,code:'internet'};
       var laneSites=internetMode==='ONLY'
         ? internetDetail.split(',').map(function(item){ return item.trim(); }).filter(Boolean)
         : [];
@@ -975,7 +985,7 @@ Do not add anything else. Then stop.
         templateVersion:'2026-07-20',
         task:fields.task.trim(),
         scope:time.scope,
-        mode:internetMode==='OFF'?'sealed':'lane',
+        mode:internetMode==='OFF'?'sealed':internetMode==='ON'?'open':'lane',
         sealedPlan:internetMode==='OFF'?internetDetail:'',
         laneSites:laneSites,
         keepLabel:'Keep',
@@ -1009,12 +1019,13 @@ Do not add anything else. Then stop.
     }
 
     function builderPlanError(result){
-      var base='That doesn\u2019t look right\u2014copy the complete FOCUS FILE block, from FOCUS FILE through END FOCUS FILE.';
-      if(result && result.code==='missing') return base+' Missing required: '+result.missing.join(', ')+'.';
-      if(result && result.code==='time') return base+' TIME must be a clock range such as 9:00 AM\u201312:00 PM.';
-      if(result && result.code==='internet') return base+' INTERNET must be OFF \u2014 barrier or ONLY \u2014 comma-separated sites and apps.';
-      if(result && result.code==='sections') return base+' Include either MILESTONES or JOBS, with at least one item, but not both.';
-      return base;
+      if(result && result.code==='missing') return 'Missing required fields: '+result.missing.join(', ')+'.';
+      if(result && result.code==='time') return 'Check the TIME line. Use a clock range such as 9:00 AM\u201312:00 PM. You can add a schedule after a comma: 9:00 AM\u201312:00 PM, Monday\u2013Friday.';
+      if(result && result.code==='internet') return 'Check the INTERNET line. Use ON, OFF \u2014 your barrier, or ONLY \u2014 comma-separated sites and apps.';
+      if(result && result.code==='sections') return 'Include either MILESTONES or JOBS, with at least one bulleted item, but not both.';
+      if(result && result.code==='duplicate') return 'A field is repeated. Include each label, such as TIME or TASK, only once.';
+      if(result && result.code==='incomplete') return 'The Focus File is missing END FOCUS FILE. Copy through that closing line.';
+      return 'Paste the complete FOCUS FILE block, from FOCUS FILE through END FOCUS FILE. Keep each field on one line and each milestone or job on its own bulleted line.';
     }
 
     window.FocusFileBuilder=Object.freeze({

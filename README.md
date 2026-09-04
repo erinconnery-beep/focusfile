@@ -1,3 +1,16 @@
+## Validation update — September 4, 2026
+
+- TIME accepts a weekday suffix after a comma (for example, `10:30 AM–11:40 AM, Monday–Friday`). The schedule stays visible; the timer uses the 70-minute clock range. This does not schedule automatic recurring sessions.
+- INTERNET accepts `ON` and displays/records “Internet on” without inventing site restrictions or claiming a blocker is enabled. Existing OFF and ONLY formats remain supported.
+- Validation errors now identify the field that needs correction.
+- Setup prompts and generated samples have been rebuilt to match.
+
+Upload this complete package using the same process as the original site, replacing the existing files. Both `index.html` and `focus-file.html` must be updated together. Existing downloaded files remain unchanged; create a new download on the updated site.
+
+Verification: 30 parser checks passed, all 11 executable inline scripts compiled, and the supplied screenshot plan passed a local browser test covering creation, session start, milestone completion, and saving a result. Private test content is not included in this site package.
+
+---
+
 # Focus File
 
 A free, offline focus tool.

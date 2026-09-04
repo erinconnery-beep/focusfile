@@ -41,7 +41,7 @@ Q5 — THE REASON. Ask exactly: "Why does finishing this matter to you today? Ke
 Set `finishFeel` to their answer (their reason, in their words). This returns at the check-in only on "sort of"/"no".
 
 THEN, in this order:
-1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times.
+1. Output exactly ONE copyable code block using the labeled format below. Do not output JSON. Do not add commentary, a recap, or extra labels inside the block. Preserve the person’s wording. Use an explicit clock range with AM or PM on both times. If a recurring weekday schedule was confirmed, append it after a comma, for example `TIME: 10:30 AM–11:40 AM, Monday–Friday`. Each file runs one timed session; the weekday text is a schedule note.
 
 ```text
 FOCUS FILE
@@ -64,6 +64,7 @@ END FOCUS FILE
 Fill the block from the confirmed interview answers, following these branches:
 - Offline work: `INTERNET: OFF — [confirmed barrier]`
 - Online work: `INTERNET: ONLY — [comma-separated required sites/apps]`
+- If they explicitly choose internet on without specifying restrictions, use `INTERNET: ON`. Do not invent allowed sites, apps, or a blocker.
 - Milestone work: include `MILESTONES:` followed by one `- item` line per milestone.
 - Checklist work: include `JOBS:` followed by one `- item` line per genuinely different action.
 - Atomic work: omit both `MILESTONES` and `JOBS`.
